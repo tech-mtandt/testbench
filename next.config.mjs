@@ -2,12 +2,6 @@ import { withPayload } from '@payloadcms/next/withPayload'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  outputFileTracingIncludes: {
-    '/*': [
-      './node_modules/@img/**/*',
-      './node_modules/next/node_modules/@img/**/*',
-    ],
-  },
   images: {
     remotePatterns: [
       {
