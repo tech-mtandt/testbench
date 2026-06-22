@@ -26,6 +26,12 @@ export default function Header() {
             <Link href="/services" className="text-white">
               Services
             </Link>
+            <Link href="/about-us" className="text-white">
+              About Us
+            </Link>
+            <Link href="/contact-us" className="text-white">
+              Contatct Us
+            </Link>
           </span>
         </div>
       </div>
