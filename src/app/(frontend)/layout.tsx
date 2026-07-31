@@ -7,7 +7,7 @@ import Header from "@/ui/Header";
 import Smooth from "@/components/Smooth";
 
 export const metadata: Metadata = {
-  title: "Lalith - Product Design Portfolio",
+  title: "MT&T",
   description: "Lalith Kishore's portfolio website",
 };
 
