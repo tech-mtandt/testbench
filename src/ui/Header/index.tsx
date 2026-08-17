@@ -17,14 +17,29 @@ export default function Header() {
             </Link>
           </span>
           <span className="w-2/3 flex justify-end gap-2">
-            <Link href="/buy" className="text-white">
+            <Link href="/products" className="text-white">
               Buy
             </Link>
-            <Link href="/rent" className="text-white">
+            <Link href="/products" className="text-white">
               Rent
             </Link>
             <Link href="/services" className="text-white">
               Services
+            </Link>
+            <Link href="/catalogue" className="text-white">
+              Catalogue
+            </Link>
+            <Link href="/media" className="text-white">
+              Media
+            </Link>
+            <Link href="/partner" className="text-white">
+              Partner
+            </Link>
+            <Link href="/about" className="text-white">
+              About us
+            </Link>
+            <Link href="/contact" className="text-white">
+              Contact us
             </Link>
           </span>
         </div>

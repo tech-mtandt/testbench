@@ -7,8 +7,8 @@ import Header from "@/ui/Header";
 import Smooth from "@/components/Smooth";
 
 export const metadata: Metadata = {
-  title: "Lalith - Product Design Portfolio",
-  description: "Lalith Kishore's portfolio website",
+  title: "mtandt - Industrial & Safety Equipment Rental",
+  description: "Industrial & Safety Equipment Rental | Scaffolding & AWP",
 };
 
 export default function RootLayout({
