@@ -1,4 +1,5 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { resendAdapter } from '@payloadcms/email-resend'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -7,6 +8,18 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { Documents } from './collections/Documents'
+import { Products } from './collections/Products'
+import { Services } from './collections/Services'
+import { Partnership } from './collections/Partnership'
+import { Catalogues } from './collections/Catalogues'
+import { Blogs } from './collections/Blogs'
+import { Press } from './collections/Press'
+import { Events } from './collections/Events'
+import { Gallery } from './collections/Gallery'
+import { Home } from './globals/Home'
+import { About } from './globals/About'
+import { Contact } from './globals/Contact'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -18,8 +31,26 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [
+    Users,
+    Media,
+    Documents,
+    Products,
+    Services,
+    Partnership,
+    Catalogues,
+    Blogs,
+    Press,
+    Events,
+    Gallery,
+  ],
+  globals: [Home, About, Contact],
   editor: lexicalEditor(),
+  email: resendAdapter({
+    apiKey: process.env.RESEND_API_KEY || '',
+    defaultFromAddress: process.env.RESEND_DEFAULT_FROM_ADDRESS || '',
+    defaultFromName: process.env.RESEND_DEFAULT_FROM_NAME || '',
+  }),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),

@@ -1,7 +1,6 @@
 import "@/styles/globals.scss";
 import type { Metadata } from "next";
 
-import Script from "next/script";
 import Footer from "@/ui/Footer";
 import Header from "@/ui/Header";
 import Smooth from "@/components/Smooth";
