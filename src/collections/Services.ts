@@ -1,7 +1,5 @@
 import type { CollectionConfig } from 'payload'
 
-import { basePageFields } from '../fields/basePageFields'
-
 export const Services: CollectionConfig = {
   slug: 'services',
   admin: {
@@ -11,5 +9,32 @@ export const Services: CollectionConfig = {
   access: {
     read: () => true,
   },
-  fields: basePageFields,
+  fields: [
+    {
+      name: 'title',
+      type: 'text',
+      required: true,
+    },
+    {
+      name: 'slug',
+      type: 'text',
+      required: true,
+      unique: true,
+      index: true,
+    },
+    {
+      name: 'hero',
+      type: 'upload',
+      relationTo: 'media',
+    },
+    {
+      name: 'poster',
+      type: 'upload',
+      relationTo: 'media',
+    },
+    {
+      name: 'body',
+      type: 'richText',
+    },
+  ],
 }

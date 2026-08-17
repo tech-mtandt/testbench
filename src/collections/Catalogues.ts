@@ -25,7 +25,8 @@ export const Catalogues: CollectionConfig = {
     },
     {
       name: 'brand',
-      type: 'text',
+      type: 'relationship',
+      relationTo: 'brands',
     },
     {
       name: 'poster',

@@ -67,17 +67,20 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    users: User;
-    media: Media;
-    documents: Document;
+    catalogues: Catalogue;
+    partnership: Partnership;
     products: Product;
     services: Service;
-    partnership: Partnership;
-    catalogues: Catalogue;
     blogs: Blog;
-    press: Press;
+    careers: Career;
+    documents: Document;
     events: Event;
     gallery: Gallery;
+    media: Media;
+    press: Press;
+    brands: Brand;
+    socials: Social;
+    users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -85,17 +88,20 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
-    documents: DocumentsSelect<false> | DocumentsSelect<true>;
+    catalogues: CataloguesSelect<false> | CataloguesSelect<true>;
+    partnership: PartnershipSelect<false> | PartnershipSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
     services: ServicesSelect<false> | ServicesSelect<true>;
-    partnership: PartnershipSelect<false> | PartnershipSelect<true>;
-    catalogues: CataloguesSelect<false> | CataloguesSelect<true>;
     blogs: BlogsSelect<false> | BlogsSelect<true>;
-    press: PressSelect<false> | PressSelect<true>;
+    careers: CareersSelect<false> | CareersSelect<true>;
+    documents: DocumentsSelect<false> | DocumentsSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
     gallery: GallerySelect<false> | GallerySelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    press: PressSelect<false> | PressSelect<true>;
+    brands: BrandsSelect<false> | BrandsSelect<true>;
+    socials: SocialsSelect<false> | SocialsSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -145,28 +151,32 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
+ * via the `definition` "catalogues".
  */
-export interface User {
+export interface Catalogue {
   id: number;
+  title: string;
+  category?: string | null;
+  subcategory?: string | null;
+  brand?: (number | null) | Brand;
+  poster: number | Media;
+  document: number | Document;
   updatedAt: string;
   createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  sessions?:
-    | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
-      }[]
-    | null;
-  password?: string | null;
-  collection: 'users';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brands".
+ */
+export interface Brand {
+  id: number;
+  title: string;
+  logo?: (number | null) | Media;
+  description?: string | null;
+  category?: string | null;
+  link?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -207,6 +217,33 @@ export interface Document {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partnership".
+ */
+export interface Partnership {
+  id: number;
+  title: string;
+  slug: string;
+  featuredImage?: (number | null) | Media;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "products".
  */
 export interface Product {
@@ -240,8 +277,9 @@ export interface Service {
   id: number;
   title: string;
   slug: string;
-  featuredImage?: (number | null) | Media;
-  content?: {
+  hero?: (number | null) | Media;
+  poster?: (number | null) | Media;
+  body?: {
     root: {
       type: string;
       children: {
@@ -256,48 +294,6 @@ export interface Service {
     };
     [k: string]: unknown;
   } | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "partnership".
- */
-export interface Partnership {
-  id: number;
-  title: string;
-  slug: string;
-  featuredImage?: (number | null) | Media;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "catalogues".
- */
-export interface Catalogue {
-  id: number;
-  title: string;
-  category?: string | null;
-  subcategory?: string | null;
-  brand?: string | null;
-  poster: number | Media;
-  document: number | Document;
   updatedAt: string;
   createdAt: string;
 }
@@ -309,8 +305,10 @@ export interface Blog {
   id: number;
   title: string;
   slug: string;
-  featuredImage?: (number | null) | Media;
-  content?: {
+  hero?: (number | null) | Media;
+  thumbnail?: (number | null) | Media;
+  excerpt?: string | null;
+  body: {
     root: {
       type: string;
       children: {
@@ -324,20 +322,56 @@ export interface Blog {
       version: number;
     };
     [k: string]: unknown;
-  } | null;
+  };
+  author?: (number | null) | User;
+  category?: string | null;
+  publishedDate?: string | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "press".
+ * via the `definition` "users".
  */
-export interface Press {
+export interface User {
+  id: number;
+  firstName?: string | null;
+  lastName?: string | null;
+  jobTitle?: string | null;
+  profilePicture?: (number | null) | Media;
+  roles: ('administrator' | 'editor' | 'user' | 'developer')[];
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
+  collection: 'users';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "careers".
+ */
+export interface Career {
   id: number;
   title: string;
   slug: string;
-  featuredImage?: (number | null) | Media;
-  content?: {
+  department?: string | null;
+  location?: string | null;
+  employmentType?: ('full-time' | 'part-time' | 'contract' | 'internship') | null;
+  description: {
     root: {
       type: string;
       children: {
@@ -351,7 +385,10 @@ export interface Press {
       version: number;
     };
     [k: string]: unknown;
-  } | null;
+  };
+  applyLink?: string | null;
+  postedDate?: string | null;
+  isOpen?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -363,8 +400,10 @@ export interface Event {
   id: number;
   title: string;
   slug: string;
-  featuredImage?: (number | null) | Media;
-  content?: {
+  hero?: (number | null) | Media;
+  thumbnail?: (number | null) | Media;
+  excerpt?: string | null;
+  body: {
     root: {
       type: string;
       children: {
@@ -378,9 +417,19 @@ export interface Event {
       version: number;
     };
     [k: string]: unknown;
-  } | null;
+  };
+  author?: (number | null) | User;
+  category?: string | null;
+  publishedDate?: string | null;
+  eventName: string;
+  fromDate: string;
+  toDate: string;
+  location?: string | null;
+  map?: string | null;
+  stallNumber?: string | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -411,6 +460,51 @@ export interface Gallery {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "press".
+ */
+export interface Press {
+  id: number;
+  title: string;
+  slug: string;
+  hero?: (number | null) | Media;
+  thumbnail?: (number | null) | Media;
+  excerpt?: string | null;
+  body: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  author?: (number | null) | User;
+  category?: string | null;
+  publishedDate?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "socials".
+ */
+export interface Social {
+  id: number;
+  name: string;
+  logo?: (number | null) | Media;
+  link?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -434,16 +528,12 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'users';
-        value: number | User;
+        relationTo: 'catalogues';
+        value: number | Catalogue;
       } | null)
     | ({
-        relationTo: 'media';
-        value: number | Media;
-      } | null)
-    | ({
-        relationTo: 'documents';
-        value: number | Document;
+        relationTo: 'partnership';
+        value: number | Partnership;
       } | null)
     | ({
         relationTo: 'products';
@@ -454,20 +544,16 @@ export interface PayloadLockedDocument {
         value: number | Service;
       } | null)
     | ({
-        relationTo: 'partnership';
-        value: number | Partnership;
-      } | null)
-    | ({
-        relationTo: 'catalogues';
-        value: number | Catalogue;
-      } | null)
-    | ({
         relationTo: 'blogs';
         value: number | Blog;
       } | null)
     | ({
-        relationTo: 'press';
-        value: number | Press;
+        relationTo: 'careers';
+        value: number | Career;
+      } | null)
+    | ({
+        relationTo: 'documents';
+        value: number | Document;
       } | null)
     | ({
         relationTo: 'events';
@@ -476,6 +562,26 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'gallery';
         value: number | Gallery;
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'press';
+        value: number | Press;
+      } | null)
+    | ({
+        relationTo: 'brands';
+        value: number | Brand;
+      } | null)
+    | ({
+        relationTo: 'socials';
+        value: number | Social;
+      } | null)
+    | ({
+        relationTo: 'users';
+        value: number | User;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -521,25 +627,142 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users_select".
+ * via the `definition` "catalogues_select".
  */
-export interface UsersSelect<T extends boolean = true> {
+export interface CataloguesSelect<T extends boolean = true> {
+  title?: T;
+  category?: T;
+  subcategory?: T;
+  brand?: T;
+  poster?: T;
+  document?: T;
   updatedAt?: T;
   createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
-  sessions?:
-    | T
-    | {
-        id?: T;
-        createdAt?: T;
-        expiresAt?: T;
-      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partnership_select".
+ */
+export interface PartnershipSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  featuredImage?: T;
+  content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products_select".
+ */
+export interface ProductsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  featuredImage?: T;
+  content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services_select".
+ */
+export interface ServicesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  hero?: T;
+  poster?: T;
+  body?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blogs_select".
+ */
+export interface BlogsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  hero?: T;
+  thumbnail?: T;
+  excerpt?: T;
+  body?: T;
+  author?: T;
+  category?: T;
+  publishedDate?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "careers_select".
+ */
+export interface CareersSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  department?: T;
+  location?: T;
+  employmentType?: T;
+  description?: T;
+  applyLink?: T;
+  postedDate?: T;
+  isOpen?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents_select".
+ */
+export interface DocumentsSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events_select".
+ */
+export interface EventsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  hero?: T;
+  thumbnail?: T;
+  excerpt?: T;
+  body?: T;
+  author?: T;
+  category?: T;
+  publishedDate?: T;
+  eventName?: T;
+  fromDate?: T;
+  toDate?: T;
+  location?: T;
+  map?: T;
+  stallNumber?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery_select".
+ */
+export interface GallerySelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  featuredImage?: T;
+  content?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -561,118 +784,72 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "documents_select".
- */
-export interface DocumentsSelect<T extends boolean = true> {
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "products_select".
- */
-export interface ProductsSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  featuredImage?: T;
-  content?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "services_select".
- */
-export interface ServicesSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  featuredImage?: T;
-  content?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "partnership_select".
- */
-export interface PartnershipSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  featuredImage?: T;
-  content?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "catalogues_select".
- */
-export interface CataloguesSelect<T extends boolean = true> {
-  title?: T;
-  category?: T;
-  subcategory?: T;
-  brand?: T;
-  poster?: T;
-  document?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "blogs_select".
- */
-export interface BlogsSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  featuredImage?: T;
-  content?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "press_select".
  */
 export interface PressSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
-  featuredImage?: T;
-  content?: T;
+  hero?: T;
+  thumbnail?: T;
+  excerpt?: T;
+  body?: T;
+  author?: T;
+  category?: T;
+  publishedDate?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brands_select".
+ */
+export interface BrandsSelect<T extends boolean = true> {
+  title?: T;
+  logo?: T;
+  description?: T;
+  category?: T;
+  link?: T;
   updatedAt?: T;
   createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "events_select".
+ * via the `definition` "socials_select".
  */
-export interface EventsSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  featuredImage?: T;
-  content?: T;
+export interface SocialsSelect<T extends boolean = true> {
+  name?: T;
+  logo?: T;
+  link?: T;
   updatedAt?: T;
   createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "gallery_select".
+ * via the `definition` "users_select".
  */
-export interface GallerySelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  featuredImage?: T;
-  content?: T;
+export interface UsersSelect<T extends boolean = true> {
+  firstName?: T;
+  lastName?: T;
+  jobTitle?: T;
+  profilePicture?: T;
+  roles?: T;
   updatedAt?: T;
   createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -737,6 +914,29 @@ export interface Home {
     };
     [k: string]: unknown;
   } | null;
+  whyUs?:
+    | {
+        tagline?: string | null;
+        excerpt?: string | null;
+        icon?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  testimonials?:
+    | {
+        message?: string | null;
+        author?: string | null;
+        logo?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  clients?:
+    | {
+        logo?: (number | null) | Media;
+        name?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -763,6 +963,37 @@ export interface About {
     };
     [k: string]: unknown;
   } | null;
+  link?: string | null;
+  poweringProgressTagline?: string | null;
+  poweringProgressCards?:
+    | {
+        label: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  groupOfCompanies?:
+    | {
+        icon?: (number | null) | Media;
+        title: string;
+        link?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  investors?:
+    | {
+        user: number | User;
+        designation?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  management?:
+    | {
+        user: number | User;
+        designation?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -789,6 +1020,18 @@ export interface Contact {
     };
     [k: string]: unknown;
   } | null;
+  locations?:
+    | {
+        title?: string | null;
+        address?: string | null;
+        phone?: string | null;
+        email?: string | null;
+        maps?: string | null;
+        city?: string | null;
+        country?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -800,6 +1043,29 @@ export interface HomeSelect<T extends boolean = true> {
   title?: T;
   featuredImage?: T;
   content?: T;
+  whyUs?:
+    | T
+    | {
+        tagline?: T;
+        excerpt?: T;
+        icon?: T;
+        id?: T;
+      };
+  testimonials?:
+    | T
+    | {
+        message?: T;
+        author?: T;
+        logo?: T;
+        id?: T;
+      };
+  clients?:
+    | T
+    | {
+        logo?: T;
+        name?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -812,6 +1078,37 @@ export interface AboutSelect<T extends boolean = true> {
   title?: T;
   featuredImage?: T;
   content?: T;
+  link?: T;
+  poweringProgressTagline?: T;
+  poweringProgressCards?:
+    | T
+    | {
+        label?: T;
+        description?: T;
+        id?: T;
+      };
+  groupOfCompanies?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        link?: T;
+        id?: T;
+      };
+  investors?:
+    | T
+    | {
+        user?: T;
+        designation?: T;
+        id?: T;
+      };
+  management?:
+    | T
+    | {
+        user?: T;
+        designation?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -824,6 +1121,18 @@ export interface ContactSelect<T extends boolean = true> {
   title?: T;
   featuredImage?: T;
   content?: T;
+  locations?:
+    | T
+    | {
+        title?: T;
+        address?: T;
+        phone?: T;
+        email?: T;
+        maps?: T;
+        city?: T;
+        country?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

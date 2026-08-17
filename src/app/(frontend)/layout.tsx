@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <body>
         <Header />
         {/*
@@ -40,7 +40,7 @@ export default function RootLayout({
         />
         */}
         <Smooth>
-          <div className="default-margin">{children}</div>
+          <div>{children}</div>
         </Smooth>
         <Footer />
       </body>
