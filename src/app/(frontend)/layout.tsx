@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 
 import Footer from "@/ui/Footer";
 import Header from "@/ui/Header";
+import EnquireNowTab from "@/ui/EnquireNowTab";
 import Smooth from "@/components/Smooth";
 
 export const metadata: Metadata = {
@@ -42,7 +43,9 @@ export default function RootLayout({
         <Smooth>
           <div>{children}</div>
         </Smooth>
+        <div className="h-[20vh]" />
         <Footer />
+        <EnquireNowTab />
       </body>
     </html>
   );

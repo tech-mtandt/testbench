@@ -23,6 +23,20 @@ export const Services: CollectionConfig = {
       index: true,
     },
     {
+      name: 'category',
+      type: 'text',
+      admin: {
+        description: 'Parent category shown in the hero banner and breadcrumb, e.g. "Equipment Management"',
+      },
+    },
+    {
+      name: 'excerpt',
+      type: 'textarea',
+      admin: {
+        description: 'Short teaser shown on hover over the service card in the listing grid',
+      },
+    },
+    {
       name: 'hero',
       type: 'upload',
       relationTo: 'media',
