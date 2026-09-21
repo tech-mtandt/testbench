@@ -113,14 +113,78 @@ function MediaCard({
   );
 }
 
+const PAGE_SIZE = 9;
+
+function Pagination({
+  page,
+  totalPages,
+  onChange,
+}: {
+  page: number;
+  totalPages: number;
+  onChange: (page: number) => void;
+}) {
+  if (totalPages <= 1) return null;
+
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+  return (
+    <nav aria-label="Pagination" className="mt-10 flex items-center justify-center gap-2">
+      <button
+        type="button"
+        onClick={() => onChange(page - 1)}
+        disabled={page === 1}
+        className="px-4 py-2 text-sm font-semibold bg-primary-yellow text-black disabled:cursor-not-allowed disabled:opacity-40"
+      >
+        Prev
+      </button>
+
+      {pages.map((p) => (
+        <button
+          key={p}
+          type="button"
+          onClick={() => onChange(p)}
+          aria-current={p === page ? "page" : undefined}
+          className={`h-9 w-9 text-sm font-semibold ${
+            p === page ? "bg-black text-white" : "bg-black/5 text-black hover:bg-black/10"
+          }`}
+        >
+          {p}
+        </button>
+      ))}
+
+      <button
+        type="button"
+        onClick={() => onChange(page + 1)}
+        disabled={page === totalPages}
+        className="px-4 py-2 text-sm font-semibold bg-primary-yellow text-black disabled:cursor-not-allowed disabled:opacity-40"
+      >
+        Next
+      </button>
+    </nav>
+  );
+}
+
 export default function MediaTabs({
   items,
 }: {
   items: Record<TabKey, MediaItem[]>;
 }) {
   const [active, setActive] = useState<TabKey>("blogs");
+  const [page, setPage] = useState(1);
   const activeItems = items[active];
-  const [first, second, third, ...rest] = activeItems;
+  const totalPages = Math.max(1, Math.ceil(activeItems.length / PAGE_SIZE));
+  const pageItems = activeItems.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const [first, second, third, ...rest] = pageItems;
+
+  function handleTabChange(tab: TabKey) {
+    setActive(tab);
+    setPage(1);
+  }
+
+  function handlePageChange(nextPage: number) {
+    setPage(Math.min(Math.max(nextPage, 1), totalPages));
+  }
 
   return (
     <div>
@@ -130,7 +194,7 @@ export default function MediaTabs({
             <button
               key={tab.key}
               type="button"
-              onClick={() => setActive(tab.key)}
+              onClick={() => handleTabChange(tab.key)}
               className={`flex flex-1 items-center justify-center gap-2 px-4 py-3 text-sm font-semibold ${
                 active === tab.key ? "bg-black text-white" : "bg-primary-yellow text-black"
               }`}
@@ -147,7 +211,7 @@ export default function MediaTabs({
           <p className="text-center text-black/60">No {active} yet.</p>
         ) : (
           <>
-            {first && (
+            {page === 1 && first && (
               <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
                 <MediaCard item={first} aspect="aspect-[4/5]" className="lg:col-span-2 lg:h-full" />
                 <div className="flex flex-col gap-6">
@@ -157,13 +221,15 @@ export default function MediaTabs({
               </div>
             )}
 
-            {rest.length > 0 && (
+            {(page === 1 ? rest : pageItems).length > 0 && (
               <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {rest.map((item) => (
+                {(page === 1 ? rest : pageItems).map((item) => (
                   <MediaCard key={item.id} item={item} />
                 ))}
               </div>
             )}
+
+            <Pagination page={page} totalPages={totalPages} onChange={handlePageChange} />
           </>
         )}
       </div>

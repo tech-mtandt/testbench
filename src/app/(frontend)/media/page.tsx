@@ -17,10 +17,10 @@ export default async function Page() {
 
   const [{ docs: blogs }, { docs: press }, { docs: events }, { docs: gallery }] =
     await Promise.all([
-      payload.find({ collection: "blogs", depth: 1, limit: 24, sort: "-publishedDate" }),
-      payload.find({ collection: "press", depth: 1, limit: 24, sort: "-publishedDate" }),
-      payload.find({ collection: "events", depth: 1, limit: 24, sort: "-fromDate" }),
-      payload.find({ collection: "gallery", depth: 1, limit: 24, sort: "-createdAt" }),
+      payload.find({ collection: "blogs", depth: 1, limit: 0, sort: "-publishedDate" }),
+      payload.find({ collection: "press", depth: 1, limit: 0, sort: "-publishedDate" }),
+      payload.find({ collection: "events", depth: 1, limit: 0, sort: "-fromDate" }),
+      payload.find({ collection: "gallery", depth: 1, limit: 0, sort: "-createdAt" }),
     ]);
 
   const items: Record<"blogs" | "press" | "events" | "gallery", MediaItem[]> = {
