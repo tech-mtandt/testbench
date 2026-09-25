@@ -1,16 +1,10 @@
-import ProductPage, { productMetadata, type ProductParams } from "@/ui/CustomProduct/ProductPage";
-import { customProductParams } from "@/content/custom";
+import { notFound, permanentRedirect } from "next/navigation";
+import { resolveLegacyPath } from "@/content/catalog-view";
 
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-  return customProductParams("rental");
-}
-
-export function generateMetadata({ params }: { params: ProductParams }) {
-  return productMetadata("rental", params);
-}
-
-export default function Page({ params }: { params: ProductParams }) {
-  return <ProductPage kind="rental" params={params} />;
+/** Legacy URL — permanently redirects into the unified catalog (/products/…). */
+export default async function Page({ params }: { params: Promise<{ category: string; slug: string }> }) {
+  const p = await params;
+  const to = resolveLegacyPath(`/custom-product-detail-rental/${p.category}/${p.slug}`);
+  if (!to) notFound();
+  permanentRedirect(to);
 }

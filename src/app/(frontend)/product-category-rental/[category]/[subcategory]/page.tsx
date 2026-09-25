@@ -1,12 +1,10 @@
-import { listingParams } from "@/content/products";
-import ListingPage, { listingMetadata, type ListingParams } from "@/ui/Products/ListingPage";
+import { notFound, permanentRedirect } from "next/navigation";
+import { resolveLegacyPath } from "@/content/catalog-view";
 
-export function generateStaticParams() {
-  return listingParams();
-}
-
-export const generateMetadata = (p: ListingParams) => listingMetadata("rental", p);
-
-export default function Page(p: ListingParams) {
-  return <ListingPage mode="rental" {...p} />;
+/** Legacy URL — permanently redirects into the unified catalog (/products/…). */
+export default async function Page({ params }: { params: Promise<{ category: string; subcategory: string }> }) {
+  const p = await params;
+  const to = resolveLegacyPath(`/product-category-rental/${p.category}/${p.subcategory}`);
+  if (!to) notFound();
+  permanentRedirect(to);
 }

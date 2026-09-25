@@ -1,7 +1,6 @@
-import PartnerPage, { partnerMetadata } from "@/ui/Partner/PartnerPage";
+import { permanentRedirect } from "next/navigation";
 
-export const metadata = partnerMetadata("dealer");
-
+/** Merged into the single partner programs page. */
 export default function Page() {
-  return <PartnerPage page="dealer" />;
+  permanentRedirect("/partners?type=dealer");
 }

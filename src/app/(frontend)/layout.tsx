@@ -1,41 +1,38 @@
 import "@/styles/globals.scss";
-import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 
 import Footer from "@/ui/Footer";
 import Header from "@/ui/Header";
-import FloatingActions from "@/ui/FloatingActions";
+import CommandPalette from "@/ui/CommandPalette";
+import { EnquiryProvider } from "@/ui/Enquiry";
+import PageTransition from "@/ui/PageTransition";
+import WhatsAppDock from "@/ui/WhatsAppDock";
 import Smooth from "@/components/Smooth";
 
-// Self-hosted via next/font; a CSS @import of Google Fonts gets dropped in production builds.
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
-  variable: "--font-poppins-nf",
-  display: "swap",
-});
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter-nf", display: "swap" });
+// Self-hosted via next/font (a CSS @import of Google Fonts is dropped in production builds).
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" });
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://www.mtandt.com"),
   title: {
-    default: "Industrial & Safety Equipment Rental | Scaffolding & AWP",
-    template: "%s | MTandT",
+    default: "Mtandt — Access, lifting & safety equipment since 1974",
+    template: "%s | Mtandt",
   },
   description:
-    "Mtandt Group — India's one-stop destination for aerial work platforms, aluminium scaffolding, material handling equipment, fall protection systems and safety training since 1974.",
+    "Buy or rent aerial work platforms, aluminium scaffolding, material handling equipment and fall-protection systems — with training, maintenance and rope-access services across India.",
   icons: { icon: "/favicon.ico" },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const viewport: Viewport = {
+  themeColor: "#f6f5f0",
+};
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${poppins.variable} ${inter.variable}`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${geist.variable} ${geistMono.variable}`}>
       <body>
-        <Header />
         {/*
         <Script
           async
@@ -56,11 +53,17 @@ export default function RootLayout({
           }}
         />
         */}
-        <Smooth>
-          <main>{children}</main>
-          <Footer />
-        </Smooth>
-        <FloatingActions />
+        <EnquiryProvider>
+          <Header />
+          <Smooth>
+            <PageTransition>
+              <main>{children}</main>
+            </PageTransition>
+            <Footer />
+          </Smooth>
+          <WhatsAppDock />
+          <CommandPalette />
+        </EnquiryProvider>
       </body>
     </html>
   );

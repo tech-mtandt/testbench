@@ -16,6 +16,8 @@ const nextConfig = {
   // Cap build workers: each opens its own DB pool while prerendering.
   experimental: {
     cpus: 4,
+    // React <ViewTransition> integration for route + shared-element transitions
+    viewTransition: true,
   },
   images: {
     remotePatterns: [

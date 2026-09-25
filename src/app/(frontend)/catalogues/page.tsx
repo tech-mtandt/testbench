@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { mediaUrl, payloadClient } from "@/lib/payload";
 import data from "@/content/scraped/catalogues.json";
 import CatalogueGrid, { type CatalogueItem } from "@/ui/Catalogue/CatalogueGrid";
-import ImageBanner from "@/ui/Contact/ImageBanner";
+import PageHero from "@/ui/kit/PageHero";
+import { Section } from "@/ui/kit/Section";
+
+type Props = { searchParams: Promise<{ category?: string; brand?: string; q?: string }> };
 
 export const metadata: Metadata = {
   title: data.meta.title,
@@ -50,12 +53,37 @@ async function getCatalogues(): Promise<CatalogueItem[]> {
   }
 }
 
-export default async function Page() {
-  const catalogues = await getCatalogues();
+export default async function Page({ searchParams }: Props) {
+  const [catalogues, sp] = await Promise.all([getCatalogues(), searchParams]);
+  const brands = new Set(catalogues.map((c) => c.brand).filter(Boolean));
   return (
-    <div className="bg-surface">
-      <ImageBanner title="Catalogues" image={data.banner} crumbs={[{ label: "Catalogues" }]} />
-      <CatalogueGrid catalogues={catalogues} categories={data.categories} />
-    </div>
+    <>
+      <PageHero
+        crumbs={[{ label: "Company", href: "/about-us" }, { label: "Catalogues" }]}
+        eyebrow="Resources"
+        title="Catalogues & brochures."
+        description="Specifications and range overviews for every Mtandt business and partner brand — free to download as PDF."
+      >
+        <dl className="mt-8 flex gap-10">
+          {[
+            [catalogues.length, "Catalogues"],
+            [brands.size, "Brands"],
+            [data.categories.length, "Categories"],
+          ].map(([v, l]) => (
+            <div key={l}>
+              <dt className="text-[12px] text-muted">{l}</dt>
+              <dd className="font-mono text-2xl tabular">{v}</dd>
+            </div>
+          ))}
+        </dl>
+      </PageHero>
+      <Section tight className="!pt-0">
+        <CatalogueGrid
+          catalogues={catalogues}
+          categories={data.categories}
+          initial={{ category: sp.category ?? null, brand: sp.brand ?? null, q: sp.q ?? "" }}
+        />
+      </Section>
+    </>
   );
 }
