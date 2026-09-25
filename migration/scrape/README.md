@@ -19,7 +19,15 @@ python migration/scrape/extract_company.py  <scratch>/scrape   # about, contact,
 
 # 3. assets: copies every /legacy/... path referenced in src/content + src/app into public/legacy
 node migration/scrape/copy-assets.mjs       # source: ../website/public, else downloads from live
+
+# 4. publish assets to Supabase Storage (media bucket, legacy/ prefix); re-runnable, skips unchanged
+node --env-file=.env migration/scrape/upload-legacy.mjs
 ```
+
+`public/legacy/` is gitignored. In production, `next.config.mjs` rewrites `/legacy/*` to the bucket
+(derived from `S3_ENDPOINT` + `S3_BUCKET`, or set `LEGACY_ASSETS_BASE`); locally, files in
+`public/legacy` are served first. Some Indian ISPs hijack DNS for `*.supabase.co`, so
+`upload-legacy.mjs` resolves Supabase hosts via Cloudflare DNS-over-HTTPS.
 
 `crawl.mjs` resumes from existing output; delete `scrape/pages` for a fresh crawl.
 
