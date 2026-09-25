@@ -1,10 +1,20 @@
 import "@/styles/globals.scss";
 import type { Metadata } from "next";
+import { Inter, Poppins } from "next/font/google";
 
 import Footer from "@/ui/Footer";
 import Header from "@/ui/Header";
 import FloatingActions from "@/ui/FloatingActions";
 import Smooth from "@/components/Smooth";
+
+// Self-hosted via next/font; a CSS @import of Google Fonts gets dropped in production builds.
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-poppins-nf",
+  display: "swap",
+});
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter-nf", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://www.mtandt.com"),
@@ -23,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth">
+    <html lang="en" data-scroll-behavior="smooth" className={`${poppins.variable} ${inter.variable}`}>
       <body>
         <Header />
         {/*
