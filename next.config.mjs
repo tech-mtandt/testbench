@@ -2,6 +2,10 @@ import { withPayload } from '@payloadcms/next/withPayload'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Cap build workers: each opens its own DB pool while prerendering.
+  experimental: {
+    cpus: 4,
+  },
   images: {
     remotePatterns: [
       {

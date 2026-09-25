@@ -85,6 +85,9 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || "",
+      // Supabase's pooler caps clients (15 in session mode); each build worker /
+      // serverless instance opens its own pool, so keep it small.
+      max: Number(process.env.DATABASE_POOL_MAX || 2),
       ssl: { rejectUnauthorized: false },
     },
     // Safety: never auto-sync/alter the live schema on boot. Dev-push hit an
