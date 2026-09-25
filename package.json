@@ -18,10 +18,10 @@
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
   },
   "dependencies": {
-    "@payloadcms/db-postgres": "^3.85.1",
+    "@payloadcms/db-postgres": "3.85.1",
     "@payloadcms/email-resend": "3.85.1",
-    "@payloadcms/next": "^3.85.1",
-    "@payloadcms/richtext-lexical": "^3.85.1",
+    "@payloadcms/next": "3.85.1",
+    "@payloadcms/richtext-lexical": "3.85.1",
     "@payloadcms/storage-s3": "3.85.1",
     "@payloadcms/ui": "3.85.1",
     "@tailwindcss/postcss": "^4.1.11",
@@ -32,11 +32,11 @@
     "motion": "^12.23.24",
     "mysql2": "3.23.4",
     "next": "16.2.9",
-    "payload": "^3.85.1",
+    "payload": "3.85.1",
     "postcss": "^8.5.6",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "sharp": "^0.35.1",
+    "sharp": "0.34.5",
     "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
@@ -50,5 +50,10 @@
     "prettier": "^3.4.2",
     "tsx": "4.21.0",
     "typescript": "^5"
+  },
+  "allowScripts": {
+    "sharp@0.34.5": true,
+    "unrs-resolver@1.12.2": true,
+    "esbuild@0.28.2": true
   }
 }

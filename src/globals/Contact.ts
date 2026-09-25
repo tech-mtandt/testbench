@@ -22,17 +22,27 @@ export const Contact: GlobalConfig = {
           type: 'text',
         },
         {
+          name: 'label',
+          type: 'text',
+          admin: {
+            description: 'e.g. "Corporate Office", "Headquarters", "Retail Office"',
+          },
+        },
+        {
           name: 'address',
-          type: 'text',
+          type: 'richText',
         },
         {
-          name: 'phone',
+          name: 'phones',
           type: 'text',
+          label: 'Phone Number(s)',
+          hasMany: true,
         },
         {
-          name: 'email',
-          type: 'email',
-          label: 'Email ID',
+          name: 'emails',
+          type: 'text',
+          label: 'Email ID(s)',
+          hasMany: true,
         },
         {
           name: 'maps',

@@ -266,6 +266,70 @@ export interface Product {
     };
     [k: string]: unknown;
   } | null;
+  condition?: ('New' | 'Used') | null;
+  inStock?: boolean | null;
+  country?: string | null;
+  category?: string | null;
+  subcategory?: string | null;
+  primaryType?: string | null;
+  powerType?: string | null;
+  modelNo?: string | null;
+  /**
+   * Working height, in meters
+   */
+  workingHeight?: number | null;
+  /**
+   * Max lifting capacity, in kg
+   */
+  maxLiftingCapacity?: number | null;
+  /**
+   * Additional images shown as thumbnails on the product page
+   */
+  gallery?:
+    | {
+        image: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Extra spec rows shown in the Specifications tab, in addition to the fields above (e.g. Platform Height, Machine Weight, SWL)
+   */
+  specifications?:
+    | {
+        label: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  standardFeatures?:
+    | {
+        feature: string;
+        id?: string | null;
+      }[]
+    | null;
+  options?:
+    | {
+        option: string;
+        id?: string | null;
+      }[]
+    | null;
+  applications?:
+    | {
+        application: string;
+        id?: string | null;
+      }[]
+    | null;
+  downloads?:
+    | {
+        label: string;
+        file: number | Document;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional capacity/reach chart image for the Chart tab
+   */
+  chartImage?: (number | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -277,6 +341,14 @@ export interface Service {
   id: number;
   title: string;
   slug: string;
+  /**
+   * Parent category shown in the hero banner and breadcrumb, e.g. "Equipment Management"
+   */
+  category?: string | null;
+  /**
+   * Short teaser shown on hover over the service card in the listing grid
+   */
+  excerpt?: string | null;
   hero?: (number | null) | Media;
   poster?: (number | null) | Media;
   body?: {
@@ -660,6 +732,55 @@ export interface ProductsSelect<T extends boolean = true> {
   slug?: T;
   featuredImage?: T;
   content?: T;
+  condition?: T;
+  inStock?: T;
+  country?: T;
+  category?: T;
+  subcategory?: T;
+  primaryType?: T;
+  powerType?: T;
+  modelNo?: T;
+  workingHeight?: T;
+  maxLiftingCapacity?: T;
+  gallery?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  specifications?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  standardFeatures?:
+    | T
+    | {
+        feature?: T;
+        id?: T;
+      };
+  options?:
+    | T
+    | {
+        option?: T;
+        id?: T;
+      };
+  applications?:
+    | T
+    | {
+        application?: T;
+        id?: T;
+      };
+  downloads?:
+    | T
+    | {
+        label?: T;
+        file?: T;
+        id?: T;
+      };
+  chartImage?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -670,6 +791,8 @@ export interface ProductsSelect<T extends boolean = true> {
 export interface ServicesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  category?: T;
+  excerpt?: T;
   hero?: T;
   poster?: T;
   body?: T;
@@ -1023,9 +1146,27 @@ export interface Contact {
   locations?:
     | {
         title?: string | null;
-        address?: string | null;
-        phone?: string | null;
-        email?: string | null;
+        /**
+         * e.g. "Corporate Office", "Headquarters", "Retail Office"
+         */
+        label?: string | null;
+        address?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        phones?: string[] | null;
+        emails?: string[] | null;
         maps?: string | null;
         city?: string | null;
         country?: string | null;
@@ -1125,9 +1266,10 @@ export interface ContactSelect<T extends boolean = true> {
     | T
     | {
         title?: T;
+        label?: T;
         address?: T;
-        phone?: T;
-        email?: T;
+        phones?: T;
+        emails?: T;
         maps?: T;
         city?: T;
         country?: T;
