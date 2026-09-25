@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# scraped legacy assets (~600MB) — regenerate with: node migration/scrape/copy-assets.mjs
+/public/legacy/

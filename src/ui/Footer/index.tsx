@@ -1,89 +1,72 @@
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "@/../public/logo.png";
+import { footer, socials } from "@/content/site";
+import { SocialIcon } from "@/ui/Icons";
 import AssistBanner from "./AssistBanner";
 import BackToTopButton from "./BackToTopButton";
+import PronounceButton from "./PronounceButton";
+import SubscribeButton from "./SubscribeButton";
 
-const mutedTextClass = "text-[0.8em] text-white/70";
+const mutedLink = "text-[13px] leading-6 text-white/60 no-underline hover:text-brand";
 
 export default function Footer() {
   return (
-    <div>
+    <footer className="relative">
+      <BackToTopButton />
       <AssistBanner />
-      <div className="relative bg-black">
-        <BackToTopButton />
-        <div className="default-margin flex flex-col gap-2 pt-8 pb-2">
-          <div className="w-full flex justify-between items-start mb-4">
-            <span className="w-1/4 flex flex-col gap-4">
-              <Image src={Logo} alt="MT&T Logo" width={240} height={60}></Image>
-              <p className={mutedTextClass}>
-                [em-tee-and-tee] The absolute one-stop destination for your safety
-                needs. Delivering the best of our products & services for five
-                decades.
-              </p>
-              <button className="p-2 bg-primary-yellow font-semibold">
-                Subscribe now!
-              </button>
-            </span>
-            <span className="flex flex-col gap-1">
-              <h6 className="text-white">Our Products</h6>
-              <Link href="/" className={mutedTextClass}>
-                Aerial Work Platforms
-              </Link>
-              <Link href="/" className={mutedTextClass}>
-                Material Handling Equipment
-              </Link>
-              <Link href="/" className={mutedTextClass}>
-                Aluminium Scaffolding
-              </Link>
-              <Link href="/" className={mutedTextClass}>
-                Temporary Road Mats
-              </Link>
-            </span>
-            <span className="flex flex-col gap-1">
-              <h6 className="text-white">Our Services</h6>
-              <Link href="/" className={mutedTextClass}>
-                Equipment Operator Training
-              </Link>
-              <Link href="/" className={mutedTextClass}>
-                Equipment AMC
-              </Link>
-              <Link href="/" className={mutedTextClass}>
-                Equipment Manpower
-              </Link>
-            </span>
-            <span className="flex flex-col gap-1">
-              <h6 className="text-white">Important Links</h6>
-              <Link href="/" className={mutedTextClass}>
-                Careers
-              </Link>
-              <Link href="/" className={mutedTextClass}>
-                Events
-              </Link>
-              <Link href="/" className={mutedTextClass}>
-                Annual Returns
-              </Link>
-            </span>
+      <div className="bg-[#101010]">
+        <div className="default-margin grid grid-cols-1 gap-10 pt-10 pb-6 sm:grid-cols-2 lg:grid-cols-[1.1fr_1fr_1fr_1fr]">
+          <div className="flex max-w-64 flex-col gap-4">
+            <Link href="/" aria-label="MT&T home">
+              <Image src={Logo} alt="MT&T — Since 1974" width={180} height={69} className="h-auto w-44" />
+            </Link>
+            <PronounceButton src={footer.pronunciationAudio} />
+            <p className="text-[13px] leading-relaxed text-white/60">{footer.blurb}</p>
+            <div className="flex gap-2">
+              {socials.map((s) => (
+                <a
+                  key={s.key}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white hover:bg-brand hover:text-ink"
+                >
+                  <SocialIcon name={s.key} className="h-3.5 w-3.5" />
+                </a>
+              ))}
+            </div>
+            <SubscribeButton />
           </div>
-          <hr className="w-full border-white/20" />
-          <div className="w-full flex justify-between items-center">
-            <span>
-              <Link href="/" className={mutedTextClass}>
-                Copyright © {new Date().getFullYear()}. All rights reserved. MT&T
-                Group.
+          {footer.columns.map((col) => (
+            <div key={col.title}>
+              <h4 className="mb-3 text-base font-semibold text-white">{col.title}</h4>
+              <ul>
+                {col.links.map((l) => (
+                  <li key={l.href} className="leading-6">
+                    <Link href={l.href} className={mutedLink}>
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <div className="default-margin flex flex-col items-center justify-between gap-2 border-t border-white/10 py-4 sm:flex-row">
+          <p className="text-[12px] text-white/50">
+            Copyright © {new Date().getFullYear()}. All Rights Reserved | MTandT Group.
+          </p>
+          <div className="flex gap-4">
+            {footer.legal.map((l) => (
+              <Link key={l.href} href={l.href} className="text-[12px] text-white/50 no-underline hover:text-brand">
+                {l.label}
               </Link>
-            </span>
-            <span className="flex gap-4">
-              <Link href="/privacy-policy" className={mutedTextClass}>
-                Privacy Policy
-              </Link>
-              <Link href="/terms-and-conditions" className={mutedTextClass}>
-                Terms and Conditions
-              </Link>
-            </span>
+            ))}
           </div>
         </div>
       </div>
-    </div>
+    </footer>
   );
 }

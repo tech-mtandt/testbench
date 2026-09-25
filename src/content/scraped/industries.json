@@ -1,0 +1,580 @@
+{
+ "index": [
+  {
+   "title": "Railway",
+   "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam consequatur necessitatibus eaque.",
+   "href": "/industries/railway1649337994",
+   "icon": "train",
+   "iconClass": "fas fa-subway"
+  },
+  {
+   "title": "Aviation",
+   "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam consequatur necessitatibus eaque.",
+   "href": "/industries/aviation1649681465",
+   "icon": "parking",
+   "iconClass": "fas fa-parking"
+  },
+  {
+   "title": "Automobile",
+   "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam consequatur necessitatibus eaque.",
+   "href": "/industries/automobile1649681520",
+   "icon": "car",
+   "iconClass": "fa fa-car"
+  },
+  {
+   "title": "Energy",
+   "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam consequatur necessitatibus eaque.",
+   "href": "/industries/energy",
+   "icon": "bulb",
+   "iconClass": "fas fa-lightbulb"
+  },
+  {
+   "title": "Hotels & Buildings",
+   "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam consequatur necessitatibus eaque.",
+   "href": "/industries/hotels-buildings",
+   "icon": "building",
+   "iconClass": "fas fa-landmark"
+  },
+  {
+   "title": "FMCG/Warehouses",
+   "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam consequatur necessitatibus eaque.",
+   "href": "/industries/fmcgwarehouses",
+   "icon": "warehouse",
+   "iconClass": "fas fa-warehouse"
+  },
+  {
+   "title": "Events",
+   "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam consequatur necessitatibus eaque.",
+   "href": "/industries/events",
+   "icon": "calendar",
+   "iconClass": "fas fa-calendar-check"
+  },
+  {
+   "title": "Industries Name",
+   "text": "Industries Name",
+   "href": "/industries/industries-name",
+   "icon": "wheelchair",
+   "iconClass": "fa fa-wheelchair"
+  }
+ ],
+ "items": {
+  "railway1649337994": {
+   "title": "Railway",
+   "banner": "/legacy/imageFile/1669455024.png",
+   "heading": "Lorem Ipsum Is Simply Dummy Text Of The Printing Industry.",
+   "html": "<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage.</p><p>Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage.</p>",
+   "images": [
+    "/legacy/imageFile/1650541799.0jpg",
+    "/legacy/imageFile/1650541878.0jpg"
+   ],
+   "gallery": [
+    {
+     "image": "/legacy/imageFile/1646749605.0png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1648555033.0png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1648555033.1png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1648555033.3png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1648555166.1png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1648555166.3png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1648555166.5png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1652966084.0jpg",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1652966084.1jpg",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1652966084.2jpg",
+     "title": "Lorem Ipsum"
+    }
+   ],
+   "caseStudies": [
+    {
+     "title": "real CASE STUDY 2",
+     "href": "/casestudy/case-study-2",
+     "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+     "image": "/legacy/imageFile/1646917818.jpg"
+    },
+    {
+     "title": "real CASE STUDY 3",
+     "href": "/casestudy/real-case-study-31742625082",
+     "text": "Case StudyLorem Ipsum is simply dummy text of the printing and typesetting industry.",
+     "image": "/legacy/imageFile/1646918096.jpg"
+    }
+   ],
+   "clients": [
+    "/legacy/imageFile/1648558752.3png",
+    "/legacy/imageFile/1648558752.4png",
+    "/legacy/imageFile/1648558752.5png",
+    "/legacy/imageFile/1648558752.6png",
+    "/legacy/imageFile/1648558752.7png",
+    "/legacy/imageFile/1648558752.8png",
+    "/legacy/imageFile/1648558752.0png",
+    "/legacy/imageFile/1648558752.1png",
+    "/legacy/imageFile/1648558752.2png"
+   ]
+  },
+  "aviation1649681465": {
+   "title": "Aviation",
+   "banner": "/legacy/imageFile/1650290801.jpg",
+   "heading": "Lorem Ipsum Is Simply Dummy Text Of The Printing Industry.",
+   "html": "<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage.</p><p>Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage.</p>",
+   "images": [
+    "/legacy/imageFile/1649681465.0jpg",
+    "/legacy/imageFile/1649681465.1jpg"
+   ],
+   "gallery": [
+    {
+     "image": "/legacy/imageFile/1646749649.0png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749649.1png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749649.2png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749649.3png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749649.4png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749649.5png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749649.6png",
+     "title": "Lorem Ipsum"
+    }
+   ],
+   "caseStudies": [
+    {
+     "title": "real CASE STUDY 1",
+     "href": "/casestudy/case-study-1",
+     "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+     "image": "/legacy/imageFile/1646917486.jpg"
+    },
+    {
+     "title": "real CASE STUDY 2",
+     "href": "/casestudy/case-study-2",
+     "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+     "image": "/legacy/imageFile/1646917818.jpg"
+    },
+    {
+     "title": "real CASE STUDY 3",
+     "href": "/casestudy/real-case-study-31742625082",
+     "text": "Case StudyLorem Ipsum is simply dummy text of the printing and typesetting industry.",
+     "image": "/legacy/imageFile/1646918096.jpg"
+    }
+   ],
+   "clients": [
+    "/legacy/imageFile/1648558786.3png",
+    "/legacy/imageFile/1648558786.4png",
+    "/legacy/imageFile/1648558786.5png",
+    "/legacy/imageFile/1648558786.6png",
+    "/legacy/imageFile/1648558786.7png",
+    "/legacy/imageFile/1648558786.8png",
+    "/legacy/imageFile/1648558786.0png",
+    "/legacy/imageFile/1648558786.1png",
+    "/legacy/imageFile/1648558786.2png"
+   ]
+  },
+  "energy": {
+   "title": "Energy",
+   "banner": "/legacy/imageFile/1650290933.jpg",
+   "heading": "Lorem Ipsum Is Simply Dummy Text Of The Printing Industry.",
+   "html": "<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage.</p><p>Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage.</p>",
+   "images": [
+    "/legacy/imageFile/1649681603.0jpg",
+    "/legacy/imageFile/1649681603.1jpg"
+   ],
+   "gallery": [
+    {
+     "image": "/legacy/imageFile/1646749724.0png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749724.1png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749724.2png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749724.3png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749724.4png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749724.5png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749724.6png",
+     "title": "Lorem Ipsum"
+    }
+   ],
+   "caseStudies": [
+    {
+     "title": "real CASE STUDY 1",
+     "href": "/casestudy/case-study-1",
+     "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+     "image": "/legacy/imageFile/1646917486.jpg"
+    },
+    {
+     "title": "real CASE STUDY 3",
+     "href": "/casestudy/real-case-study-31742625082",
+     "text": "Case StudyLorem Ipsum is simply dummy text of the printing and typesetting industry.",
+     "image": "/legacy/imageFile/1646918096.jpg"
+    },
+    {
+     "title": "avi CASE STUDY 2",
+     "href": "/casestudy/case-study-21646988172",
+     "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+     "image": "/legacy/imageFile/1646988172.jpg"
+    }
+   ],
+   "clients": [
+    "/legacy/imageFile/1648558847.3png",
+    "/legacy/imageFile/1648558847.4png",
+    "/legacy/imageFile/1648558847.5png",
+    "/legacy/imageFile/1648558847.6png",
+    "/legacy/imageFile/1648558847.7png",
+    "/legacy/imageFile/1648558847.8png",
+    "/legacy/imageFile/1648558847.0png",
+    "/legacy/imageFile/1648558847.1png",
+    "/legacy/imageFile/1648558847.2png"
+   ]
+  },
+  "automobile1649681520": {
+   "title": "Automobile",
+   "banner": "/legacy/imageFile/1650290828.jpg",
+   "heading": "Lorem Ipsum Is Simply Dummy Text Of The Printing Industry.",
+   "html": "<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage.</p><p>Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage.</p>",
+   "images": [
+    "/legacy/imageFile/1649681520.0jpg",
+    "/legacy/imageFile/1649681520.1jpg"
+   ],
+   "gallery": [
+    {
+     "image": "/legacy/imageFile/1646749686.0png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749686.1png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749686.2png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749686.3png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749686.4png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749686.5png",
+     "title": "Lorem Ipsum"
+    }
+   ],
+   "caseStudies": [
+    {
+     "title": "real CASE STUDY 1",
+     "href": "/casestudy/case-study-1",
+     "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+     "image": "/legacy/imageFile/1646917486.jpg"
+    },
+    {
+     "title": "avi CASE STUDY 3",
+     "href": "/casestudy/case-study-31646985591",
+     "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+     "image": "/legacy/imageFile/1646985504.jpg"
+    },
+    {
+     "title": "CASE STUDY 1",
+     "href": "/casestudy/case-study-11646921288",
+     "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+     "image": "/legacy/imageFile/1646921288.jpg"
+    }
+   ],
+   "clients": [
+    "/legacy/imageFile/1648558817.3png",
+    "/legacy/imageFile/1648558817.4png",
+    "/legacy/imageFile/1648558817.5png",
+    "/legacy/imageFile/1648558817.6png",
+    "/legacy/imageFile/1648558817.7png",
+    "/legacy/imageFile/1648558817.8png",
+    "/legacy/imageFile/1648558817.0png",
+    "/legacy/imageFile/1648558817.1png",
+    "/legacy/imageFile/1648558817.2png"
+   ]
+  },
+  "hotels-buildings": {
+   "title": "Hotels & Buildings",
+   "banner": "/legacy/imageFile/1650291027.jpg",
+   "heading": "Lorem Ipsum Is Simply Dummy Text Of The Printing Industry.",
+   "html": "<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage.</p><p>Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage.</p>",
+   "images": [
+    "/legacy/imageFile/1649681714.0jpg",
+    "/legacy/imageFile/1649681714.1jpg"
+   ],
+   "gallery": [
+    {
+     "image": "/legacy/imageFile/1646749752.0png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749752.1png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749752.2png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749752.3png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749752.4png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749752.5png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749752.6png",
+     "title": "Lorem Ipsum"
+    }
+   ],
+   "caseStudies": [
+    {
+     "title": "real CASE STUDY 1",
+     "href": "/casestudy/case-study-1",
+     "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+     "image": "/legacy/imageFile/1646917486.jpg"
+    },
+    {
+     "title": "avi CASE STUDY 2",
+     "href": "/casestudy/case-study-21646988172",
+     "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+     "image": "/legacy/imageFile/1646988172.jpg"
+    },
+    {
+     "title": "CASE STUDY 1",
+     "href": "/casestudy/case-study-11646921288",
+     "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+     "image": "/legacy/imageFile/1646921288.jpg"
+    }
+   ],
+   "clients": [
+    "/legacy/imageFile/1648558880.3png",
+    "/legacy/imageFile/1648558880.4png",
+    "/legacy/imageFile/1648558880.5png",
+    "/legacy/imageFile/1648558880.6png",
+    "/legacy/imageFile/1648558880.7png",
+    "/legacy/imageFile/1648558880.8png",
+    "/legacy/imageFile/1648558880.0png",
+    "/legacy/imageFile/1648558880.1png",
+    "/legacy/imageFile/1648558880.2png"
+   ]
+  },
+  "fmcgwarehouses": {
+   "title": "FMCG/Warehouses",
+   "banner": "/legacy/imageFile/1650291115.jpg",
+   "heading": "Lorem Ipsum Is Simply Dummy Text Of The Printing Industry.",
+   "html": "<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage.</p><p>Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage.</p>",
+   "images": [
+    "/legacy/imageFile/1649681767.0jpg",
+    "/legacy/imageFile/1649681767.1jpg"
+   ],
+   "gallery": [
+    {
+     "image": "/legacy/imageFile/1646749800.0png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749800.1png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749800.2png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749800.3png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749800.4png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749800.5png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749800.6png",
+     "title": "Lorem Ipsum"
+    }
+   ],
+   "caseStudies": [
+    {
+     "title": "avi CASE STUDY 2",
+     "href": "/casestudy/case-study-21646988172",
+     "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+     "image": "/legacy/imageFile/1646988172.jpg"
+    },
+    {
+     "title": "avi CASE STUDY 3",
+     "href": "/casestudy/case-study-31646985591",
+     "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+     "image": "/legacy/imageFile/1646985504.jpg"
+    },
+    {
+     "title": "avi CASE STUDY 1",
+     "href": "/casestudy/case-study-11646918553",
+     "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+     "image": "/legacy/imageFile/1646918553.jpg"
+    }
+   ],
+   "clients": [
+    "/legacy/imageFile/1648558911.3png",
+    "/legacy/imageFile/1648558911.4png",
+    "/legacy/imageFile/1648558911.5png",
+    "/legacy/imageFile/1648558911.6png",
+    "/legacy/imageFile/1648558911.7png",
+    "/legacy/imageFile/1648558911.8png",
+    "/legacy/imageFile/1648558911.0png",
+    "/legacy/imageFile/1648558911.1png",
+    "/legacy/imageFile/1648558911.2png"
+   ]
+  },
+  "events": {
+   "title": "Events",
+   "banner": "/legacy/imageFile/1650291727.jpg",
+   "heading": "Lorem Ipsum Is Simply Dummy Text Of The Printing Industry.",
+   "html": "<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage.</p><p>Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage.</p>",
+   "images": [
+    "/legacy/imageFile/1649681808.0jpg",
+    "/legacy/imageFile/1649681808.1jpg"
+   ],
+   "gallery": [
+    {
+     "image": "/legacy/imageFile/1646749823.0png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749823.1png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749823.2png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749823.3png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749823.4png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749823.5png",
+     "title": "Lorem Ipsum"
+    },
+    {
+     "image": "/legacy/imageFile/1646749823.6png",
+     "title": "Lorem Ipsum"
+    }
+   ],
+   "caseStudies": [
+    {
+     "title": "real CASE STUDY 2",
+     "href": "/casestudy/case-study-2",
+     "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+     "image": "/legacy/imageFile/1646917818.jpg"
+    },
+    {
+     "title": "avi CASE STUDY 1",
+     "href": "/casestudy/case-study-11646918553",
+     "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+     "image": "/legacy/imageFile/1646918553.jpg"
+    },
+    {
+     "title": "auto CASE STUDY 3",
+     "href": "/casestudy/case-study-31646921061",
+     "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+     "image": "/legacy/imageFile/1646921061.jpg"
+    }
+   ],
+   "clients": [
+    "/legacy/imageFile/1648558945.3png",
+    "/legacy/imageFile/1648558945.4png",
+    "/legacy/imageFile/1648558945.5png",
+    "/legacy/imageFile/1648558945.6png",
+    "/legacy/imageFile/1648558945.7png",
+    "/legacy/imageFile/1648558945.8png",
+    "/legacy/imageFile/1648558945.0png",
+    "/legacy/imageFile/1648558945.1png",
+    "/legacy/imageFile/1648558945.2png"
+   ]
+  },
+  "industries-name": {
+   "title": "Industries Name",
+   "banner": "/legacy/imageFile/1652367932.png",
+   "heading": "Industries Name",
+   "html": "<p>Industries Name<br/></p>",
+   "images": [
+    "/legacy/imageFile/1652367932.0png"
+   ],
+   "gallery": [
+    {
+     "image": "/legacy/imageFile/1652367932.0png",
+     "title": "Lorem Ipsum"
+    }
+   ],
+   "caseStudies": [],
+   "clients": [
+    "/legacy/imageFile/1652367932.0png"
+   ]
+  }
+ }
+}

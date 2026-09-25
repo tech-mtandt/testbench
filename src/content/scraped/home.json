@@ -1,0 +1,1129 @@
+{
+ "meta": {
+  "title": "Industrial & Safety Equipment Rental | Scaffolding & AWP",
+  "description": "Top safety solutions provider in India offering industrial equipment rental, scaffolding, and aerial work platforms and safety training in India.",
+  "keywords": "work-at-height, Industrial Equipment Rental, Safety Solutions in India, Aerial Work Platforms, Scaffolding Services",
+  "canonical": "https://www.mtandt.com/",
+  "ogImage": "",
+  "jsonld": [
+   "{\"@context\":\"https://schema.org\",\"@type\":\"WebPage\",\"name\":\"Home\",\"description\":\"Top safety solutions provider in India offering industrial equipment rental, scaffolding, and aerial work platforms and safety training in India.\",\"image\":\"https://www.mtandt.com/imageFile/1651560103.png\"}",
+   "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Organization\",\n  \"name\": \"Mtandt Group\",\n  \"alternateName\": \"Mtandt Limited\",\n  \"url\": \"https://www.mtandt.com/\",\n  \"logo\": \"https://www.mtandt.com/imageFile/1651560103.png\",\n  \"sameAs\": [\n    \"https://www.facebook.com/MtandtLimited\",\n    \"https://twitter.com/Mtandt_Group\",\n    \"https://www.instagram.com/mtandtgroup/\",\n    \"https://www.youtube.com/c/MtandtGroup\",\n    \"https://www.linkedin.com/company/mtandtgroup\",\n    \"https://www.tumblr.com/mtandtgroup-blog\",\n    \"https://www.mtandt.com/\"\n  ]\n}",
+   "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"LocalBusiness\",\n  \"name\": \"Mtandt Group\",\n  \"image\": \"https://www.mtandt.com/public/imageFile/1704951688.png\",\n  \"@id\": \"\",\n  \"url\": \"https://www.mtandt.com/\",\n  \"telephone\": \"+91 9090 1010 65\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"530, C Block, Floor – P5, NPX Tower, Sector 153\",\n    \"addressLocality\": \"Noida\",\n    \"postalCode\": \"201310\",\n    \"addressCountry\": \"IN\"\n  },\n  \"geo\": {\n    \"@type\": \"GeoCoordinates\",\n    \"latitude\": 28.448627,\n    \"longitude\": 77.4704701\n  },\n  \"openingHoursSpecification\": {\n    \"@type\": \"OpeningHoursSpecification\",\n    \"dayOfWeek\": [\n      \"Monday\",\n      \"Tuesday\",\n      \"Wednesday\",\n      \"Thursday\",\n      \"Friday\",\n      \"Saturday\"\n    ],\n    \"opens\": \"09:30\",\n    \"closes\": \"18:30\"\n  },\n  \"sameAs\": [\n    \"https://www.facebook.com/MtandtLimited\",\n    \"https://twitter.com/Mtandt_Group\",\n    \"https://www.instagram.com/mtandtgroup/\",\n    \"https://www.youtube.com/c/MtandtGroup\",\n    \"https://www.linkedin.com/company/mtandt_group\",\n    \"https://in.pinterest.com/mtandtgroup/\",\n    \"https://www.tumblr.com/blog/mtandtgroup-blog\",\n    \"https://www.mtandt.com/\"\n  ] \n}"
+  ]
+ },
+ "slides": [
+  {
+   "image": "/legacy/imageFile/1704975096addSlider.jpg",
+   "eyebrow": "Let's Build a sustainable Future",
+   "title": [
+    "Aerial Work Platform",
+    "By MLIFT"
+   ]
+  },
+  {
+   "image": "/legacy/imageFile/1704975182addSlider.jpg",
+   "eyebrow": "Safer and quicker",
+   "title": [
+    "Material Handling",
+    "Equipment"
+   ]
+  },
+  {
+   "image": "/legacy/imageFile/1683192071.jpg",
+   "eyebrow": "Build, Repair & Maintain",
+   "title": [
+    "Aluminium",
+    "Scaffolding"
+   ]
+  },
+  {
+   "image": "/legacy/imageFile/1704975321addSlider.jpg",
+   "eyebrow": "Tactical Safety For Access & Falls",
+   "title": [
+    "Lifeline Fall Protection",
+    "Systems"
+   ]
+  },
+  {
+   "image": "/legacy/imageFile/1704975401addSlider.jpg",
+   "eyebrow": "Portadeck - Heavy Duty",
+   "title": [
+    "Temporary Access & Ground",
+    "Protection Road Mats"
+   ]
+  },
+  {
+   "image": "/legacy/imageFile/1704975608addSlider.jpg",
+   "eyebrow": "India's Largest Distributor",
+   "title": [
+    "Maintenance, Repair &",
+    "Operation Division"
+   ]
+  },
+  {
+   "image": "/legacy/imageFile/1704975532addSlider.jpg",
+   "eyebrow": "ISO & NSDC Certified Trainer",
+   "title": [
+    "Equipment Operator Training",
+    "& Upskilling Programs"
+   ]
+  }
+ ],
+ "productTabs": [
+  {
+   "label": "All Products",
+   "items": [
+    {
+     "title": "Self Propelled Mast Boom Lift - Electric",
+     "image": "/legacy/imageFile/1695732044homeProductadd.jpg",
+     "href": null
+    },
+    {
+     "title": "Push Around Single Mast Lift Electric",
+     "image": "/legacy/imageFile/1670596366.png",
+     "href": null
+    },
+    {
+     "title": "PowerMast",
+     "image": "/legacy/imageFile/1670659885.png",
+     "href": null
+    },
+    {
+     "title": "Power Lift PL65",
+     "image": "/legacy/imageFile/1670660004.png",
+     "href": null
+    },
+    {
+     "title": "Vertical Lift",
+     "image": "/legacy/imageFile/1683192518.jpg",
+     "href": null
+    },
+    {
+     "title": "Telescopic Boom Lift",
+     "image": "/legacy/imageFile/1695732367homeProductadd.jpg",
+     "href": null
+    },
+    {
+     "title": "Electric Scissor Lift",
+     "image": "/legacy/imageFile/1695732570homeProductadd.jpg",
+     "href": null
+    },
+    {
+     "title": "Oil Free Scissor Lift",
+     "image": "/legacy/imageFile/1695732638homeProductadd.jpg",
+     "href": null
+    },
+    {
+     "title": "Push Around Scissor Lift",
+     "image": "/legacy/imageFile/1695732692homeProductadd.jpg",
+     "href": null
+    },
+    {
+     "title": "Rough Terrain Scissor Lift",
+     "image": "/legacy/imageFile/1695732780homeProductadd.jpg",
+     "href": null
+    },
+    {
+     "title": "Electric Boom Lift",
+     "image": "/legacy/imageFile/1695732853homeProductadd.jpg",
+     "href": null
+    },
+    {
+     "title": "Hybrid Boom Lift",
+     "image": "/legacy/imageFile/1695732882homeProductadd.jpg",
+     "href": null
+    },
+    {
+     "title": "Spider Lift",
+     "image": "/legacy/imageFile/1733739959homeProductadd.jpg",
+     "href": null
+    },
+    {
+     "title": "Duct Lifter",
+     "image": "/legacy/imageFile/1695733323homeProductadd.jpg",
+     "href": "/product-category-buy/material-handling-equipment/duct-lifter"
+    },
+    {
+     "title": "Order Picker - Push Around",
+     "image": "/legacy/imageFile/1683104371.jpg",
+     "href": null
+    },
+    {
+     "title": "Project Dost",
+     "image": "/legacy/imageFile/1683105376.jpg",
+     "href": null
+    },
+    {
+     "title": "Podium Platform",
+     "image": "/legacy/imageFile/1683191806.jpg",
+     "href": null
+    },
+    {
+     "title": "Project Dost PLUS",
+     "image": "/legacy/imageFile/1683191905.jpg",
+     "href": null
+    },
+    {
+     "title": "Ladder Series",
+     "image": "/legacy/imageFile/1733821422homeProductadd.jpg",
+     "href": null
+    },
+    {
+     "title": "Stairway Series",
+     "image": "/legacy/imageFile/1733821531homeProductadd.jpg",
+     "href": null
+    },
+    {
+     "title": "Special Scaffold",
+     "image": "/legacy/imageFile/1733821671homeProductadd.jpg",
+     "href": null
+    },
+    {
+     "title": "Aluminium Cage Ladders",
+     "image": "/legacy/imageFile/1733834026homeProductadd.jpg",
+     "href": null
+    },
+    {
+     "title": "PortaDeck",
+     "image": "/legacy/imageFile/1669665600.jpg",
+     "href": "/custom-product-detail-buy/temporary-road-mats/porta-deck"
+    },
+    {
+     "title": "PortaMat",
+     "image": "/legacy/imageFile/1669665650.jpg",
+     "href": "/custom-product-detail-buy/temporary-road-mats/porta-mat"
+    },
+    {
+     "title": "PortaPad",
+     "image": "/legacy/imageFile/1669718721.jpg",
+     "href": "/custom-product-detail-buy/temporary-road-mats/porta-pad"
+    },
+    {
+     "title": "Mobile Light Tower",
+     "image": "/legacy/imageFile/1740123135homeProductadd.jpeg",
+     "href": null
+    },
+    {
+     "title": "Battery Power Stations",
+     "image": "/legacy/imageFile/1740123133homeProductadd.jpeg",
+     "href": null
+    },
+    {
+     "title": "Vertical Lifeline System",
+     "image": "/legacy/imageFile/1669665942.jpg",
+     "href": "/custom-product-detail-buy/tactical-safety-for-access-falls/vertical-lifeline-system"
+    },
+    {
+     "title": "Horizontal LifeLine System",
+     "image": "/legacy/imageFile/1669710739.jpg",
+     "href": "/custom-product-detail-buy/tactical-safety-for-access-falls/horizontal-lifeline-system-roof-lifeline-system"
+    },
+    {
+     "title": "Overhead LifeLine System",
+     "image": "/legacy/imageFile/1669710772.jpg",
+     "href": "/custom-product-detail-buy/tactical-safety-for-access-falls/overhead-lifeline-system-fall-arrester-system"
+    },
+    {
+     "title": "Aluminium Walkway System",
+     "image": "/legacy/imageFile/1669710816.jpg",
+     "href": "/custom-product-detail-buy/tactical-safety-for-access-falls/aluminium-walkway-system"
+    },
+    {
+     "title": "Barricade System",
+     "image": "/legacy/imageFile/1669710850.jpg",
+     "href": "/custom-product-detail-buy/tactical-safety-for-access-falls/barricade-system"
+    },
+    {
+     "title": "Flowlok Ladder System",
+     "image": "/legacy/imageFile/1669710916.jpg",
+     "href": "/custom-product-detail-buy/tactical-safety-for-access-falls/flowlok-ladder-system"
+    },
+    {
+     "title": "Skylight mesh",
+     "image": "/legacy/imageFile/1732959244homeProductadd.jpeg",
+     "href": "/custom-product-detail-buy/fall-protection-lifeline-systems/skylight-mesh"
+    },
+    {
+     "title": "Safety Barrier System",
+     "image": "/legacy/imageFile/1732967440homeProductadd.jpeg",
+     "href": "/custom-product-detail-buy/fall-protection-lifeline-systems/safety-barrier-system"
+    },
+    {
+     "title": "WEB Deck®",
+     "image": "/legacy/imageFile/1668177502.jpg",
+     "href": "/custom-product-detail-buy/web-systems-international/web-deck"
+    },
+    {
+     "title": "WEB Net®",
+     "image": "/legacy/imageFile/1669665714.jpg",
+     "href": "/custom-product-detail-buy/web-systems-international/web-net"
+    },
+    {
+     "title": "WEB Catch®",
+     "image": "/legacy/imageFile/1669665778.jpg",
+     "href": "/custom-product-detail-buy/web-systems-international/web-catch"
+    },
+    {
+     "title": "Personal Protective Equipment",
+     "image": "/legacy/imageFile/1669830826.jpg",
+     "href": "/custom-product-detail-buy/tools-and-supplies/personal-protective-equipment"
+    },
+    {
+     "title": "Tools, Tackles, and Consumables",
+     "image": "/legacy/imageFile/1669830869.jpg",
+     "href": "/custom-product-detail-buy/tools-and-supplies/tools-tackles-and-consumables"
+    },
+    {
+     "title": "Material Handling Solutions",
+     "image": "/legacy/imageFile/1669830899.jpg",
+     "href": "/custom-product-detail-buy/tools-and-supplies/material-handling-solutions"
+    },
+    {
+     "title": "Measuring Equipment and Meters",
+     "image": "/legacy/imageFile/1669830967.jpg",
+     "href": "/custom-product-detail-buy/tools-and-supplies/measuring-equipment-and-meters"
+    },
+    {
+     "title": "First Aid and Rescue Solutions",
+     "image": "/legacy/imageFile/1669831012.jpg",
+     "href": "/custom-product-detail-buy/tools-and-supplies/first-aid-and-rescue-solutions"
+    },
+    {
+     "title": "Ladders and Climbing Solutions",
+     "image": "/legacy/imageFile/1669831063.jpg",
+     "href": "/custom-product-detail-buy/tools-and-supplies/ladders-and-climbing-solutions"
+    }
+   ]
+  },
+  {
+   "label": "Aerial Equipment",
+   "items": [
+    {
+     "title": "Self Propelled Mast Boom Lift - Ele...",
+     "image": "/legacy/imageFile/1695732044homeProductadd.jpg",
+     "href": null
+    },
+    {
+     "title": "Push Around Single Mast Lift Electr...",
+     "image": "/legacy/imageFile/1670596366.png",
+     "href": null
+    },
+    {
+     "title": "PowerMast",
+     "image": "/legacy/imageFile/1670659885.png",
+     "href": null
+    },
+    {
+     "title": "Power Lift PL65",
+     "image": "/legacy/imageFile/1670660004.png",
+     "href": null
+    },
+    {
+     "title": "Vertical Lift",
+     "image": "/legacy/imageFile/1683192518.jpg",
+     "href": null
+    },
+    {
+     "title": "Telescopic Boom Lift",
+     "image": "/legacy/imageFile/1695732367homeProductadd.jpg",
+     "href": null
+    },
+    {
+     "title": "Electric Scissor Lift",
+     "image": "/legacy/imageFile/1695732570homeProductadd.jpg",
+     "href": null
+    },
+    {
+     "title": "Oil Free Scissor Lift",
+     "image": "/legacy/imageFile/1695732638homeProductadd.jpg",
+     "href": null
+    },
+    {
+     "title": "Push Around Scissor Lift",
+     "image": "/legacy/imageFile/1695732692homeProductadd.jpg",
+     "href": null
+    },
+    {
+     "title": "Rough Terrain Scissor Lift",
+     "image": "/legacy/imageFile/1695732780homeProductadd.jpg",
+     "href": null
+    },
+    {
+     "title": "Electric Boom Lift",
+     "image": "/legacy/imageFile/1695732853homeProductadd.jpg",
+     "href": null
+    },
+    {
+     "title": "Hybrid Boom Lift",
+     "image": "/legacy/imageFile/1695732882homeProductadd.jpg",
+     "href": null
+    },
+    {
+     "title": "Spider Lift",
+     "image": "/legacy/imageFile/1733739959homeProductadd.jpg",
+     "href": null
+    }
+   ]
+  },
+  {
+   "label": "Material Handling",
+   "items": [
+    {
+     "title": "Duct Lifter",
+     "image": "/legacy/imageFile/1695733323homeProductadd.jpg",
+     "href": "/product-category-buy/material-handling-equipment/duct-lifter"
+    },
+    {
+     "title": "Order Picker - Push Around",
+     "image": "/legacy/imageFile/1683104371.jpg",
+     "href": null
+    }
+   ]
+  },
+  {
+   "label": "Aluminium Scaffold",
+   "items": [
+    {
+     "title": "Project Dost",
+     "image": "/legacy/imageFile/1683105376.jpg",
+     "href": null
+    },
+    {
+     "title": "Podium Platform",
+     "image": "/legacy/imageFile/1683191806.jpg",
+     "href": null
+    },
+    {
+     "title": "Project Dost PLUS",
+     "image": "/legacy/imageFile/1683191905.jpg",
+     "href": null
+    },
+    {
+     "title": "Ladder Series",
+     "image": "/legacy/imageFile/1733821422homeProductadd.jpg",
+     "href": null
+    },
+    {
+     "title": "Stairway Series",
+     "image": "/legacy/imageFile/1733821531homeProductadd.jpg",
+     "href": null
+    },
+    {
+     "title": "Special Scaffold",
+     "image": "/legacy/imageFile/1733821671homeProductadd.jpg",
+     "href": null
+    },
+    {
+     "title": "Aluminium Cage Ladders",
+     "image": "/legacy/imageFile/1733834026homeProductadd.jpg",
+     "href": null
+    }
+   ]
+  },
+  {
+   "label": "Temporary Road Mats",
+   "items": [
+    {
+     "title": "PortaDeck",
+     "image": "/legacy/imageFile/1669665600.jpg",
+     "href": "/custom-product-detail-buy/temporary-road-mats/porta-deck"
+    },
+    {
+     "title": "PortaMat",
+     "image": "/legacy/imageFile/1669665650.jpg",
+     "href": "/custom-product-detail-buy/temporary-road-mats/porta-mat"
+    },
+    {
+     "title": "PortaPad",
+     "image": "/legacy/imageFile/1669718721.jpg",
+     "href": "/custom-product-detail-buy/temporary-road-mats/porta-pad"
+    }
+   ]
+  },
+  {
+   "label": "Mlit",
+   "items": [
+    {
+     "title": "Mobile Light Tower",
+     "image": "/legacy/imageFile/1740123135homeProductadd.jpeg",
+     "href": null
+    },
+    {
+     "title": "Battery Power Stations",
+     "image": "/legacy/imageFile/1740123133homeProductadd.jpeg",
+     "href": null
+    }
+   ]
+  },
+  {
+   "label": "Fall Protection",
+   "items": [
+    {
+     "title": "Vertical Lifeline System",
+     "image": "/legacy/imageFile/1669665942.jpg",
+     "href": "/custom-product-detail-buy/tactical-safety-for-access-falls/vertical-lifeline-system"
+    },
+    {
+     "title": "Horizontal LifeLine System",
+     "image": "/legacy/imageFile/1669710739.jpg",
+     "href": "/custom-product-detail-buy/tactical-safety-for-access-falls/horizontal-lifeline-system-roof-lifeline-system"
+    },
+    {
+     "title": "Overhead LifeLine System",
+     "image": "/legacy/imageFile/1669710772.jpg",
+     "href": "/custom-product-detail-buy/tactical-safety-for-access-falls/overhead-lifeline-system-fall-arrester-system"
+    },
+    {
+     "title": "Aluminium Walkway System",
+     "image": "/legacy/imageFile/1669710816.jpg",
+     "href": "/custom-product-detail-buy/tactical-safety-for-access-falls/aluminium-walkway-system"
+    },
+    {
+     "title": "Barricade System",
+     "image": "/legacy/imageFile/1669710850.jpg",
+     "href": "/custom-product-detail-buy/tactical-safety-for-access-falls/barricade-system"
+    },
+    {
+     "title": "Flowlok Ladder System",
+     "image": "/legacy/imageFile/1669710916.jpg",
+     "href": "/custom-product-detail-buy/tactical-safety-for-access-falls/flowlok-ladder-system"
+    },
+    {
+     "title": "Skylight mesh",
+     "image": "/legacy/imageFile/1732959244homeProductadd.jpeg",
+     "href": "/custom-product-detail-buy/fall-protection-lifeline-systems/skylight-mesh"
+    },
+    {
+     "title": "Safety Barrier System",
+     "image": "/legacy/imageFile/1732967440homeProductadd.jpeg",
+     "href": "/custom-product-detail-buy/fall-protection-lifeline-systems/safety-barrier-system"
+    }
+   ]
+  },
+  {
+   "label": "Deck & Net Systems",
+   "items": [
+    {
+     "title": "WEB Deck®",
+     "image": "/legacy/imageFile/1668177502.jpg",
+     "href": "/custom-product-detail-buy/web-systems-international/web-deck"
+    },
+    {
+     "title": "WEB Net®",
+     "image": "/legacy/imageFile/1669665714.jpg",
+     "href": "/custom-product-detail-buy/web-systems-international/web-net"
+    },
+    {
+     "title": "WEB Catch®",
+     "image": "/legacy/imageFile/1669665778.jpg",
+     "href": "/custom-product-detail-buy/web-systems-international/web-catch"
+    }
+   ]
+  },
+  {
+   "label": "Tools and Supplies",
+   "items": [
+    {
+     "title": "Personal Protective Equipment",
+     "image": "/legacy/imageFile/1669830826.jpg",
+     "href": "/custom-product-detail-buy/tools-and-supplies/personal-protective-equipment"
+    },
+    {
+     "title": "Tools, Tackles, and Consumables",
+     "image": "/legacy/imageFile/1669830869.jpg",
+     "href": "/custom-product-detail-buy/tools-and-supplies/tools-tackles-and-consumables"
+    },
+    {
+     "title": "Material Handling Solutions",
+     "image": "/legacy/imageFile/1669830899.jpg",
+     "href": "/custom-product-detail-buy/tools-and-supplies/material-handling-solutions"
+    },
+    {
+     "title": "Measuring Equipment and Meters",
+     "image": "/legacy/imageFile/1669830967.jpg",
+     "href": "/custom-product-detail-buy/tools-and-supplies/measuring-equipment-and-meters"
+    },
+    {
+     "title": "First Aid and Rescue Solutions",
+     "image": "/legacy/imageFile/1669831012.jpg",
+     "href": "/custom-product-detail-buy/tools-and-supplies/first-aid-and-rescue-solutions"
+    },
+    {
+     "title": "Ladders and Climbing Solutions",
+     "image": "/legacy/imageFile/1669831063.jpg",
+     "href": "/custom-product-detail-buy/tools-and-supplies/ladders-and-climbing-solutions"
+    }
+   ]
+  }
+ ],
+ "brandTabs": [
+  {
+   "label": "Work-at-Height Solutions",
+   "brands": [
+    {
+     "logo": "/legacy/forntend/images/brands/Mtandt-Rentals.jpg",
+     "alt": "RENTALS",
+     "title": "Mtandt Rentals Limited",
+     "text": "Boom Lift | Scissor Lift | Mast Boom Lift |Spider Lift| Temporary Road Mat | Mobile Light & Power",
+     "href": "https://mtandtrentals.com/"
+    },
+    {
+     "logo": "/legacy/forntend/images/brands/brands-indutrial-1.png",
+     "alt": "INDUSTRIAL ROPE ACCESS SPECIALISTS",
+     "title": "INDUSTRIAL ROPE ACCESS SPECIALISTS",
+     "text": "Onshore - Offshore Operations Service Consulting",
+     "href": "https://evolution-access.com/"
+    },
+    {
+     "logo": "/legacy/forntend/images/brands/brands-miift.png",
+     "alt": "MANUFACTURING & TRADING",
+     "title": "Mlift by Mtandt",
+     "text": "Boom Lift | Scissor Lift | Vertical Lift | Order Picker |Mast Boom Lift |Spider Lift| Mini Crawler Crane",
+     "href": "/category-by-subcategory/aerial-work-platform"
+    },
+    {
+     "logo": "/legacy/forntend/images/brands/brands-web.jpg",
+     "alt": "UNDER DECK ACCESS SOLUTIONS",
+     "title": "Innovative Suspended Access",
+     "text": "Under Deck Access Platform | Walk-On Work Positioning Netting System | Dropped Object Protection System",
+     "href": "https://web-international.com/"
+    },
+    {
+     "logo": "/legacy/forntend/images/brands/AQ_Logo.jpg",
+     "alt": "Aluminium Scaffolding",
+     "title": "Aluminium Scaffolding",
+     "text": "Low Reach Platform | Ladder Series | Stairway | Road-Rail | Special",
+     "href": "https://aqaccess.com/"
+    },
+    {
+     "logo": "/legacy/forntend/images/brands/Iron-link-logo.png",
+     "alt": "Rail & Road Equipment",
+     "title": "Rail & Road Equipment",
+     "text": "MEWP for Rail and Road Industry",
+     "href": null
+    },
+    {
+     "logo": "/legacy/forntend/images/brands/instant-amsterdam.png",
+     "alt": "INSTANT AMSTERDAM",
+     "title": "Aluminium Scaffolding",
+     "text": "Scaffolding for Boiler Industry",
+     "href": null
+    },
+    {
+     "logo": "/legacy/forntend/images/brands/fast-beam-logo.png",
+     "alt": "adjustable access system",
+     "title": "Adjustable Access System",
+     "text": "Bridge Operation and Maintenance",
+     "href": "https://www.fast-access.com/"
+    }
+   ]
+  },
+  {
+   "label": "Lifting, Hoisting & Vertical Mobility",
+   "brands": [
+    {
+     "logo": "/legacy/forntend/images/brands/brands-lifting-1.png",
+     "alt": "Lifting and Access Equipment",
+     "title": "Lifting and Access Equipment",
+     "text": "Tower Crane | Material & Passenger Hoist | Mast Climbers",
+     "href": "https://vertikal.in/"
+    },
+    {
+     "logo": "/legacy/forntend/images/brands/JM-logistics.png",
+     "alt": "Construction Access Equipment",
+     "title": "Construction Access Equipment",
+     "text": "Rope Suspended Platforms | Material & Passenger Hoist",
+     "href": null
+    }
+   ]
+  },
+  {
+   "label": "Site Infrastructure & Temporary Access",
+   "brands": [
+    {
+     "logo": "/legacy/forntend/images/brands/brands-protection.webp",
+     "alt": "TEMPORARY ROAD MATS",
+     "title": "Temporary Road Mats",
+     "text": "PortaDeck | PortaMat | PortaPad",
+     "href": "/category-by-subcategory/temporary-road-mats"
+    },
+    {
+     "logo": "/legacy/forntend/images/brands/mlit-logo.jpg",
+     "alt": "Mobile Light Tower",
+     "title": "Mobile Light Tower",
+     "text": "Site light | Crane light",
+     "href": "/product-category-buy/mlit/mobile-light-tower"
+    },
+    {
+     "logo": "/legacy/forntend/images/brands/MPower_logo.jpg",
+     "alt": "Mobile Light Tower",
+     "title": "Mobile Power Station",
+     "text": "Energy storage | Power Backup",
+     "href": "/product-category-buy/mlit/battery-power-stations"
+    }
+   ]
+  },
+  {
+   "label": "Equipment Services & MRO",
+   "brands": [
+    {
+     "logo": "/legacy/forntend/images/brands/Equipr.png",
+     "alt": "Total MEWP Asset Management",
+     "title": "Total MEWP Asset Management",
+     "text": "Maintenance | Repair | Yard | Telematics | Retro Fitting | Evaluation | Training",
+     "href": "https://equipr.in/"
+    },
+    {
+     "logo": "/legacy/forntend/images/brands/MRO_Logo.png",
+     "alt": "Tools and Supplies",
+     "title": "Tools and Supplies",
+     "text": "Maintenance | Repair | Operation Supplies",
+     "href": "/category-by-subcategory/tools-and-supplies"
+    }
+   ]
+  },
+  {
+   "label": "Safety, Training & Compliance",
+   "brands": [
+    {
+     "logo": "/legacy/forntend/images/brands/brands-fall-protection.png",
+     "alt": "TRAINING & CERTIFICATIONS",
+     "title": "Fall Protection & Lifeline System",
+     "text": "Vertical | Horizontal | Overhead | Walkway | Barricade | Flowlok | Safety Barrier | Skylight Mesh",
+     "href": "/category-by-subcategory/fall-protection-lifeline-systems"
+    },
+    {
+     "logo": "/legacy/forntend/images/brands/CESL-Logo.png",
+     "alt": "TRAINING & CERTIFICATIONS",
+     "title": "Certifications & Training",
+     "text": "Work at Height | MEWP Operator Training | GWO Safety Training | Performance Aud",
+     "href": "https://cesltraining.com"
+    },
+    {
+     "logo": "/legacy/forntend/images/brands/ToolsBond-Logo-New.png",
+     "alt": "Versatile Ladders",
+     "title": "Versatile Ladders",
+     "text": "Telescopic | Double Telescopic | Multipurpose | Step Ladders",
+     "href": "https://www.toolsbond.com/"
+    }
+   ]
+  },
+  {
+   "label": "Partner Brands",
+   "brands": [
+    {
+     "logo": "/legacy/forntend/images/brands/CMC_LOGO.png",
+     "alt": "Spider Lift",
+     "title": "Spider Lift",
+     "text": "",
+     "href": "https://www.cmclift.com/"
+    },
+    {
+     "logo": "/legacy/forntend/images/brands/comansa-logo.png",
+     "alt": "Tower Cranes",
+     "title": "Tower Cranes",
+     "text": "",
+     "href": "https://www.comansa.com/en"
+    },
+    {
+     "logo": "/legacy/forntend/images/brands/comet-bharat-logo.png",
+     "alt": "AERIAL WORK PLATFORMS",
+     "title": "Aerial Work Platforms",
+     "text": "Truck Mounted Boom Lift | Spider Lif",
+     "href": "https://cometbharat.com/"
+    },
+    {
+     "logo": "/legacy/forntend/images/brands/Dingli_Logo.png",
+     "alt": "Aerial Work Platforms",
+     "title": "Aerial Work Platforms",
+     "text": "",
+     "href": "https://en.cndingli.com/"
+    },
+    {
+     "logo": "/legacy/forntend/images/brands/Easy-Lift-Logo.png",
+     "alt": "Spider Lift",
+     "title": "Spider Lift",
+     "text": "",
+     "href": "https://easy-lift.com/en/"
+    },
+    {
+     "logo": "/legacy/forntend/images/brands/Hoeflon-Logo.png",
+     "alt": "Mini Crawler Crane",
+     "title": "Mini Crawler Crane",
+     "text": "",
+     "href": "https://hoeflon.com/"
+    },
+    {
+     "logo": "/legacy/forntend/images/brands/Falcon-Logo.png",
+     "alt": "Spider Lifts",
+     "title": "Spider Lifts",
+     "text": "",
+     "href": "https://falconlifts.com/"
+    },
+    {
+     "logo": "/legacy/forntend/images/brands/omme.png",
+     "alt": "Trailer-lifts-&-crawler-lifts",
+     "title": "Trailer lifts and crawler lifts",
+     "text": "",
+     "href": "https://www.ommelift.com/"
+    },
+    {
+     "logo": "/legacy/forntend/images/brands/runshare.png",
+     "alt": "Aerial Work Platform",
+     "title": "Aerial Work Platform",
+     "text": "",
+     "href": "http://www.runshare.net/"
+    },
+    {
+     "logo": "/legacy/forntend/images/brands/teupen-logo.png",
+     "alt": "Spider Lifts",
+     "title": "Spider Lifts",
+     "text": "",
+     "href": "https://teupen.com/en/"
+    }
+   ]
+  }
+ ],
+ "serviceNavigator": {
+  "intro": "We take pride in offering a wide range of services to provide a well-rounded package to our clients. Take a glance at our services to get the best for your needs.",
+  "items": [
+   {
+    "title": "Competency Certifications",
+    "text": "We train and certify your employees with relevant industry skills to boost safety and productivity at the worksite.",
+    "href": "/services/competency-certifications",
+    "icon": null
+   },
+   {
+    "title": "Industrial Safety Training",
+    "text": "We are certified to train your employees to operate work-at-height equipment to enhance safety and productivity.",
+    "href": "/services/industrial-safety-training",
+    "icon": null
+   },
+   {
+    "title": "Rope Access Operations and Services",
+    "text": "Industrial rope access services for the inspection, maintenance and repair of onshore and offshore infrastructures.",
+    "href": "/services/rope-access-operations-and-services",
+    "icon": null
+   },
+   {
+    "title": "Rope Access Training",
+    "text": "Industrial rope access training & certifications to access difficult-to-reach locations to carry out maintenance tasks.",
+    "href": "/services/rope-access-training",
+    "icon": null
+   },
+   {
+    "title": "Equipment Operator Training",
+    "text": "Industry-recognized equipment training for operators for safe and easy handling of aerial work platforms.",
+    "href": "/services/fall-protection-training",
+    "icon": null
+   },
+   {
+    "title": "Equipment AMC",
+    "text": "Our AMC considerably reduces equipment downtime and gets better returns on investments.",
+    "href": "/services/amc",
+    "icon": null
+   },
+   {
+    "title": "Equipment Manpower",
+    "text": "We provide the highest level of skilled manpower to help operate and achieve your operational needs.",
+    "href": "/services/equipment-manpower",
+    "icon": null
+   }
+  ]
+ },
+ "whyUs": [
+  {
+   "title": "First Time Right",
+   "text": "Over 5 million man-days of experience enable us to understand your needs better."
+  },
+  {
+   "title": "Value For Money",
+   "text": "Our scale enables us to deliver uncompromised performance at a fair cost."
+  },
+  {
+   "title": "Operational Excellence",
+   "text": "A dedicated team and digital process offer transparency and efficiency."
+  },
+  {
+   "title": "Always Within Your Reach",
+   "text": "With our national and global presence, we are always there for you."
+  },
+  {
+   "title": "Widest Range of Products",
+   "text": "Our seven business units offer innovative solutions to keep you ahead."
+  },
+  {
+   "title": "Pioneer and Leader Since 1974",
+   "text": "With 48 years of industry presence and 5000+ customers, reliability is ensured."
+  }
+ ],
+ "testimonials": [
+  {
+   "quote": "We recognize and appreciate the efforts of mtandt's exemplary contribution to consistent HSE implementation.",
+   "author": "SHAPOORJI PALLONJI",
+   "logo": "/legacy/imageFile/1643953297.jpg"
+  },
+  {
+   "quote": "The mtandt team has installed the Safety Lifeline System in a timely and safe manner which has resulted in providing a safe working environment for all workers in our factory.",
+   "author": "ITC LIMITED",
+   "logo": "/legacy/imageFile/1643953329.jpg"
+  },
+  {
+   "quote": "Installation of PORTACell Rigid has been successfully completed in the section of NH-2, Dhanbad, Jharkhand. A significant reduction in pavement thickness and construction time is observed. We shall look forward to working with Mtandt Ltd on our future projects.",
+   "author": "Ashoka",
+   "logo": "/legacy/imageFile/1669644218.jpg"
+  },
+  {
+   "quote": "We have purchased an electric-operated articulated boom lift. From the date of commissioning, we have been continuously using this equipment and the same is giving is very satisfactory service. The after-sale service support extended by the dealer is very good.",
+   "author": "L & T MHPS",
+   "logo": "/legacy/imageFile/1669644532.jpg"
+  },
+  {
+   "quote": "By working with Mtandt we got great service & technical expertise at a very affordable cost. Products are also quite reliable & user-friendly at the same time cost-effective.",
+   "author": "Grindwell Norton Ltd.",
+   "logo": "/legacy/imageFile/1669643497.jpg"
+  },
+  {
+   "quote": "We are using Mtandt boom lifts since the year 2020. We have used boom lifts of 45 ft and 60 ft, for our projects at ABB India Ltd & Hitachi Energy India Ltd and we are happy with your services and on-time support.",
+   "author": "Shree Jagdish Construction Co.",
+   "logo": "/legacy/imageFile/1669646165.png"
+  },
+  {
+   "quote": "We are using Mtandt boom lifts since the year 2012 and we are happy with their service and on-time support.",
+   "author": "Ideas Electricals & Engineers Pvt. Ltd.",
+   "logo": "/legacy/imageFile/1669646192.jpg"
+  },
+  {
+   "quote": "We are using Mtandt Boom lifts and scissor lifts since the year 2013 in our projects on Ahmedabad cluster sites. We are very happy with your service and support on time. Please keep supporting us always for our smooth operation and progress of projects.",
+   "author": "L & T Construction",
+   "logo": "/legacy/imageFile/1669646434.jpg"
+  }
+ ],
+ "news": [
+  {
+   "href": "/event/mtandt-at-odisha-mining-expo-2026",
+   "title": "Mtandt at ODISHA Mining Expo 2026",
+   "date": "2026-03-21"
+  },
+  {
+   "href": "/event/revolutionizing-urban-mobility-maintenance-at-municipalika-2026",
+   "title": "Revolutionizing Urban Mobility & Maintenance at Municipalika 2026",
+   "date": "2026-02-27"
+  },
+  {
+   "href": "/event/chemtech-world-expo-2026",
+   "title": "ChemTECH World Expo 2026",
+   "date": "2026-02-06"
+  },
+  {
+   "href": "/event/excon-2025",
+   "title": "EXCON 2025",
+   "date": "2025-12-13"
+  },
+  {
+   "href": "/event/cii-jharkhand-safety-talk-2025",
+   "title": "CII Jharkhand Safety Talk 2025",
+   "date": "2025-11-01"
+  },
+  {
+   "href": "/event/windergy-2025",
+   "title": "WINDERGY 2025",
+   "date": "2025-10-31"
+  },
+  {
+   "href": "/event/scat-2025",
+   "title": "Scat 2025",
+   "date": "2025-10-16"
+  },
+  {
+   "href": "/event/refcold-2025",
+   "title": "REFCOLD 2025",
+   "date": "2025-09-20"
+  },
+  {
+   "href": "/event/electronica-and-productronica-2025",
+   "title": "Electronica and Productronica 2025",
+   "date": "2025-09-19"
+  },
+  {
+   "href": "/event/osh-india-2025",
+   "title": "OSH India 2025",
+   "date": "2025-09-18"
+  },
+  {
+   "href": "/event/rahsta-expo-2025",
+   "title": "Rahsta Expo 2025",
+   "date": "2025-09-04"
+  },
+  {
+   "href": "/event/mtandt-group-at-sign-india-2025",
+   "title": "Mtandt Group at Sign India 2025",
+   "date": "2025-08-31"
+  },
+  {
+   "href": "/event/mtandt-group-at-conex-south-2025",
+   "title": "Mtandt Group at CONEX South 2025",
+   "date": "2025-08-30"
+  },
+  {
+   "href": "/event/web-systems-international-at-saia-2025-annual-convention-and-expo",
+   "title": "Smarter Suspended Access for the World’s Most Demanding Projects",
+   "date": "2025-08-07"
+  },
+  {
+   "href": "/event/mtandt-group-at-cnc-expo-2025",
+   "title": "Reliable Height Access for Precision Engineering & Industrial Maintenance",
+   "date": "2025-08-07"
+  },
+  {
+   "href": "/event/india-international-hospitality-expo-2025",
+   "title": "Redefining Safety & Efficiency in Hospitality Facility Operations",
+   "date": "2025-08-06"
+  },
+  {
+   "href": "/event/india-horeca-expo-2025",
+   "title": "India HoReCa Expo 2025 – Elevating Access for Hospitality & Retail",
+   "date": "2025-07-04"
+  },
+  {
+   "href": "/event/india-warehousing-show-2025-with-mtandt",
+   "title": "India Warehousing Show 2025 – Total Access & Safety Solutions for Warehousing",
+   "date": "2025-06-27"
+  },
+  {
+   "href": "/event/rail-and-transport-exhibition-2025",
+   "title": "Rail & Trans Expo 2025 – Introducing India’s First MEWP for Rail & Road!",
+   "date": "2025-06-27"
+  },
+  {
+   "href": "/event/irata-international-rope-access-symposium-india-2025",
+   "title": "IRATA International Rope Access Symposium India 2025",
+   "date": null
+  },
+  {
+   "href": "/event/bauma-conexpo-india-2024",
+   "title": "BAUMA CONEXPO INDIA 2024",
+   "date": "2024-12-14"
+  },
+  {
+   "href": "/event/gas-india-expo-2024",
+   "title": "Discover Innovation and Safety at Gas India Expo 2024",
+   "date": "2024-07-06"
+  },
+  {
+   "href": "/event/scissor-lifts-aluminum-scaffolding-signage-solutions-advertising-industry",
+   "title": "Discover the Future of Signage and Advertising Solutions with Mtandt Group at Sign India 2024",
+   "date": "2024-06-30"
+  },
+  {
+   "href": "/event/fall-protection-solutions-osh-india-2024",
+   "title": "Elevate Safety and Productivity: Visit Mtandt at Hall No. 1, Booth F26 at Osh India 2024",
+   "date": "2024-06-28"
+  },
+  {
+   "href": "/event/rope-access-symposium-eat",
+   "title": "India Hosts 1st International Rope Access Symposium in Collaboration with IRATA International",
+   "date": "2023-11-06"
+  },
+  {
+   "href": "/event/mtandt-at-acetech",
+   "title": "Mtandt Group to Exhibit at ACE TECH 2023",
+   "date": "2023-10-08"
+  },
+  {
+   "href": "/event/excon-2023",
+   "title": "EXCON 2023",
+   "date": "2023-12-16"
+  },
+  {
+   "href": "/event/bauma-2023-mtandt",
+   "title": "Bauma 2023",
+   "date": "2022-12-19"
+  },
+  {
+   "href": "/event/defence-expo",
+   "title": "DEFENCE EXPO",
+   "date": "2022-11-30"
+  },
+  {
+   "href": "/event/fall-protection-solutions-osh-india",
+   "title": "OSH",
+   "date": "2023-11-25"
+  }
+ ],
+ "clients": [
+  "/legacy/imageFile/16705784410.jpg",
+  "/legacy/imageFile/16705784490.jpg",
+  "/legacy/imageFile/16705784570.jpg",
+  "/legacy/imageFile/16705784700.jpg",
+  "/legacy/imageFile/16705784790.jpg",
+  "/legacy/imageFile/16705784870.jpg",
+  "/legacy/imageFile/16681776390.jpg",
+  "/legacy/imageFile/16681776740.jpg",
+  "/legacy/imageFile/16705775310.jpg",
+  "/legacy/imageFile/16705775370.jpg",
+  "/legacy/imageFile/16705775450.jpg",
+  "/legacy/imageFile/16705775520.jpg",
+  "/legacy/imageFile/16705775600.png",
+  "/legacy/imageFile/16705775660.jpg",
+  "/legacy/imageFile/16705775740.png",
+  "/legacy/imageFile/16705775850.png",
+  "/legacy/imageFile/16705775910.jpg",
+  "/legacy/imageFile/16705775980.jpg",
+  "/legacy/imageFile/16705776060.jpg",
+  "/legacy/imageFile/16705776160.jpg",
+  "/legacy/imageFile/16705776430.jpg",
+  "/legacy/imageFile/16705776520.jpg",
+  "/legacy/imageFile/16705776760.jpg",
+  "/legacy/imageFile/16705776910.jpg",
+  "/legacy/imageFile/16705777040.jpg",
+  "/legacy/imageFile/16705777170.jpg",
+  "/legacy/imageFile/16705777260.jpg",
+  "/legacy/imageFile/16705777390.jpg",
+  "/legacy/imageFile/16705778240.jpg",
+  "/legacy/imageFile/16705778330.jpg",
+  "/legacy/imageFile/16705778430.jpg",
+  "/legacy/imageFile/16705778990.jpg",
+  "/legacy/imageFile/16705779080.jpg",
+  "/legacy/imageFile/16705779240.jpg",
+  "/legacy/imageFile/16705779330.jpg",
+  "/legacy/imageFile/16705779570.jpg",
+  "/legacy/imageFile/16705779690.jpg",
+  "/legacy/imageFile/16705779750.jpg",
+  "/legacy/imageFile/16705779840.jpg",
+  "/legacy/imageFile/16705779960.jpg",
+  "/legacy/imageFile/16705780050.jpg",
+  "/legacy/imageFile/16705780120.jpg",
+  "/legacy/imageFile/16705780220.jpg",
+  "/legacy/imageFile/16705780340.jpg",
+  "/legacy/imageFile/16705780420.jpg",
+  "/legacy/imageFile/16705780500.jpg",
+  "/legacy/imageFile/16705780590.jpg",
+  "/legacy/imageFile/16705780660.jpg",
+  "/legacy/imageFile/16705780850.jpg",
+  "/legacy/imageFile/16705781230.jpg",
+  "/legacy/imageFile/16705781330.jpg",
+  "/legacy/imageFile/16705781390.png",
+  "/legacy/imageFile/16705781490.jpg",
+  "/legacy/imageFile/16705781640.jpg",
+  "/legacy/imageFile/16705781710.jpg",
+  "/legacy/imageFile/16705781780.jpg",
+  "/legacy/imageFile/16705781890.jpg",
+  "/legacy/imageFile/16705782000.jpg",
+  "/legacy/imageFile/16705782070.jpg",
+  "/legacy/imageFile/16705782530.jpg",
+  "/legacy/imageFile/16705782590.jpg",
+  "/legacy/imageFile/16705782660.jpg",
+  "/legacy/imageFile/16705782780.jpg",
+  "/legacy/imageFile/16705782900.jpg",
+  "/legacy/imageFile/16705783020.jpg",
+  "/legacy/imageFile/16705783160.jpg",
+  "/legacy/imageFile/16705783690.png",
+  "/legacy/imageFile/16705783760.jpg",
+  "/legacy/imageFile/16705783840.jpg",
+  "/legacy/imageFile/16705784020.jpg",
+  "/legacy/imageFile/16705784110.jpg",
+  "/legacy/imageFile/16705784220.jpg",
+  "/legacy/imageFile/16705784330.jpg"
+ ]
+}

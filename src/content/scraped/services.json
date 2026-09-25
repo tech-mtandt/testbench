@@ -1,0 +1,827 @@
+{
+ "amc": {
+  "kind": "detail",
+  "meta": {
+   "title": "AMC Services for Equipment | Annual Maintenance by Mtandt",
+   "description": "Get reliable AMC services for industrial equipment. Annual maintenance contracts for access platforms, handling gear & more. Ensure uptime—contact Mtandt today!"
+  },
+  "crumbs": [
+   {
+    "label": "Services",
+    "href": "/services"
+   },
+   {
+    "label": "Equipment Management",
+    "href": null
+   },
+   {
+    "label": "Equipment AMC",
+    "href": null
+   }
+  ],
+  "bannerTitle": "EQUIPMENT MANAGEMENT",
+  "banner": "/legacy/imageFile/16831117711.jpg",
+  "heading": "EQUIPMENT AMC",
+  "subheading": "",
+  "html": "<p>Our specialized AMC services are designed to ensure that your equipment is well-maintained and performing at its best throughout the year. We understand that equipment downtime can cause significant losses to your business, and our AMC services provide a reliable solution to keep your equipment running smoothly.</p><p>Our team of experienced technicians offers comprehensive maintenance services for various types of equipment, such as aerial work platforms, material handling and more. We follow a strict maintenance schedule that includes regular inspections, preventive maintenance, and minor repairs to ensure your equipment is always in top condition.</p><p>Our AMC services are customized to meet the specific needs of your business, and we offer flexible service packages that can be tailored to suit your budget and equipment requirements. With our AMC services, you can enjoy the benefits of increased equipment uptime, reduced repair costs, and improved lifespan.</p><p>At Mtandt Group, we are committed to providing high-quality AMC services that meet industry standards and regulations. Contact us today to learn more about our equipment AMC services and take the first step towards hassle-free maintenance.</p>",
+  "image": "/legacy/imageFile/16831117712.jpg",
+  "brochure": null,
+  "features": [
+   {
+    "icon": "fas fa-clock",
+    "title": "",
+    "html": "<p>We offer on-time services to decrease downtime at the worksite. </p>"
+   }
+  ],
+  "cta": null
+ },
+ "cesl": {
+  "kind": "hub",
+  "meta": {
+   "title": "Expert Safety & Operator Training Services | CESL India",
+   "description": "Join CESL for specialized safety and operator training, including Work at Height, MEWP, and GWO Basic Safety Training to boost skills and safety in your workforce."
+  },
+  "logo": {
+   "src": "/legacy/forntend/images/logo/CESL-Logo.webp",
+   "alt": "CESL-Logo"
+  },
+  "tagline": "Capital Equipment Services Limited",
+  "aboutTitle": "About CESL",
+  "aboutHtml": "<p>At <b><a href=\"https://cesltraining.com/\">Capital Equipment Services Limited (CESL)</a></b>, we take pride in being one of India’s most trusted training institutes, known for delivering top-quality, specialized training and consultancy services. With a passion for excellence, CESL has earned its reputation as a go-to name in safety and operator training. Our expertly designed programs, including Work at Height Training, Mobile Elevating Work Platform (MEWP) Operator Training, and Global Wind Organization (GWO) - Basic Safety Training, are tailored to empower your workforce with the skills they need to stay safe and excel in their roles. Join us to elevate safety standards and build a more skilled, confident team! </p>",
+  "aboutImage": {
+   "src": "/legacy/forntend/images/service/CESL-img.webp",
+   "alt": "CESL"
+  },
+  "services": {
+   "title": "Our Services",
+   "intro": "",
+   "items": [
+    {
+     "title": "Work at Height Training",
+     "text": "Empowering workplaces with safety-focused training, our Work at Height program reduces risks and prevents accidents for those working at elevated levels.",
+     "href": "/services/work-at-height-training",
+     "image": "/legacy/forntend/images/service/Maintenance-Services.webp",
+     "alt": "CESL"
+    },
+    {
+     "title": "MEWP Operator Training",
+     "text": "Our Mobile Elevating Work Platform (MEWP) Operator Training provides essential skills for safe and efficient operation of scissor lifts, boom lifts, and more.",
+     "href": "/services/mewp-operator-training",
+     "image": "/legacy/forntend/images/service/Repair-Services.webp",
+     "alt": "Repair Services"
+    },
+    {
+     "title": "GWO Basic Safety Training",
+     "text": "Accredited by the Global Wind Organization (GWO), this program equips participants with critical skills to manage safety risks in wind turbine environments.",
+     "href": "/services/gwo-basic-safety-training",
+     "image": "/legacy/forntend/images/service/Yard-Services.webp",
+     "alt": "Yard-Services"
+    }
+   ]
+  },
+  "why": {
+   "title": "Why Choose Equipr?",
+   "intro": "",
+   "items": [
+    {
+     "title": "",
+     "text": "Endorsed by prominent leaders in the industry, CESL Training, a part of Mtandt Group, is one of the largest providers of MEWP training across the SAARC region."
+    },
+    {
+     "title": "",
+     "text": "Over the past three years, more than 5,000 individuals have been successfully trained."
+    },
+    {
+     "title": "",
+     "text": "Our training curriculum adheres to global industry standards while offering area-specific modules to address unique local challenges and requirements."
+    },
+    {
+     "title": "",
+     "text": "CESL Training is highly regarded for its quality and effectiveness, with an impressive client base of over 50 companies who trust us for their recurring training needs."
+    }
+   ]
+  },
+  "brochure": "/legacy/service_brochure/17353677141.pdf"
+ },
+ "competency-certifications": {
+  "kind": "detail",
+  "meta": {
+   "title": "Competency Certifications Services - Top Assessment Services",
+   "description": "Mtandt offers competency certifications for a range of industrial equipment, including access platforms, material handling solutions, and more. Contact us."
+  },
+  "crumbs": [
+   {
+    "label": "Services",
+    "href": "/services"
+   },
+   {
+    "label": "Equipment Management",
+    "href": null
+   },
+   {
+    "label": "Competency Certifications",
+    "href": null
+   }
+  ],
+  "bannerTitle": "EQUIPMENT MANAGEMENT",
+  "banner": "/legacy/imageFile/16831170611.jpg",
+  "heading": "COMPETENCY CERTIFICATIONS",
+  "subheading": "",
+  "html": "Our specialized competency certifications help businesses ensure their employees have the skills and knowledge to perform their jobs safely and efficiently. We understand the importance of having a competent workforce, and our certification services offer a reliable solution to measure and validate employee competency.<br/>Our team of experienced trainers and assessors uses various methods, such as written and practical assessments, to evaluate employee competency in various areas, such as equipment operation, safety procedures, technical skills and other essential criteria. We offer certification programs for multiple industries, such as construction, manufacturing, transportation, etc.<br/>We are committed to providing high-quality competency certification services that meet industry standards and regulations. As a result, our certification services are recognized by industry bodies and offer valuable credentials to employees and businesses.<br/>",
+  "image": "/legacy/imageFile/16831170612.jpg",
+  "brochure": null,
+  "features": [],
+  "cta": null
+ },
+ "consultancy-and-training": {
+  "kind": "detail",
+  "meta": {
+   "title": "Expert Onshore & Offshore Training and Consultancy Services",
+   "description": "Comprehensive IRATA-certified training and consultancy services, including work at height, confined space rescue, rigging, fire safety, and more. Stay safe and efficient."
+  },
+  "crumbs": [
+   {
+    "label": "Services",
+    "href": "/services"
+   },
+   {
+    "label": "Equipment Management",
+    "href": null
+   },
+   {
+    "label": "Consultancy and Training",
+    "href": null
+   }
+  ],
+  "bannerTitle": "EQUIPMENT MANAGEMENT",
+  "banner": "/legacy/imageFile/17333098101.png",
+  "heading": "CONSULTANCY AND TRAINING",
+  "subheading": "",
+  "html": "<h4>Consultancy and Training for Onshore &amp; Offshore</h4> <p>We provide comprehensive training and consultancy services, enabling your workforce to operate safely and efficiently in high-risk environments. Our expert trainers are IRATA-certified, ensuring world-class instruction tailored to your operational needs.</p> <h4>Training Programs</h4><ul><li><a href=\"/services/work-at-height-training\"><b>Work at Height</b></a> – Safety Protocols</li><li>Work at Height – Rescue Operations</li><li>Tower Crane Emergency Evacuation and Rescue</li><li>Tower Climber Rescue Techniques</li><li>Rope Access and Rescue Equipment Solutions</li><li>Work at Height – Risk Management and Assessment</li><li>Harness Awareness for Safe Working at Height</li><li>Confined Space Entry Training</li><li>Confined Space Entry and Rescue Preparedness</li><li>Rigging and Lifting Techniques</li><li>Fire Evacuation and Awareness Training</li><li>Ladder Safety Awareness and Usage</li><li>Height Safety – Expert Consultation</li><li>Tree Canopy Management for Coffee Plantations</li><li>Aerial Rigging Practices</li><li>High-Angle Adventure Course Design and Maintenance – Zipline Systems</li></ul><ul> </ul>",
+  "image": "/legacy/imageFile/17333098102.jpg",
+  "brochure": null,
+  "features": [],
+  "cta": null
+ },
+ "eat": {
+  "kind": "hub",
+  "meta": {
+   "title": "Industrial Rope Access Services | Evolution Access Technologies",
+   "description": "Safe and efficient industrial rope access services by IRATA-certified experts. Offshore and onshore solutions for inspection, maintenance, and training."
+  },
+  "logo": {
+   "src": "/legacy/forntend/images/logo/Evolution-Access-Logo.webp",
+   "alt": "Evolution Access Technologies"
+  },
+  "tagline": "Evolution Access Technologies",
+  "aboutTitle": "About EAT",
+  "aboutHtml": "<p><b><a href=\"https://evolution-access.com/\">Evolution Access Technologies</a></b> is an Industrial Rope Access Service Provider formed with a vision to make working at height accessible and safer. With safety as the main focus, rigorous standards have been developed and established to provide a safe, quick, and cost-effective way of solving the most challenging access problems. We only mobilise experienced IRATA Rope Access Technicians for a wide range of trades and disciplines. Similarly, all our Rope Access Safety Equipment conforms to the relevant standards (i.e. EN, ANSI, etc.). Our highly trained and experienced rope access technicians supervise every project for quality workmanship, ensuring the best access approach is utilised and adhering to globally benchmarked HSE standards. To guarantee quality and safety, we carry out job-specific risk assessments and method statements, implement a rescue plan for every foreseeable situation, handle site management, and liaise with relevant contractors. We work closely with our clients, understanding their needs and goals. We then provide customised solutions to overcome any project's unique challenges and deliver each project to the highest level.</p>",
+  "aboutImage": {
+   "src": "/legacy/forntend/images/service/EAT.webp",
+   "alt": "Evolution Access Technologies"
+  },
+  "services": {
+   "title": "Our Services",
+   "intro": "",
+   "items": [
+    {
+     "title": "Offshore and Onshore",
+     "text": "Our industrial rope access solutions deliver unmatched safety, efficiency, and precision for challenging access needs, both offshore and onshore.",
+     "href": "/services/offshore-and-onshore-solutions",
+     "image": "/legacy/forntend/images/service/Maintenance-Services.webp",
+     "alt": "Industrial Rope Access"
+    },
+    {
+     "title": "Inspection and Survey",
+     "text": "We offer comprehensive inspection services to maintain safety compliance and operational efficiency, even in hard-to-reach areas.",
+     "href": "/services/inspection-and-survey",
+     "image": "/legacy/forntend/images/service/Repair-Services.webp",
+     "alt": "Inspection and Survey"
+    },
+    {
+     "title": "Maintenance and Repairs",
+     "text": "Our maintenance and repair services are tailored to ensure that your facilities remain operational and compliant, with minimal disruption to your daily activities.",
+     "href": "/services/maintenance-and-repairs",
+     "image": "/legacy/forntend/images/service/Yard-Services.webp",
+     "alt": "Maintenance and Repairs"
+    },
+    {
+     "title": "Consultancy and Training",
+     "text": "We provide comprehensive training and consultancy services, enabling your workforce to operate safely and efficiently in high-risk environments.",
+     "href": "/services/consultancy-and-training",
+     "image": "/legacy/forntend/images/service/Remote-Monitoring-System.webp",
+     "alt": "Consultancy and Training"
+    }
+   ]
+  },
+  "why": {
+   "title": "Why Choose Evolution Access Technologies?",
+   "intro": "As a proud member of the Industrial Rope Access Trade Association (IRATA), we prioritize safety, efficiency, and client satisfaction. Here’s why you can rely on us:",
+   "items": [
+    {
+     "title": "Highly Skilled Supervisors",
+     "text": "Our IRATA Level 3 certified supervisors bring over 3000 hours of logged experience, excelling in complex operations like rope access maneuvers, hauling systems, and rescue plans."
+    },
+    {
+     "title": "Experienced Technicians",
+     "text": "Certified IRATA Level 2 and Level 1 technicians execute intricate tasks under expert guidance with precision and adherence to safety protocols."
+    },
+    {
+     "title": "Cost-Effective Solutions",
+     "text": "Rope access eliminates the need for scaffolding or heavy equipment, reducing project costs significantly."
+    },
+    {
+     "title": "Fast and Flexible",
+     "text": "Quick setup and dismantling allow us to work efficiently, minimizing delays and project timeframes."
+    },
+    {
+     "title": "Minimal Disruption",
+     "text": "We ensure minimal impact on surrounding environments, preserving structure integrity and reducing interference with daily operations."
+    }
+   ]
+  },
+  "brochure": "/legacy/service_brochure/17353678001.pdf"
+ },
+ "equipment-manpower": {
+  "kind": "detail",
+  "meta": {
+   "title": "Equipment Manpower Services - Equipment Operators",
+   "description": "Our team of experts provides a range of services, from equipment rental and maintenance to skilled manpower supply and management. Contact us."
+  },
+  "crumbs": [
+   {
+    "label": "Services",
+    "href": "/services"
+   },
+   {
+    "label": "Equipment Management",
+    "href": null
+   },
+   {
+    "label": "Equipment Manpower",
+    "href": null
+   }
+  ],
+  "bannerTitle": "EQUIPMENT MANAGEMENT",
+  "banner": "/legacy/imageFile/16831786311.jpg",
+  "heading": "EQUIPMENT MANPOWER",
+  "subheading": "",
+  "html": "<p>Our specialized equipment manpower services are designed to provide your business with the skilled and experienced equipment operators you need to keep your equipment running smoothly. We understand the importance of having certified, reliable and qualified personnel to operate and maintain your equipment, and our manpower services offer a flexible solution to meet your staffing needs.</p><p>Our team of experienced equipment operators undergoes rigorous training and certification to ensure they have the skills and knowledge needed to operate and maintain various types of equipment, such as boom lifts, scissor lifts, spider cranes, forklifts, and material handling equipment. We provide skilled personnel for short-term or long-term projects, and our services can be customized to meet the specific needs of your business.</p><p>We believe that personnel quality is essential in equipment manpower services, and we follow strict selection and recruitment procedures to ensure that we provide the best candidates for the job. Our personnel undergo regular skills assessments and safety training to ensure they are up-to-date with the latest industry regulations and standards.</p>",
+  "image": "/legacy/imageFile/16831786312.jpg",
+  "brochure": null,
+  "features": [],
+  "cta": null
+ },
+ "equipment-operator-training": {
+  "kind": "detail",
+  "meta": {
+   "title": "Heavy Equipment Operator Training | Mtandt Group",
+   "description": "Mtandt offers equipment operator training programs to ensure worker safety in high-risk environments. Contact us to schedule your training session."
+  },
+  "crumbs": [
+   {
+    "label": "Services",
+    "href": "/services"
+   },
+   {
+    "label": "Equipment Management",
+    "href": null
+   },
+   {
+    "label": "Equipment Operator Training",
+    "href": null
+   }
+  ],
+  "bannerTitle": "EQUIPMENT MANAGEMENT",
+  "banner": "/legacy/imageFile/16831103651.jpg",
+  "heading": "EQUIPMENT OPERATOR TRAINING",
+  "subheading": "",
+  "html": "Our specialized equipment training programs are designed to equip your workforce with the skills and knowledge needed to operate various machines safely and efficiently. We understand the importance of proper equipment operation in industries such as construction, manufacturing, logistics and material handling and provide customized training solutions to meet the specific needs of your business.<br/>Our team of experienced trainers uses a hands-on approach to ensure that participants gain practical experience in equipment operation, maintenance, and troubleshooting. From essential equipment operation to advanced-level courses, we offer various programs covering equipment types, such as boom lifts, scissor lifts, vertical mast lifts, cranes, forklifts, excavators, and more.<br/><br/>Operator training is an ongoing process, and we are committed to providing continuous support to our clients. Our post-training support includes regular equipment inspections, refresher courses, and industry regulations and standards updates.<br/><br/>At Mtandt Group, we are committed to providing high-quality operator training that meets industry standards and regulations. Contact us today to learn more about our equipment operator training programs and take the first step towards safe and efficient equipment operation.",
+  "image": "/legacy/imageFile/16831103652.jpg",
+  "brochure": null,
+  "features": [
+   {
+    "icon": "fa fa-laptop",
+    "title": "",
+    "html": "<p>Blended learning modules with classroom knowledge and hands-on approach </p>"
+   }
+  ],
+  "cta": null
+ },
+ "equipr": {
+  "kind": "hub",
+  "meta": {
+   "title": "Total Asset Management for MEWPs | Equipr Services",
+   "description": "Maximize the performance and ROI of your MEWPs with Equipr’s Total Asset Management Services. Expert solutions for safety, uptime, and efficiency."
+  },
+  "logo": {
+   "src": "/legacy/forntend/images/logo/Equipr-Logo.webp",
+   "alt": "Equipr-Logo"
+  },
+  "tagline": "TOTAL ASSET MANAGEMENT FOR MEWPs",
+  "aboutTitle": "About EQUIPR",
+  "aboutHtml": "<p><b><a href=\"https://equipr.in/\">Equipr</a></b> is a leading provider of Total Asset Management Services for Mobile Elevated Work Platforms (MEWPs). We specialize in maximizing the performance, uptime, and ROI of your equipment, offering tailored solutions designed to enhance safety, boost efficiency, and ensure seamless operations for your fleet. Backed by a team of OEM-certified professionals, we deliver comprehensive services that optimize the functionality and reliability of your MEWPs, no matter the task. </p>",
+  "aboutImage": {
+   "src": "/legacy/forntend/images/service/EQUIPR-img.webp",
+   "alt": "Equipr-Logo"
+  },
+  "services": {
+   "title": "Our Services",
+   "intro": "At Equipr, we offer a wide range of services designed to keep your MEWPs in top condition, providing reliable, efficient, and optimized performance.",
+   "items": [
+    {
+     "title": "Maintenance Services",
+     "text": "Our preventive maintenance programs are aimed at preventing breakdowns and extending the operational life of your MEWPs.",
+     "href": "/services/maintenance-services",
+     "image": "/legacy/forntend/images/service/Maintenance-Services.webp",
+     "alt": "Maintenance-Services"
+    },
+    {
+     "title": "Repair Services",
+     "text": "Equipr provides fast, efficient, and reliable repair services to minimize downtime and restore your equipment to peak performance.",
+     "href": "/services/repair-services",
+     "image": "/legacy/forntend/images/service/Repair-Services.webp",
+     "alt": "Repair Services"
+    },
+    {
+     "title": "Yard Services",
+     "text": "Our yard services are designed to simplify equipment handling and optimize fleet management, providing support where you need it most.",
+     "href": "/services/yard-services",
+     "image": "/legacy/forntend/images/service/Yard-Services.webp",
+     "alt": "Yard-Services"
+    },
+    {
+     "title": "Remote Monitoring System (Telematics)",
+     "text": "Equipr’s advanced telematics technology offers real-time monitoring and insights into your equipment’s performance, empowering your operations with data-driven decisions.",
+     "href": "/services/remote-monitoring-system-telematics",
+     "image": "/legacy/forntend/images/service/Remote-Monitoring-System.webp",
+     "alt": "Remote-Monitoring-System"
+    }
+   ]
+  },
+  "why": {
+   "title": "Why Choose Equipr?",
+   "intro": "At Equipr, we offer a wide range of services designed to keep your MEWPs in top condition, providing reliable, efficient, and optimized performance.",
+   "items": [
+    {
+     "title": "Certified Expertise",
+     "text": "Our team of OEM-certified technicians is trained to service all leading MEWP brands, including Dingli, JLG, Genie, XCMG, LGMG, Manitou, Skyjack, & more."
+    },
+    {
+     "title": "Maximized ROI",
+     "text": "Our expert care and advanced technologies ensure extended equipment life, resulting in the best possible returns."
+    },
+    {
+     "title": "Broad Equipment Range Supported",
+     "text": "Whether it's boom lifts, scissor lifts, telehandlers, spider lifts, or other specialized MEWPs, we’ve got you covered."
+    },
+    {
+     "title": "Comprehensive Care",
+     "text": "From routine maintenance to cutting-edge telematics, we offer complete fleet care solutions."
+    }
+   ]
+  },
+  "supported": {
+   "title": "Supported Equipment",
+   "intro": "Equipr offers Total Asset Management services for a wide range of MEWPs from leading OEMs, including:",
+   "image": {
+    "src": "/legacy/forntend/images/service/supported-equipmentimg.webp",
+    "alt": "supported-equipment"
+   },
+   "html": "<ul> <li><b> Boom Lifts:</b> Dingli, XCMG, LGMG, JLG, Genie, ATN, Manitou, Skyjack</li> <li><b>Scissor Lifts:</b> Dingli, JLG, XCMG, Snorkel, Runshare, Zoomlion, MEC</li> <li><b>Vertical Mast:</b> Dingli, Haulotte</li> <li><b>Mast Boom:</b> Dingli</li> <li><b>Telehandlers:</b> Magni</li> <li><b>Spider Lifts:</b> Teupen, Falcon, Omme, Comet, CMC, Ruthmann, Denka, ATN</li> </ul>"
+  },
+  "brochure": "/legacy/service_brochure/17353677551.pdf"
+ },
+ "fall-protection-training": {
+  "kind": "detail",
+  "meta": {
+   "title": "Heavy Equipment Operator Training | Mtandt Group",
+   "description": "Mtandt offers equipment operator training programs to ensure worker safety in high-risk environments. Contact us to schedule your training session."
+  },
+  "crumbs": [
+   {
+    "label": "Services",
+    "href": "/services"
+   },
+   {
+    "label": "Equipment Management",
+    "href": null
+   },
+   {
+    "label": "Equipment Operator Training",
+    "href": null
+   }
+  ],
+  "bannerTitle": "EQUIPMENT MANAGEMENT",
+  "banner": "/legacy/imageFile/16831103651.jpg",
+  "heading": "EQUIPMENT OPERATOR TRAINING",
+  "subheading": "",
+  "html": "Our specialized equipment training programs are designed to equip your workforce with the skills and knowledge needed to operate various machines safely and efficiently. We understand the importance of proper equipment operation in industries such as construction, manufacturing, logistics and material handling and provide customized training solutions to meet the specific needs of your business.<br/>Our team of experienced trainers uses a hands-on approach to ensure that participants gain practical experience in equipment operation, maintenance, and troubleshooting. From essential equipment operation to advanced-level courses, we offer various programs covering equipment types, such as boom lifts, scissor lifts, vertical mast lifts, cranes, forklifts, excavators, and more.<br/><br/>Operator training is an ongoing process, and we are committed to providing continuous support to our clients. Our post-training support includes regular equipment inspections, refresher courses, and industry regulations and standards updates.<br/><br/>At Mtandt Group, we are committed to providing high-quality operator training that meets industry standards and regulations. Contact us today to learn more about our equipment operator training programs and take the first step towards safe and efficient equipment operation.",
+  "image": "/legacy/imageFile/16831103652.jpg",
+  "brochure": null,
+  "features": [
+   {
+    "icon": "fa fa-laptop",
+    "title": "",
+    "html": "<p>Blended learning modules with classroom knowledge and hands-on approach </p>"
+   }
+  ],
+  "cta": null
+ },
+ "gwo-basic-safety-training": {
+  "kind": "detail",
+  "meta": {
+   "title": "GWO Basic Safety Training – Get Certified Fast",
+   "description": "Join GWO Basic Safety Training to earn global certification. Learn first aid, fire awareness, manual handling & more. Enroll today!"
+  },
+  "crumbs": [
+   {
+    "label": "Services",
+    "href": "/services"
+   },
+   {
+    "label": "Equipment Management",
+    "href": null
+   },
+   {
+    "label": "GWO Basic Safety Training",
+    "href": null
+   }
+  ],
+  "bannerTitle": "EQUIPMENT MANAGEMENT",
+  "banner": "/legacy/imageFile/17351210071.jpg",
+  "heading": "GWO BASIC SAFETY TRAINING",
+  "subheading": "",
+  "html": "<p>Accredited by the Global Wind Organization (GWO), this program equips participants with critical skills to manage safety risks in wind turbine environments. </p> <h4>Key Highlights</h4><ul><li><h4>Work at Height:</h4></li><ul><li><h4>Implement height safety protocols and use <b><a href=\"/custom-product-detail-buy/tools-and-supplies/personal-protective-equipment\">PPE</a> </b>effectively.</h4></li><li><h4>Perform safe rescue operations in remote environments.</h4></li></ul><li><h4>Manual Handling:</h4></li><ul><li><h4>Learn safe techniques to handle workloads and reduce injury risks.</h4></li><li><h4>Ensure compliance with industrial handling best practices.</h4></li></ul><li><h4>First Aid:</h4></li><ul><li><h4>Respond to life-threatening situations with prompt and effective care.</h4></li><li><h4>Stabilize casualties and prepare for professional medical help.</h4></li></ul><li><h4>Fire Awareness:</h4></li><ul><li><h4>Assess fire risks, use firefighting equipment, and manage evacuations.</h4></li></ul></ul> <h4>Training Details</h4><p><b>Format</b>: Classroom and hands-on practical sessions with theory assessments.</p><p><b>Duration</b>: 3.5 days.</p><p><b>Batch Size</b>: Limited to 6 participants.</p><p><b>Target Audience</b>: Supervisors and workers in windmill sectors.</p><p><b>Certification</b>: Industry-recognized certificate valid for 2 years.</p><ul> </ul>",
+  "image": "/legacy/imageFile/17333070782.jpg",
+  "brochure": null,
+  "features": [],
+  "cta": null
+ },
+ "industrial-safety-training": {
+  "kind": "detail",
+  "meta": {
+   "title": "Industrial Safety Training Programs - Online Safety Course",
+   "description": "Mtandt offers industrial safety training programs to ensure a safe work environment for your employees. Our training covers a wide range of topics. Call Us."
+  },
+  "crumbs": [
+   {
+    "label": "Services",
+    "href": "/services"
+   },
+   {
+    "label": "Equipment Management",
+    "href": null
+   },
+   {
+    "label": "Industrial Safety Training",
+    "href": null
+   }
+  ],
+  "bannerTitle": "EQUIPMENT MANAGEMENT",
+  "banner": "/legacy/imageFile/16831102331.jpg",
+  "heading": "INDUSTRIAL SAFETY TRAINING",
+  "subheading": "",
+  "html": "Our comprehensive Industrial safety training programs are designed to equip you and your workforce with the knowledge and skills to maintain a safe and productive work environment. We understand the importance of safety in industrial operations and provide customized training solutions to meet the specific needs of your business.<br/>Our experienced trainers use a hands-on approach to ensure participants gain practical experience in hazard identification, risk assessment, and mitigation techniques. From basic safety training to advanced-level courses, we offer various programs covering industrial safety topics such as fall protection, confined space entry, electrical safety, and more.<br/>Safety training is an ongoing process, and we are committed to providing continuous support to our clients. Our post-training support includes regular safety audits, refresher courses, and the latest safety regulations and standards updates.<br/>At Mtandt Group, we are committed to providing high-quality safety training that meets industry standards and regulations. Contact us today to learn more about our industrial safety training programs and take the first step towards a safer workplace.<br/>",
+  "image": "/legacy/imageFile/16831101802.jpg",
+  "brochure": null,
+  "features": [
+   {
+    "icon": "fa fa-group",
+    "title": "",
+    "html": "<p>We certify your employees to operate work-at-height equipment to enhance safety at site. </p>"
+   }
+  ],
+  "cta": null
+ },
+ "inspection-and-survey": {
+  "kind": "detail",
+  "meta": {
+   "title": "Certified Onshore Offshore Inspection Services | NDT Experts",
+   "description": "Comprehensive onshore and offshore inspections: NDT, confined space, flare monitoring, and more. Certified specialists ensure safety and operational efficiency."
+  },
+  "crumbs": [
+   {
+    "label": "Services",
+    "href": "/services"
+   },
+   {
+    "label": "Equipment Management",
+    "href": null
+   },
+   {
+    "label": "Inspection and Survey",
+    "href": null
+   }
+  ],
+  "bannerTitle": "EQUIPMENT MANAGEMENT",
+  "banner": "/legacy/imageFile/17333087401.png",
+  "heading": "INSPECTION AND SURVEY",
+  "subheading": "",
+  "html": "<h4>Inspection and Survey for Onshore &amp; Offshore</h4><p>We offer comprehensive <a href=\"/\"><b>inspection services</b></a> to maintain safety compliance and operational efficiency, even in hard-to-reach areas.</p> <h4>Key Inspection Services</h4><ul><li>Comprehensive NDT Inspections: Techniques include UT, MT, PT, ECI, TOFD, ACFM, LRUT, and GUL.</li><li>Derrick Structural and Safety Assessments</li><li>Flare Tip and Flare Line Condition Monitoring</li><li>Shutdown and Turnaround Inspection Solutions</li><li>Confined Space and Restricted Access Evaluations</li><li>High-Risk Plant and Piping Access Inspections</li><li>Chimney and Stack Structural Inspections</li><li>Lifting Gear Safety Surveys and Inspections</li><li>Shipyard and Offloading Facility Safety Checks</li><li>Expertise in Confined Space Entry and Difficult Access Areas</li></ul><p><br/></p><p>All our projects are carefully planned and executed in strict compliance with globally recognized HSE standards. Every task is performed by certified trade specialists.</p><p>Welding and Cutting (Certified 6G, AWS, API, ABS) and Painting and Blasting (Certified Coating Inspectors: NACE/BGAS).</p> <h4><br/></h4><ul> </ul>",
+  "image": "/legacy/imageFile/17333087402.jpg",
+  "brochure": null,
+  "features": [],
+  "cta": null
+ },
+ "maintenance-and-repairs": {
+  "kind": "detail",
+  "meta": {
+   "title": "Onshore & Offshore Maintenance & Repairs | Certified Experts",
+   "description": "Reliable onshore and offshore maintenance: derrick repairs, welding, marine coatings, electrical upgrades, and more by certified trade specialists."
+  },
+  "crumbs": [
+   {
+    "label": "Services",
+    "href": "/services"
+   },
+   {
+    "label": "Equipment Management",
+    "href": null
+   },
+   {
+    "label": "Maintenance and Repairs",
+    "href": null
+   }
+  ],
+  "bannerTitle": "EQUIPMENT MANAGEMENT",
+  "banner": "/legacy/imageFile/17333093221.png",
+  "heading": "MAINTENANCE AND REPAIRS",
+  "subheading": "",
+  "html": "<h4>Maintenance and Repairs for Onshore &amp; Offshore</h4> <p>Our <b><a href=\"/\">maintenance and repair services</a></b> are tailored to ensure that your facilities remain operational and compliant, with minimal disruption to your daily activities.</p> <h4>Key Maintenance and Repair Services</h4><ul><li>Derrick Maintenance, Repairs, and Assembly</li><li>Flare Tip to Splash Zone Upkeep and Repairs</li><li>Helideck Structural and Surface Repairs</li><li>Steel Replacement and Bolt Tensioning</li><li>Surface Preparation: Blasting and Painting</li><li>Welding and Metal Cutting Services</li><li>Marine Coating and Sealant Applications</li><li>Fabrication and Assembly Works</li><li>Electrical Installations and Upgrades</li><li>Mechanical Engineering and Support Services</li><li>Demolition and Decommissioning Projects</li><li>Composite Repair Solutions for Piping Systems</li></ul><p>All our projects are carefully planned and executed in strict compliance with globally recognized HSE standards. Every task is performed by certified trade specialists.</p><p>Welding and Cutting (Certified 6G, AWS, API, ABS) and Painting and Blasting (Certified Coating Inspectors: NACE/BGAS).</p><br/><ul> </ul>",
+  "image": "/legacy/imageFile/17333093222.jpg",
+  "brochure": null,
+  "features": [],
+  "cta": null
+ },
+ "maintenance-services": {
+  "kind": "detail",
+  "meta": {
+   "title": "Expert MEWP Maintenance for Optimal Performance",
+   "description": "Keep your MEWPs running smoothly with tailored maintenance: commissioning, AMCs, preventive care, and more to reduce downtime and improve performance."
+  },
+  "crumbs": [
+   {
+    "label": "Services",
+    "href": "/services"
+   },
+   {
+    "label": "Equipment Management",
+    "href": null
+   },
+   {
+    "label": "Maintenance Services",
+    "href": null
+   }
+  ],
+  "bannerTitle": "EQUIPMENT MANAGEMENT",
+  "banner": "/legacy/imageFile/17333105611.png",
+  "heading": "MAINTENANCE SERVICES",
+  "subheading": "",
+  "html": "<p>Our tailored maintenance programs ensure your MEWPs remain in peak condition, minimizing downtime and extending their lifespan. Here's how we support your equipment:</p><ul><li><b>Commissioning of New Equipment</b>: Ensuring smooth integration and optimal functionality right from the start.</li><li><b><a href=\"/services/amc\">Annual Maintenance Contracts (AMC) &amp; Warranty Services</a></b>: Providing reliable, long-term support for your machinery.</li><li><b>Routine &amp; Preventive Maintenance</b>: Proactively addressing potential issues to avoid costly repairs and maintain operational efficiency.</li> </ul> <h4>Benefits</h4> <ul> <li>Improves equipment reliability and performance.</li> <li>Reduces downtime and prevents costly breakdowns.</li> <li>Guarantees new equipment is ready for immediate deployment.</li> </ul>",
+  "image": "/legacy/imageFile/17333105612.jpg",
+  "brochure": null,
+  "features": [],
+  "cta": null
+ },
+ "mewp-operator-training": {
+  "kind": "detail",
+  "meta": {
+   "title": "MEWP Training – Operator Courses & Certification",
+   "description": "Get MEWP training for operators with safety-focused courses. Earn your certification online or onsite. Enroll now to upgrade skills fast!"
+  },
+  "crumbs": [
+   {
+    "label": "Services",
+    "href": "/services"
+   },
+   {
+    "label": "Equipment Management",
+    "href": null
+   },
+   {
+    "label": "MEWP Operator Training",
+    "href": null
+   }
+  ],
+  "bannerTitle": "EQUIPMENT MANAGEMENT",
+  "banner": "/legacy/imageFile/17333065321.png",
+  "heading": "MEWP OPERATOR TRAINING",
+  "subheading": "",
+  "html": "<p>Our MEWP Operator Training provides essential skills and knowledge for the safe operation, usage, and maintenance of MEWPs, including <b><a href=\"/product-category-buy/aerial-work-platform/scissor-lift\">scissor lifts</a></b>, <b><a href=\"/product-category-buy/aerial-work-platform/boom-lift\">boom lifts</a></b>, and truck-mounted equipment.</p><h4>Key Highlights</h4><ul><li><b>Safe Operation</b>: Learn to operate and maneuver MEWPs safely to minimize workplace risks.</li><li><b>Task Efficiency</b>: Master correct positioning for tasks to ensure safety and efficiency.</li><li><b>Pre-Operation Checks</b>: Perform essential checks and basic maintenance for safe functionality.</li><li><b>Training Format</b>: Classroom and hands-on sessions over 2 days.</li><li><b>Batch Size</b>: Limited to 10 participants for effective learning.</li><li><b>Certification</b>: Industry-recognized certificate valid for 2 years, awarded after assessments.</li><li><b>Materials Provided</b>: Comprehensive handouts for all participants.</li><li><b>Target Audience</b>: Supervisors and workers in scaffolding and MEWP activities; participants must be physically fit and free from fear of heights.</li></ul><br/> <h4>Standards Followed</h4><ul><li>NSDC – IES/Q0127</li><li>ISO 18878</li></ul><br/><ul> </ul>",
+  "image": "/legacy/imageFile/17333067162.jpg",
+  "brochure": null,
+  "features": [],
+  "cta": null
+ },
+ "offshore-and-onshore-solutions": {
+  "kind": "detail",
+  "meta": {
+   "title": "Industrial Rope Access Solutions | Offshore & Onshore Services",
+   "description": "Safe, efficient industrial rope access for offshore and onshore needs. IRATA-certified experts in inspection, maintenance, and coatings for diverse industries."
+  },
+  "crumbs": [
+   {
+    "label": "Services",
+    "href": "/services"
+   },
+   {
+    "label": "Equipment Management",
+    "href": null
+   },
+   {
+    "label": "Offshore and Onshore solutions",
+    "href": null
+   }
+  ],
+  "bannerTitle": "EQUIPMENT MANAGEMENT",
+  "banner": "/legacy/imageFile/17333078811.png",
+  "heading": "OFFSHORE AND ONSHORE SOLUTIONS",
+  "subheading": "",
+  "html": "<h2>Industrial Rope Access Solutions (Offshore and Onshore)</h2> <p>Our industrial rope access solutions deliver unmatched safety, efficiency, and precision for challenging access needs, both offshore and onshore. Designed to minimize downtime and disruption, our IRATA-certified experts specialize in inspections, maintenance, coatings, installations, and emergency response, even in the most demanding environments.</p> <p>We proudly serve a diverse range of industries, including oil and gas, wind energy, construction, telecommunications, marine, power generation, and infrastructure, offering tailored solutions to meet specific operational needs. By adhering to the highest safety standards and utilizing state-of-the-art equipment, we ensure reliable and cost-effective access to hard-to-reach areas.</p> <p>With a strong commitment to quality, rapid response times, and customized services, we go beyond expectations to deliver value-driven results. Choose our rope access solutions for safe, efficient, and versatile operations. Let us help you overcome <a href=\"/about-us#accreditations\"><b>challenges and achieve new heights</b></a> with confidence and precision.</p><ul> </ul> <h2><br/></h2>",
+  "image": "/legacy/imageFile/17333078812.png",
+  "brochure": null,
+  "features": [],
+  "cta": null
+ },
+ "remote-monitoring-system-telematics": {
+  "kind": "detail",
+  "meta": {
+   "title": "Remote Monitoring for MEWPs: Boost Uptime & Reduce Downtime",
+   "description": "Stay ahead with remote monitoring for your MEWPs. Track performance, reduce downtime, and enhance productivity, all while lowering operational costs."
+  },
+  "crumbs": [
+   {
+    "label": "Services",
+    "href": "/services"
+   },
+   {
+    "label": "Equipment Management",
+    "href": null
+   },
+   {
+    "label": "Remote Monitoring System (Telematics)",
+    "href": null
+   }
+  ],
+  "bannerTitle": "EQUIPMENT MANAGEMENT",
+  "banner": "/legacy/imageFile/17333112461.png",
+  "heading": "REMOTE MONITORING SYSTEM (TELEMATICS)",
+  "subheading": "",
+  "html": "<p>Stay ahead with real-time insights into your equipment's performance, empowering you to make smarter decisions, reduce downtime, and enhance overall productivity while lowering operational expenses:</p><ul><li><b>Remote Monitoring</b>: Track and manage your equipment effortlessly, anytime, anywhere.</li><li><b>Enhanced Productivity</b>: Maximize efficiency through data-driven optimizations.</li><li><b>Reduced Downtime</b>: Proactively address issues to keep your operations running smoothly.</li></ul><ul> </ul> <h4>Benefits</h4> <ul> <li>Reduces risks during <a href=\"/category-by-subcategory/material-handling-equipment\"><b>equipment handling</b></a> and transportation.</li> <li>Enhances functionality with customized modifications.</li> <li>Guarantees immediate readiness and compliance for deployment.</li> </ul>",
+  "image": "/legacy/imageFile/17333115482.jpg",
+  "brochure": null,
+  "features": [],
+  "cta": null
+ },
+ "repair-services": {
+  "kind": "detail",
+  "meta": {
+   "title": "Reliable MEWP Repair Services: On-Site & Workshop Solutions",
+   "description": "Minimize downtime with our fast and efficient repair services. Offering on-site breakdown support and major repairs at our workshop to restore equipment performance."
+  },
+  "crumbs": [
+   {
+    "label": "Services",
+    "href": "/services"
+   },
+   {
+    "label": "Equipment Management",
+    "href": null
+   },
+   {
+    "label": "Repair Services",
+    "href": null
+   }
+  ],
+  "bannerTitle": "EQUIPMENT MANAGEMENT",
+  "banner": "/legacy/imageFile/17333107971.png",
+  "heading": "REPAIR SERVICES",
+  "subheading": "",
+  "html": "<p>When your equipment faces downtime, we respond swiftly to get you back in action. Our repair services are designed to be flexible and efficient, offering both on-site and workshop solutions:</p><ul><li><b>Breakdown Repair at Site</b>: Our skilled technicians provide immediate support with on-site services for quick resolution.</li><li><b>Major Refurbishment and Repairs</b>: <a href=\"/services\"><b>Comprehensive services</b></a> conducted at our state-of-the-art central workshop.</li> </ul> <h4>Benefits</h4> <ul> <li>Quick resolution of equipment failures to maintain high productivity.</li> <li>Restores equipment to optimal working condition, extending its lifespan.</li> </ul>",
+  "image": "/legacy/imageFile/17333107972.jpg",
+  "brochure": null,
+  "features": [],
+  "cta": null
+ },
+ "rope-access-operations-and-services": {
+  "kind": "detail",
+  "meta": {
+   "title": "Rope Access Services by Experts | IRATA-Certified Team",
+   "description": "Hire top rope access specialists for inspection, repair & maintenance. IRATA-certified services for civil, geotechnical & industrial projects. Call now!"
+  },
+  "crumbs": [
+   {
+    "label": "Services",
+    "href": "/services"
+   },
+   {
+    "label": "Equipment Management",
+    "href": null
+   },
+   {
+    "label": "Rope Access Operations and Services",
+    "href": null
+   }
+  ],
+  "bannerTitle": "EQUIPMENT MANAGEMENT",
+  "banner": "/legacy/imageFile/16831166951.jpg",
+  "heading": "ROPE ACCESS OPERATIONS AND SERVICES",
+  "subheading": "",
+  "html": "<p>Our specialized rope access operations and services are designed to provide safe, efficient, cost-effective solutions for accessing and working at height or in hard-to-reach areas. We understand the challenges of working in elevated or confined spaces. Our rope access techniques and equipment offer a reliable solution for oil and gas, renewables, marine, geotechnical and civil industries to inspect, maintain, and repair infrastructures.</p><p>Our team of IRATA-certified rope access technicians uses various specialized techniques to access and work at height or in confined spaces. Our rope access services include industrial cleaning, painting, structural inspections, installation of equipment and a lot more.</p><p>Safety is paramount in rope access operations, and we follow strict safety protocols and procedures to ensure the safety of our personnel and clients. Our team is trained and certified in rope access techniques and undergoes regular safety training and equipment inspections.</p><p>We are committed to providing high-quality rope access operations and services that meet industry standards and regulations. Contact us today to learn more about our rope access services and take the first step towards safe and efficient operations for your business.</p>",
+  "image": "/legacy/imageFile/16831166952.jpg",
+  "brochure": null,
+  "features": [],
+  "cta": null
+ },
+ "rope-access-training": {
+  "kind": "detail",
+  "meta": {
+   "title": "Rope Access Services - IRATA Certified Training Courses",
+   "description": "Mtandt offers comprehensive rope access training for technicians and professionals in industries such as oil, gas, construction, and maintenance. Contact us."
+  },
+  "crumbs": [
+   {
+    "label": "Services",
+    "href": "/services"
+   },
+   {
+    "label": "Equipment Management",
+    "href": null
+   },
+   {
+    "label": "Rope Access Training",
+    "href": null
+   }
+  ],
+  "bannerTitle": "EQUIPMENT MANAGEMENT",
+  "banner": "/legacy/imageFile/16831162591.jpg",
+  "heading": "ROPE ACCESS TRAINING",
+  "subheading": "",
+  "html": "<p>Our specialized training programs are designed to equip you with the skills and knowledge to safely and efficiently access and work at height using rope access techniques. We understand the importance of safe rope access operations in various industries, such as construction, maintenance, and inspection, and provide customized training solutions to meet the specific needs of your business.</p><p><br/></p><p>Our IRATA-certified team of experienced trainers uses a hands-on approach to ensure participants gain practical experience in rope access techniques, equipment selection, and rescue procedures. From basic rope access training to advanced level courses, we offer various programs covering various rope access topics such as vertical rescue, rigging, anchor selection and more.</p><p><br/>We believe that rope access training is an ongoing process, and we are committed to providing continuous support to our clients. Our post-training support includes regular skills assessments, refresher courses, and the latest industry regulations and standards updates.</p><p><br/>We are committed to providing high-quality rope access training that meets industry standards and regulations. Contact us today to learn more about our rope access training programs and take the first step towards safe and efficient rope access operations.</p>",
+  "image": "/legacy/imageFile/16831162592.jpg",
+  "brochure": null,
+  "features": [],
+  "cta": null
+ },
+ "work-at-height-training": {
+  "kind": "detail",
+  "meta": {
+   "title": "Work at Height Training – Safety Courses & Certificate",
+   "description": "Protect yourself and your team. Join trusted work at height training, earn certification fast, and meet safety standards. Enroll today!"
+  },
+  "crumbs": [
+   {
+    "label": "Services",
+    "href": "/services"
+   },
+   {
+    "label": "Equipment Management",
+    "href": null
+   },
+   {
+    "label": "Work at Height Training",
+    "href": null
+   }
+  ],
+  "bannerTitle": "EQUIPMENT MANAGEMENT",
+  "banner": "/legacy/imageFile/17351210181.jpg",
+  "heading": "WORK AT HEIGHT TRAINING",
+  "subheading": "",
+  "html": "<p>Our comprehensive training provides the knowledge and skills needed to ensure workplace safety and compliance with industry standards.</p> <h4>Key Highlights</h4><ul><li><b>Identify Risks</b>: Learn to identify tasks involving work at height and associated risks to take proactive safety measures.</li><li><b>Safe Access Methods</b>: Understand and use appropriate access equipment effectively to reduce fall risks.</li><li><b>Enhanced Safety Practices</b>: Implement critical safety precautions to minimize the risk of falls and hazards.</li><li><b>Training Format</b>: Classroom sessions combined with hands-on practical training.</li><li><b>Duration</b>: 2-day intensive course.</li><li><b>Batch Size</b>: Limited to 10 participants for personalized learning.</li><li><b>Materials Provided</b>: Comprehensive training handouts for all participants.</li><li><b>Certification</b>: Industry-recognized certificate valid for 2 years, awarded upon successful completion of written and practical assessments.</li><li><b>Target Participants</b>: Supervisors and workers involved in <b><a href=\"/category-by-subcategory/aluminium-scaffold\">scaffolding and work-at-height</a></b> activities.</li><li><b>Prerequisites</b>: Participants must be physically fit and free from a fear of heights.</li></ul> <h4>Standards Followed</h4><ul><li>OSHA 29 CFR 1926.501</li><li>EN 363:2019</li><li>OSHA 29 CFR 1926.1211</li></ul><ul> </ul>",
+  "image": "/legacy/imageFile/17333057232.png",
+  "brochure": "/legacy/service_brochure/17338241961.pdf",
+  "features": [],
+  "cta": null
+ },
+ "yard-services": {
+  "kind": "detail",
+  "meta": {
+   "title": "Comprehensive Yard Services for MEWP Maintenance",
+   "description": "Optimize your MEWP fleet with pre-delivery checks, pre-hire inspections, and new equipment commissioning for safety, efficiency, and compliance."
+  },
+  "crumbs": [
+   {
+    "label": "Services",
+    "href": "/services"
+   },
+   {
+    "label": "Equipment Management",
+    "href": null
+   },
+   {
+    "label": "Yard Services",
+    "href": null
+   }
+  ],
+  "bannerTitle": "EQUIPMENT MANAGEMENT",
+  "banner": "/legacy/imageFile/17333110441.png",
+  "heading": "YARD SERVICES",
+  "subheading": "",
+  "html": "<p>We provide a comprehensive range of yard services tailored to meet your <b><a href=\"/category-by-subcategory/aerial-work-platform\">MEWP (Mobile Elevating Work Platforms)</a></b> requirements, whether you're purchasing new equipment or maintaining your current fleet:</p><ul><li><b>Pre-Delivery Inspections (PDI)</b>: Ensuring your equipment is ready for immediate use with thorough checks before delivery.</li><li><b>Pre-Hire Inspections (PHI)</b>: Guaranteeing safety and performance standards before rental or usage.</li><li><b>New Equipment Commissioning</b>: Seamlessly integrating new machinery into your operations for optimal efficiency.</li> </ul> <h4>Benefits</h4> <ul> <li>Reduces risks during equipment handling and transportation.</li> <li>Enhances functionality with customized modifications.</li> <li>Guarantees immediate readiness and compliance for deployment.</li> </ul>",
+  "image": "/legacy/imageFile/17333110442.jpg",
+  "brochure": null,
+  "features": [],
+  "cta": null
+ }
+}

@@ -1,25 +1,14 @@
-"use client";
-
-import { motion } from "motion/react";
+import { contact } from "@/content/site";
 
 export default function AssistBanner() {
   return (
-    <motion.div
-      className="bg-primary-yellow"
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.6 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-    >
-      <div className="default-margin flex flex-col md:flex-row items-center justify-between gap-2 py-4 text-center md:text-left">
-        <p className="text-xl md:text-2xl">We are here to assist you.</p>
-        <a
-          href="tel:+919090101065"
-          className="text-xl md:text-2xl font-bold underline underline-offset-4 decoration-2"
-        >
-          Call us: +91 9090 1010 65
+    <div className="bg-brand-light">
+      <div className="default-margin flex flex-col items-center justify-center gap-1 py-3 text-center sm:flex-row sm:gap-3">
+        <p className="text-lg font-medium text-ink-soft">We are here to assist you.</p>
+        <a href={contact.phoneHref} className="text-2xl font-bold text-ink no-underline">
+          Call us: {contact.phone}
         </a>
       </div>
-    </motion.div>
+    </div>
   );
 }

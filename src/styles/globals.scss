@@ -1,8 +1,19 @@
 @import "tailwindcss";
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
+// Palette sampled from www.mtandt.com (forntend/css + screenshots).
 @theme {
-  --color-primary-yellow: #f5e311;
+  --color-primary-yellow: #f7e433;
+  --color-brand: #f7e433;
+  --color-brand-light: #fef157;
+  --color-brand-cream: #fffddc;
+  --color-brand-sand: #f5f0cc;
+  --color-ink: #131313;
+  --color-ink-soft: #505050;
+  --color-surface: #f9f9f9;
+  --color-whatsapp: #25d366;
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-inter: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 
 // Mixins
@@ -33,14 +44,10 @@ html {
   box-sizing: border-box;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-color: #fefefe;
-  font-size: 100%/1rem;
+  background-color: #fff;
 
   ::selection {
-    background: #00000080;
-  }
-  ::-moz-selection {
-    background: #00000080;
+    background: #f7e43399;
   }
 }
 
@@ -49,9 +56,9 @@ body {
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: "Inter", sans-serif;
-  font-optical-sizing: auto;
+  font-family: "Poppins", sans-serif;
   font-weight: normal;
+  color: var(--color-ink);
   word-wrap: break-word;
   font-kerning: normal;
 }
@@ -63,16 +70,6 @@ body {
 }
 
 // Typography
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Poppins", sans-serif;
-  font-optical-sizing: auto;
-}
-
 @layer base {
   h1,
   h2,
@@ -80,86 +77,139 @@ h6 {
   h4,
   h5,
   h6 {
-    font-weight: 300;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
     font-style: normal;
-    color: #151617;
-    font-size: 2.4rem;
-    b {
-      font-weight: 600;
+    color: var(--color-ink);
+    line-height: 1.25;
+    b,
+    strong {
+      font-weight: 700;
     }
   }
-}
 
-h1 {
-  font-size: 1.8rem;
-  @include for-tablet-up {
-    font-size: 3rem;
-  }
-}
-h2 {
-  font-size: 1.4rem;
-  @include for-tablet-up {
-    font-size: 2.6rem;
-  }
-}
-h3 {
-  font-size: 2.2rem;
-}
-h4 {
-  font-size: 1.8rem;
-}
-h5 {
-  font-size: 1.4rem;
-}
-h6 {
-  font-size: 1.2rem;
-}
-
-p,
-a,
-ul,
-ol,
-li {
-  font-family: "Inter", sans-serif;
-  font-optical-sizing: auto;
-}
-
-@layer base {
-  p,
-  a,
-  ul,
-  ol,
-  li {
-    font-style: normal;
-    font-size: 1rem;
-    color: #444546;
-    font-weight: 400;
-    b {
-      font-weight: 500;
-    }
-    i {
-      font-style: italic;
-    }
+  h1 {
+    font-size: 1.75rem;
     @include for-tablet-up {
-      font-size: 1.2rem;
+      font-size: 2.25rem;
     }
   }
-}
+  h2 {
+    font-size: 1.5rem;
+    @include for-tablet-up {
+      font-size: 2rem;
+    }
+  }
+  h3 {
+    font-size: 1.35rem;
+  }
+  h4 {
+    font-size: 1.2rem;
+  }
+  h5 {
+    font-size: 1.1rem;
+  }
+  h6 {
+    font-size: 1rem;
+  }
 
-a,
-.link {
-  text-decoration-thickness: 0.1em;
-  text-underline-offset: 0.2em;
+  p,
+  li {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--color-ink-soft);
+    b,
+    strong {
+      font-weight: 600;
+      color: var(--color-ink);
+    }
+  }
+
+  a {
+    text-decoration-thickness: 0.1em;
+    text-underline-offset: 0.2em;
+  }
 }
 
 // Layouts
 .default-margin {
-  max-width: 1400px;
-  @apply w-full mx-auto px-4 md:px-12;
+  max-width: 1200px;
+  @apply w-full mx-auto px-4 md:px-8;
 }
 
 .default-height {
   min-height: 90vh;
 }
 
-// Custom Styles
+// Components
+@layer components {
+  // "| Title" left-bar section heading used across the site
+  .section-title {
+    @apply relative pl-3 text-2xl font-semibold text-[#444] md:text-3xl;
+    &::before {
+      content: "";
+      @apply absolute left-0 top-1 bottom-1 w-[3px] bg-[#444];
+    }
+  }
+
+  .section-title-yellow::before {
+    @apply bg-brand;
+  }
+
+  .btn-yellow {
+    @apply inline-flex items-center justify-center gap-2 bg-brand px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-ink transition-colors hover:bg-ink hover:text-brand;
+  }
+
+  .btn-dark {
+    @apply inline-flex items-center justify-center gap-2 bg-ink px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-brand hover:text-ink;
+  }
+
+  .field {
+    @apply w-full border border-neutral-300 bg-white px-3 py-2.5 text-sm text-ink placeholder:text-neutral-500 focus:border-ink focus:outline-none;
+  }
+
+  // Rich text from Payload/Lexical and legacy HTML
+  .prose-legacy {
+    @apply text-ink-soft;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      @apply mt-6 mb-3;
+    }
+    p {
+      @apply mb-4;
+    }
+    ul {
+      @apply mb-4 list-disc pl-6;
+    }
+    ol {
+      @apply mb-4 list-decimal pl-6;
+    }
+    a {
+      @apply text-ink underline;
+    }
+    img {
+      @apply my-4 h-auto max-w-full;
+    }
+    table {
+      @apply mb-4 w-full border-collapse text-sm;
+    }
+    td,
+    th {
+      @apply border border-neutral-200 px-3 py-2 text-left align-top;
+    }
+    th {
+      @apply bg-surface font-semibold text-ink;
+    }
+  }
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

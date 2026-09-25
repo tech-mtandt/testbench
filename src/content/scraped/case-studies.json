@@ -1,0 +1,506 @@
+{
+ "case-study-2": {
+  "title": "real CASE STUDY 2",
+  "banner": "/legacy/forntend/images/categroyimg/tilebanner.jpg",
+  "blocks": [
+   {
+    "title": "Challenges",
+    "html": "Available Early 2016, Leadonance Marketo Suite offers a set of powerful for Marketo to give you control over the extra functions in Marketo, that you need to scale your marketing initiatives."
+   },
+   {
+    "title": "Solution",
+    "html": "Available Early 2016, Leadonance Marketo Suite offers a set of improvements for control over the extra functions in Marketo, that you need to scale your marketing initiatives."
+   },
+   {
+    "title": "Result",
+    "html": "Available Early 2016, Leadonance Marketo Suite a of powerful improvements for Marketo to give you control over the to scale your marketing initiatives."
+   }
+  ],
+  "details": [
+   [
+    "Name",
+    "Lorem Ipsum"
+   ],
+   [
+    "Location",
+    "Ghaziabad"
+   ],
+   [
+    "Product",
+    "Aerial Equipment"
+   ],
+   [
+    "Application",
+    "Aluminium Scaffold"
+   ],
+   [
+    "Client",
+    "WebSpread Technologies"
+   ]
+  ],
+  "download": "/legacy/imageFile/newfile331653282729.pdf",
+  "gallery": [
+   "/legacy/imageFile/1646917818.0jpg",
+   "/legacy/imageFile/1646917818.1jpg",
+   "/legacy/imageFile/1646917818.2jpg",
+   "/legacy/imageFile/1646917818.3jpg",
+   "/legacy/imageFile/1646917818.4webp",
+   "/legacy/imageFile/1646917818.5webp"
+  ],
+  "related": [
+   {
+    "title": "real CASE STUDY 1",
+    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "href": "/casestudy/case-study-1",
+    "image": "/legacy/imageFile/1646917486.jpg"
+   },
+   {
+    "title": "real CASE STUDY 3",
+    "text": "Case StudyLorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "href": "/casestudy/real-case-study-31742625082",
+    "image": "/legacy/imageFile/1646918096.jpg"
+   }
+  ]
+ },
+ "real-case-study-31742625082": {
+  "title": "real CASE STUDY 3",
+  "banner": "/legacy/forntend/images/categroyimg/tilebanner.jpg",
+  "blocks": [
+   {
+    "title": "Challenges",
+    "html": "Available Early 2016, Leadonance Marketo Suite offers a set of powerful for Marketo to give you control over the extra functions in Marketo, that you need to scale your marketing initiatives."
+   },
+   {
+    "title": "Solution",
+    "html": "Available Early 2016, Leadonance Marketo Suite offers a set of improvements for control over the extra functions in Marketo, that you need to scale your marketing initiatives."
+   },
+   {
+    "title": "Result",
+    "html": "Available Early 2016, Leadonance Marketo Suite a of powerful improvements for Marketo to give you control over the to scale your marketing initiatives."
+   }
+  ],
+  "details": [
+   [
+    "Name",
+    "Lorem Ipsum"
+   ],
+   [
+    "Location",
+    "Ghaziabad"
+   ],
+   [
+    "Product",
+    "Aerial Equipment"
+   ],
+   [
+    "Application",
+    "Aluminium Scaffold"
+   ],
+   [
+    "Client",
+    "WebSpread Technologies"
+   ]
+  ],
+  "download": "/legacy/imageFile/newfile331653282729.pdf",
+  "gallery": [
+   "/legacy/imageFile/1646918096.0jpg",
+   "/legacy/imageFile/1646918096.1jpg",
+   "/legacy/imageFile/1646918096.2jpg",
+   "/legacy/imageFile/1646918096.3jpg",
+   "/legacy/imageFile/1646918096.4webp",
+   "/legacy/imageFile/1646918096.5webp"
+  ],
+  "related": [
+   {
+    "title": "real CASE STUDY 1",
+    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "href": "/casestudy/case-study-1",
+    "image": "/legacy/imageFile/1646917486.jpg"
+   },
+   {
+    "title": "real CASE STUDY 2",
+    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "href": "/casestudy/case-study-2",
+    "image": "/legacy/imageFile/1646917818.jpg"
+   }
+  ]
+ },
+ "case-study-1": {
+  "title": "real CASE STUDY 1",
+  "banner": "/legacy/forntend/images/categroyimg/tilebanner.jpg",
+  "blocks": [
+   {
+    "title": "Challenges",
+    "html": "Available Early 2016, Leadonance Marketo Suite offers a set of powerful for Marketo to give you control over the extra functions in Marketo, that you need to scale your marketing initiatives."
+   },
+   {
+    "title": "Solution",
+    "html": "Available Early 2016, Leadonance Marketo Suite offers a set of improvements for control over the extra functions in Marketo, that you need to scale your marketing initiatives."
+   },
+   {
+    "title": "Result",
+    "html": "Available Early 2016, Leadonance Marketo Suite a of powerful improvements for Marketo to give you control over the to scale your marketing initiatives."
+   }
+  ],
+  "details": [
+   [
+    "Name",
+    "Lorem Ipsum"
+   ],
+   [
+    "Location",
+    "Ghaziabad"
+   ],
+   [
+    "Product",
+    "Aerial Equipment"
+   ],
+   [
+    "Application",
+    "Aluminium Scaffold"
+   ],
+   [
+    "Client",
+    "WebSpread Technologies"
+   ]
+  ],
+  "download": "/legacy/imageFile/newfile331653282729.pdf",
+  "gallery": [
+   "/legacy/imageFile/1646917486.0jpg",
+   "/legacy/imageFile/1646917486.1jpg",
+   "/legacy/imageFile/1646917486.2jpg",
+   "/legacy/imageFile/1646917486.3jpg",
+   "/legacy/imageFile/1646917486.4webp",
+   "/legacy/imageFile/1646917486.5webp"
+  ],
+  "related": [
+   {
+    "title": "real CASE STUDY 2",
+    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "href": "/casestudy/case-study-2",
+    "image": "/legacy/imageFile/1646917818.jpg"
+   },
+   {
+    "title": "real CASE STUDY 3",
+    "text": "Case StudyLorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "href": "/casestudy/real-case-study-31742625082",
+    "image": "/legacy/imageFile/1646918096.jpg"
+   }
+  ]
+ },
+ "case-study-21646988172": {
+  "title": "avi CASE STUDY 2",
+  "banner": "/legacy/forntend/images/categroyimg/tilebanner.jpg",
+  "blocks": [
+   {
+    "title": "Challenges",
+    "html": "Available Early 2016, Leadonance Marketo Suite offers a set of powerful for Marketo to give you control over the extra functions in Marketo, that you need to scale your marketing initiatives."
+   },
+   {
+    "title": "Solution",
+    "html": "Available Early 2016, Leadonance Marketo Suite offers a set of improvements for control over the extra functions in Marketo, that you need to scale your marketing initiatives"
+   },
+   {
+    "title": "Result",
+    "html": "Available Early 2016, Leadonance Marketo Suite a of powerful improvements for Marketo to give you control over the to scale your marketing initiatives."
+   }
+  ],
+  "details": [
+   [
+    "Name",
+    "Lorem Ipsum"
+   ],
+   [
+    "Location",
+    "Ghaziabad"
+   ],
+   [
+    "Product",
+    "Aerial Equipment"
+   ],
+   [
+    "Application",
+    "Aluminium Scaffold"
+   ],
+   [
+    "Client",
+    "WebSpread Technologies"
+   ]
+  ],
+  "download": "/legacy/imageFile/newfile331653282729.pdf",
+  "gallery": [
+   "/legacy/imageFile/1646918769.0jpg",
+   "/legacy/imageFile/1646918769.1jpg",
+   "/legacy/imageFile/1646918769.2jpg",
+   "/legacy/imageFile/1646918769.3jpg",
+   "/legacy/imageFile/1646918769.4webp",
+   "/legacy/imageFile/1646918769.5webp"
+  ],
+  "related": [
+   {
+    "title": "avi CASE STUDY 1",
+    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "href": "/casestudy/case-study-11646918553",
+    "image": "/legacy/imageFile/1646918553.jpg"
+   },
+   {
+    "title": "avi CASE STUDY 3",
+    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "href": "/casestudy/case-study-31646985591",
+    "image": "/legacy/imageFile/1646985504.jpg"
+   }
+  ]
+ },
+ "case-study-31646985591": {
+  "title": "avi CASE STUDY 3",
+  "banner": "/legacy/forntend/images/categroyimg/tilebanner.jpg",
+  "blocks": [
+   {
+    "title": "Challenges",
+    "html": "Available Early 2016, Leadonance Marketo Suite offers a set of powerful for Marketo to give you control over the extra functions in Marketo, that you need to scale your marketing initiatives."
+   },
+   {
+    "title": "Solution",
+    "html": "Available Early 2016, Leadonance Marketo Suite offers a set of improvements for control over the extra functions in Marketo, that you need to scale your marketing initiatives."
+   },
+   {
+    "title": "Result",
+    "html": "Available Early 2016, Leadonance Marketo Suite a of powerful improvements for Marketo to give you control over the to scale your marketing initiatives."
+   }
+  ],
+  "details": [
+   [
+    "Name",
+    "Lorem Ipsum"
+   ],
+   [
+    "Location",
+    "Ghaziabad"
+   ],
+   [
+    "Product",
+    "Aerial Equipment"
+   ],
+   [
+    "Application",
+    "Aluminium Scaffold"
+   ],
+   [
+    "Client",
+    "WebSpread Technologies"
+   ]
+  ],
+  "download": "/legacy/imageFile/newfile331653282729.pdf",
+  "gallery": [
+   "/legacy/imageFile/1646919081.0jpg",
+   "/legacy/imageFile/1646919081.1jpg",
+   "/legacy/imageFile/1646919081.2jpg",
+   "/legacy/imageFile/1646919081.3jpg",
+   "/legacy/imageFile/1646919081.4webp",
+   "/legacy/imageFile/1646919081.5webp"
+  ],
+  "related": [
+   {
+    "title": "avi CASE STUDY 1",
+    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "href": "/casestudy/case-study-11646918553",
+    "image": "/legacy/imageFile/1646918553.jpg"
+   },
+   {
+    "title": "avi CASE STUDY 2",
+    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "href": "/casestudy/case-study-21646988172",
+    "image": "/legacy/imageFile/1646988172.jpg"
+   }
+  ]
+ },
+ "case-study-11646921288": {
+  "title": "CASE STUDY 1",
+  "banner": "/legacy/forntend/images/categroyimg/tilebanner.jpg",
+  "blocks": [
+   {
+    "title": "Challenges",
+    "html": "Available Early 2016, Leadonance Marketo Suite offers a set of powerful for Marketo to give you control over the extra functions in Marketo, that you need to scale your marketing initiatives."
+   },
+   {
+    "title": "Solution",
+    "html": "Available Early 2016, Leadonance Marketo Suite offers a set of improvements for control over the extra functions in Marketo, that you need to scale your marketing initiatives."
+   },
+   {
+    "title": "Result",
+    "html": "Available Early 2016, Leadonance Marketo Suite a of powerful improvements for Marketo to give you control over the to scale your marketing initiatives"
+   }
+  ],
+  "details": [
+   [
+    "Name",
+    "Lorem Ipsum"
+   ],
+   [
+    "Location",
+    "Ghaziabad"
+   ],
+   [
+    "Product",
+    "Aerial Equipment"
+   ],
+   [
+    "Application",
+    "Aluminium Scaffold"
+   ],
+   [
+    "Client",
+    "WebSpread Technologies"
+   ]
+  ],
+  "download": "/legacy/imageFile/newfile331653282729.pdf",
+  "gallery": [
+   "/legacy/imageFile/1646921288.0jpg",
+   "/legacy/imageFile/1646921288.1jpg",
+   "/legacy/imageFile/1646921288.2jpg",
+   "/legacy/imageFile/1646921288.3jpg",
+   "/legacy/imageFile/1646921288.4webp",
+   "/legacy/imageFile/1646921288.5webp"
+  ],
+  "related": [
+   {
+    "title": "CASE STUDY 2",
+    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "href": "/casestudy/case-study-21646921482",
+    "image": "/legacy/imageFile/1646921482.jpg"
+   },
+   {
+    "title": "CASE STUDY 3",
+    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "href": "/casestudy/case-study-31646922225",
+    "image": "/legacy/imageFile/1646922225.jpg"
+   }
+  ]
+ },
+ "case-study-11646918553": {
+  "title": "avi CASE STUDY 1",
+  "banner": "/legacy/forntend/images/categroyimg/tilebanner.jpg",
+  "blocks": [
+   {
+    "title": "Challenges",
+    "html": "Available Early 2016, Leadonance Marketo Suite offers a set of powerful for Marketo to give you control over the extra functions in Marketo, that you need to scale your marketing initiatives."
+   },
+   {
+    "title": "Solution",
+    "html": "Available Early 2016, Leadonance Marketo Suite offers a set of improvements for control over the extra functions in Marketo, that you need to scale your marketing initiatives."
+   },
+   {
+    "title": "Result",
+    "html": "Available Early 2016, Leadonance Marketo Suite a of powerful improvements for Marketo to give you control over the to scale your marketing initiatives."
+   }
+  ],
+  "details": [
+   [
+    "Name",
+    "Lorem Ipsum"
+   ],
+   [
+    "Location",
+    "Ghaziabad"
+   ],
+   [
+    "Product",
+    "Aerial Equipment"
+   ],
+   [
+    "Application",
+    "Aluminium Scaffold"
+   ],
+   [
+    "Client",
+    "WebSpread Technologies"
+   ]
+  ],
+  "download": "/legacy/imageFile/newfile331653282729.pdf",
+  "gallery": [
+   "/legacy/imageFile/1646918553.0jpg",
+   "/legacy/imageFile/1646918553.1jpg",
+   "/legacy/imageFile/1646918553.2jpg",
+   "/legacy/imageFile/1646918553.3jpg",
+   "/legacy/imageFile/1646918553.4webp",
+   "/legacy/imageFile/1646918553.5webp"
+  ],
+  "related": [
+   {
+    "title": "avi CASE STUDY 2",
+    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "href": "/casestudy/case-study-21646988172",
+    "image": "/legacy/imageFile/1646988172.jpg"
+   },
+   {
+    "title": "avi CASE STUDY 3",
+    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "href": "/casestudy/case-study-31646985591",
+    "image": "/legacy/imageFile/1646985504.jpg"
+   }
+  ]
+ },
+ "case-study-31646921061": {
+  "title": "auto CASE STUDY 3",
+  "banner": "/legacy/forntend/images/categroyimg/tilebanner.jpg",
+  "blocks": [
+   {
+    "title": "Challenges",
+    "html": "Available Early 2016, Leadonance Marketo Suite offers a set of powerful for Marketo to give you control over the extra functions in Marketo, that you need to scale your marketing initiatives."
+   },
+   {
+    "title": "Solution",
+    "html": "Available Early 2016, Leadonance Marketo Suite offers a set of improvements for control over the extra functions in Marketo, that you need to scale your marketing initiatives."
+   },
+   {
+    "title": "Result",
+    "html": "Available Early 2016, Leadonance Marketo Suite a of powerful improvements for Marketo to give you control over the to scale your marketing initiatives."
+   }
+  ],
+  "details": [
+   [
+    "Name",
+    "Lorem Ipsum"
+   ],
+   [
+    "Location",
+    "Ghaziabad"
+   ],
+   [
+    "Product",
+    "Aerial Equipment"
+   ],
+   [
+    "Application",
+    "Aluminium Scaffold"
+   ],
+   [
+    "Client",
+    "WebSpread Technologies"
+   ]
+  ],
+  "download": "/legacy/imageFile/newfile331653282729.pdf",
+  "gallery": [
+   "/legacy/imageFile/1646921061.0jpg",
+   "/legacy/imageFile/1646921061.1jpg",
+   "/legacy/imageFile/1646921061.2jpg",
+   "/legacy/imageFile/1646921061.3jpg",
+   "/legacy/imageFile/1646921061.4webp",
+   "/legacy/imageFile/1646921061.5webp"
+  ],
+  "related": [
+   {
+    "title": "auto CASE STUDY upt",
+    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "href": "/casestudy/auto-case-study-upt",
+    "image": "/legacy/imageFile/1646920564.jpg"
+   },
+   {
+    "title": "auto CASE STUDY 2",
+    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "href": "/casestudy/auto-case-study-2",
+    "image": "/legacy/imageFile/1646920834.jpg"
+   }
+  ]
+ }
+}

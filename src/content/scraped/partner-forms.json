@@ -1,0 +1,862 @@
+{
+ "customers": {
+  "meta": {
+   "title": "Customer Meta Title",
+   "description": "Customer Meta Description"
+  },
+  "banner": "/legacy/imageFile/1682409509.jpg",
+  "heading": "CUSTOMER",
+  "intro": "<p>Coming soon!<br/></p>",
+  "formTitle": "Customer Credit Application Form",
+  "sections": [
+   {
+    "title": "Contact Details",
+    "level": 1,
+    "fields": [
+     {
+      "name": "company_name",
+      "label": "Company Name",
+      "required": true,
+      "span": 6
+     },
+     {
+      "name": "firm_proprietorship",
+      "label": "Name of Company / Firm / Proprietorship",
+      "required": true,
+      "span": 6
+     },
+     {
+      "name": "domestic_mnc",
+      "label": "Domestic/MNC",
+      "required": true,
+      "span": 6
+     },
+     {
+      "name": "landline_number",
+      "label": "Landline/Mobile Number",
+      "required": true,
+      "span": 6,
+      "type": "tel"
+     },
+     {
+      "name": "website",
+      "label": "Website",
+      "required": false,
+      "span": 6
+     },
+     {
+      "name": "email",
+      "label": "Email id",
+      "required": true,
+      "span": 6,
+      "type": "email"
+     },
+     {
+      "name": "name_director",
+      "label": "Name of Owner/Partners/Sole/Proprietor/ Director",
+      "required": true,
+      "span": 6
+     },
+     {
+      "name": "complete_address",
+      "label": "Complete Registered Office Address",
+      "required": true,
+      "span": 6
+     },
+     {
+      "name": "office_address",
+      "label": "Complete Corresponding Office Address",
+      "required": true,
+      "span": 6
+     }
+    ]
+   },
+   {
+    "title": "Company Details",
+    "level": 1,
+    "fields": [
+     {
+      "name": "certificate_number",
+      "label": "GST Registration Certificate Number",
+      "required": true,
+      "span": 6
+     },
+     {
+      "name": "place_billing",
+      "label": "Place of Billing",
+      "required": true,
+      "span": 6
+     },
+     {
+      "name": "site_address",
+      "label": "Place of Supply/Site Address",
+      "required": true,
+      "span": 6
+     },
+     {
+      "name": "approval_letter",
+      "label": "SEZ Approval Letter (If Applicable)",
+      "required": false,
+      "span": 6
+     },
+     {
+      "name": "declaration",
+      "label": "If Yes, Letter of Declaration",
+      "required": false,
+      "span": 12
+     }
+    ]
+   },
+   {
+    "title": "Total Turnover (P.A in Lacs)",
+    "level": 1,
+    "fields": [
+     {
+      "name": "financial_year",
+      "label": "Financial Year 2021-22",
+      "required": true,
+      "span": 6
+     },
+     {
+      "name": "financial_year_two",
+      "label": "Financial Year 2022-23",
+      "required": true,
+      "span": 6
+     },
+     {
+      "name": "financial_year_three",
+      "label": "Financial Year 2023-24",
+      "required": true,
+      "span": 6
+     },
+     {
+      "name": "nature_company_proprietorship",
+      "label": "Nature of Company/Firm/Proprietorship",
+      "required": true,
+      "span": 6
+     },
+     {
+      "name": "nature_business",
+      "label": "Nature of Business",
+      "required": false,
+      "span": 6
+     },
+     {
+      "name": "specify",
+      "label": "Other (Specify)",
+      "required": false,
+      "span": 6
+     },
+     {
+      "name": "details_concern",
+      "label": "Details of Sister Concern (If Any)",
+      "required": false,
+      "span": 6
+     },
+     {
+      "name": "name_project",
+      "label": "Name of Project",
+      "required": false,
+      "span": 6
+     }
+    ]
+   },
+   {
+    "title": "Project Details",
+    "level": 1,
+    "fields": [
+     {
+      "name": "case_subcontractors",
+      "label": "Name of Principle Contractors in Case of Subcontractors",
+      "required": false,
+      "span": 6
+     },
+     {
+      "name": "principle_contractors",
+      "label": "Contact and Address Details of Principle Contractors",
+      "required": false,
+      "span": 6
+     },
+     {
+      "name": "ssi_number",
+      "label": "SSI Number (If Applicable)",
+      "required": false,
+      "span": 6
+     },
+     {
+      "name": "number",
+      "label": "Number (If Yes)",
+      "required": false,
+      "span": 6
+     },
+     {
+      "name": "office_type",
+      "label": "Office Type",
+      "required": false,
+      "span": 6
+     },
+     {
+      "name": "credit_rating",
+      "label": "Credit Rating (If Available)",
+      "required": false,
+      "span": 6
+     },
+     {
+      "name": "rating",
+      "label": "Rating (if yes)",
+      "required": false,
+      "span": 6
+     }
+    ]
+   },
+   {
+    "title": "Documentation",
+    "level": 1,
+    "fields": [
+     {
+      "name": "gst_certificate",
+      "label": "Upload GST Certificate",
+      "required": true,
+      "span": 4,
+      "type": "file",
+      "accept": ".png,.pdf,.jpg,.jpeg",
+      "hint": "( max. file size 500KB. File Type: Png. Pdf. Jpg. Jpeg...)"
+     },
+     {
+      "name": "pan_card",
+      "label": "Upload PAN Card",
+      "required": true,
+      "span": 4,
+      "type": "file",
+      "accept": ".png,.pdf,.jpg,.jpeg",
+      "hint": "( max. file size 500KB. File Type: Png. Pdf. Jpg. Jpeg...)"
+     },
+     {
+      "name": "aadhar_card",
+      "label": "Upload Aadhar Card",
+      "required": true,
+      "span": 4,
+      "type": "file",
+      "accept": ".png,.pdf,.jpg,.jpeg",
+      "hint": "( max. file size 500KB. File Type: Png. Pdf. Jpg. Jpeg...)"
+     },
+     {
+      "name": "certificate_registration",
+      "label": "Upload Certificate of Registration",
+      "required": false,
+      "span": 4,
+      "type": "file",
+      "accept": ".png,.pdf,.jpg,.jpeg",
+      "hint": "( max. file size 500KB. File Type: Png. Pdf. Jpg. Jpeg...)"
+     },
+     {
+      "name": "balance_sheet",
+      "label": "Upload Balance Sheet (Last 2 Years)",
+      "required": false,
+      "span": 4,
+      "type": "file",
+      "accept": ".png,.pdf,.jpg,.jpeg",
+      "hint": "( max. file size 500KB. File Type: Png. Pdf. Jpg. Jpeg...)"
+     },
+     {
+      "name": "gst_return",
+      "label": "Upload GST 3B Return (Last 3 Months)",
+      "required": false,
+      "span": 4,
+      "type": "file",
+      "accept": ".png,.pdf,.jpg,.jpeg",
+      "hint": "( max. file size 500KB. File Type: Png. Pdf. Jpg. Jpeg...)"
+     },
+     {
+      "name": "bank_statement",
+      "label": "Upload Bank Statement (Last 3 Months)",
+      "required": false,
+      "span": 4,
+      "type": "file",
+      "accept": ".png,.pdf,.jpg,.jpeg",
+      "hint": "( max. file size 500KB. File Type: Png. Pdf. Jpg. Jpeg...)"
+     },
+     {
+      "name": "upload_verification",
+      "label": "Upload Verification of Address Document, If any (Visit Report)",
+      "required": false,
+      "span": 4,
+      "type": "file",
+      "accept": ".png,.pdf,.jpg,.jpeg",
+      "hint": "( max. file size 500KB. File Type: Png. Pdf. Jpg. Jpeg...)"
+     },
+     {
+      "name": "purchase_order",
+      "label": "Upload Purchase Order/Work Order",
+      "required": false,
+      "span": 4,
+      "type": "file",
+      "accept": ".png,.pdf,.jpg,.jpeg",
+      "hint": "( max. file size 500KB. File Type: Png. Pdf. Jpg. Jpeg...)"
+     }
+    ]
+   }
+  ]
+ },
+ "dealer": {
+  "meta": {
+   "title": "Dealer Meta Title",
+   "description": "Dealer Meta Description"
+  },
+  "banner": "/legacy/imageFile/1682490950.jpg",
+  "heading": "DEALER",
+  "intro": "<p>There are several reasons why one may choose to become a dealer for <b><a href=\"/\">Mtandt Group</a></b>, a leading provider of lifting equipment and services in India. Here are some potential benefits of being a <b>Mtandt Dealer:</b><br/><br/></p><ol><li><b>Strong Brand Reputation:</b> Mtandt has a strong reputation in the industry for providing high-quality, reliable work-at-height equipment and services. As a dealer, you would benefit from association with this respected brand, which can help to build trust and credibility with customers.<br/><br/></li><li><b>Wide Range of Products and Services: </b>Mtandt offers a diverse range of equipment, including cranes, <b><a href=\"/category-by-subcategory/aerial-work-platform\">aerial work platforms</a></b>, and <b><a href=\"/category-by-subcategory/material-handling-equipment\">material handling equipment</a></b>, as well as services such as maintenance, repairs, and training. This variety can help you cater to a wide range of customer needs and expand your business.<br/><br/></li><li><b>Training and Support:</b> Mtandt provides training and support to its dealers to help them deliver the best possible service to their customers. This includes technical training, marketing support, and access to a network of experienced professionals.<br/><br/></li><li><b>Strong Customer Focus:</b> Mtandt is known for its customer-centric approach and commitment to providing excellent service. As a dealer, you would be able to leverage this focus on customer satisfaction to build long-term relationships with your own customers.<br/><br/></li><li><b>Growth Opportunities: </b>As a dealer for a leading equipment provider, you would have the potential to grow your business and expand into new markets. Mtandt has a strong presence across India, as well as in other countries, which can help you tap into new opportunities for growth.<br/><br/></li></ol><p>Overall, becoming <b>a Mtandt Dealer is a great opportunity</b> for those looking to enter the capital equipment industry or expand their existing business. </p>",
+  "formTitle": "Dealer Registration Form",
+  "sections": [
+   {
+    "title": null,
+    "fields": [
+     {
+      "name": "name",
+      "label": "Business Owner Name",
+      "required": true,
+      "span": 6
+     },
+     {
+      "name": "companyname",
+      "label": "Company Name",
+      "required": true,
+      "span": 6
+     }
+    ]
+   },
+   {
+    "title": "Company Address *",
+    "level": 1,
+    "fields": [
+     {
+      "name": "address",
+      "label": "Address",
+      "required": true,
+      "span": 3
+     },
+     {
+      "name": "city",
+      "label": "City",
+      "required": true,
+      "span": 3
+     },
+     {
+      "name": "state",
+      "label": "State",
+      "required": true,
+      "span": 3
+     },
+     {
+      "name": "pincode",
+      "label": "Pincode",
+      "required": true,
+      "span": 3,
+      "type": "number"
+     },
+     {
+      "name": "email",
+      "label": "Email",
+      "required": true,
+      "span": 6,
+      "type": "email"
+     },
+     {
+      "name": "mobilenumber",
+      "label": "Mobile Number",
+      "required": true,
+      "span": 6,
+      "type": "tel"
+     },
+     {
+      "name": "companywebsite",
+      "label": "Company Website",
+      "required": false,
+      "span": 6
+     },
+     {
+      "name": "pannumber",
+      "label": "PAN Number",
+      "required": true,
+      "span": 6
+     },
+     {
+      "name": "gstnumber",
+      "label": "GST Number",
+      "required": true,
+      "span": 6
+     },
+     {
+      "name": "service_sell",
+      "label": "Please list the products that you service/sell",
+      "required": false,
+      "span": 6
+     },
+     {
+      "name": "your_company",
+      "label": "Please provide a short description about your company",
+      "required": false,
+      "span": 6
+     },
+     {
+      "name": "geographic_reach",
+      "label": "What market do you service? What is your geographic reach",
+      "required": false,
+      "span": 6
+     },
+     {
+      "name": "choose_product",
+      "label": "Choose a product that you would like to promote",
+      "required": true,
+      "span": 6,
+      "type": "select",
+      "options": [
+       "Aerial Work Platform (Scissor/Boom/Vertical/Spider)",
+       "Truck Mounted Boom Lift",
+       "Boom Lift for Road and Rail",
+       "Material Handling Equipment (Order picker, Duct Lifter)",
+       "Spider Boom Crane",
+       "Mobile Light Tower & Power Station",
+       "Aluminium Scaffolding",
+       "Lifting & Access Equipment (Tower Crane, Hoist, Mast Climber)",
+       "Temporary Road Mats",
+       "Fall Protection Lifeline System",
+       "Suspended Under Deck Access System",
+       "Adjustable Access System (FastBeam)",
+       "Industrial Rope Access",
+       "Total Asset Management",
+       "Tools, PPE, & Supplies",
+       "Training & Certification",
+       "Others Please Specify"
+      ]
+     },
+     {
+      "name": "Others-please-specify",
+      "label": "Please Specify",
+      "required": false,
+      "span": 6,
+      "showIf": {
+       "field": "choose_product",
+       "value": "Others Please Specify"
+      }
+     },
+     {
+      "name": "mtandt_dealer",
+      "label": "Please describe your current interest level in becoming a Mtandt Dealer",
+      "required": false,
+      "span": 6,
+      "type": "select",
+      "options": [
+       "Ready to sign-up today",
+       "Looking to start in next 3 months",
+       "Looking to start in next 6 months",
+       "Looking to start in next 12 months",
+       "Currently just researching for dealer opportunities"
+      ]
+     },
+     {
+      "name": "many_salespeople",
+      "label": "How many salespeople do you have on your team?",
+      "required": true,
+      "span": 6
+     }
+    ]
+   },
+   {
+    "title": "What is your Annual Sales Revenue in the last 3 years? *",
+    "level": 2,
+    "fields": [
+     {
+      "name": "year_1",
+      "label": "Year 1",
+      "required": true,
+      "span": 4
+     },
+     {
+      "name": "year_2",
+      "label": "Year 2",
+      "required": true,
+      "span": 4
+     },
+     {
+      "name": "year_3",
+      "label": "Year 3",
+      "required": true,
+      "span": 4
+     }
+    ]
+   },
+   {
+    "title": "Business References",
+    "level": 1,
+    "fields": []
+   },
+   {
+    "title": "References 1",
+    "level": 2,
+    "fields": [
+     {
+      "name": "company_name",
+      "label": "Company Name",
+      "required": false,
+      "span": 4
+     },
+     {
+      "name": "email_one",
+      "label": "Email id",
+      "required": false,
+      "span": 4,
+      "type": "email"
+     },
+     {
+      "name": "mobile_no",
+      "label": "Mobile No",
+      "required": false,
+      "span": 4,
+      "type": "tel"
+     }
+    ]
+   },
+   {
+    "title": "References 2",
+    "level": 2,
+    "fields": [
+     {
+      "name": "company_name2",
+      "label": "Company Name",
+      "required": false,
+      "span": 4
+     },
+     {
+      "name": "email_one2",
+      "label": "Email id",
+      "required": false,
+      "span": 4,
+      "type": "email"
+     },
+     {
+      "name": "mobile_no2",
+      "label": "Mobile No",
+      "required": false,
+      "span": 4,
+      "type": "tel"
+     }
+    ]
+   },
+   {
+    "title": "References 3",
+    "level": 2,
+    "fields": [
+     {
+      "name": "company_name3",
+      "label": "Company Name",
+      "required": false,
+      "span": 4
+     },
+     {
+      "name": "email_one3",
+      "label": "Email id",
+      "required": false,
+      "span": 4,
+      "type": "email"
+     },
+     {
+      "name": "mobile_no3",
+      "label": "Mobile No",
+      "required": false,
+      "span": 4,
+      "type": "tel"
+     }
+    ]
+   },
+   {
+    "title": "Upload Certifications *",
+    "level": 1,
+    "fields": [
+     {
+      "name": "upload_pan_card",
+      "label": "Upload PAN Card",
+      "required": true,
+      "span": 4,
+      "type": "file",
+      "accept": ".png,.pdf,.jpg,.jpeg",
+      "hint": "( max. file size 500KB. File Type: Png. Pdf. Jpg. Jpeg...)"
+     },
+     {
+      "name": "upload_gst_certificate",
+      "label": "Upload GST Certificate",
+      "required": true,
+      "span": 4,
+      "type": "file",
+      "accept": ".png,.pdf,.jpg,.jpeg",
+      "hint": "( max. file size 500KB. File Type: Png. Pdf. Jpg. Jpeg...)"
+     },
+     {
+      "name": "aadhar_card_owner",
+      "label": "AADHAR Card of Owner",
+      "required": true,
+      "span": 4,
+      "type": "file",
+      "accept": ".png,.pdf,.jpg,.jpeg",
+      "hint": "( max. file size 500KB. File Type: Png. Pdf. Jpg. Jpeg...)"
+     },
+     {
+      "name": "upload_company_profile",
+      "label": "Upload Company Profile",
+      "required": true,
+      "span": 4,
+      "type": "file",
+      "accept": ".png,.pdf,.jpg,.jpeg",
+      "hint": "( max. file size 500KB. File Type: Png. Pdf. Jpg. Jpeg...)"
+     }
+    ]
+   }
+  ]
+ },
+ "vendors": {
+  "meta": {
+   "title": "Vendor Meta Title",
+   "description": "Vendor Meta Description"
+  },
+  "banner": "/legacy/imageFile/1682490932.jpg",
+  "heading": "Vendor",
+  "intro": "<p><br/><b><a href=\"/\">Mtandt Group</a> </b>brings you an opportunity to become our <strong>Vendor </strong>for our products and services. <br/><br/></p><p>Enquire now to know the benefits. </p>",
+  "formTitle": "Vendor Registration Form",
+  "sections": [
+   {
+    "title": null,
+    "fields": [
+     {
+      "name": "name_firm",
+      "label": "Name of Firm/ Company",
+      "required": true,
+      "span": 6
+     },
+     {
+      "name": "type_firm",
+      "label": "Type of the Firm",
+      "required": true,
+      "span": 6,
+      "type": "select",
+      "options": [
+       "Public Limited Co",
+       "Private Limited Co",
+       "Partnership Co",
+       "Proprietorship",
+       "Govt. Sector",
+       "Others, Please Specify"
+      ]
+     },
+     {
+      "name": "Others-please-specify",
+      "label": "Please Specify",
+      "required": false,
+      "span": 6,
+      "showIf": {
+       "field": "type_firm",
+       "value": "Others, Please Specify"
+      }
+     }
+    ]
+   },
+   {
+    "title": "Company Address *",
+    "level": 1,
+    "fields": [
+     {
+      "name": "address",
+      "label": "Address",
+      "required": true,
+      "span": 6
+     },
+     {
+      "name": "city",
+      "label": "City",
+      "required": true,
+      "span": 6
+     },
+     {
+      "name": "state",
+      "label": "State",
+      "required": true,
+      "span": 6
+     },
+     {
+      "name": "pincode",
+      "label": "Pincode",
+      "required": true,
+      "span": 6,
+      "type": "number"
+     },
+     {
+      "name": "email",
+      "label": "Email",
+      "required": true,
+      "span": 6,
+      "type": "email"
+     },
+     {
+      "name": "mobile_number",
+      "label": "Mobile Number",
+      "required": true,
+      "span": 6,
+      "type": "tel"
+     },
+     {
+      "name": "company_website",
+      "label": "Company Website",
+      "required": false,
+      "span": 6
+     },
+     {
+      "name": "pan_number",
+      "label": "PAN Number",
+      "required": true,
+      "span": 6
+     },
+     {
+      "name": "gst_number",
+      "label": "GST Number",
+      "required": true,
+      "span": 6
+     },
+     {
+      "name": "contact_person",
+      "label": "Name of Contact Person",
+      "required": true,
+      "span": 6
+     },
+     {
+      "name": "designation_contact_person",
+      "label": "Designation of Contact Person",
+      "required": true,
+      "span": 6
+     },
+     {
+      "name": "is_your_firm",
+      "label": "Is your firm MSME? (Yes/No)",
+      "required": true,
+      "span": 6,
+      "type": "select",
+      "options": [
+       "Yes",
+       "No"
+      ]
+     }
+    ]
+   },
+   {
+    "title": "Type of Company *",
+    "level": 1,
+    "fields": [
+     {
+      "name": "type_of_company",
+      "label": "Type of Company",
+      "type": "radio",
+      "required": true,
+      "options": [
+       "Manufacturer",
+       "Authorized Dealer",
+       "Stocklist/Trader",
+       "Importer",
+       "Service Provider",
+       "Others"
+      ],
+      "span": 12
+     },
+     {
+      "name": "business_of_company",
+      "label": "Brief Description of Business of your Company",
+      "required": true,
+      "span": 6
+     },
+     {
+      "name": "supply_service",
+      "label": "Type the Items Interested for Supply/ service",
+      "required": true,
+      "span": 6
+     }
+    ],
+    "hideTitle": false
+   },
+   {
+    "title": "Upload Documents",
+    "level": 1,
+    "fields": [
+     {
+      "name": "gst_certificate",
+      "label": "GST Certificate",
+      "required": true,
+      "span": 4,
+      "type": "file",
+      "accept": ".png,.pdf,.jpg,.jpeg",
+      "hint": "( max. file size 500KB. File Type: Png. Pdf. Jpg. Jpeg...)"
+     },
+     {
+      "name": "pan_card",
+      "label": "PAN Card",
+      "required": true,
+      "span": 4,
+      "type": "file",
+      "accept": ".png,.pdf,.jpg,.jpeg",
+      "hint": "( max. file size 500KB. File Type: Png. Pdf. Jpg. Jpeg...)"
+     },
+     {
+      "name": "aadhar_card",
+      "label": "AADHAR Card Copy",
+      "required": true,
+      "span": 4,
+      "type": "file",
+      "accept": ".png,.pdf,.jpg,.jpeg",
+      "hint": "( max. file size 500KB. File Type: Png. Pdf. Jpg. Jpeg...)"
+     },
+     {
+      "name": "iso_certification",
+      "label": "ISO 9001 Certification",
+      "required": true,
+      "span": 4,
+      "type": "file",
+      "accept": ".png,.pdf,.jpg,.jpeg",
+      "hint": "( max. file size 500KB. File Type: Png. Pdf. Jpg. Jpeg...)"
+     },
+     {
+      "name": "iso_ertification",
+      "label": "ISO 14001 Certification",
+      "required": true,
+      "span": 4,
+      "type": "file",
+      "accept": ".png,.pdf,.jpg,.jpeg",
+      "hint": "( max. file size 500KB. File Type: Png. Pdf. Jpg. Jpeg...)"
+     },
+     {
+      "name": "ehs",
+      "label": "EHS",
+      "required": true,
+      "span": 4,
+      "type": "file",
+      "accept": ".png,.pdf,.jpg,.jpeg",
+      "hint": "( max. file size 500KB. File Type: Png. Pdf. Jpg. Jpeg...)"
+     },
+     {
+      "name": "companyprofile",
+      "label": "Company profile",
+      "required": true,
+      "span": 4,
+      "type": "file",
+      "accept": ".png,.pdf,.jpg,.jpeg",
+      "hint": "( max. file size 500KB. File Type: Png. Pdf. Jpg. Jpeg...)"
+     },
+     {
+      "name": "certification_any",
+      "label": "Other Certification if any",
+      "required": true,
+      "span": 4,
+      "type": "file",
+      "accept": ".png,.pdf,.jpg,.jpeg",
+      "hint": "( max. file size 500KB. File Type: Png. Pdf. Jpg. Jpeg...)"
+     }
+    ]
+   }
+  ]
+ }
+}

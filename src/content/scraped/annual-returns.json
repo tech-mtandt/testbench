@@ -1,0 +1,94 @@
+{
+ "meta": {
+  "title": "Annual Returns",
+  "description": "Annual Returns"
+ },
+ "banner": "/legacy/forntend/images/banners/mtandt-anual-return-banner.webp",
+ "tabs": [
+  {
+   "label": "Mtandt Limited",
+   "groups": [
+    {
+     "title": "Annual Return",
+     "docs": [
+      {
+       "label": "Annual Return Form for the year 2024-25 (MGT-7 ML)",
+       "href": "/legacy/forntend/images/annual-return/Mtandt%20Limited_Form_MGT_7_ML_2024-25_Signed.pdf"
+      },
+      {
+       "label": "Annual Return Form for the year 2023-24 (MGT-7 ML)",
+       "href": "/legacy/forntend/images/annual-return/Mtandt%20Limited_Form_MGT_7_ML_2023-24_Signed.pdf"
+      },
+      {
+       "label": "Annual Return Form for the year 2022-23 (MGT-7 ML)",
+       "href": "/legacy/forntend/images/annual-return/Annual%20Return_Form%20MGT_7_ML_2022-23.pdf"
+      },
+      {
+       "label": "Annual Return Form for the year 2021-22 (MGT-7 ML)",
+       "href": "/legacy/forntend/images/annual-return/Annual%20Return_Form%20MGT-7_ML_2021-22.pdf"
+      },
+      {
+       "label": "Annual Return Form for the year 2020-21 (MGT-7 ML)",
+       "href": "/legacy/forntend/images/annual-return/Annual%20Return_Form%20MGT-7_ML_2020-21.pdf"
+      },
+      {
+       "label": "Annual Return Form for the year 2019-20 (MGT-7 ML)",
+       "href": "/legacy/forntend/images/annual-return/Annual%20Return_Form%20MGT-7_ML_2019-20.pdf"
+      }
+     ]
+    },
+    {
+     "title": "Corporate Social Responsibility",
+     "docs": [
+      {
+       "label": "CSR Project Deatils - MRL_2023-24",
+       "href": "/legacy/forntend/images/annual-return/CSR%20Project%20Deatils%20-%20MRL_2023-24.pdf"
+      },
+      {
+       "label": "CSR Policy - MRL",
+       "href": "/legacy/forntend/images/annual-return/CSR%20Policy%20-%20MRL.pdf"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Mtandt Rentals Limited",
+   "groups": [
+    {
+     "title": "Annual Return",
+     "docs": [
+      {
+       "label": "Annual Return 2024-25 (MGT-7 MRL)",
+       "href": "/legacy/forntend/images/annual-return/Mtandt%20Rentals%20Limited_CSR%20Projects%20Details_MRL_2024-25.pdf"
+      },
+      {
+       "label": "Annual Return 2024-25 (MGT-7 MRL)",
+       "href": "/legacy/forntend/images/annual-return/Mtandt%20Rentals%20Limited_Annual%20Report_MRL_2024-25.pdf"
+      },
+      {
+       "label": "Annual Return 2023-24 (MGT-7 MRL)",
+       "href": "/legacy/forntend/images/annual-return/Mtandt%20Rentals%20Limited_Form_MGT_7_MRL_23-24_signed.pdf"
+      },
+      {
+       "label": "Annual Return 2022-23 (MGT-7 MRL)",
+       "href": "/legacy/forntend/images/annual-return/Annual%20Return_MGT-7_MRL_2022-23.pdf"
+      },
+      {
+       "label": "Annual Return 2021-22 (MGT-7 MRL)",
+       "href": "/legacy/forntend/images/annual-return/Annual%20Return_MGT-7_MRL_2021-22.pdf"
+      },
+      {
+       "label": "Annual Return 2020-21 (MGT-7 MRL)",
+       "href": "/legacy/forntend/images/annual-return/Annual%20Return_MGT-7_MRL_2020-21.pdf"
+      },
+      {
+       "label": "Annual Return 2019-20 (MGT-7 MRL)",
+       "href": "/legacy/forntend/images/annual-return/Annual%20Return_MGT-7_MRL_2019-20.pdf"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

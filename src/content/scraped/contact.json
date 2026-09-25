@@ -1,0 +1,236 @@
+{
+ "meta": {
+  "title": "Contact MTandT for Industry-Leading Solutions",
+  "description": "Connect with MTandT's experts to discuss your industry needs. Whether it's equipment, services, or support, we're here to help."
+ },
+ "banner": "/legacy/imageFile/1682413674.jpg",
+ "heading": "GET IN TOUCH WITH US!",
+ "subheading": "CONTACT FORM",
+ "share": {
+  "title": "Your Voice Matters!",
+  "text": "Questions, Suggestions, or Complaints? We are listening",
+  "button": "Share Your Thoughts",
+  "bg": "/legacy/forntend/images/banners/bgtet.jpg",
+  "formTitle": "We Value Your Input",
+  "fields": [
+   {
+    "name": "fullName",
+    "label": "Full Name",
+    "required": true
+   },
+   {
+    "name": "email",
+    "label": "Email",
+    "required": true,
+    "type": "email"
+   },
+   {
+    "name": "phone",
+    "label": "Phone Number",
+    "required": true,
+    "type": "tel"
+   },
+   {
+    "name": "companyName",
+    "label": "Company Name",
+    "required": false
+   },
+   {
+    "name": "category",
+    "label": "Category",
+    "required": true,
+    "type": "select",
+    "options": [
+     "Rental",
+     "Sales"
+    ]
+   },
+   {
+    "name": "feedback",
+    "label": "Feedback/Concern",
+    "required": true,
+    "type": "textarea"
+   }
+  ]
+ },
+ "regions": [
+  {
+   "name": "INDIA",
+   "cities": [
+    {
+     "name": "Chennai",
+     "offices": [
+      {
+       "company": "Mtandt Group",
+       "label": "Corporate Office",
+       "address": "GK Terminal, Floor 1 & 2 Poonamallee High Road, Nerkundram Chennai - 600107",
+       "phones": [
+        "+91 9090 1010 65"
+       ],
+       "emails": [
+        "marketing@mtandt.com"
+       ],
+       "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.4375183366324!2d80.18380667359091!3d13.071434812684577!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5261b754056c59%3A0x8b6dbfb8cd86a4da!2sGK%20TERMINAL%20(%20GK%20GROUP%20OF%20COMPANIES)!5e0!3m2!1sen!2sin!4v1718018220140!5m2!1sen!2sin"
+      },
+      {
+       "company": "Mtandt Group",
+       "label": "Headquarters",
+       "address": "62/2B, New No. 99, Old No. 144 Padur Village, Poonamallee Taluk ,Thiruvallur District, Sriperumbudur, Chennai, Tamil Nadu - 602105",
+       "phones": [
+        "+91 9090 1010 65"
+       ],
+       "emails": [
+        "marketing@mtandt.com"
+       ],
+       "map": "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d248755.62453120982!2d80.011236!3d13.047977!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xe7b1f666f92eb03a!2sMtandt%20Group%20%E2%80%93%20HQ!5e0!3m2!1sen!2sin!4v1644329492578!5m2!1sen!2sin"
+      },
+      {
+       "company": "Mtandt Group",
+       "label": "Retail Office",
+       "address": "146, Broadway Road, Opposite Bank of Maharashtra, Chennai, Tamil Nadu - 600108",
+       "phones": [
+        "+91 9090 1010 65"
+       ],
+       "emails": [
+        "marketing@mtandt.com"
+       ],
+       "map": "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d62172.97918255521!2d80.294923!3d13.111144!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x571bedb2b48cabbb!2sMtandt%20Limited!5e0!3m2!1sen!2sus!4v1644329597924!5m2!1sen!2sus"
+      }
+     ]
+    },
+    {
+     "name": "Bangalore",
+     "offices": [
+      {
+       "company": "Mtandt Group",
+       "label": "Bangalore Branch",
+       "address": "Site No. 9, Rekhi Park Makli, Survey No. 9/1, 9/3, 11/1A2 - 11/1B, Tumkur Road, Near Himalaya Drugs, Dasanpura Hobli, Nelamangala Taluk, Bangalore Rural District - 562162",
+       "phones": [
+        "+91 9090 1010 65"
+       ],
+       "emails": [
+        "marketing@mtandt.com"
+       ],
+       "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.495143062852!2d77.4491994!3d13.067775399999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae3dcc5d79eaf3%3A0xd3f7f060b2d07705!2sMtandt%20Group%20-%20Bangalore%20Branch!5e0!3m2!1sen!2sus!4v1776935556582!5m2!1sen!2sus"
+      }
+     ]
+    },
+    {
+     "name": "Mumbai",
+     "offices": [
+      {
+       "company": "Mtandt Group",
+       "label": "Mumbai Branch",
+       "address": "Office No. 701 & 702, 7th Floor, Kushal Point, Fourth Road, Behind Uday Cinema, Ghatkopar West, Mumbai - 400086",
+       "phones": [
+        "+91 9090 1010 65"
+       ],
+       "emails": [
+        "marketing@mtandt.com"
+       ],
+       "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.4519613309576!2d72.9090744!3d19.0878186!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c62d35a231e3%3A0xf61312b0e21f06ff!2sKushal%20Point%2C%20CGS%20Colony%2C%20Ghatkopar%20West%2C%20Mumbai%2C%20Maharashtra%20400086%2C%20India!5e0!3m2!1sen!2sus!4v1772090741525!5m2!1sen!2sus"
+      },
+      {
+       "company": "Mtandt Group",
+       "label": "Mumbai Facility",
+       "address": "Unit No. 7, Ground Floor, ARK Industrial Estate, Makwana Road, Marol, Andheri East, Mumbai, Maharashtra - 400059",
+       "phones": [
+        "+91 9090 1010 65"
+       ],
+       "emails": [
+        "marketing@mtandt.com"
+       ],
+       "map": "https://maps.google.com/maps?q=Unit%20No.7,%20Ground%20Floor,%20ARK%20Industrial%20Estate,%20Makwana%20Road,%20Marol,%20Andheri%20East,%20Mumbai,%20Maharashtra%20400059&t=&z=13&ie=UTF8&iwloc=&output=embed"
+      }
+     ]
+    },
+    {
+     "name": "Ahmedabad",
+     "offices": [
+      {
+       "company": "Mtandt Group",
+       "label": "Ahmedabad Branch",
+       "address": "Block-331, NH-8, Bareja-Aslali Highway, Jetalpur, Aslali, Ahmedabad, Gujarat - 382427",
+       "phones": [
+        "+91 9090 1010 65"
+       ],
+       "emails": [
+        "marketing@mtandt.com"
+       ],
+       "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3676.063956251387!2d72.5937192!3d22.874095699999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e8d948bdd4f7f%3A0x4dc2819a3a13123b!2sMtandt%20Group%20%E2%80%93%20Ahmedabad%20Branch!5e0!3m2!1sen!2sus!4v1776935972737!5m2!1sen!2sus"
+      }
+     ]
+    },
+    {
+     "name": "Delhi NCR",
+     "offices": [
+      {
+       "company": "Mtandt Group",
+       "label": "Noida Branch",
+       "address": "NPX Tower, Unit No. 530, P5 Floor, Sector - 153, Noida Expressway, Noida, Uttar Pradesh - 201310",
+       "phones": [
+        "+91 9090 1010 65"
+       ],
+       "emails": [
+        "marketing@mtandt.com"
+       ],
+       "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3508.044603297683!2d77.47261999999999!3d28.4480718!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cc3f6ae7dfcfb%3A0xd6693d07241eac08!2sMtandt%20Group%20-%20Noida%20Branch!5e0!3m2!1sen!2sus!4v1776936163233!5m2!1sen!2sus"
+      },
+      {
+       "company": "Mtandt Group",
+       "label": "Jewar Facility",
+       "address": "Plot No. 69, Sector - 32, YEIDA, Jewar District, Gautam Buddh Nagar, Uttar Pradesh - 203135",
+       "phones": [
+        "+91 9090 1010 65"
+       ],
+       "emails": [
+        "marketing@mtandt.com"
+       ],
+       "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3341.732836839969!2d77.59677417527311!3d28.216849475894318!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cb7de466c49e1%3A0x15259a375504e397!2sMtandt%20Group%20-%20Jewar%20Facility!5e1!3m2!1sen!2sin!4v1743672216021!5m2!1sen!2sin"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "OVERSEAS",
+   "cities": [
+    {
+     "name": "Sri Lanka",
+     "offices": [
+      {
+       "company": "Mtandt Lanka Private Ltd.",
+       "label": "Sri Lanka",
+       "address": "No. 417 R.A De Mel Mawatha Colombo 03, Sri Lanka.",
+       "phones": [
+        "+94 112 580 689",
+        "+94 774 168 610"
+       ],
+       "emails": [
+        "yoshan@mtandt.com"
+       ],
+       "map": "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15843.724502477828!2d79.855872!3d6.898841!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xcde5561f1ec21c95!2sMtandt%20Lanka%20(Pvt)%20Ltd!5e0!3m2!1sen!2sin!4v1644330250646!5m2!1sen!2sin"
+      }
+     ]
+    },
+    {
+     "name": "Qatar",
+     "offices": [
+      {
+       "company": "Mtandt Group",
+       "label": "Qatar",
+       "address": "FMA Trading and Contracting LLP, PO Box 96143, CR No. 59228, Doha, Qatar",
+       "phones": [
+        "+91 9090 1010 65"
+       ],
+       "emails": [
+        "marketing@mtandt.com"
+       ],
+       "map": "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d923545.8200671641!2d51.511997!3d25.284009!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e45c534ffdce87f%3A0x44d9319f78cfd4b1!2sDoha%2C%20Qatar!5e0!3m2!1sen!2sin!4v1644330400236!5m2!1sen!2sin"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

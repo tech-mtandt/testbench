@@ -1,89 +1,42 @@
-import configPromise from "@payload-config";
-import { getPayload } from "payload";
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "@/../public/logo.png";
+import { contact, mainNav, socials } from "@/content/site";
+import { MailIcon, PhoneIcon, SocialIcon } from "@/ui/Icons";
+import NavBar from "./NavBar";
 
-const navLinkClass =
-  "relative text-white after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-primary-yellow after:transition-transform after:duration-300 hover:after:scale-x-100";
-
-export default async function Header() {
-  const payload = await getPayload({ config: configPromise });
-  const { docs: socials } = await payload.find({
-    collection: "socials",
-    depth: 1,
-    limit: 20,
-  });
-
+export default function Header() {
   return (
-    <div className="bg-primary-yellow">
-      <div className="default-margin flex items-center justify-between gap-4 py-1">
-        <div className="flex gap-4">
-          <p className="text-sm">+91 9090 1010 65</p>
-          <p className="text-sm">marketing@mtandt.com</p>
-        </div>
-        {socials.length > 0 && (
-          <div className="flex items-center gap-3">
-            {socials.map((social) => {
-              const logo =
-                social.logo && typeof social.logo === "object"
-                  ? social.logo
-                  : null;
-
-              if (!logo?.url) return null;
-
-              return (
-                <a
-                  key={social.id}
-                  href={social.link || "#"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.name}
-                >
-                  <Image
-                    src={logo.url}
-                    alt={social.name}
-                    width={16}
-                    height={16}
-                  />
-                </a>
-              );
-            })}
+    <header className="sticky top-0 z-50">
+      <div className="bg-brand-light">
+        <div className="default-margin flex items-center justify-between gap-4 py-1.5 text-[13px]">
+          <div className="flex items-center gap-5">
+            <a href={contact.phoneHref} className="flex items-center gap-1.5 text-ink no-underline">
+              <PhoneIcon className="h-3.5 w-3.5" />
+              {contact.phone}
+            </a>
+            <a href={`mailto:${contact.email}`} className="hidden items-center gap-1.5 text-ink no-underline sm:flex">
+              <MailIcon className="h-3.5 w-3.5" />
+              {contact.email}
+            </a>
           </div>
-        )}
-      </div>
-      <div className="bg-black py-2">
-        <div className="default-margin flex items-center justify-between">
-          <span className="w-1/3">
-            <Link href="/">
-              <Image src={Logo} alt="MT&T Logo" width={120} height={40}></Image>
-            </Link>
-          </span>
-          <span className="w-2/3 flex justify-end gap-4">
-            <Link href="/products" className={navLinkClass}>
-              Products
-            </Link>
-            <Link href="/services" className={navLinkClass}>
-              Services
-            </Link>
-            <Link href="/catalogue" className={navLinkClass}>
-              Catalogue
-            </Link>
-            <Link href="/media" className={navLinkClass}>
-              Media
-            </Link>
-            <Link href="/partner" className={navLinkClass}>
-              Partner
-            </Link>
-            <Link href="/about" className={navLinkClass}>
-              About us
-            </Link>
-            <Link href="/contact" className={navLinkClass}>
-              Contact us
-            </Link>
-          </span>
+          <div className="flex items-center gap-3">
+            {socials.map((s) => (
+              <a key={s.key} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label} className="text-ink hover:opacity-70">
+                <SocialIcon name={s.key} className="h-3.5 w-3.5" />
+              </a>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+      <div className="bg-black">
+        <div className="default-margin flex h-16 items-center justify-between">
+          <Link href="/" aria-label="MT&T home" className="shrink-0">
+            <Image src={Logo} alt="MT&T — Since 1974" width={126} height={48} priority className="h-12 w-auto" />
+          </Link>
+          <NavBar items={mainNav} />
+        </div>
+      </div>
+    </header>
   );
 }

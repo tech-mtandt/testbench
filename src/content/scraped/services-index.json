@@ -1,0 +1,156 @@
+{
+ "meta": {
+  "title": "service title",
+  "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et"
+ },
+ "banner": "/legacy/imageFile/1682572045.jpg",
+ "items": [
+  {
+   "slug": "amc",
+   "title": "Equipment AMC",
+   "excerpt": "Our AMC considerably reduces equipment downtime and gets better returns on investments.",
+   "button": "READ MORE",
+   "image": "/legacy/imageFile/1669657104.png"
+  },
+  {
+   "slug": "equipment-operator-training",
+   "title": "Equipment Operator Training",
+   "excerpt": "Industry-recognized equipment training for operators for safe and easy handling of AWPs.",
+   "button": "READ MORE",
+   "image": "/legacy/imageFile/1669656545.png"
+  },
+  {
+   "slug": "competency-certifications",
+   "title": "Competency Certifications",
+   "excerpt": "We train and certify your employees with relevant industry skills to boost safety at site.",
+   "button": "READ MORE",
+   "image": "/legacy/imageFile/1669658345.png"
+  },
+  {
+   "slug": "rope-access-operations-and-services",
+   "title": "Rope Access Operations and Services",
+   "excerpt": "Industrial rope access services for inspecting, maintaining and repairing infrastructures.",
+   "button": "READ MORE",
+   "image": "/legacy/imageFile/1669659718.png"
+  },
+  {
+   "slug": "rope-access-training",
+   "title": "Rope Access Training",
+   "excerpt": "Rope access training & certifications to access and work on difficult-to-reach locations.",
+   "button": "READ MORE",
+   "image": "/legacy/imageFile/1669660022.png"
+  },
+  {
+   "slug": "industrial-safety-training",
+   "title": "Industrial Safety Training",
+   "excerpt": "We certify your employees to operate work-at-height equipment to enhance safety at site.",
+   "button": "Read More",
+   "image": "/legacy/imageFile/1683111515.png"
+  },
+  {
+   "slug": "equipment-manpower",
+   "title": "Equipment Manpower",
+   "excerpt": "We provide the highest level of skilled manpower for hassle-free equipment operations.",
+   "button": "Read More",
+   "image": "/legacy/imageFile/1683116967.png"
+  },
+  {
+   "slug": "cesl",
+   "title": "CESL",
+   "excerpt": "Capital Equipment Services Limited",
+   "button": "Read More",
+   "image": "/legacy/imageFile/1733297199addServiceImg.webp"
+  },
+  {
+   "slug": "equipr",
+   "title": "EQUIPR",
+   "excerpt": "TOTAL ASSET MANAGEMENT FOR MEWPs",
+   "button": "Read More",
+   "image": "/legacy/imageFile/1733297454addServiceImg.webp"
+  },
+  {
+   "slug": "eat",
+   "title": "EAT",
+   "excerpt": "Evolution Access Technologies",
+   "button": "Read More",
+   "image": "/legacy/imageFile/1733297817addServiceImg.webp"
+  },
+  {
+   "slug": "work-at-height-training",
+   "title": "Work at Height Training",
+   "excerpt": "Empowering workplaces with safety-focused training, our Work at Height program reduces ris",
+   "button": "Read More",
+   "image": "/legacy/imageFile/1735120836addServiceImg.jpg"
+  },
+  {
+   "slug": "mewp-operator-training",
+   "title": "MEWP Operator Training",
+   "excerpt": "Mobile Elevating Work Platform",
+   "button": "Read More",
+   "image": "/legacy/imageFile/1733306532addServiceImg.png"
+  },
+  {
+   "slug": "gwo-basic-safety-training",
+   "title": "GWO Basic Safety Training",
+   "excerpt": "GWO Basic Safety Training",
+   "button": "Read More",
+   "image": "/legacy/imageFile/1735120845addServiceImg.jpg"
+  },
+  {
+   "slug": "offshore-and-onshore-solutions",
+   "title": "Offshore and Onshore solutions",
+   "excerpt": "Offshore and Onshore solutions",
+   "button": "Read More",
+   "image": "/legacy/imageFile/1733307881addServiceImg.jpg"
+  },
+  {
+   "slug": "inspection-and-survey",
+   "title": "Inspection and Survey",
+   "excerpt": "Inspection and Survey",
+   "button": "Read More",
+   "image": "/legacy/imageFile/1733308740addServiceImg.png"
+  },
+  {
+   "slug": "maintenance-and-repairs",
+   "title": "Maintenance and Repairs",
+   "excerpt": "Maintenance and Repairs",
+   "button": "Read More",
+   "image": "/legacy/imageFile/1733309322addServiceImg.png"
+  },
+  {
+   "slug": "consultancy-and-training",
+   "title": "Consultancy and Training",
+   "excerpt": "Consultancy and Training",
+   "button": "Read More",
+   "image": "/legacy/imageFile/1733309810addServiceImg.png"
+  },
+  {
+   "slug": "maintenance-services",
+   "title": "Maintenance Services",
+   "excerpt": "Maintenance Services",
+   "button": "Read More",
+   "image": "/legacy/imageFile/1733310561addServiceImg.png"
+  },
+  {
+   "slug": "repair-services",
+   "title": "Repair Services",
+   "excerpt": "Repair Services",
+   "button": "Read More",
+   "image": "/legacy/imageFile/1733310797addServiceImg.png"
+  },
+  {
+   "slug": "yard-services",
+   "title": "Yard Services",
+   "excerpt": "Yard Services",
+   "button": "Read More",
+   "image": "/legacy/imageFile/1733311044addServiceImg.png"
+  },
+  {
+   "slug": "remote-monitoring-system-telematics",
+   "title": "Remote Monitoring System (Telematics)",
+   "excerpt": "Remote Monitoring System (Telematics)",
+   "button": "Read More",
+   "image": "/legacy/imageFile/1733311246addServiceImg.png"
+  }
+ ]
+}
