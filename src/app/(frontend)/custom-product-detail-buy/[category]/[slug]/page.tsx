@@ -1,10 +1,16 @@
-import { notFound, permanentRedirect } from "next/navigation";
-import { resolveLegacyPath } from "@/content/catalog-view";
+import ProductPage, { productMetadata, type ProductParams } from "@/ui/CustomProduct/ProductPage";
+import { customProductParams } from "@/content/custom";
 
-/** Legacy URL — permanently redirects into the unified catalog (/products/…). */
-export default async function Page({ params }: { params: Promise<{ category: string; slug: string }> }) {
-  const p = await params;
-  const to = resolveLegacyPath(`/custom-product-detail-buy/${p.category}/${p.slug}`);
-  if (!to) notFound();
-  permanentRedirect(to);
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return customProductParams("buy");
+}
+
+export function generateMetadata({ params }: { params: ProductParams }) {
+  return productMetadata("buy", params);
+}
+
+export default function Page({ params }: { params: ProductParams }) {
+  return <ProductPage kind="buy" params={params} />;
 }

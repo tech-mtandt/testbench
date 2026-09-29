@@ -42,3 +42,5 @@ next-env.d.ts
 
 # scraped legacy assets (~600MB) — regenerate with: node migration/scrape/copy-assets.mjs
 /public/legacy/
+# generated responsive WebP variants — regenerate with: node migration/scrape/optimize-images.mjs
+/public/legacy-opt/

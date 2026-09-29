@@ -11,13 +11,16 @@ const legacyAssetsBase =
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   async rewrites() {
-    return legacyAssetsBase ? [{ source: '/legacy/:path*', destination: `${legacyAssetsBase}/:path*` }] : []
+    if (!legacyAssetsBase) return []
+    return [
+      { source: '/legacy/:path*', destination: `${legacyAssetsBase}/:path*` },
+      // responsive WebP variants (migration/scrape/optimize-images.mjs), stored alongside
+      { source: '/legacy-opt/:path*', destination: `${legacyAssetsBase}-opt/:path*` },
+    ]
   },
   // Cap build workers: each opens its own DB pool while prerendering.
   experimental: {
     cpus: 4,
-    // React <ViewTransition> integration for route + shared-element transitions
-    viewTransition: true,
   },
   images: {
     remotePatterns: [

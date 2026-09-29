@@ -1,3 +1,4 @@
+import { unstable_cache } from "next/cache";
 import eventsJson from "@/content/scraped/events.json";
 import galleryJson from "@/content/scraped/gallery.json";
 import pressJson from "@/content/scraped/press.json";
@@ -126,7 +127,7 @@ const cardSelect = {
 
 const published = { _status: { equals: "published" as const } };
 
-export async function getBlogPage(page: number) {
+async function fetchBlogPage(page: number) {
   const payload = await payloadClient();
   const res = await payload.find({
     collection: "blogs",
@@ -140,13 +141,13 @@ export async function getBlogPage(page: number) {
   return { cards: res.docs.map((d) => toCard(d as Blog)), totalPages: res.totalPages, page: res.page ?? page };
 }
 
-export async function getBlog(slug: string) {
+async function fetchBlog(slug: string) {
   const payload = await payloadClient();
   const res = await payload.find({ collection: "blogs", where: { slug: { equals: slug }, ...published }, limit: 1, depth: 1 });
   return (res.docs[0] as Blog | undefined) ?? null;
 }
 
-export async function getLatestBlogs(excludeSlug: string, limit = 7) {
+async function fetchLatestBlogs(excludeSlug: string, limit = 7) {
   const payload = await payloadClient();
   const res = await payload.find({
     collection: "blogs",
@@ -159,10 +160,17 @@ export async function getLatestBlogs(excludeSlug: string, limit = 7) {
   return res.docs.map((d) => toCard(d as Blog));
 }
 
-export async function getBlogSlugs() {
+async function fetchBlogSlugs() {
   const payload = await payloadClient();
   const res = await payload.find({ collection: "blogs", where: published, limit: 0, depth: 0, select: { slug: true } });
   return res.docs.map((d) => d.slug);
 }
+
+// Blog reads are cached across requests (Payload/Supabase round-trips were ~0.3–1s per page view).
+const BLOG_CACHE = { revalidate: 600, tags: ["blogs"] };
+export const getBlogPage = unstable_cache(fetchBlogPage, ["blog-page"], BLOG_CACHE);
+export const getBlog = unstable_cache(fetchBlog, ["blog"], BLOG_CACHE);
+export const getLatestBlogs = unstable_cache(fetchLatestBlogs, ["blog-latest"], BLOG_CACHE);
+export const getBlogSlugs = unstable_cache(fetchBlogSlugs, ["blog-slugs"], BLOG_CACHE);
 
 export const blogHero = (b: Blog) => blogFallback(b)?.hero || mediaUrl(b.hero) || mediaUrl(b.thumbnail);

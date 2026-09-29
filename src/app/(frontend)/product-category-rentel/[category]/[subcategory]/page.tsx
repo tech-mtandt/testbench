@@ -1,10 +1,7 @@
-import { notFound, permanentRedirect } from "next/navigation";
-import { resolveLegacyPath } from "@/content/catalog-view";
+import { permanentRedirect } from "next/navigation";
 
-/** Legacy URL — permanently redirects into the unified catalog (/products/…). */
+/** The live site's "Choose > Rental" modal links to this misspelt path and redirects it. */
 export default async function Page({ params }: { params: Promise<{ category: string; subcategory: string }> }) {
-  const p = await params;
-  const to = resolveLegacyPath(`/product-category-rentel/${p.category}/${p.subcategory}`);
-  if (!to) notFound();
-  permanentRedirect(to);
+  const { category, subcategory } = await params;
+  permanentRedirect(`/product-category-rental/${category}/${subcategory}`);
 }

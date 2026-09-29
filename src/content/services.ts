@@ -3,6 +3,7 @@ import type { Service } from "@/payload-types";
 import { payloadClient, mediaUrl, lexicalToText } from "@/lib/payload";
 import scrapedPages from "@/content/scraped/services.json";
 import scrapedIndex from "@/content/scraped/services-index.json";
+import { bgUrl } from "@/lib/img";
 
 type Meta = { title: string; description: string };
 type Crumb = { label: string; href: string | null };
@@ -106,4 +107,4 @@ export async function listServices() {
 
 /** Layered CSS background: later layers show through when an earlier URL fails to load. */
 export const bgLayers = (urls: string[]) =>
-  urls.length ? { backgroundImage: urls.map((u) => `url("${u}")`).join(", ") } : undefined;
+  urls.length ? { backgroundImage: urls.map((u) => `url("${bgUrl(u)}")`).join(", ") } : undefined;

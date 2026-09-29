@@ -3,7 +3,7 @@
  * S3_BUCKET, so production can serve /legacy/* via the rewrite in next.config.mjs.
  * Skips objects that already exist with the same size. Safe to re-run.
  *
- * Run: node --env-file=.env migration/scrape/upload-legacy.mjs
+ * Run: node --env-file=.env migration/scrape/upload-legacy.mjs [legacy|legacy-opt]
  */
 import fs from "fs";
 import path from "path";
@@ -12,8 +12,9 @@ import { S3Client, ListObjectsV2Command, PutObjectCommand } from "@aws-sdk/clien
 import { NodeHttpHandler } from "@smithy/node-http-handler";
 
 const ROOT = path.resolve(import.meta.dirname, "../..");
-const SRC = path.join(ROOT, "public/legacy");
-const PREFIX = "legacy/";
+const DIR = process.argv[2] || "legacy"; // public/<DIR> -> bucket <DIR>/
+const SRC = path.join(ROOT, "public", DIR);
+const PREFIX = `${DIR}/`;
 const { S3_BUCKET, S3_ENDPOINT, S3_REGION, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY } = process.env;
 
 // Some ISPs hijack DNS for *.supabase.co (resolves to a block page). Resolve those
