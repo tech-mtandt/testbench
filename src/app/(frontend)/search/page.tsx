@@ -15,7 +15,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
 
 export default async function Page({ searchParams }: Props) {
   const q = [(await searchParams).q].flat()[0]?.trim() ?? "";
-  const { products, subcategories } = searchProducts(q);
+  const { products, subcategories } = await searchProducts(q);
 
   return (
     <div className="default-margin pb-16">

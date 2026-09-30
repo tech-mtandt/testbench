@@ -5,6 +5,7 @@ export const Catalogues: CollectionConfig = {
   admin: {
     group: 'Business',
     useAsTitle: 'title',
+    defaultColumns: ['title', 'category', 'brand', 'order'],
   },
   access: {
     read: () => true,
@@ -39,6 +40,11 @@ export const Catalogues: CollectionConfig = {
       type: 'upload',
       relationTo: 'documents',
       required: true,
+    },
+    {
+      name: 'order',
+      type: 'number',
+      admin: { position: 'sidebar', description: 'Position on the Catalogues page (lower first)' },
     },
   ],
 }

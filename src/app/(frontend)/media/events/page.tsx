@@ -1,24 +1,28 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { EVENTS_PER_PAGE, eventRange, events } from "@/content/media";
+import { EVENTS_PER_PAGE, eventRange, events, getMediaPages } from "@/content/media";
 import { CalendarIcon, MapPinIcon } from "@/ui/Icons";
 import Img from "@/ui/Img";
 import MediaBanner from "@/ui/Media/MediaBanner";
 import MediaTabs from "@/ui/Media/MediaTabs";
 import Pagination, { parsePage } from "@/ui/Media/Pagination";
 
-export const metadata: Metadata = {
-  title: "Events",
-  description: "Trade shows, exhibitions and industry events featuring Mtandt Group.",
-  alternates: { canonical: "/media/events" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = (await getMediaPages()).seo.events;
+  return {
+    title: seo?.title ? { absolute: seo.title } : "Events",
+    description: seo?.description || "Trade shows, exhibitions and industry events featuring Mtandt Group.",
+    alternates: { canonical: "/media/events" },
+  };
+}
 
 export default async function Page({ searchParams }: { searchParams: Promise<{ page?: string | string[] }> }) {
   const page = parsePage((await searchParams).page);
-  const totalPages = Math.ceil(events.length / EVENTS_PER_PAGE);
+  const all = await events();
+  const totalPages = Math.ceil(all.length / EVENTS_PER_PAGE);
   if (page > totalPages) notFound();
-  const list = events.slice((page - 1) * EVENTS_PER_PAGE, page * EVENTS_PER_PAGE);
+  const list = all.slice((page - 1) * EVENTS_PER_PAGE, page * EVENTS_PER_PAGE);
 
   return (
     <>

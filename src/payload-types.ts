@@ -81,6 +81,13 @@ export interface Config {
     brands: Brand;
     socials: Social;
     users: User;
+    'product-categories': ProductCategory;
+    'product-listings': ProductListing;
+    'product-attributes': ProductAttribute;
+    'custom-products': CustomProduct;
+    industries: Industry;
+    'case-studies': CaseStudy;
+    'legal-pages': LegalPage;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -102,6 +109,13 @@ export interface Config {
     brands: BrandsSelect<false> | BrandsSelect<true>;
     socials: SocialsSelect<false> | SocialsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    'product-categories': ProductCategoriesSelect<false> | ProductCategoriesSelect<true>;
+    'product-listings': ProductListingsSelect<false> | ProductListingsSelect<true>;
+    'product-attributes': ProductAttributesSelect<false> | ProductAttributesSelect<true>;
+    'custom-products': CustomProductsSelect<false> | CustomProductsSelect<true>;
+    industries: IndustriesSelect<false> | IndustriesSelect<true>;
+    'case-studies': CaseStudiesSelect<false> | CaseStudiesSelect<true>;
+    'legal-pages': LegalPagesSelect<false> | LegalPagesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -115,11 +129,27 @@ export interface Config {
     home: Home;
     about: About;
     contact: Contact;
+    'site-settings': SiteSetting;
+    'media-pages': MediaPage;
+    'career-page': CareerPage;
+    'industries-page': IndustriesPage;
+    'contact-page': ContactPage;
+    'services-page': ServicesPage;
+    'catalogues-page': CataloguesPage;
+    'annual-returns-page': AnnualReturnsPage;
   };
   globalsSelect: {
     home: HomeSelect<false> | HomeSelect<true>;
     about: AboutSelect<false> | AboutSelect<true>;
     contact: ContactSelect<false> | ContactSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    'media-pages': MediaPagesSelect<false> | MediaPagesSelect<true>;
+    'career-page': CareerPageSelect<false> | CareerPageSelect<true>;
+    'industries-page': IndustriesPageSelect<false> | IndustriesPageSelect<true>;
+    'contact-page': ContactPageSelect<false> | ContactPageSelect<true>;
+    'services-page': ServicesPageSelect<false> | ServicesPageSelect<true>;
+    'catalogues-page': CataloguesPageSelect<false> | CataloguesPageSelect<true>;
+    'annual-returns-page': AnnualReturnsPageSelect<false> | AnnualReturnsPageSelect<true>;
   };
   locale: null;
   widgets: {
@@ -161,6 +191,10 @@ export interface Catalogue {
   brand?: (number | null) | Brand;
   poster: number | Media;
   document: number | Document;
+  /**
+   * Position on the Catalogues page (lower first)
+   */
+  order?: number | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -185,6 +219,10 @@ export interface Brand {
 export interface Media {
   id: number;
   alt: string;
+  /**
+   * Imported from the old website
+   */
+  legacySrc?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -203,6 +241,10 @@ export interface Media {
  */
 export interface Document {
   id: number;
+  /**
+   * Imported from the old website
+   */
+  legacySrc?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -216,14 +258,26 @@ export interface Document {
   focalY?: number | null;
 }
 /**
+ * Application forms for customers, dealers and vendors (/customers, /dealer, /vendors).
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "partnership".
  */
 export interface Partnership {
   id: number;
+  /**
+   * Shown on the banner and in the breadcrumb, e.g. "Dealer"
+   */
   title: string;
+  /**
+   * Page address: customers, dealer or vendors
+   */
   slug: string;
   featuredImage?: (number | null) | Media;
+  /**
+   * Heading above the intro text
+   */
+  heading?: string | null;
   content?: {
     root: {
       type: string;
@@ -239,49 +293,74 @@ export interface Partnership {
     };
     [k: string]: unknown;
   } | null;
+  formTitle?: string | null;
+  sections?:
+    | {
+        /**
+         * Optional section heading
+         */
+        title?: string | null;
+        level?: ('1' | '2') | null;
+        fields?:
+          | {
+              label: string;
+              /**
+               * Unique key in the submitted form, e.g. company_name
+               */
+              name: string;
+              inputType?: ('text' | 'email' | 'tel' | 'number' | 'textarea' | 'select' | 'radio' | 'file') | null;
+              span?: ('3' | '4' | '6' | '12') | null;
+              required?: boolean | null;
+              /**
+               * Choices (the first one is preselected in a dropdown)
+               */
+              options?: string[] | null;
+              /**
+               * e.g. .png,.pdf,.jpg,.jpeg
+               */
+              accept?: string | null;
+              /**
+               * Small note beside the file input
+               */
+              hint?: string | null;
+              /**
+               * Optional: show this field only when a dropdown has a certain value
+               */
+              showIf?: {
+                field?: string | null;
+                value?: string | null;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
   updatedAt: string;
   createdAt: string;
 }
 /**
+ * Standard equipment pages at /product-detail/<slug>, listed on the buy/rent listing pages.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "products".
  */
 export interface Product {
   id: number;
   title: string;
-  slug: string;
-  featuredImage?: (number | null) | Media;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  condition?: ('New' | 'Used') | null;
-  inStock?: boolean | null;
-  country?: string | null;
-  category?: string | null;
-  subcategory?: string | null;
-  primaryType?: string | null;
-  powerType?: string | null;
   modelNo?: string | null;
   /**
-   * Working height, in meters
+   * Main product image
    */
-  workingHeight?: number | null;
-  /**
-   * Max lifting capacity, in kg
-   */
-  maxLiftingCapacity?: number | null;
+  featuredImage?: (number | null) | Media;
   /**
    * Additional images shown as thumbnails on the product page
    */
@@ -292,7 +371,30 @@ export interface Product {
       }[]
     | null;
   /**
-   * Extra spec rows shown in the Specifications tab, in addition to the fields above (e.g. Platform Height, Machine Weight, SWL)
+   * Text next to the images
+   */
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  productCategory?: (number | null) | ProductCategory;
+  /**
+   * Subcategory URL segment from the category's subcategories, e.g. scissor-lift
+   */
+  subcategory?: string | null;
+  /**
+   * Rows of the Specifications tab (also used on the Compare page)
    */
   specifications?:
     | {
@@ -301,6 +403,140 @@ export interface Product {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Standard Features tab (hidden when empty)
+   */
+  features?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Options tab (hidden when empty)
+   */
+  optionsContent?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Applications tab
+   */
+  applications?:
+    | {
+        application: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * The first file is the Download tab brochure
+   */
+  downloads?:
+    | {
+        label: string;
+        file: number | Document;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Load/reach chart images for the Chart tab
+   */
+  charts?:
+    | {
+        image: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Shown under the product; when empty, other products of the same subcategory are shown
+   */
+  related?: (number | Product)[] | null;
+  /**
+   * Up to three key specs shown on listing and search results
+   */
+  listingRow?:
+    | {
+        label: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Which listing-page filters match this product (values are managed under Filter values)
+   */
+  facets?: {
+    condition?: (number | ProductAttribute)[] | null;
+    country?: (number | ProductAttribute)[] | null;
+    primaryType?: (number | ProductAttribute)[] | null;
+    powerType?: (number | ProductAttribute)[] | null;
+    application?: (number | ProductAttribute)[] | null;
+    industry?: (number | ProductAttribute)[] | null;
+    brand?: (number | ProductAttribute)[] | null;
+  };
+  /**
+   * Working height, in meters
+   */
+  workingHeight?: number | null;
+  machineWeight?: number | null;
+  /**
+   * Max lifting capacity, in kg
+   */
+  maxLiftingCapacity?: number | null;
+  maxLiftingHeight?: number | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  /**
+   * URL segment: /product-detail/<slug>
+   */
+  slug: string;
+  /**
+   * Products without this are not shown on the site catalogue
+   */
+  mode?: ('buy' | 'rent') | null;
+  /**
+   * Position in product lists (lowest first)
+   */
+  order?: number | null;
+  /**
+   * Comma-separated meta keywords
+   */
+  metaKeywords?: string | null;
+  /**
+   * ID on the old website
+   */
+  legacyId?: number | null;
+  condition?: ('New' | 'Used') | null;
+  inStock?: boolean | null;
+  country?: string | null;
+  category?: string | null;
+  primaryType?: string | null;
+  powerType?: string | null;
   standardFeatures?:
     | {
         feature: string;
@@ -313,23 +549,140 @@ export interface Product {
         id?: string | null;
       }[]
     | null;
-  applications?:
-    | {
-        application: string;
-        id?: string | null;
-      }[]
-    | null;
-  downloads?:
-    | {
-        label: string;
-        file: number | Document;
-        id?: string | null;
-      }[]
-    | null;
   /**
    * Optional capacity/reach chart image for the Chart tab
    */
   chartImage?: (number | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Category pages at /category-by-subcategory/<slug>, with their subcategory tabs and FAQs.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-categories".
+ */
+export interface ProductCategory {
+  id: number;
+  /**
+   * Page heading
+   */
+  title: string;
+  /**
+   * Used in breadcrumbs and the category filter (defaults to the title)
+   */
+  crumb?: string | null;
+  /**
+   * Paragraph under the heading
+   */
+  intro?: string | null;
+  /**
+   * Tabs on the category page; each also has buy/rent listing pages
+   */
+  subcategories?:
+    | {
+        name: string;
+        /**
+         * URL segment, e.g. scissor-lift
+         */
+        slug: string;
+        html?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        /**
+         * Button under the tab text (leave the label empty for none)
+         */
+        button?: {
+          label?: string | null;
+          /**
+           * Leave empty when "Choose buy or rent" is ticked
+           */
+          href?: string | null;
+          /**
+           * Opens a popup linking to the buy and rent listings
+           */
+          choose?: boolean | null;
+        };
+        faqs?:
+          | {
+              q: string;
+              a?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: any;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  /**
+   * URL segment, e.g. aerial-work-platform
+   */
+  slug: string;
+  /**
+   * Position in category lists (lowest first)
+   */
+  order?: number | null;
+  /**
+   * Other category URL segments that redirect here (from /categoryBySubcategory/<name>)
+   */
+  aliases?: string[] | null;
+  /**
+   * Comma-separated meta keywords
+   */
+  metaKeywords?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Options shown in the filters on product listing pages (condition, country, type, brand…).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-attributes".
+ */
+export interface ProductAttribute {
+  id: number;
+  type: 'condition' | 'country' | 'primaryType' | 'powerType' | 'application' | 'industry' | 'brand';
+  /**
+   * Text shown next to the checkbox
+   */
+  label: string;
+  /**
+   * ID on the old website (keeps existing filter links working)
+   */
+  legacyId?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -342,15 +695,70 @@ export interface Service {
   title: string;
   slug: string;
   /**
-   * Parent category shown in the hero banner and breadcrumb, e.g. "Equipment Management"
+   * Service page: banner, text, image and features. Brand hub: logo, about, service cards and "why choose us". Leave empty to keep showing the built-in copy of the old website.
    */
-  category?: string | null;
+  kind?: ('detail' | 'hub') | null;
+  showInListing?: boolean | null;
+  /**
+   * Position on the Services page (lower first)
+   */
+  order?: number | null;
   /**
    * Short teaser shown on hover over the service card in the listing grid
    */
   excerpt?: string | null;
+  /**
+   * Button on the service card in the listing grid, e.g. "READ MORE"
+   */
+  button?: string | null;
+  /**
+   * Image of the service card in the listing grid
+   */
   hero?: (number | null) | Media;
+  /**
+   * Banner at the top of the service page
+   */
   poster?: (number | null) | Media;
+  /**
+   * Large title on the banner, e.g. "EQUIPMENT MANAGEMENT"
+   */
+  category?: string | null;
+  /**
+   * Shown on the banner, left to right
+   */
+  crumbs?:
+    | {
+        label: string;
+        /**
+         * Leave empty for plain text
+         */
+        href?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Heading above the text (defaults to the title)
+   */
+  heading?: string | null;
+  subheading?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Imported from the old database. When it holds real text it is shown instead of the Main text.
+   */
   body?: {
     root: {
       type: string;
@@ -366,6 +774,119 @@ export interface Service {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Image beside the text
+   */
+  image?: (number | null) | Media;
+  /**
+   * Icon boxes below the text
+   */
+  features?:
+    | {
+        icon?: ('fas fa-clock' | 'fa fa-laptop' | 'fa fa-group') | null;
+        title?: string | null;
+        text?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional line and button below the features
+   */
+  cta?: {
+    text?: string | null;
+    label?: string | null;
+    href?: string | null;
+  };
+  hub?: {
+    logo?: (number | null) | Media;
+    logoAlt?: string | null;
+    tagline?: string | null;
+    aboutTitle?: string | null;
+    aboutText?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    aboutImage?: (number | null) | Media;
+    aboutImageAlt?: string | null;
+    offer?: {
+      title?: string | null;
+      intro?: string | null;
+      items?:
+        | {
+            title: string;
+            text?: string | null;
+            href?: string | null;
+            image?: (number | null) | Media;
+            alt?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+    };
+    why?: {
+      title?: string | null;
+      intro?: string | null;
+      items?:
+        | {
+            title?: string | null;
+            text?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+    };
+    /**
+     * Optional; hidden when the title is empty
+     */
+    supported?: {
+      title?: string | null;
+      intro?: string | null;
+      image?: (number | null) | Media;
+      alt?: string | null;
+      text?: {
+        root: {
+          type: string;
+          children: {
+            type: any;
+            version: number;
+            [k: string]: unknown;
+          }[];
+          direction: ('ltr' | 'rtl') | null;
+          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+          indent: number;
+          version: number;
+        };
+        [k: string]: unknown;
+      } | null;
+    };
+  };
+  /**
+   * PDF behind the "Downloads" button (optional)
+   */
+  brochure?: (number | null) | Document;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -406,6 +927,10 @@ export interface Blog {
   author?: (number | null) | User;
   category?: string | null;
   publishedDate?: string | null;
+  /**
+   * Shown as tags at the bottom of the post
+   */
+  tags?: string[] | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -449,16 +974,24 @@ export interface User {
   collection: 'users';
 }
 /**
+ * Job openings listed on the Careers page (/career). Only openings marked "Currently Open" are shown.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "careers".
  */
 export interface Career {
   id: number;
   title: string;
+  /**
+   * Filled in from the job title when left empty
+   */
   slug: string;
   department?: string | null;
   location?: string | null;
   employmentType?: ('full-time' | 'part-time' | 'contract' | 'internship') | null;
+  /**
+   * Shown when a visitor expands the job on the Careers page
+   */
   description: {
     root: {
       type: string;
@@ -476,20 +1009,41 @@ export interface Career {
   };
   applyLink?: string | null;
   postedDate?: string | null;
+  /**
+   * Untick to hide this job from the Careers page
+   */
   isOpen?: boolean | null;
+  /**
+   * Lower numbers are listed first
+   */
+  order?: number | null;
   updatedAt: string;
   createdAt: string;
 }
 /**
+ * Trade shows and exhibitions, listed newest first on /media/events. Each has its own page at /event/<slug>.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events".
  */
 export interface Event {
   id: number;
   title: string;
+  /**
+   * Page address: /event/<slug>
+   */
   slug: string;
+  /**
+   * Shown at the top of the event page
+   */
   hero?: (number | null) | Media;
+  /**
+   * Shown in the events list and the Recent Events sidebar
+   */
   thumbnail?: (number | null) | Media;
+  /**
+   * Short summary shown in the events list
+   */
   excerpt?: string | null;
   body: {
     root: {
@@ -509,12 +1063,36 @@ export interface Event {
   author?: (number | null) | User;
   category?: string | null;
   publishedDate?: string | null;
-  eventName: string;
+  eventName?: string | null;
+  /**
+   * Events are listed by this date, newest first
+   */
   fromDate: string;
-  toDate: string;
+  toDate?: string | null;
   location?: string | null;
   map?: string | null;
   stallNumber?: string | null;
+  /**
+   * Photos shown under the event text (click to enlarge)
+   */
+  gallery?:
+    | {
+        image: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Shown as tags at the bottom of the event page
+   */
+  tags?: string[] | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -547,13 +1125,28 @@ export interface Gallery {
   createdAt: string;
 }
 /**
+ * Press releases, listed on /media/press (highest "Position" first). Each has its own page at /press/<slug>.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "press".
  */
 export interface Press {
   id: number;
+  /**
+   * Heading on the press page
+   */
   title: string;
+  /**
+   * Title on the card in the press list (defaults to the title)
+   */
+  cardTitle?: string | null;
+  /**
+   * Page address: /press/<slug>
+   */
   slug: string;
+  /**
+   * Shown on the card and at the top of the press page
+   */
   hero?: (number | null) | Media;
   thumbnail?: (number | null) | Media;
   excerpt?: string | null;
@@ -575,6 +1168,22 @@ export interface Press {
   author?: (number | null) | User;
   category?: string | null;
   publishedDate?: string | null;
+  /**
+   * Shown as tags at the bottom of the press page
+   */
+  tags?: string[] | null;
+  /**
+   * Higher numbers show first in the press list. New releases are placed at the top automatically.
+   */
+  order?: number | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -588,6 +1197,428 @@ export interface Social {
   name: string;
   logo?: (number | null) | Media;
   link?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Listing pages with filters: /product-category-buy/<category>/<subcategory> and /product-category-rental/…
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-listings".
+ */
+export interface ProductListing {
+  id: number;
+  /**
+   * Page heading
+   */
+  title: string;
+  /**
+   * Paragraph under the heading
+   */
+  description?: string | null;
+  /**
+   * Products listed, in this order (drag to reorder)
+   */
+  products?: (number | Product)[] | null;
+  /**
+   * Choices in the "Sort by" dropdown; the first is the default
+   */
+  sorts?:
+    | {
+        label: string;
+        field:
+          'working_height' | 'machine_weight' | 'mhe_maxliftingcapacity' | 'mhe_maxliftingheight' | 'stowed_dimensions';
+        dir: 'desc' | 'asc';
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Spec column names of this listing (reference only)
+   */
+  columns?: string[] | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  mode: 'buy' | 'rental';
+  productCategory: number | ProductCategory;
+  /**
+   * Subcategory URL segment from the category's subcategories, e.g. scissor-lift
+   */
+  subcategory: string;
+  /**
+   * Page URL (set automatically)
+   */
+  path?: string | null;
+  /**
+   * Comma-separated meta keywords
+   */
+  metaKeywords?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Solution pages at /custom-product-detail-buy/<category>/<slug> and /custom-product-detail-rental/… (the same slug may exist once for buy and once for rent).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "custom-products".
+ */
+export interface CustomProduct {
+  id: number;
+  title: string;
+  hero?: (number | null) | Media;
+  /**
+   * Middle breadcrumb link, e.g. the category page
+   */
+  crumb?: {
+    label?: string | null;
+    href?: string | null;
+  };
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  specs?:
+    | {
+        label: string;
+        value?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  features?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  benefits?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  download?: (number | null) | Document;
+  journey?:
+    | {
+        title: string;
+        html?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Hidden when it has no images and no filters
+   */
+  gallery?: {
+    /**
+     * Filter buttons above the gallery
+     */
+    filters?:
+      | {
+          label: string;
+          /**
+           * Referenced by the images below
+           */
+          filterId: string;
+          id?: string | null;
+        }[]
+      | null;
+    items?:
+      | {
+          image: number | Media;
+          title?: string | null;
+          caption?: string | null;
+          /**
+           * Filter IDs this image belongs to
+           */
+          filters?: string[] | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  related?:
+    | {
+        title: string;
+        href: string;
+        image?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  clients?:
+    | {
+        logo: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  kind: 'buy' | 'rental';
+  /**
+   * URL segment; unique per Buy/Rent
+   */
+  slug: string;
+  /**
+   * Category URL segment, e.g. fall-protection-lifeline-systems
+   */
+  category: string;
+  /**
+   * Legacy category segments that also show this page
+   */
+  altCategories?: string[] | null;
+  /**
+   * Sent with enquiries from this page
+   */
+  productId?: string | null;
+  /**
+   * Comma-separated meta keywords
+   */
+  metaKeywords?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Industries listed on /industries, each with its own page at /industries/<slug>.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "industries".
+ */
+export interface Industry {
+  id: number;
+  title: string;
+  cardText?: string | null;
+  icon?: ('train' | 'parking' | 'car' | 'bulb' | 'building' | 'warehouse' | 'calendar' | 'wheelchair') | null;
+  /**
+   * Background image of the title banner
+   */
+  banner?: (number | null) | Media;
+  heading?: string | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Images shown beside the text
+   */
+  images?: (number | Media)[] | null;
+  gallery?:
+    | {
+        image: number | Media;
+        title?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  caseStudies?:
+    | {
+        title: string;
+        text?: string | null;
+        image?: (number | null) | Media;
+        /**
+         * Page the card opens, e.g. /casestudy/case-study-1 (leave empty for no link)
+         */
+        link?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  clients?: (number | Media)[] | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  /**
+   * Page address: /industries/<slug>. Filled in from the title when left empty.
+   */
+  slug: string;
+  /**
+   * Position on the /industries page (lower first)
+   */
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Case study pages at /casestudy/<slug>.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "case-studies".
+ */
+export interface CaseStudy {
+  id: number;
+  title: string;
+  /**
+   * Background image of the title banner
+   */
+  banner?: (number | null) | Media;
+  /**
+   * e.g. Challenges, Solution, Result
+   */
+  blocks?:
+    | {
+        title: string;
+        content?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Rows of the "Project Detail" table, e.g. Location: Ghaziabad
+   */
+  details?:
+    | {
+        label: string;
+        value?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  download?: (number | null) | Document;
+  gallery?: (number | Media)[] | null;
+  related?:
+    | {
+        title: string;
+        text?: string | null;
+        image?: (number | null) | Media;
+        /**
+         * Page the card opens, e.g. /casestudy/case-study-1 (leave empty for no link)
+         */
+        link?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  /**
+   * Page address: /casestudy/<slug>. Filled in from the title when left empty.
+   */
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "legal-pages".
+ */
+export interface LegalPage {
+  id: number;
+  /**
+   * Heading of the page
+   */
+  title: string;
+  /**
+   * Page address: /pages/<slug>, e.g. privacy-policy
+   */
+  slug: string;
+  /**
+   * Defaults to the title
+   */
+  crumb?: string | null;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -670,6 +1701,34 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: number | User;
+      } | null)
+    | ({
+        relationTo: 'product-categories';
+        value: number | ProductCategory;
+      } | null)
+    | ({
+        relationTo: 'product-listings';
+        value: number | ProductListing;
+      } | null)
+    | ({
+        relationTo: 'product-attributes';
+        value: number | ProductAttribute;
+      } | null)
+    | ({
+        relationTo: 'custom-products';
+        value: number | CustomProduct;
+      } | null)
+    | ({
+        relationTo: 'industries';
+        value: number | Industry;
+      } | null)
+    | ({
+        relationTo: 'case-studies';
+        value: number | CaseStudy;
+      } | null)
+    | ({
+        relationTo: 'legal-pages';
+        value: number | LegalPage;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -724,6 +1783,7 @@ export interface CataloguesSelect<T extends boolean = true> {
   brand?: T;
   poster?: T;
   document?: T;
+  order?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -735,7 +1795,42 @@ export interface PartnershipSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   featuredImage?: T;
+  heading?: T;
   content?: T;
+  formTitle?: T;
+  sections?:
+    | T
+    | {
+        title?: T;
+        level?: T;
+        fields?:
+          | T
+          | {
+              label?: T;
+              name?: T;
+              inputType?: T;
+              span?: T;
+              required?: T;
+              options?: T;
+              accept?: T;
+              hint?: T;
+              showIf?:
+                | T
+                | {
+                    field?: T;
+                    value?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -745,25 +1840,17 @@ export interface PartnershipSelect<T extends boolean = true> {
  */
 export interface ProductsSelect<T extends boolean = true> {
   title?: T;
-  slug?: T;
-  featuredImage?: T;
-  content?: T;
-  condition?: T;
-  inStock?: T;
-  country?: T;
-  category?: T;
-  subcategory?: T;
-  primaryType?: T;
-  powerType?: T;
   modelNo?: T;
-  workingHeight?: T;
-  maxLiftingCapacity?: T;
+  featuredImage?: T;
   gallery?:
     | T
     | {
         image?: T;
         id?: T;
       };
+  content?: T;
+  productCategory?: T;
+  subcategory?: T;
   specifications?:
     | T
     | {
@@ -771,18 +1858,8 @@ export interface ProductsSelect<T extends boolean = true> {
         value?: T;
         id?: T;
       };
-  standardFeatures?:
-    | T
-    | {
-        feature?: T;
-        id?: T;
-      };
-  options?:
-    | T
-    | {
-        option?: T;
-        id?: T;
-      };
+  features?: T;
+  optionsContent?: T;
   applications?:
     | T
     | {
@@ -796,6 +1873,65 @@ export interface ProductsSelect<T extends boolean = true> {
         file?: T;
         id?: T;
       };
+  charts?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  related?: T;
+  listingRow?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  facets?:
+    | T
+    | {
+        condition?: T;
+        country?: T;
+        primaryType?: T;
+        powerType?: T;
+        application?: T;
+        industry?: T;
+        brand?: T;
+      };
+  workingHeight?: T;
+  machineWeight?: T;
+  maxLiftingCapacity?: T;
+  maxLiftingHeight?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  slug?: T;
+  mode?: T;
+  order?: T;
+  metaKeywords?: T;
+  legacyId?: T;
+  condition?: T;
+  inStock?: T;
+  country?: T;
+  category?: T;
+  primaryType?: T;
+  powerType?: T;
+  standardFeatures?:
+    | T
+    | {
+        feature?: T;
+        id?: T;
+      };
+  options?:
+    | T
+    | {
+        option?: T;
+        id?: T;
+      };
   chartImage?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -807,11 +1943,91 @@ export interface ProductsSelect<T extends boolean = true> {
 export interface ServicesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
-  category?: T;
+  kind?: T;
+  showInListing?: T;
+  order?: T;
   excerpt?: T;
+  button?: T;
   hero?: T;
   poster?: T;
+  category?: T;
+  crumbs?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  heading?: T;
+  subheading?: T;
+  description?: T;
   body?: T;
+  image?: T;
+  features?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        text?: T;
+        id?: T;
+      };
+  cta?:
+    | T
+    | {
+        text?: T;
+        label?: T;
+        href?: T;
+      };
+  hub?:
+    | T
+    | {
+        logo?: T;
+        logoAlt?: T;
+        tagline?: T;
+        aboutTitle?: T;
+        aboutText?: T;
+        aboutImage?: T;
+        aboutImageAlt?: T;
+        offer?:
+          | T
+          | {
+              title?: T;
+              intro?: T;
+              items?:
+                | T
+                | {
+                    title?: T;
+                    text?: T;
+                    href?: T;
+                    image?: T;
+                    alt?: T;
+                    id?: T;
+                  };
+            };
+        why?:
+          | T
+          | {
+              title?: T;
+              intro?: T;
+              items?:
+                | T
+                | {
+                    title?: T;
+                    text?: T;
+                    id?: T;
+                  };
+            };
+        supported?:
+          | T
+          | {
+              title?: T;
+              intro?: T;
+              image?: T;
+              alt?: T;
+              text?: T;
+            };
+      };
+  brochure?: T;
   meta?:
     | T
     | {
@@ -836,6 +2052,7 @@ export interface BlogsSelect<T extends boolean = true> {
   author?: T;
   category?: T;
   publishedDate?: T;
+  tags?: T;
   meta?:
     | T
     | {
@@ -861,6 +2078,7 @@ export interface CareersSelect<T extends boolean = true> {
   applyLink?: T;
   postedDate?: T;
   isOpen?: T;
+  order?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -869,6 +2087,7 @@ export interface CareersSelect<T extends boolean = true> {
  * via the `definition` "documents_select".
  */
 export interface DocumentsSelect<T extends boolean = true> {
+  legacySrc?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -901,6 +2120,20 @@ export interface EventsSelect<T extends boolean = true> {
   location?: T;
   map?: T;
   stallNumber?: T;
+  gallery?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  tags?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -923,6 +2156,7 @@ export interface GallerySelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  legacySrc?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -941,6 +2175,7 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface PressSelect<T extends boolean = true> {
   title?: T;
+  cardTitle?: T;
   slug?: T;
   hero?: T;
   thumbnail?: T;
@@ -949,6 +2184,15 @@ export interface PressSelect<T extends boolean = true> {
   author?: T;
   category?: T;
   publishedDate?: T;
+  tags?: T;
+  order?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -1006,6 +2250,277 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-categories_select".
+ */
+export interface ProductCategoriesSelect<T extends boolean = true> {
+  title?: T;
+  crumb?: T;
+  intro?: T;
+  subcategories?:
+    | T
+    | {
+        name?: T;
+        slug?: T;
+        html?: T;
+        button?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+              choose?: T;
+            };
+        faqs?:
+          | T
+          | {
+              q?: T;
+              a?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  slug?: T;
+  order?: T;
+  aliases?: T;
+  metaKeywords?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-listings_select".
+ */
+export interface ProductListingsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  products?: T;
+  sorts?:
+    | T
+    | {
+        label?: T;
+        field?: T;
+        dir?: T;
+        id?: T;
+      };
+  columns?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  mode?: T;
+  productCategory?: T;
+  subcategory?: T;
+  path?: T;
+  metaKeywords?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-attributes_select".
+ */
+export interface ProductAttributesSelect<T extends boolean = true> {
+  type?: T;
+  label?: T;
+  legacyId?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "custom-products_select".
+ */
+export interface CustomProductsSelect<T extends boolean = true> {
+  title?: T;
+  hero?: T;
+  crumb?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+      };
+  intro?: T;
+  specs?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  features?: T;
+  benefits?: T;
+  download?: T;
+  journey?:
+    | T
+    | {
+        title?: T;
+        html?: T;
+        id?: T;
+      };
+  gallery?:
+    | T
+    | {
+        filters?:
+          | T
+          | {
+              label?: T;
+              filterId?: T;
+              id?: T;
+            };
+        items?:
+          | T
+          | {
+              image?: T;
+              title?: T;
+              caption?: T;
+              filters?: T;
+              id?: T;
+            };
+      };
+  related?:
+    | T
+    | {
+        title?: T;
+        href?: T;
+        image?: T;
+        id?: T;
+      };
+  clients?:
+    | T
+    | {
+        logo?: T;
+        id?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  kind?: T;
+  slug?: T;
+  category?: T;
+  altCategories?: T;
+  productId?: T;
+  metaKeywords?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "industries_select".
+ */
+export interface IndustriesSelect<T extends boolean = true> {
+  title?: T;
+  cardText?: T;
+  icon?: T;
+  banner?: T;
+  heading?: T;
+  content?: T;
+  images?: T;
+  gallery?:
+    | T
+    | {
+        image?: T;
+        title?: T;
+        id?: T;
+      };
+  caseStudies?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        image?: T;
+        link?: T;
+        id?: T;
+      };
+  clients?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  slug?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "case-studies_select".
+ */
+export interface CaseStudiesSelect<T extends boolean = true> {
+  title?: T;
+  banner?: T;
+  blocks?:
+    | T
+    | {
+        title?: T;
+        content?: T;
+        id?: T;
+      };
+  details?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  download?: T;
+  gallery?: T;
+  related?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        image?: T;
+        link?: T;
+        id?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "legal-pages_select".
+ */
+export interface LegalPagesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  crumb?: T;
+  content?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -1045,11 +2560,16 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
+ * Everything on the homepage, one tab per section (top to bottom).
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home".
  */
 export interface Home {
   id: number;
+  /**
+   * Internal name of this page (not shown on the site).
+   */
   title: string;
   featuredImage?: (number | null) | Media;
   content?: {
@@ -1067,6 +2587,118 @@ export interface Home {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * The large heading under the search bar.
+   */
+  heading?: string | null;
+  /**
+   * Rotating banner at the top of the page.
+   */
+  slides?:
+    | {
+        image?: (number | null) | Media;
+        eyebrow?: string | null;
+        /**
+         * Each line is shown on its own row.
+         */
+        titleLines?:
+          | {
+              value: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Leave empty to use the default shown on the site today.
+   */
+  heroButtonLabel?: string | null;
+  /**
+   * Page the slide button opens, e.g. /contact-us.
+   */
+  heroButtonHref?: string | null;
+  /**
+   * Leave empty to use the default shown on the site today.
+   */
+  productsHeading?: string | null;
+  /**
+   * Tabs of product cards; the first tab is shown first.
+   */
+  productTabs?:
+    | {
+        label: string;
+        items?:
+          | {
+              title: string;
+              image?: (number | null) | Media;
+              /**
+               * Leave empty to link to a site search for the title.
+               */
+              href?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Leave empty to use the default shown on the site today.
+   */
+  brandsHeading?: string | null;
+  /**
+   * Leave empty to use the default shown on the site today.
+   */
+  brandsTagline?: string | null;
+  brandTabs?:
+    | {
+        label: string;
+        brands?:
+          | {
+              logo?: (number | null) | Media;
+              alt?: string | null;
+              title?: string | null;
+              text?: string | null;
+              /**
+               * Page or website address. Leave empty for a card without a link.
+               */
+              href?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Leave empty to use the default shown on the site today.
+   */
+  serviceNavigatorHeading?: string | null;
+  serviceNavigator?: {
+    intro?: string | null;
+    items?:
+      | {
+          title: string;
+          text?: string | null;
+          href: string;
+          /**
+           * Not shown in the current design.
+           */
+          icon?: (number | null) | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * Leave empty to use the default shown on the site today.
+   */
+  serviceNavigatorLinkLabel?: string | null;
+  /**
+   * Leave empty to use the default shown on the site today.
+   */
+  whyUsHeading?: string | null;
+  /**
+   * Icons follow the order of the cards.
+   */
   whyUs?:
     | {
         tagline?: string | null;
@@ -1075,6 +2707,10 @@ export interface Home {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Leave empty to use the default shown on the site today.
+   */
+  testimonialsHeading?: string | null;
   testimonials?:
     | {
         message?: string | null;
@@ -1083,6 +2719,44 @@ export interface Home {
         id?: string | null;
       }[]
     | null;
+  /**
+   * The latest published blog is shown automatically.
+   */
+  blogsHeading?: string | null;
+  /**
+   * Leave empty to use the default shown on the site today.
+   */
+  blogsEmptyText?: string | null;
+  /**
+   * The links come from Site settings.
+   */
+  socialHeading?: string | null;
+  /**
+   * Leave empty to use the default shown on the site today.
+   */
+  socialIntro?: string | null;
+  /**
+   * Leave empty to use the default shown on the site today.
+   */
+  newsHeading?: string | null;
+  /**
+   * Shown in this order.
+   */
+  news?:
+    | {
+        title: string;
+        href: string;
+        /**
+         * Shown as written, e.g. 2026-03-21.
+         */
+        date?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Leave empty to use the default shown on the site today.
+   */
+  clientsHeading?: string | null;
   clients?:
     | {
         logo?: (number | null) | Media;
@@ -1090,10 +2764,20 @@ export interface Home {
         id?: string | null;
       }[]
     | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
 /**
+ * The About Us page (/about-us). Empty sections show the original website's content.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "about".
  */
@@ -1116,7 +2800,45 @@ export interface About {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * YouTube video shown beside the text
+   */
   link?: string | null;
+  principlesTitle?: string | null;
+  principles?:
+    | {
+        /**
+         * Small word above the title, e.g. "Our"
+         */
+        prefix?: string | null;
+        title: string;
+        content?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        /**
+         * Inline SVG markup shown in the top corner of the card
+         */
+        icon?: string | null;
+        /**
+         * Inline SVG markup shown at the bottom of the card
+         */
+        art?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  poweringProgressTitle?: string | null;
   poweringProgressTagline?: string | null;
   poweringProgressCards?:
     | {
@@ -1125,6 +2847,7 @@ export interface About {
         id?: string | null;
       }[]
     | null;
+  companiesTitle?: string | null;
   groupOfCompanies?:
     | {
         icon?: (number | null) | Media;
@@ -1147,6 +2870,56 @@ export interface About {
         id?: string | null;
       }[]
     | null;
+  why?: {
+    title?: string | null;
+    points?:
+      | {
+          value: string;
+          id?: string | null;
+        }[]
+      | null;
+    image?: (number | null) | Media;
+    background?: (number | null) | Media;
+    /**
+     * Small icon shown before each point
+     */
+    bullet?: (number | null) | Media;
+  };
+  journey?: {
+    title?: string | null;
+    intro?: string | null;
+    background?: (number | null) | Media;
+    /**
+     * Artwork drawn under each year
+     */
+    road?: (number | null) | Media;
+    items?:
+      | {
+          year: string;
+          title?: string | null;
+          /**
+           * Shown on hover
+           */
+          text?: string | null;
+          /**
+           * Shown on hover
+           */
+          image?: (number | null) | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  accreditations?: {
+    title?: string | null;
+    text?: string | null;
+    logos?: (number | Media)[] | null;
+    background?: (number | null) | Media;
+  };
+  awards?: {
+    title?: string | null;
+    text?: string | null;
+    images?: (number | Media)[] | null;
+  };
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -1215,6 +2988,438 @@ export interface Contact {
   createdAt?: string | null;
 }
 /**
+ * Contact details, social links, main menu, footer and default page title/description used across the whole site.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: number;
+  contact: {
+    phone: string;
+    /**
+     * e.g. tel:+919090101065
+     */
+    phoneHref: string;
+    email: string;
+    /**
+     * e.g. https://wa.me/919090101065
+     */
+    whatsapp: string;
+  };
+  /**
+   * Icons in the top bar, footer and homepage.
+   */
+  socials?:
+    | {
+        key: 'linkedin' | 'facebook' | 'instagram' | 'twitter' | 'youtube';
+        label: string;
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Top-level items of the header menu, in order.
+   */
+  mainNav?:
+    | {
+        label: string;
+        kind: 'link' | 'mega' | 'dropdown';
+        href?: string | null;
+        /**
+         * Mega menus show one column per entry; dropdowns list the links of every entry in one list.
+         */
+        groups?:
+          | {
+              label: string;
+              href?: string | null;
+              links?:
+                | {
+                    label: string;
+                    href: string;
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  footer: {
+    blurb: string;
+    /**
+     * The "em-tee-and-tee" clip played by the speaker button.
+     */
+    pronunciationAudio?: (number | null) | Media;
+    columns?:
+      | {
+          title: string;
+          links?:
+            | {
+                label: string;
+                href: string;
+                id?: string | null;
+              }[]
+            | null;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Next to the copyright line.
+     */
+    legal?:
+      | {
+          label: string;
+          href: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  defaults: {
+    /**
+     * Other pages use "Page title | MTandT".
+     */
+    title: string;
+    description: string;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Shared banner and gallery for the Media section. Blogs, press releases and events are edited in Content. The SEO tab is for /media (the blogs list).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media-pages".
+ */
+export interface MediaPage {
+  id: number;
+  /**
+   * Background of the "MEDIA" banner on all four media listings
+   */
+  banner?: (number | null) | Media;
+  /**
+   * Photos and videos on /media/gallery, in this order
+   */
+  gallery?:
+    | {
+        type: 'image' | 'video';
+        image?: (number | null) | Media;
+        /**
+         * YouTube embed address, e.g. https://www.youtube.com/embed/RgBMS3lRuhs
+         */
+        videoUrl?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Search-engine title and description for /media/press. Leave empty to keep the defaults.
+   */
+  pressSeo?: {
+    /**
+     * Used as-is (include "| MTandT" if wanted)
+     */
+    title?: string | null;
+    description?: string | null;
+  };
+  /**
+   * Search-engine title and description for /media/events. Leave empty to keep the defaults.
+   */
+  eventsSeo?: {
+    /**
+     * Used as-is (include "| MTandT" if wanted)
+     */
+    title?: string | null;
+    description?: string | null;
+  };
+  /**
+   * Search-engine title and description for /media/gallery. Leave empty to keep the defaults.
+   */
+  gallerySeo?: {
+    /**
+     * Used as-is (include "| MTandT" if wanted)
+     */
+    title?: string | null;
+    description?: string | null;
+  };
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * The Careers page (/career). Job openings are edited under Business > Careers.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "career-page".
+ */
+export interface CareerPage {
+  id: number;
+  /**
+   * Title in the page banner, e.g. CAREERS
+   */
+  title: string;
+  banner?: (number | null) | Media;
+  heading?: string | null;
+  tagline?: string | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Photo grid beside the text (4 images work best)
+   */
+  images?: (number | Media)[] | null;
+  form?: {
+    title?: string | null;
+    subtitle?: string | null;
+    functionalAreas?: string[] | null;
+    education?: string[] | null;
+  };
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * The /industries listing page. The industries themselves are edited under Business > Industries.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "industries-page".
+ */
+export interface IndustriesPage {
+  id: number;
+  /**
+   * Heading in the title banner (leave empty for none)
+   */
+  title?: string | null;
+  banner?: (number | null) | Media;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * The Contact Us page (/contact-us).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-page".
+ */
+export interface ContactPage {
+  id: number;
+  /**
+   * Page title (read by screen readers; the banner artwork carries the visible title)
+   */
+  title: string;
+  banner?: (number | null) | Media;
+  /**
+   * Heading above the contact form
+   */
+  heading?: string | null;
+  /**
+   * Small caption under the heading
+   */
+  subheading?: string | null;
+  share?: {
+    title?: string | null;
+    text?: string | null;
+    button?: string | null;
+    background?: (number | null) | Media;
+    formTitle?: string | null;
+    fields?:
+      | {
+          /**
+           * Internal key sent with the submission, e.g. fullName (no spaces)
+           */
+          name: string;
+          label: string;
+          type?: ('text' | 'email' | 'tel' | 'select' | 'textarea') | null;
+          required?: boolean | null;
+          /**
+           * Dropdown choices
+           */
+          options?: string[] | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * Tabs above the office list, e.g. INDIA / OVERSEAS
+   */
+  regions?:
+    | {
+        name: string;
+        cities?:
+          | {
+              name: string;
+              offices?:
+                | {
+                    company?: string | null;
+                    /**
+                     * e.g. Corporate Office, Headquarters, Mumbai Branch
+                     */
+                    label: string;
+                    address?: string | null;
+                    phones?: string[] | null;
+                    emails?: string[] | null;
+                    /**
+                     * The src of the Google Maps "Embed a map" iframe
+                     */
+                    map?: string | null;
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * The /services page. Each card is a service in Business > Services (order and card text are set there).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services-page".
+ */
+export interface ServicesPage {
+  id: number;
+  /**
+   * Heading and breadcrumb
+   */
+  title: string;
+  banner?: (number | null) | Media;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * The /catalogues page. Each catalogue is an item in Business > Catalogues (order is set there).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "catalogues-page".
+ */
+export interface CataloguesPage {
+  id: number;
+  /**
+   * Banner title and breadcrumb
+   */
+  title: string;
+  banner?: (number | null) | Media;
+  /**
+   * Choices of the "Choose Category" filter, in order. They must match the catalogues' category text.
+   */
+  categories?:
+    | {
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "annual-returns-page".
+ */
+export interface AnnualReturnsPage {
+  id: number;
+  banner?: (number | null) | Media;
+  tabs?:
+    | {
+        /**
+         * Company name on the tab
+         */
+        label: string;
+        groups?:
+          | {
+              /**
+               * e.g. "Annual Return"
+               */
+              title: string;
+              docs?:
+                | {
+                    label: string;
+                    file?: (number | null) | Document;
+                    /**
+                     * Used when no PDF is uploaded
+                     */
+                    href?: string | null;
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home_select".
  */
@@ -1222,6 +3427,72 @@ export interface HomeSelect<T extends boolean = true> {
   title?: T;
   featuredImage?: T;
   content?: T;
+  heading?: T;
+  slides?:
+    | T
+    | {
+        image?: T;
+        eyebrow?: T;
+        titleLines?:
+          | T
+          | {
+              value?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  heroButtonLabel?: T;
+  heroButtonHref?: T;
+  productsHeading?: T;
+  productTabs?:
+    | T
+    | {
+        label?: T;
+        items?:
+          | T
+          | {
+              title?: T;
+              image?: T;
+              href?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  brandsHeading?: T;
+  brandsTagline?: T;
+  brandTabs?:
+    | T
+    | {
+        label?: T;
+        brands?:
+          | T
+          | {
+              logo?: T;
+              alt?: T;
+              title?: T;
+              text?: T;
+              href?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  serviceNavigatorHeading?: T;
+  serviceNavigator?:
+    | T
+    | {
+        intro?: T;
+        items?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              href?: T;
+              icon?: T;
+              id?: T;
+            };
+      };
+  serviceNavigatorLinkLabel?: T;
+  whyUsHeading?: T;
   whyUs?:
     | T
     | {
@@ -1230,6 +3501,7 @@ export interface HomeSelect<T extends boolean = true> {
         icon?: T;
         id?: T;
       };
+  testimonialsHeading?: T;
   testimonials?:
     | T
     | {
@@ -1238,12 +3510,33 @@ export interface HomeSelect<T extends boolean = true> {
         logo?: T;
         id?: T;
       };
+  blogsHeading?: T;
+  blogsEmptyText?: T;
+  socialHeading?: T;
+  socialIntro?: T;
+  newsHeading?: T;
+  news?:
+    | T
+    | {
+        title?: T;
+        href?: T;
+        date?: T;
+        id?: T;
+      };
+  clientsHeading?: T;
   clients?:
     | T
     | {
         logo?: T;
         name?: T;
         id?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1258,6 +3551,18 @@ export interface AboutSelect<T extends boolean = true> {
   featuredImage?: T;
   content?: T;
   link?: T;
+  principlesTitle?: T;
+  principles?:
+    | T
+    | {
+        prefix?: T;
+        title?: T;
+        content?: T;
+        icon?: T;
+        art?: T;
+        id?: T;
+      };
+  poweringProgressTitle?: T;
   poweringProgressTagline?: T;
   poweringProgressCards?:
     | T
@@ -1266,6 +3571,7 @@ export interface AboutSelect<T extends boolean = true> {
         description?: T;
         id?: T;
       };
+  companiesTitle?: T;
   groupOfCompanies?:
     | T
     | {
@@ -1287,6 +3593,52 @@ export interface AboutSelect<T extends boolean = true> {
         user?: T;
         designation?: T;
         id?: T;
+      };
+  why?:
+    | T
+    | {
+        title?: T;
+        points?:
+          | T
+          | {
+              value?: T;
+              id?: T;
+            };
+        image?: T;
+        background?: T;
+        bullet?: T;
+      };
+  journey?:
+    | T
+    | {
+        title?: T;
+        intro?: T;
+        background?: T;
+        road?: T;
+        items?:
+          | T
+          | {
+              year?: T;
+              title?: T;
+              text?: T;
+              image?: T;
+              id?: T;
+            };
+      };
+  accreditations?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        logos?: T;
+        background?: T;
+      };
+  awards?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        images?: T;
       };
   meta?:
     | T
@@ -1319,6 +3671,317 @@ export interface ContactSelect<T extends boolean = true> {
         city?: T;
         country?: T;
         id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  contact?:
+    | T
+    | {
+        phone?: T;
+        phoneHref?: T;
+        email?: T;
+        whatsapp?: T;
+      };
+  socials?:
+    | T
+    | {
+        key?: T;
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  mainNav?:
+    | T
+    | {
+        label?: T;
+        kind?: T;
+        href?: T;
+        groups?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+              links?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  footer?:
+    | T
+    | {
+        blurb?: T;
+        pronunciationAudio?: T;
+        columns?:
+          | T
+          | {
+              title?: T;
+              links?:
+                | T
+                | {
+                    label?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+        legal?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+              id?: T;
+            };
+      };
+  defaults?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media-pages_select".
+ */
+export interface MediaPagesSelect<T extends boolean = true> {
+  banner?: T;
+  gallery?:
+    | T
+    | {
+        type?: T;
+        image?: T;
+        videoUrl?: T;
+        id?: T;
+      };
+  pressSeo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  eventsSeo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  gallerySeo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "career-page_select".
+ */
+export interface CareerPageSelect<T extends boolean = true> {
+  title?: T;
+  banner?: T;
+  heading?: T;
+  tagline?: T;
+  content?: T;
+  images?: T;
+  form?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        functionalAreas?: T;
+        education?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "industries-page_select".
+ */
+export interface IndustriesPageSelect<T extends boolean = true> {
+  title?: T;
+  banner?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-page_select".
+ */
+export interface ContactPageSelect<T extends boolean = true> {
+  title?: T;
+  banner?: T;
+  heading?: T;
+  subheading?: T;
+  share?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        button?: T;
+        background?: T;
+        formTitle?: T;
+        fields?:
+          | T
+          | {
+              name?: T;
+              label?: T;
+              type?: T;
+              required?: T;
+              options?: T;
+              id?: T;
+            };
+      };
+  regions?:
+    | T
+    | {
+        name?: T;
+        cities?:
+          | T
+          | {
+              name?: T;
+              offices?:
+                | T
+                | {
+                    company?: T;
+                    label?: T;
+                    address?: T;
+                    phones?: T;
+                    emails?: T;
+                    map?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services-page_select".
+ */
+export interface ServicesPageSelect<T extends boolean = true> {
+  title?: T;
+  banner?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "catalogues-page_select".
+ */
+export interface CataloguesPageSelect<T extends boolean = true> {
+  title?: T;
+  banner?: T;
+  categories?:
+    | T
+    | {
+        value?: T;
+        id?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "annual-returns-page_select".
+ */
+export interface AnnualReturnsPageSelect<T extends boolean = true> {
+  banner?: T;
+  tabs?:
+    | T
+    | {
+        label?: T;
+        groups?:
+          | T
+          | {
+              title?: T;
+              docs?:
+                | T
+                | {
+                    label?: T;
+                    file?: T;
+                    href?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
       };
   updatedAt?: T;
   createdAt?: T;

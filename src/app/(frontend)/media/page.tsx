@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getBlogPage } from "@/content/media";
+import { getBlogPage, getMediaPages } from "@/content/media";
 import BlogGrid from "@/ui/Media/BlogGrid";
 import MediaBanner from "@/ui/Media/MediaBanner";
 import MediaTabs from "@/ui/Media/MediaTabs";
 import Pagination, { parsePage } from "@/ui/Media/Pagination";
 
-export const metadata: Metadata = {
-  title: "Blogs",
-  description: "Insights, guides and updates from Mtandt Group on access equipment, work at height safety and rentals.",
-  alternates: { canonical: "/media/blogs" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = (await getMediaPages()).seo.blogs;
+  return {
+    title: seo?.title ? { absolute: seo.title } : "Blogs",
+    description:
+      seo?.description || "Insights, guides and updates from Mtandt Group on access equipment, work at height safety and rentals.",
+    alternates: { canonical: "/media/blogs" },
+    ...(seo?.image ? { openGraph: { images: [seo.image] } } : {}),
+  };
+}
 
 export default async function Page({ searchParams }: { searchParams: Promise<{ page?: string | string[] }> }) {
   const page = parsePage((await searchParams).page);

@@ -3,19 +3,26 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/ui/PageChrome";
 import IndustryIcon from "@/ui/CustomProduct/IndustryIcon";
 import { TitleBanner } from "@/ui/CustomProduct/Sections";
-import { industryIndex } from "@/content/custom";
+import { getIndustriesPage, getIndustryIndex } from "@/content/industries";
 
-export const metadata: Metadata = {
-  title: "Industries",
-  description:
-    "Industries served by Mtandt Group: railway, aviation, automobile, energy, hotels & buildings, FMCG/warehouses and events.",
-  alternates: { canonical: "/industries" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  // Admin SEO tab (Pages > Industries Page > SEO) wins; empty fields keep the original meta.
+  const seo = (await getIndustriesPage()).seo;
+  return {
+    title: seo?.title ? { absolute: seo.title } : "Industries",
+    description:
+      seo?.description ||
+      "Industries served by Mtandt Group: railway, aviation, automobile, energy, hotels & buildings, FMCG/warehouses and events.",
+    alternates: { canonical: "/industries" },
+    openGraph: seo?.image ? { images: [seo.image] } : undefined,
+  };
+}
 
-export default function IndustriesPage() {
+export default async function IndustriesPage() {
+  const [page, industryIndex] = await Promise.all([getIndustriesPage(), getIndustryIndex()]);
   return (
     <main>
-      <TitleBanner title="" crumbs={<Breadcrumbs items={[{ label: "Industries" }]} />} />
+      <TitleBanner title={page.title} image={page.banner} crumbs={<Breadcrumbs items={[{ label: "Industries" }]} />} />
       <section className="bg-surface py-12 md:py-16">
         <div className="default-margin grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8">
           {industryIndex.map((c) => (

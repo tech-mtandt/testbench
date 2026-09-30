@@ -10,33 +10,34 @@ import ProductCard from "@/ui/Products/ProductCard";
 
 type Params = { params: Promise<{ slug: string }> };
 
-export function generateStaticParams() {
-  return allProducts().map((p) => ({ slug: p.slug }));
+export async function generateStaticParams() {
+  return (await allProducts()).map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const p = getProduct((await params).slug);
+  const p = await getProduct((await params).slug);
   if (!p) return {};
+  const image = p.meta.image || p.image;
   return {
     title: { absolute: p.meta.title || p.title },
     description: p.meta.description,
     keywords: p.meta.keywords,
     alternates: { canonical: `/product-detail/${p.slug}` },
-    openGraph: p.image ? { images: [p.image] } : undefined,
+    openGraph: image ? { images: [image] } : undefined,
   };
 }
 
 export default async function Page({ params }: Params) {
-  const p = getProduct((await params).slug);
+  const p = await getProduct((await params).slug);
   if (!p) notFound();
   const mode = p.mode === "rent" ? "rental" : "buy";
-  const cat = p.category ? getCategory(p.category) : null;
+  const cat = p.category ? await getCategory(p.category) : null;
   const crumbs: Crumb[] = [{ label: p.mode === "rent" ? "Rent" : "Buy" }];
   if (cat) crumbs.push({ label: cat.crumb || cat.title, href: `/category-by-subcategory/${cat.slug}` });
   if (p.category && p.subcategory)
     crumbs.push({ label: p.subcategoryName || p.subcategory, href: listingHref(mode, p.category, p.subcategory) });
   crumbs.push({ label: p.title });
-  const related = relatedProducts(p);
+  const related = await relatedProducts(p);
 
   return (
     <div className="default-margin pb-12">

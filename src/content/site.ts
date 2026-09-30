@@ -1,7 +1,10 @@
 /**
  * Site chrome content scraped from www.mtandt.com (2026-09-25).
- * Static for now — candidates to move into a Payload `Header`/`Footer` global.
+ * Editable in the `site-settings` global ("Header & Footer"); the static values below
+ * are the import source and the fallback until that global is saved.
  */
+import { cached, fileUrl, readGlobal } from "@/cms/read";
+import type { SiteSetting } from "@/payload-types";
 
 export const contact = {
   phone: "+91 9090 1010 65",
@@ -273,3 +276,52 @@ export const footer = {
     { label: "Terms and Conditions", href: "/pages/term-conditions" },
   ],
 };
+
+/** Site-wide defaults used by the root layout's metadata. */
+export const siteDefaults = {
+  title: "Industrial & Safety Equipment Rental | Scaffolding & AWP",
+  description:
+    "Mtandt Group — India's one-stop destination for aerial work platforms, aluminium scaffolding, material handling equipment, fall protection systems and safety training since 1974.",
+};
+
+export type SiteData = {
+  contact: typeof contact;
+  socials: typeof socials;
+  mainNav: NavItem[];
+  footer: typeof footer;
+  defaults: typeof siteDefaults;
+};
+
+const links = (v: { label: string; href: string }[] | null | undefined): NavLink[] =>
+  (v ?? []).map(({ label, href }) => ({ label, href }));
+
+const readSite = cached(async (): Promise<SiteData> => {
+  const doc = await readGlobal<SiteSetting>("site-settings");
+  if (!doc) return { contact, socials, mainNav, footer, defaults: siteDefaults };
+  const { phone, phoneHref, email, whatsapp } = doc.contact;
+  return {
+    contact: { phone, phoneHref, email, whatsapp },
+    socials: (doc.socials ?? []).map(({ key, label, href }) => ({ key, label, href })),
+    mainNav: (doc.mainNav ?? []).map((item): NavItem => {
+      if (item.kind === "link") return { label: item.label, kind: "link", href: item.href ?? "" };
+      const groups = (item.groups ?? []).map((g): NavGroup => ({
+        label: g.label,
+        ...(g.href ? { href: g.href } : {}),
+        links: links(g.links),
+      }));
+      return { label: item.label, kind: item.kind, groups };
+    }),
+    footer: {
+      blurb: doc.footer.blurb,
+      pronunciationAudio: fileUrl(doc.footer.pronunciationAudio) ?? footer.pronunciationAudio,
+      columns: (doc.footer.columns ?? []).map((c) => ({ title: c.title, links: links(c.links) })),
+      legal: links(doc.footer.legal),
+    },
+    defaults: { title: doc.defaults.title, description: doc.defaults.description },
+  };
+}, "site-settings");
+
+/** Header/footer/contact content from the CMS, or the static values above until it is saved. */
+export async function getSite(): Promise<SiteData> {
+  return readSite();
+}

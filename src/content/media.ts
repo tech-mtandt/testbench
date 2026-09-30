@@ -3,14 +3,16 @@ import eventsJson from "@/content/scraped/events.json";
 import galleryJson from "@/content/scraped/gallery.json";
 import pressJson from "@/content/scraped/press.json";
 import scrapedBlogsJson from "@/app/(frontend)/blogs/[slug]/scraped.json";
+import { cached, fileUrl, html, readAll, readGlobal, str } from "@/cms/read";
 import { lexicalToText, mediaUrl, payloadClient } from "@/lib/payload";
-import type { Blog } from "@/payload-types";
+import type { Blog, Event, MediaPage, Press } from "@/payload-types";
 
 export const MEDIA_BANNER = "/legacy/imageFile/1682412326.jpg";
 export const BLOGS_PER_PAGE = 12;
 export const EVENTS_PER_PAGE = 10;
 
-type Meta = { title: string; description: string };
+/** Legacy meta (scraped) or the admin SEO tab; `image` only comes from the CMS. */
+type Meta = { title: string; description: string; image?: string | null };
 
 export type PressItem = {
   slug: string;
@@ -49,12 +51,96 @@ export type BlogCard = {
   excerpt: string | null;
 };
 
-export const pressItems = pressJson as PressItem[];
-export const events = eventsJson as EventItem[];
-export const gallery = galleryJson as GalleryItem[];
+/** Admin-set meta title/description for a listing page (null = keep the page's defaults). */
+export type ListingSeo = { title: string | null; description: string | null; image?: string | null } | null;
 
-export const getPress = (slug: string) => pressItems.find((p) => p.slug === slug) ?? null;
-export const getEvent = (slug: string) => events.find((e) => e.slug === slug) ?? null;
+export type MediaPagesData = {
+  banner: string;
+  gallery: GalleryItem[];
+  seo: { blogs: ListingSeo; press: ListingSeo; events: ListingSeo; gallery: ListingSeo };
+};
+
+// ---------------------------------------------------------------- press / events / gallery (CMS, scraped fallback)
+const published = { _status: { equals: "published" as const } };
+
+/** CMS date (stored at midday UTC) -> "YYYY-MM-DD", the scraped format. */
+const day = (v: string | null | undefined) => (v ? new Date(v).toISOString().slice(0, 10) : null);
+
+const meta = (m: { title?: string | null; description?: string | null; image?: unknown } | undefined): Meta => ({
+  title: m?.title ?? "",
+  description: m?.description ?? "",
+  image: fileUrl(m?.image as Parameters<typeof fileUrl>[0]),
+});
+
+const seoOf = (m: { title?: string | null; description?: string | null; image?: unknown } | undefined): ListingSeo => {
+  const out = { title: str(m?.title), description: str(m?.description), image: fileUrl(m?.image as Parameters<typeof fileUrl>[0]) };
+  return out.title || out.description || out.image ? out : null;
+};
+
+/** The live DB held a seed event and press release before the import existed; only switch
+ * to the CMS once the import has brought in the scraped items (matched by slug). */
+function imported<T extends { slug: string }>(docs: T[] | null, scraped: { slug: string }[]): docs is T[] {
+  return Boolean(docs?.some((d) => scraped.some((s) => s.slug === d.slug)));
+}
+
+/** Press releases in list order (highest position first). */
+export const pressItems = cached(async (): Promise<PressItem[]> => {
+  const docs = await readAll<Press>("press", { where: published, sort: ["-order", "-createdAt"] });
+  if (!imported(docs, pressJson)) return pressJson as PressItem[];
+  return docs.map((d) => ({
+    slug: d.slug,
+    title: d.title,
+    cardTitle: str(d.cardTitle) ?? d.title,
+    date: day(d.publishedDate),
+    image: fileUrl(d.hero),
+    body: html(d.body),
+    tags: d.tags ?? [],
+    meta: meta(d.meta),
+  }));
+}, "media-press");
+
+/** Events, newest first. */
+export const events = cached(async (): Promise<EventItem[]> => {
+  const docs = await readAll<Event>("events", { where: published, sort: ["-fromDate", "id"] });
+  if (!imported(docs, eventsJson)) return eventsJson as EventItem[];
+  return docs.map((d) => ({
+    slug: d.slug,
+    title: d.title,
+    image: fileUrl(d.hero),
+    thumb: fileUrl(d.thumbnail),
+    from: day(d.fromDate),
+    to: day(d.toDate),
+    location: d.location ?? "",
+    excerpt: d.excerpt ?? "",
+    body: html(d.body),
+    gallery: (d.gallery ?? []).map((g) => fileUrl(g.image)).filter((x): x is string => !!x),
+    tags: d.tags ?? [],
+    meta: meta(d.meta),
+  }));
+}, "media-events");
+
+export const getMediaPages = cached(async (): Promise<MediaPagesData> => {
+  const doc = await readGlobal<MediaPage>("media-pages", 1);
+  if (!doc)
+    return {
+      banner: MEDIA_BANNER,
+      gallery: galleryJson as GalleryItem[],
+      seo: { blogs: null, press: null, events: null, gallery: null },
+    };
+  return {
+    banner: fileUrl(doc.banner) ?? MEDIA_BANNER,
+    gallery: (doc.gallery ?? []).flatMap((g): GalleryItem[] => {
+      const src = g.type === "video" ? str(g.videoUrl) : fileUrl(g.image);
+      return src ? [{ type: g.type, src }] : [];
+    }),
+    seo: { blogs: seoOf(doc.meta), press: seoOf(doc.pressSeo), events: seoOf(doc.eventsSeo), gallery: seoOf(doc.gallerySeo) },
+  };
+}, "media-pages");
+
+export const gallery = async () => (await getMediaPages()).gallery;
+
+export const getPress = async (slug: string) => (await pressItems()).find((p) => p.slug === slug) ?? null;
+export const getEvent = async (slug: string) => (await events()).find((e) => e.slug === slug) ?? null;
 
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -124,8 +210,6 @@ const cardSelect = {
   excerpt: true,
   body: true,
 } as const;
-
-const published = { _status: { equals: "published" as const } };
 
 async function fetchBlogPage(page: number) {
   const payload = await payloadClient();

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "@/../public/logo.png";
-import { footer, socials } from "@/content/site";
+import type { SiteData } from "@/content/site";
 import { SocialIcon } from "@/ui/Icons";
 import AssistBanner from "./AssistBanner";
 import BackToTopButton from "./BackToTopButton";
@@ -10,11 +10,11 @@ import SubscribeButton from "./SubscribeButton";
 
 const mutedLink = "text-[13px] leading-6 text-white/60 no-underline hover:text-brand";
 
-export default function Footer() {
+export default function Footer({ contact, socials, footer }: Pick<SiteData, "contact" | "socials" | "footer">) {
   return (
     <footer className="relative">
       <BackToTopButton />
-      <AssistBanner />
+      <AssistBanner contact={contact} />
       <div className="bg-[#101010]">
         <div className="default-margin grid grid-cols-1 gap-10 pt-10 pb-6 sm:grid-cols-2 lg:grid-cols-[1.1fr_1fr_1fr_1fr]">
           <div className="flex max-w-64 flex-col gap-4">

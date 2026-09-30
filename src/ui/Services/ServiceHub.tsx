@@ -19,7 +19,7 @@ export default function ServiceHub({ data, title }: { data: ServiceHubData; titl
             <div className="min-w-0">
               <h1 className="mb-3 text-3xl font-semibold text-ink md:text-4xl">{data.aboutTitle}</h1>
               <div
-                className="text-[15px] leading-relaxed text-ink-soft [&_a]:text-ink [&_b]:text-[17px] [&_b]:text-ink"
+                className="text-[15px] leading-relaxed text-ink-soft [&_a]:text-ink [&_b]:text-[17px] [&_b]:text-ink [&_strong]:text-[17px] [&_strong]:text-ink"
                 dangerouslySetInnerHTML={{ __html: data.aboutHtml }}
               />
             </div>
@@ -92,7 +92,7 @@ export default function ServiceHub({ data, title }: { data: ServiceHubData; titl
                 )}
               </div>
               <div
-                className="min-w-0 text-[15px] text-ink [&_b]:font-semibold [&_li]:mb-2 [&_ul]:list-disc [&_ul]:pl-5"
+                className="min-w-0 text-[15px] text-ink [&_b]:font-semibold [&_strong]:font-semibold [&_li]:mb-2 [&_ul]:list-disc [&_ul]:pl-5"
                 dangerouslySetInnerHTML={{ __html: supported.html }}
               />
             </div>

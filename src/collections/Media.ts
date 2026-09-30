@@ -1,3 +1,4 @@
+import { legacySrcField } from '../fields/legacySrc'
 import type { CollectionConfig } from 'payload'
 
 export const Media: CollectionConfig = {
@@ -14,6 +15,7 @@ export const Media: CollectionConfig = {
       type: 'text',
       required: true,
     },
+    legacySrcField,
   ],
   upload: true,
 }

@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
-import data from "@/content/scraped/annual-returns.json";
+import { getAnnualReturns } from "@/content/annual-returns";
 import ReturnTabs from "./ReturnTabs";
 import { bgUrl } from "@/lib/img";
 
-export const metadata: Metadata = {
-  title: data.meta.title,
-  description: data.meta.description,
-  alternates: { canonical: "/annual-returns" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { meta } = await getAnnualReturns();
+  return {
+    title: meta.absolute ? { absolute: meta.title } : meta.title,
+    description: meta.description || undefined,
+    alternates: { canonical: "/annual-returns" },
+    openGraph: meta.image ? { images: [meta.image] } : undefined,
+  };
+}
 
-export default function Page() {
+export default async function Page() {
+  const data = await getAnnualReturns();
   return (
     <>
       <section

@@ -2,20 +2,24 @@ import Link from "next/link";
 import Carousel from "@/ui/Carousel";
 import Img from "@/ui/Img";
 import { CalendarIcon, ChevronRight, SocialIcon } from "@/ui/Icons";
-import { socials } from "@/content/site";
+import type { SiteData } from "@/content/site";
 
 export function ServiceNavigator({
   intro,
   items,
+  heading,
+  linkLabel,
 }: {
   intro: string;
   items: { title: string; text: string; href: string }[];
+  heading: string;
+  linkLabel: string;
 }) {
   return (
     <section className="bg-[#1b1d1f] bg-[repeating-linear-gradient(45deg,rgba(255,255,255,0.02)_0_2px,transparent_2px_6px)] py-12">
       <div className="default-margin grid grid-cols-1 gap-8 lg:grid-cols-[320px_minmax(0,1fr)] lg:items-center">
         <div className="lg:border-r lg:border-white/20 lg:pr-8">
-          <h2 className="section-title section-title-yellow mb-4 text-brand!">Service Navigator</h2>
+          <h2 className="section-title section-title-yellow mb-4 text-brand!">{heading}</h2>
           <p className="text-white/85">{intro}</p>
         </div>
         <Carousel>
@@ -24,7 +28,7 @@ export function ServiceNavigator({
               <h5 className="mb-3 text-base text-white">{s.title}</h5>
               <p className="mb-4 flex-1 text-sm text-white/70">{s.text}</p>
               <Link href={s.href} className="flex items-center gap-1 text-sm font-semibold text-brand no-underline">
-                Know More <ChevronRight className="h-3.5 w-3.5" />
+                {linkLabel} <ChevronRight className="h-3.5 w-3.5" />
               </Link>
             </div>
           ))}
@@ -43,10 +47,10 @@ const whyIconPaths = [
   "M4 20V10M10 20V4M16 20v-8M22 20H2", // pioneer
 ];
 
-export function WhyUs({ items }: { items: { title: string; text: string }[] }) {
+export function WhyUs({ items, heading }: { items: { title: string; text: string }[]; heading: string }) {
   return (
     <section className="default-margin py-12">
-      <h2 className="section-title mb-8">Why Us</h2>
+      <h2 className="section-title mb-8">{heading}</h2>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((w, i) => (
           <div key={w.title} className="border-2 border-brand-light bg-white px-6 py-7 text-center">
@@ -62,11 +66,11 @@ export function WhyUs({ items }: { items: { title: string; text: string }[] }) {
   );
 }
 
-export function Clients({ logos }: { logos: string[] }) {
+export function Clients({ logos, heading }: { logos: string[]; heading: string }) {
   return (
     <section className="py-12">
       <div className="default-margin">
-        <h2 className="mb-8 text-center text-3xl">Our Clients</h2>
+        <h2 className="mb-8 text-center text-3xl">{heading}</h2>
         <Carousel>
           {logos.map((src) => (
             <div key={src} className="flex h-24 w-[40%] shrink-0 snap-start items-center justify-center sm:w-[25%] lg:w-[calc(16.666%-17px)]">
@@ -82,13 +86,31 @@ export function Clients({ logos }: { logos: string[] }) {
 type BlogCard = { slug: string; title: string; excerpt?: string | null; date?: string | null; image?: string | null };
 type NewsItem = { href: string; title: string; date?: string | null };
 
-export function HomeFeeds({ blog, news }: { blog: BlogCard | null; news: NewsItem[] }) {
+type FeedHeadings = {
+  blogsHeading: string;
+  blogsEmptyText: string;
+  socialHeading: string;
+  socialIntro: string;
+  newsHeading: string;
+};
+
+export function HomeFeeds({
+  blog,
+  news,
+  socials,
+  headings,
+}: {
+  blog: BlogCard | null;
+  news: NewsItem[];
+  socials: SiteData["socials"];
+  headings: FeedHeadings;
+}) {
   const panel = "flex flex-col border-[6px] border-neutral-100 bg-white p-4";
   return (
     <section className="bg-surface py-12">
       <div className="default-margin grid gap-6 md:grid-cols-3">
         <div className={panel}>
-          <h4 className="mb-3 text-center text-base">Latest Blogs</h4>
+          <h4 className="mb-3 text-center text-base">{headings.blogsHeading}</h4>
           {blog ? (
             <Link href={`/blogs/${blog.slug}`} className="flex flex-col no-underline">
               <Img src={blog.image ?? undefined} alt={blog.title} className="mb-3 aspect-[3/2] w-full object-cover" />
@@ -102,12 +124,12 @@ export function HomeFeeds({ blog, news }: { blog: BlogCard | null; news: NewsIte
               {blog.excerpt && <p className="line-clamp-2 text-sm">{blog.excerpt}</p>}
             </Link>
           ) : (
-            <p className="text-sm">No posts yet.</p>
+            <p className="text-sm">{headings.blogsEmptyText}</p>
           )}
         </div>
         <div className={panel}>
-          <h4 className="mb-3 text-center text-base">Social Media</h4>
-          <p className="mb-4 text-sm">Follow Mtandt Group for project updates, events and product launches.</p>
+          <h4 className="mb-3 text-center text-base">{headings.socialHeading}</h4>
+          <p className="mb-4 text-sm">{headings.socialIntro}</p>
           <ul className="space-y-2">
             {socials.map((s) => (
               <li key={s.key}>
@@ -122,7 +144,7 @@ export function HomeFeeds({ blog, news }: { blog: BlogCard | null; news: NewsIte
           </ul>
         </div>
         <div className={panel}>
-          <h4 className="mb-3 text-center text-base">News and Events</h4>
+          <h4 className="mb-3 text-center text-base">{headings.newsHeading}</h4>
           <ul className="max-h-80 divide-y divide-neutral-200 overflow-y-auto pr-1">
             {news.map((n) => (
               <li key={n.href} className="py-2.5">

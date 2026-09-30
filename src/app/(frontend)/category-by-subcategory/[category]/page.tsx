@@ -1,28 +1,29 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { categories, getCategory, listingHref } from "@/content/products";
+import { getCategories, getCategory, listingHref } from "@/content/products";
 import { Breadcrumbs } from "@/ui/PageChrome";
 import CategoryTabs from "@/ui/Products/CategoryTabs";
 
 type Params = { params: Promise<{ category: string }> };
 
-export function generateStaticParams() {
-  return categories.map((c) => ({ category: c.slug }));
+export async function generateStaticParams() {
+  return (await getCategories()).map((c) => ({ category: c.slug }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const c = getCategory((await params).category);
+  const c = await getCategory((await params).category);
   if (!c) return {};
   return {
     title: { absolute: c.meta.title || c.title },
     description: c.meta.description,
     keywords: c.meta.keywords,
     alternates: { canonical: `/category-by-subcategory/${c.slug}` },
+    openGraph: c.meta.image ? { images: [c.meta.image] } : undefined,
   };
 }
 
 export default async function Page({ params }: Params) {
-  const c = getCategory((await params).category);
+  const c = await getCategory((await params).category);
   if (!c) notFound();
   const tabs = c.subcategories.map((s) => ({
     ...s,

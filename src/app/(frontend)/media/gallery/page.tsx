@@ -1,16 +1,20 @@
 import type { Metadata } from "next";
-import { gallery } from "@/content/media";
+import { getMediaPages } from "@/content/media";
 import Lightbox from "@/ui/Media/Lightbox";
 import MediaBanner from "@/ui/Media/MediaBanner";
 import MediaTabs from "@/ui/Media/MediaTabs";
 
-export const metadata: Metadata = {
-  title: "Gallery",
-  description: "Photos and videos of Mtandt Group equipment, projects and solutions on site.",
-  alternates: { canonical: "/media/gallery" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = (await getMediaPages()).seo.gallery;
+  return {
+    title: seo?.title ? { absolute: seo.title } : "Gallery",
+    description: seo?.description || "Photos and videos of Mtandt Group equipment, projects and solutions on site.",
+    alternates: { canonical: "/media/gallery" },
+  };
+}
 
-export default function Page() {
+export default async function Page() {
+  const { gallery } = await getMediaPages();
   return (
     <>
       <MediaBanner />

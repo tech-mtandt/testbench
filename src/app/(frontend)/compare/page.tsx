@@ -13,9 +13,7 @@ const key = (label: string) => label.toLowerCase().replace(/\(.*?\)/g, "").repla
 
 export default async function Page({ searchParams }: Props) {
   const raw = [(await searchParams).p].flat()[0] ?? "";
-  const products = raw
-    .split(",")
-    .map((s) => getProduct(s.trim()))
+  const products = (await Promise.all(raw.split(",").map((s) => getProduct(s.trim()))))
     .filter((p): p is Product => !!p)
     .slice(0, 4);
 

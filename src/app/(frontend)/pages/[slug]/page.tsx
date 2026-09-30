@@ -1,28 +1,29 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/ui/PageChrome";
-import legal from "@/content/scraped/legal.json";
+import { getLegalPage, getLegalPages } from "@/content/legal";
 
 type Params = { params: Promise<{ slug: string }> };
-type LegalPage = { meta: { title: string; description: string }; title: string; crumb: string; html: string };
-const pages = legal as Record<string, LegalPage>;
 
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-  return Object.keys(pages).map((slug) => ({ slug }));
+export async function generateStaticParams() {
+  return Object.keys(await getLegalPages()).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
-  const p = pages[slug];
+  const p = await getLegalPage(slug);
   if (!p) return {};
-  return { title: p.meta.title, description: p.meta.description, alternates: { canonical: `/pages/${slug}` } };
+  return {
+    title: p.seo.title ? { absolute: p.seo.title } : p.meta.title,
+    description: p.meta.description || undefined,
+    alternates: { canonical: `/pages/${slug}` },
+    openGraph: p.seo.image ? { images: [p.seo.image] } : undefined,
+  };
 }
 
 export default async function Page({ params }: Params) {
   const { slug } = await params;
-  const p = pages[slug];
+  const p = await getLegalPage(slug);
   if (!p) notFound();
   return (
     <>

@@ -1,32 +1,35 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/ui/PageChrome";
-import { bgLayers, listServices, servicesIndex } from "@/content/services";
+import { bgLayers, getServicesPage, listServices } from "@/content/services";
 import { bgUrl } from "@/lib/img";
 
-export const metadata: Metadata = {
-  title: "Services | Mtandt Group",
-  description:
-    "Equipment AMC, operator training, competency certifications, rope access, CESL training, EQUIPR asset management and EAT industrial rope access services from Mtandt Group.",
-  alternates: { canonical: "/services" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { meta } = await getServicesPage();
+  return {
+    title: meta.absolute ? { absolute: meta.title } : meta.title,
+    description: meta.description,
+    alternates: { canonical: "/services" },
+    openGraph: meta.image ? { images: [meta.image] } : undefined,
+  };
+}
 
 export default async function Page() {
-  const services = await listServices();
+  const [page, services] = await Promise.all([getServicesPage(), listServices()]);
   return (
     <>
       <section
         className="relative h-32 bg-[#e9ecef] bg-cover bg-center md:h-48"
-        style={servicesIndex.banner ? { backgroundImage: `url("${bgUrl(servicesIndex.banner)}")` } : undefined}
+        style={page.banner ? { backgroundImage: `url("${bgUrl(page.banner)}")` } : undefined}
       >
         <div className="default-margin pt-3">
-          <Breadcrumbs items={[{ label: "Services" }]} />
+          <Breadcrumbs items={[{ label: page.title }]} />
         </div>
-        <h1 className="sr-only">Services</h1>
+        <h1 className="sr-only">{page.title}</h1>
       </section>
       <section className="bg-surface py-12">
         <div className="default-margin">
-          <h2 className="mb-3 text-xl font-semibold text-ink">Services</h2>
+          <h2 className="mb-3 text-xl font-semibold text-ink">{page.title}</h2>
           <div className="grid gap-x-1.5 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {services.map((s) => (
               <div

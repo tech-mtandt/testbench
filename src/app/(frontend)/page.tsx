@@ -1,4 +1,6 @@
-import home from "@/content/scraped/home.json";
+import type { Metadata } from "next";
+import { getHome } from "@/content/home";
+import { getSite } from "@/content/site";
 import { lexicalToText, mediaUrl, payloadClient } from "@/lib/payload";
 import BrandTabs from "@/ui/Home/BrandTabs";
 import HeroSlider from "@/ui/Home/HeroSlider";
@@ -8,6 +10,17 @@ import { Clients, HomeFeeds, ServiceNavigator, WhyUs } from "@/ui/Home/Sections"
 import Testimonials from "@/ui/Home/Testimonials";
 
 export const revalidate = 600;
+
+export async function generateMetadata(): Promise<Metadata> {
+  // Admin SEO tab (Pages > Homepage > SEO); when empty the layout defaults apply as before.
+  const seo = (await getHome()).seo;
+  if (!seo) return {};
+  return {
+    ...(seo.title ? { title: { absolute: seo.title } } : {}),
+    ...(seo.description ? { description: seo.description } : {}),
+    ...(seo.image ? { openGraph: { images: [seo.image] } } : {}),
+  };
+}
 
 async function latestBlog() {
   try {
@@ -35,22 +48,28 @@ async function latestBlog() {
 }
 
 export default async function Home() {
-  const blog = await latestBlog();
+  const [home, site, blog] = await Promise.all([getHome(), getSite(), latestBlog()]);
+  const h = home.headings;
 
   return (
     <>
-      <HeroSlider slides={home.slides} />
+      <HeroSlider slides={home.slides} button={{ label: h.heroButtonLabel, href: h.heroButtonHref }} />
       <SearchBar />
       <section className="mt-12 px-4 text-center">
-        <h1 className="text-2xl md:text-4xl">Delivering Exceptionally Good Customer Experience</h1>
+        <h1 className="text-2xl md:text-4xl">{h.heading}</h1>
       </section>
-      <ProductTabs tabs={home.productTabs} />
-      <BrandTabs tabs={home.brandTabs} />
-      <ServiceNavigator intro={home.serviceNavigator.intro} items={home.serviceNavigator.items} />
-      <WhyUs items={home.whyUs} />
-      <Testimonials items={home.testimonials} />
-      <HomeFeeds blog={blog} news={home.news} />
-      <Clients logos={home.clients.filter((c): c is string => Boolean(c))} />
+      <ProductTabs tabs={home.productTabs} heading={h.productsHeading} />
+      <BrandTabs tabs={home.brandTabs} heading={h.brandsHeading} tagline={h.brandsTagline} />
+      <ServiceNavigator
+        intro={home.serviceNavigator.intro}
+        items={home.serviceNavigator.items}
+        heading={h.serviceNavigatorHeading}
+        linkLabel={h.serviceNavigatorLinkLabel}
+      />
+      <WhyUs items={home.whyUs} heading={h.whyUsHeading} />
+      <Testimonials items={home.testimonials} heading={h.testimonialsHeading} />
+      <HomeFeeds blog={blog} news={home.news} socials={site.socials} headings={h} />
+      <Clients logos={home.clients} heading={h.clientsHeading} />
     </>
   );
 }

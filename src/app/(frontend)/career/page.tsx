@@ -4,16 +4,23 @@ import Img from "@/ui/Img";
 import { ChevronDown } from "@/ui/Icons";
 import ApplyButton from "@/ui/Career/ApplyButton";
 import CareerForm from "@/ui/Career/CareerForm";
-import data from "@/content/scraped/career.json";
+import { getCareer } from "@/ui/Career/data";
 
-export const metadata: Metadata = {
-  title: "Careers | Mtandt Group",
-  description:
-    "Join Mtandt Group - for the ones who get it done, Dil Se. Explore current openings and apply with your resume.",
-  alternates: { canonical: "/career" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  // Admin SEO tab (Pages > Careers Page > SEO) wins; empty fields keep the original meta.
+  const seo = (await getCareer()).seo;
+  return {
+    title: seo?.title ? { absolute: seo.title } : "Careers | Mtandt Group",
+    description:
+      seo?.description ||
+      "Join Mtandt Group - for the ones who get it done, Dil Se. Explore current openings and apply with your resume.",
+    alternates: { canonical: "/career" },
+    openGraph: seo?.image ? { images: [seo.image] } : undefined,
+  };
+}
 
-export default function Page() {
+export default async function Page() {
+  const data = await getCareer();
   return (
     <>
       <PageBanner title={data.title} image={data.banner} crumbs={[{ label: "Career" }]} />

@@ -8,14 +8,22 @@ export type BrandTab = {
   brands: { logo: string | null; alt: string; title: string; text: string; href: string | null }[];
 };
 
-export default function BrandTabs({ tabs }: { tabs: BrandTab[] }) {
+export default function BrandTabs({
+  tabs,
+  heading,
+  tagline,
+}: {
+  tabs: BrandTab[];
+  heading: string;
+  tagline: string;
+}) {
   const [active, setActive] = useState(0);
 
   return (
     <section className="bg-brand-cream py-12">
       <div className="default-margin">
-        <h2 className="section-title">Our Brands</h2>
-        <p className="mt-1 mb-6">Safety and Excellence in Meeting Diverse Need and Applications</p>
+        <h2 className="section-title">{heading}</h2>
+        <p className="mt-1 mb-6">{tagline}</p>
         <div role="tablist" className="no-scrollbar mb-8 flex gap-2 overflow-x-auto">
           {tabs.map((t, i) => (
             <button

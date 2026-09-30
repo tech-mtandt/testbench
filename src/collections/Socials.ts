@@ -4,6 +4,7 @@ export const Socials: CollectionConfig = {
   slug: 'socials',
   admin: {
     group: 'Admin',
+    hidden: true,
     useAsTitle: 'name',
   },
   access: {

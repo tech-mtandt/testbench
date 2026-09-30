@@ -1,11 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "@/../public/logo.png";
-import { contact, mainNav, socials } from "@/content/site";
+import type { SiteData } from "@/content/site";
 import { MailIcon, PhoneIcon, SocialIcon } from "@/ui/Icons";
 import NavBar from "./NavBar";
 
-export default function Header() {
+export default function Header({ contact, socials, mainNav }: Pick<SiteData, "contact" | "socials" | "mainNav">) {
   return (
     <header className="sticky top-0 z-50">
       <div className="bg-brand-light">

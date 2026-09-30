@@ -6,7 +6,7 @@ import { QuoteIcon } from "@/ui/Icons";
 
 export type Testimonial = { quote: string; author: string; logo: string | null };
 
-export default function Testimonials({ items }: { items: Testimonial[] }) {
+export default function Testimonials({ items, heading }: { items: Testimonial[]; heading: string }) {
   const [i, setI] = useState(0);
   useEffect(() => {
     const t = setInterval(() => setI((v) => (v + 1) % items.length), 7000);
@@ -18,7 +18,7 @@ export default function Testimonials({ items }: { items: Testimonial[] }) {
   return (
     <section className="bg-[#1b1d1f] bg-[repeating-linear-gradient(45deg,rgba(255,255,255,0.02)_0_2px,transparent_2px_6px)] py-12">
       <div className="default-margin max-w-3xl text-center">
-        <h2 className="mb-8 text-3xl text-white">Customer Testimonials</h2>
+        <h2 className="mb-8 text-3xl text-white">{heading}</h2>
         <div className="relative min-h-28 px-8">
           <QuoteIcon className="absolute left-0 top-0 h-7 w-7 text-brand" />
           <p className="text-base font-medium text-white">{t.quote}</p>

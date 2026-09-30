@@ -1,16 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  categories,
-  facetNames,
-  getListing,
-  hasListing,
-  listingHref,
-  summarize,
-  type FacetKey,
-  type Mode,
-} from "@/content/products";
+import { getCatalog, getListing, hasListing, listingHref, summarize, type FacetKey, type Mode } from "@/content/products";
 import { Breadcrumbs } from "@/ui/PageChrome";
 import ListingView, { type FacetGroup, type NavOption } from "./ListingView";
 
@@ -30,24 +21,25 @@ const label = (mode: Mode) => (mode === "buy" ? "Buy" : "Rent");
 
 export async function listingMetadata(mode: Mode, { params }: ListingParams): Promise<Metadata> {
   const { category, subcategory } = await params;
-  const l = getListing(mode, category, subcategory);
+  const l = await getListing(mode, category, subcategory);
   if (!l) return {};
   return {
     title: { absolute: l.meta.title || `${l.title} for ${mode === "buy" ? "Sale" : "Rent"} | Mtandt` },
     description: l.meta.description || l.description || undefined,
     keywords: l.meta.keywords,
     alternates: { canonical: listingHref(mode, category, subcategory) },
+    openGraph: l.meta.image ? { images: [l.meta.image] } : undefined,
   };
 }
 
 export default async function ListingPage({ mode, params }: ListingParams & { mode: Mode }) {
   const { category, subcategory } = await params;
-  const l = getListing(mode, category, subcategory);
+  const [l, catalog] = await Promise.all([getListing(mode, category, subcategory), getCatalog()]);
   if (!l) notFound();
   const other: Mode = mode === "buy" ? "rental" : "buy";
 
-  const categoryNav: NavOption[] = categories.map((c) => {
-    const first = c.subcategories.find((s) => hasListing(mode, c.slug, s.slug));
+  const categoryNav: NavOption[] = catalog.categories.map((c) => {
+    const first = c.subcategories.find((s) => hasListing(catalog, mode, c.slug, s.slug));
     return {
       label: c.crumb || c.title,
       href: listingHref(mode, c.slug, (first ?? c.subcategories[0]).slug),
@@ -65,7 +57,7 @@ export default async function ListingPage({ mode, params }: ListingParams & { mo
     (g) => g.showAll || products.some((p) => p.facets[g.key]?.length),
   ).map((g) => ({
     ...g,
-    options: Object.entries(facetNames[g.key] ?? {}).map(([id, name]) => ({ id, label: name })),
+    options: Object.entries(catalog.facets[g.key] ?? {}).map(([id, name]) => ({ id, label: name })),
   }));
 
   return (

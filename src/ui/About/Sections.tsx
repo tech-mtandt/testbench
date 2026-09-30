@@ -2,12 +2,10 @@ import Link from "next/link";
 import Img from "@/ui/Img";
 import Carousel from "@/ui/Carousel";
 import { SectionTitle } from "@/ui/PageChrome";
-import data from "@/content/scraped/about.json";
 import { bgUrl } from "@/lib/img";
+import type { Accreditations, Awards, Company, JourneyData, Principle, Why } from "./data";
 
-type About = typeof data;
-
-export function Principles({ title, items }: { title: string; items: About["principles"] }) {
+export function Principles({ title, items }: { title: string; items: Principle[] }) {
   return (
     <section id="group-principle" className="scroll-mt-28 bg-white py-12">
       <div id="groupprinciple" className="default-margin">
@@ -80,7 +78,7 @@ export function PoweringProgress({
   );
 }
 
-export function GroupCompanies({ title, items }: { title: string; items: About["companies"] }) {
+export function GroupCompanies({ title, items }: { title: string; items: Company[] }) {
   return (
     <section id="bussiness-unit" className="scroll-mt-28 bg-[#eee] py-12">
       <div className="default-margin">
@@ -102,12 +100,12 @@ export function GroupCompanies({ title, items }: { title: string; items: About["
   );
 }
 
-export function WhyMtandt({ why }: { why: About["why"] }) {
+export function WhyMtandt({ why }: { why: Why }) {
   return (
     <section
       id="WhyMTandT"
       className="scroll-mt-28 bg-[#1b1d21] bg-cover bg-center py-12"
-      style={{ backgroundImage: `url("${bgUrl(why.bg)}")` }}
+      style={why.bg ? { backgroundImage: `url("${bgUrl(why.bg)}")` } : undefined}
     >
       <div className="default-margin">
         <h2 className="relative mb-6 pl-3 text-2xl font-bold uppercase text-[#FFEB3B] before:absolute before:top-1 before:bottom-1 before:left-0 before:w-[3px] before:bg-[#FFEB3B] md:text-3xl">
@@ -119,7 +117,7 @@ export function WhyMtandt({ why }: { why: About["why"] }) {
               <li
                 key={p}
                 className="relative mb-4 bg-no-repeat pl-6 text-white/80 transition-colors hover:text-[#FFE61C]"
-                style={{ backgroundImage: `url("${why.bullet}")`, backgroundPosition: "0 4px" }}
+                style={why.bullet ? { backgroundImage: `url("${why.bullet}")`, backgroundPosition: "0 4px" } : undefined}
               >
                 {p}
               </li>
@@ -134,14 +132,14 @@ export function WhyMtandt({ why }: { why: About["why"] }) {
   );
 }
 
-export function Journey({ journey }: { journey: About["journey"] }) {
+export function Journey({ journey }: { journey: JourneyData }) {
   return (
     <section id="OurJourney" className="scroll-mt-28 bg-white pt-12 pb-16">
       <div className="default-margin">
         <SectionTitle>{journey.title}</SectionTitle>
         <p className="mt-3 text-ink">{journey.intro}</p>
       </div>
-      <div className="mt-6 bg-no-repeat pl-0 lg:pl-[5%]" style={{ backgroundImage: `url("${bgUrl(journey.bg)}")`, backgroundPosition: "2% 0" }}>
+      <div className="mt-6 bg-no-repeat pl-0 lg:pl-[5%]" style={journey.bg ? { backgroundImage: `url("${bgUrl(journey.bg)}")`, backgroundPosition: "2% 0" } : undefined}>
         <Carousel>
           {journey.items.map((j) => (
             <div key={j.year} className="group relative w-[260px] shrink-0 snap-start text-center sm:w-[300px]">
@@ -155,7 +153,7 @@ export function Journey({ journey }: { journey: About["journey"] }) {
               <div
                 aria-hidden
                 className="h-10 w-full bg-center bg-no-repeat"
-                style={{ backgroundImage: `url("${bgUrl(journey.road)}")`, backgroundSize: "100%" }}
+                style={journey.road ? { backgroundImage: `url("${bgUrl(journey.road)}")`, backgroundSize: "100%" } : undefined}
               />
               <p className="px-2 text-[15px] font-medium text-[#666]">{j.title}</p>
               <p className="mx-2 mt-3 rounded-lg bg-gradient-to-b from-[#545454] to-[#18191D] p-4 text-sm text-white opacity-0 shadow-[0_0_14px_2px_rgba(0,0,0,0.2)] transition-opacity group-hover:opacity-100">
@@ -169,12 +167,12 @@ export function Journey({ journey }: { journey: About["journey"] }) {
   );
 }
 
-export function AccreditationsAwards({ acc, awards }: { acc: About["accreditations"]; awards: About["awards"] }) {
+export function AccreditationsAwards({ acc, awards }: { acc: Accreditations; awards: Awards }) {
   return (
     <section
       id="accreditations"
       className="scroll-mt-28 bg-[#FFFDDB] bg-no-repeat py-12 lg:bg-[length:54%_100%] lg:bg-right"
-      style={{ backgroundImage: `url("${bgUrl(acc.bg)}")` }}
+      style={acc.bg ? { backgroundImage: `url("${bgUrl(acc.bg)}")` } : undefined}
     >
       <div className="default-margin grid grid-cols-1 gap-10 lg:grid-cols-2">
         <div className="lg:pr-10">

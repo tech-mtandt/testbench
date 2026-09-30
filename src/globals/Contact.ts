@@ -4,8 +4,10 @@ import { baseGlobalFields } from '../fields/baseGlobalFields'
 
 export const Contact: GlobalConfig = {
   slug: 'contact',
+  // Replaced by the `contact-page` global; kept (hidden) because its tables hold legacy data.
   admin: {
     group: 'Pages',
+    hidden: true,
   },
   access: {
     read: () => true,

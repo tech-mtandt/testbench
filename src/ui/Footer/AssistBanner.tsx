@@ -1,6 +1,6 @@
-import { contact } from "@/content/site";
+import type { SiteData } from "@/content/site";
 
-export default function AssistBanner() {
+export default function AssistBanner({ contact }: Pick<SiteData, "contact">) {
   return (
     <div className="bg-brand-light">
       <div className="default-margin flex flex-col items-center justify-center gap-1 py-3 text-center sm:flex-row sm:gap-3">

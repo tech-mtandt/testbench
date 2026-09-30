@@ -6,26 +6,26 @@ import ProductTabs from "@/ui/CustomProduct/ProductTabs";
 import EnquireButton from "@/ui/CustomProduct/EnquireButton";
 import FilterGallery from "@/ui/CustomProduct/FilterGallery";
 import { CenterTitle, ClientLogos, RelatedProducts } from "@/ui/CustomProduct/Sections";
-import { customProductPath, getCustomProduct, type Kind } from "@/content/custom";
+import { customProductPath, getCustomProduct, type Kind } from "@/content/customProducts";
 
 export type ProductParams = Promise<{ category: string; slug: string }>;
 
 export async function productMetadata(kind: Kind, params: ProductParams): Promise<Metadata> {
   const { category, slug } = await params;
-  const p = getCustomProduct(kind, category, slug);
+  const p = await getCustomProduct(kind, category, slug);
   if (!p) return {};
   return {
     title: p.meta.title ? { absolute: p.meta.title } : p.title,
     description: p.meta.description ?? undefined,
     keywords: p.meta.keywords ?? undefined,
     alternates: { canonical: customProductPath(kind, p, slug) },
-    openGraph: { title: p.meta.title ?? p.title, description: p.meta.description ?? undefined, images: p.hero ?? undefined },
+    openGraph: { title: p.meta.title ?? p.title, description: p.meta.description ?? undefined, images: p.meta.image ?? p.hero ?? undefined },
   };
 }
 
 export default async function ProductPage({ kind, params }: { kind: Kind; params: ProductParams }) {
   const { category, slug } = await params;
-  const p = getCustomProduct(kind, category, slug);
+  const p = await getCustomProduct(kind, category, slug);
   if (!p) notFound();
 
   return (

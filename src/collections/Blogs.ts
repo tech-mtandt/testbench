@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { EXPERIMENTAL_TableFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 
 export const Blogs: CollectionConfig = {
   slug: 'blogs',
@@ -53,6 +54,10 @@ export const Blogs: CollectionConfig = {
       name: 'body',
       type: 'richText',
       required: true,
+      // Some imported posts have comparison tables.
+      editor: lexicalEditor({
+        features: ({ defaultFeatures }) => [...defaultFeatures, EXPERIMENTAL_TableFeature()],
+      }),
     },
     {
       name: 'author',
@@ -67,6 +72,12 @@ export const Blogs: CollectionConfig = {
       name: 'publishedDate',
       type: 'date',
       label: 'Publish Date',
+    },
+    {
+      name: 'tags',
+      type: 'text',
+      hasMany: true,
+      admin: { description: 'Shown as tags at the bottom of the post' },
     },
   ],
 }

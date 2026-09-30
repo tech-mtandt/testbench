@@ -4,30 +4,33 @@ import { Breadcrumbs } from "@/ui/PageChrome";
 import Img from "@/ui/Img";
 import ImageGrid from "@/ui/CustomProduct/ImageGrid";
 import { CaseStudyCards, CenterTitle, ClientLogos, TitleBanner } from "@/ui/CustomProduct/Sections";
-import { getIndustry, industrySlugs } from "@/content/custom";
+import { getIndustry, getIndustrySlugs } from "@/content/industries";
 
 type Params = Promise<{ slug: string }>;
 
-export const dynamicParams = false;
+// Industries added in the CMS render on first visit.
+export const dynamicParams = true;
 
-export function generateStaticParams() {
-  return industrySlugs.map((slug) => ({ slug }));
+export async function generateStaticParams() {
+  return (await getIndustrySlugs()).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { slug } = await params;
-  const d = getIndustry(slug);
+  const d = await getIndustry(slug);
   if (!d) return {};
+  // Admin SEO tab wins; empty fields keep the original meta.
   return {
-    title: `${d.title} Industry`,
-    description: d.heading || undefined,
+    title: d.seo?.title ? { absolute: d.seo.title } : `${d.title} Industry`,
+    description: d.seo?.description || d.heading || undefined,
     alternates: { canonical: `/industries/${slug}` },
+    openGraph: d.seo?.image ? { images: [d.seo.image] } : undefined,
   };
 }
 
 export default async function IndustryPage({ params }: { params: Params }) {
   const { slug } = await params;
-  const d = getIndustry(slug);
+  const d = await getIndustry(slug);
   if (!d) notFound();
 
   return (

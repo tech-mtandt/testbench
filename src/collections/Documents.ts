@@ -1,3 +1,4 @@
+import { legacySrcField } from '../fields/legacySrc'
 import type { CollectionConfig } from 'payload'
 
 export const Documents: CollectionConfig = {
@@ -11,5 +12,5 @@ export const Documents: CollectionConfig = {
   upload: {
     mimeTypes: ['application/pdf'],
   },
-  fields: [],
+  fields: [legacySrcField],
 }

@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getService, serviceSlugs } from "@/content/services";
+import { getService, getServiceSlugs } from "@/content/services";
 import ServiceDetail from "@/ui/Services/ServiceDetail";
 import ServiceHub from "@/ui/Services/ServiceHub";
 
 type Params = { params: Promise<{ slug: string }> };
 
-export function generateStaticParams() {
-  return serviceSlugs.map((slug) => ({ slug }));
+export async function generateStaticParams() {
+  return (await getServiceSlugs()).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {

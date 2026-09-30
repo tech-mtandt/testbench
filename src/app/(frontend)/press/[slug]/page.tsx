@@ -9,24 +9,29 @@ import Tags from "@/ui/Media/Tags";
 
 type Props = { params: Promise<{ slug: string }> };
 
-export const dynamicParams = false;
-export const generateStaticParams = () => pressItems.map((p) => ({ slug: p.slug }));
+// Releases added in the CMS get pages too; refresh every 10 minutes (admin edits also revalidate).
+export const revalidate = 600;
+export const dynamicParams = true;
+export async function generateStaticParams() {
+  return (await pressItems()).map((p) => ({ slug: p.slug }));
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const p = getPress((await params).slug);
+  const p = await getPress((await params).slug);
   if (!p) return {};
+  const image = p.meta.image || p.image;
   return {
     title: { absolute: p.meta.title || p.title },
     description: p.meta.description,
     alternates: { canonical: `/press/${p.slug}` },
-    openGraph: { type: "article", images: p.image ? [p.image] : undefined },
+    openGraph: { type: "article", images: image ? [image] : undefined },
   };
 }
 
 export default async function Page({ params }: Props) {
-  const p = getPress((await params).slug);
+  const p = await getPress((await params).slug);
   if (!p) notFound();
-  const latest = pressItems.filter((x) => x.slug !== p.slug).slice(0, 7);
+  const latest = (await pressItems()).filter((x) => x.slug !== p.slug).slice(0, 7);
 
   return (
     <div className="default-margin pb-12 pt-4">

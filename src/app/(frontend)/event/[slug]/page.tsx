@@ -10,24 +10,29 @@ import Tags from "@/ui/Media/Tags";
 
 type Props = { params: Promise<{ slug: string }> };
 
-export const dynamicParams = false;
-export const generateStaticParams = () => events.map((e) => ({ slug: e.slug }));
+// Events added in the CMS get pages too; refresh every 10 minutes (admin edits also revalidate).
+export const revalidate = 600;
+export const dynamicParams = true;
+export async function generateStaticParams() {
+  return (await events()).map((e) => ({ slug: e.slug }));
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const e = getEvent((await params).slug);
+  const e = await getEvent((await params).slug);
   if (!e) return {};
+  const image = e.meta.image || e.thumb;
   return {
     title: { absolute: e.meta.title || e.title },
     description: e.meta.description || e.excerpt,
     alternates: { canonical: `/event/${e.slug}` },
-    openGraph: { images: e.thumb ? [e.thumb] : undefined },
+    openGraph: { images: image ? [image] : undefined },
   };
 }
 
 export default async function Page({ params }: Props) {
-  const e = getEvent((await params).slug);
+  const e = await getEvent((await params).slug);
   if (!e) notFound();
-  const recent = events.filter((x) => x.slug !== e.slug).slice(0, 5);
+  const recent = (await events()).filter((x) => x.slug !== e.slug).slice(0, 5);
 
   return (
     <div className="default-margin pb-12 pt-4">

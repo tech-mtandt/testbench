@@ -40,6 +40,19 @@ The Payload CLI (`payload migrate:*`) silently no-ops in this toolchain — use 
 `make-migration.mts` / `migrate-run.mts` Local-API scripts instead. Baseline
 (`20260811_193641_baseline`) captures the pre-migration schema and is marked applied.
 
+The baseline was never committed, so `make-migration.mts` has no snapshot to diff
+against. `schema-sql.mts` renders the whole schema from `payload.config` as
+idempotent DDL instead (no DB needed); `src/migrations/20261001_000000_cms_connect`
+was made that way:
+`PAYLOAD_SECRET=x node --require ./migration/patch-next-env.cjs --import tsx migration/schema-sql.mts > out.sql`
+
+## CMS content (site pages -> Payload)
+Every page reads Payload first and falls back to `src/content/scraped/*.json` until
+that area has been imported. Import from the admin dashboard ("Import website
+content"), or with `.env`: `migration/cms-import.mts [task...] [--overwrite]`.
+`cms-selftest.mts` checks the import + read layer round trip offline (in-memory
+Payload, no DB): `PAYLOAD_SECRET=x node --require ./migration/patch-next-env.cjs --import tsx migration/cms-selftest.mts`.
+
 ## Order of operations
 1. **Schema push** — `migration/bootstrap.mts` (booting Payload in dev pushes the
    schema to Postgres; also a smoke test that prints collection counts).

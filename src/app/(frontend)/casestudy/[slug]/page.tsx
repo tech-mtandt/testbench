@@ -4,30 +4,35 @@ import { Breadcrumbs } from "@/ui/PageChrome";
 import { DownloadIcon, SocialIcon } from "@/ui/Icons";
 import ImageGrid from "@/ui/CustomProduct/ImageGrid";
 import { CaseStudyCards, CenterTitle, TitleBanner } from "@/ui/CustomProduct/Sections";
-import { caseStudySlugs, getCaseStudy } from "@/content/custom";
+import { getCaseStudy, getCaseStudySlugs } from "@/content/caseStudies";
 
 type Params = Promise<{ slug: string }>;
 
-export const dynamicParams = false;
+const caseStudyDescription = (html?: string) => html?.replace(/<[^>]+>/g, "").slice(0, 160) || undefined;
 
-export function generateStaticParams() {
-  return caseStudySlugs.map((slug) => ({ slug }));
+// Case studies added in the CMS render on first visit.
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+  return (await getCaseStudySlugs()).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { slug } = await params;
-  const d = getCaseStudy(slug);
+  const d = await getCaseStudy(slug);
   if (!d) return {};
+  // Admin SEO tab wins; empty fields keep the original meta.
   return {
-    title: d.title,
-    description: d.blocks[0]?.html.replace(/<[^>]+>/g, "").slice(0, 160) || undefined,
+    title: d.seo?.title ? { absolute: d.seo.title } : d.title,
+    description: d.seo?.description || caseStudyDescription(d.blocks[0]?.html),
     alternates: { canonical: `/casestudy/${slug}` },
+    openGraph: d.seo?.image ? { images: [d.seo.image] } : undefined,
   };
 }
 
 export default async function CaseStudyPage({ params }: { params: Params }) {
   const { slug } = await params;
-  const d = getCaseStudy(slug);
+  const d = await getCaseStudy(slug);
   if (!d) notFound();
 
   const url = encodeURIComponent(`https://www.mtandt.com/casestudy/${slug}`);
@@ -47,7 +52,7 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
             {d.blocks.map((b) => (
               <div key={b.title}>
                 <h2 className="text-lg font-bold text-ink">{b.title}</h2>
-                <div className="prose-legacy text-sm leading-relaxed text-ink" dangerouslySetInnerHTML={{ __html: b.html }} />
+                <div className="prose-legacy text-sm leading-relaxed text-ink [&_p:last-child]:mb-0" dangerouslySetInnerHTML={{ __html: b.html }} />
               </div>
             ))}
           </div>

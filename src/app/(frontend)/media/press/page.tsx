@@ -1,24 +1,28 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { fmtDMY, pressItems } from "@/content/media";
+import { fmtDMY, getMediaPages, pressItems } from "@/content/media";
 import Img from "@/ui/Img";
 import MediaBanner from "@/ui/Media/MediaBanner";
 import MediaTabs from "@/ui/Media/MediaTabs";
 
-export const metadata: Metadata = {
-  title: "Press",
-  description: "Press releases and media coverage of Mtandt Group.",
-  alternates: { canonical: "/media/press" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = (await getMediaPages()).seo.press;
+  return {
+    title: seo?.title ? { absolute: seo.title } : "Press",
+    description: seo?.description || "Press releases and media coverage of Mtandt Group.",
+    alternates: { canonical: "/media/press" },
+  };
+}
 
-export default function Page() {
+export default async function Page() {
+  const items = await pressItems();
   return (
     <>
       <MediaBanner />
       <MediaTabs active="press" />
       <div className="default-margin py-8 md:py-10">
         <ul className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-          {pressItems.map((p) => (
+          {items.map((p) => (
             <li key={p.slug} className="min-w-0">
               <Link href={`/press/${p.slug}`} className="group block no-underline">
                 <span className="block aspect-[7/4] overflow-hidden bg-neutral-100">

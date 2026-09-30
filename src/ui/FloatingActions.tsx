@@ -1,14 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { contact } from "@/content/site";
 import { enquiryFields } from "@/content/forms";
 import LeadForm from "@/ui/Forms/LeadForm";
 import Modal from "@/ui/Modal";
 import { WhatsAppIcon } from "@/ui/Icons";
 
 /** Right-edge "Enquire Now" tab + WhatsApp bubble, present on every live page. */
-export default function FloatingActions() {
+export default function FloatingActions({ whatsapp }: { whatsapp: string }) {
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -20,7 +19,7 @@ export default function FloatingActions() {
         Enquire Now
       </button>
       <a
-        href={contact.whatsapp}
+        href={whatsapp}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"

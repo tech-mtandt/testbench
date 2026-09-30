@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { allProducts, categories } from "@/content/products";
+import { allProducts, getCategories } from "@/content/products";
 import { PageBanner } from "@/ui/PageChrome";
 import Img from "@/ui/Img";
-import home from "@/content/scraped/home.json";
+import { getHome } from "@/content/home";
 
 export const metadata: Metadata = {
   title: "Products",
@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 };
 
 /** Hub of product categories (the live site has no /products page). */
-export default function Page() {
-  const products = allProducts();
+export default async function Page() {
+  const [products, categories, home] = await Promise.all([allProducts(), getCategories(), getHome()]);
   const fold = (t: string) => t.toLowerCase().replace(/[^a-z]/g, "");
   const homeItems = home.productTabs.flatMap((t) => t.items);
   const imageFor = (cat: string) =>

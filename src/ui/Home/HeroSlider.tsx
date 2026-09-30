@@ -6,7 +6,7 @@ import { bgUrl } from "@/lib/img";
 
 export type Slide = { image: string | null; eyebrow: string; title: string[] };
 
-export default function HeroSlider({ slides }: { slides: Slide[] }) {
+export default function HeroSlider({ slides, button }: { slides: Slide[]; button: { label: string; href: string } }) {
   const [i, setI] = useState(0);
 
   useEffect(() => {
@@ -34,8 +34,8 @@ export default function HeroSlider({ slides }: { slides: Slide[] }) {
                   </span>
                 ))}
               </h2>
-              <Link href="/contact-us" className="btn-dark">
-                Enquire now
+              <Link href={button.href} className="btn-dark">
+                {button.label}
               </Link>
             </div>
           </div>

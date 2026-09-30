@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { RichText } from "@/components/RichText";
 import { blogFallback, blogHero, fmtDMY, fmtLong, getBlog, getBlogSlugs, getLatestBlogs, scrapedBlogs } from "@/content/media";
 import { lexicalToText, mediaUrl } from "@/lib/payload";
 import { Breadcrumbs } from "@/ui/PageChrome";
 import Img from "@/ui/Img";
+import BlogBody from "@/ui/Media/BlogBody";
 import ShareLinks from "@/ui/Media/ShareLinks";
 import SideList from "@/ui/Media/SideList";
 import Tags from "@/ui/Media/Tags";
@@ -14,7 +14,9 @@ type Props = { params: Promise<{ slug: string }> };
 // Prerender every post at build; refresh every 10 minutes (was rendered on every request).
 export const revalidate = 600;
 export async function generateStaticParams() {
-  return (await getBlogSlugs()).map((slug) => ({ slug }));
+  // DB unreachable at build: skip prerendering; posts render on first request instead.
+  const slugs = await getBlogSlugs().catch((err) => (console.error("[blogs] static params", err), [] as string[]));
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -40,7 +42,7 @@ export default async function Page({ params }: Props) {
   const latest = await getLatestBlogs(slug);
   const hero = blogHero(post);
   const fallback = blogFallback(post);
-  const tags = scrapedBlogs[slug]?.tags ?? [];
+  const tags = post.tags?.length ? post.tags : (scrapedBlogs[slug]?.tags ?? []);
 
   return (
     <div className="default-margin pb-12 pt-4">
@@ -53,7 +55,7 @@ export default async function Page({ params }: Props) {
           {fallback ? (
             <div className="prose-legacy mt-6 [&_img]:mx-auto [&_img]:max-h-[420px] [&_img]:w-auto [&_li]:text-ink [&_p]:text-ink" dangerouslySetInnerHTML={{ __html: fallback.body }} />
           ) : (
-            <RichText data={post.body} className="prose-legacy mt-6 [&_li]:text-ink [&_p]:text-ink" />
+            <BlogBody data={post.body} className="prose-legacy mt-6 [&_img]:mx-auto [&_img]:max-h-[420px] [&_img]:w-auto [&_li]:text-ink [&_p]:text-ink" />
           )}
           <Tags tags={tags} />
           <ShareLinks path={`/blogs/${post.slug}`} />

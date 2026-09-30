@@ -5,6 +5,7 @@ import { Inter, Poppins } from "next/font/google";
 import Footer from "@/ui/Footer";
 import Header from "@/ui/Header";
 import FloatingActions from "@/ui/FloatingActions";
+import { getSite } from "@/content/site";
 import Smooth from "@/components/Smooth";
 
 // Self-hosted via next/font; a CSS @import of Google Fonts gets dropped in production builds.
@@ -16,26 +17,29 @@ const poppins = Poppins({
 });
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter-nf", display: "swap" });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://www.mtandt.com"),
-  title: {
-    default: "Industrial & Safety Equipment Rental | Scaffolding & AWP",
-    template: "%s | MTandT",
-  },
-  description:
-    "Mtandt Group — India's one-stop destination for aerial work platforms, aluminium scaffolding, material handling equipment, fall protection systems and safety training since 1974.",
-  icons: { icon: "/favicon.ico" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { defaults } = await getSite();
+  return {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://www.mtandt.com"),
+    title: {
+      default: defaults.title,
+      template: "%s | MTandT",
+    },
+    description: defaults.description,
+    icons: { icon: "/favicon.ico" },
+  };
+}
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const site = await getSite();
   return (
     <html lang="en" data-scroll-behavior="smooth" className={`${poppins.variable} ${inter.variable}`}>
       <body>
-        <Header />
+        <Header contact={site.contact} socials={site.socials} mainNav={site.mainNav} />
         {/*
         <Script
           async
@@ -58,9 +62,9 @@ export default function RootLayout({
         */}
         <Smooth>
           <main>{children}</main>
-          <Footer />
+          <Footer contact={site.contact} socials={site.socials} footer={site.footer} />
         </Smooth>
-        <FloatingActions />
+        <FloatingActions whatsapp={site.contact.whatsapp} />
       </body>
     </html>
   );

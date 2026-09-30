@@ -8,7 +8,8 @@ export const payloadClient = () => getPayload({ config: configPromise });
 export function mediaUrl(m: number | Media | null | undefined, size?: string): string | null {
   if (!m || typeof m !== "object") return null;
   const sizes = (m as Media & { sizes?: Record<string, { url?: string | null }> }).sizes;
-  return (size && sizes?.[size]?.url) || m.url || null;
+  // Files imported from the old site keep their /legacy path (it has optimised variants).
+  return m.legacySrc || (size && sizes?.[size]?.url) || m.url || null;
 }
 
 export function mediaAlt(m: number | Media | null | undefined, fallback = ""): string {

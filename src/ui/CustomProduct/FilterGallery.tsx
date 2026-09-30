@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Img from "@/ui/Img";
 import Lightbox from "@/ui/CustomProduct/Lightbox";
-import type { GalleryItem } from "@/content/custom";
+import type { GalleryItem } from "@/content/customProducts";
 
 type Props = { filters: { id: string; label: string }[]; items: GalleryItem[] };
 

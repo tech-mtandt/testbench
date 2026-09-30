@@ -14,6 +14,7 @@ import {
   Principles,
   WhyMtandt,
 } from "@/ui/About/Sections";
+import { aboutSections } from "@/ui/About/data";
 
 export async function generateMetadata(): Promise<Metadata> {
   // Admin SEO tab (Pages > About > SEO) wins; empty fields keep the legacy meta.
@@ -75,6 +76,7 @@ export default async function Page() {
   const investors = pick(dbMembers(about?.investors), scrapedMembers(data.investors));
   const management = pick(dbMembers(about?.management), scrapedMembers(data.management));
   const cards = about?.poweringProgressCards?.length ? about.poweringProgressCards : data.powering.cards;
+  const s = aboutSections(about);
 
   return (
     <>
@@ -111,15 +113,15 @@ export default async function Page() {
         </div>
       </section>
 
-      <Principles title={data.principlesTitle} items={data.principles} />
+      <Principles title={s.principlesTitle} items={s.principles} />
 
       <PoweringProgress
-        title={data.powering.title}
+        title={s.poweringTitle}
         tagline={about?.poweringProgressTagline || data.powering.tagline}
         cards={cards}
       />
 
-      <GroupCompanies title={data.companiesTitle} items={data.companies} />
+      <GroupCompanies title={s.companiesTitle} items={s.companies} />
 
       <section id="team" className="scroll-mt-28 bg-white py-12">
         <div className="default-margin flex flex-col gap-10">
@@ -134,9 +136,9 @@ export default async function Page() {
         </div>
       </section>
 
-      <WhyMtandt why={data.why} />
-      <Journey journey={data.journey} />
-      <AccreditationsAwards acc={data.accreditations} awards={data.awards} />
+      <WhyMtandt why={s.why} />
+      <Journey journey={s.journey} />
+      <AccreditationsAwards acc={s.accreditations} awards={s.awards} />
     </>
   );
 }
