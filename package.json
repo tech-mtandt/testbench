@@ -4,6 +4,9 @@
   "description": "A blank template to get started with Payload 3.0",
   "private": true,
   "packageManager": "pnpm@9.15.9",
+  "engines": {
+    "node": "22.x"
+  },
   "type": "module",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" next build",

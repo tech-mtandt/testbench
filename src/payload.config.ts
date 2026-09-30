@@ -36,7 +36,8 @@ const dirname = path.dirname(filename);
 const storagePlugins = process.env.S3_BUCKET
   ? [
       s3Storage({
-        collections: { media: true },
+        // documents under a prefix so PDFs never collide with media filenames
+        collections: { media: true, documents: { prefix: "documents" } },
         bucket: process.env.S3_BUCKET,
         config: {
           endpoint: process.env.S3_ENDPOINT,

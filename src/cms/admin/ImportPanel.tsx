@@ -58,11 +58,13 @@ export function ImportPanel() {
   const runAll = async () => {
     setBusy(true);
     stop.current = false;
+    let failed = 0;
     for (const t of tasks) {
       if (stop.current) break;
-      if (!(await runOne(t))) break;
+      // Keep going: a failed step is reported and can be retried by running "Import all" again.
+      if (!(await runOne(t))) failed++;
     }
-    setLog((l) => [...l, stop.current ? "Stopped." : "Finished."]);
+    setLog((l) => [...l, stop.current ? "Stopped." : failed ? `Finished with ${failed} failed step(s). Run "Import all" again to retry them.` : "Finished."]);
     setBusy(false);
   };
 
