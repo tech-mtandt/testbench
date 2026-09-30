@@ -36,8 +36,8 @@ const dirname = path.dirname(filename);
 const storagePlugins = process.env.S3_BUCKET
   ? [
       s3Storage({
-        // documents under a prefix so PDFs never collide with media filenames
-        collections: { media: true, documents: { prefix: "documents" } },
+        // PDFs too: Vercel has no writable disk. (No prefix option: it adds a DB column.)
+        collections: { media: true, documents: true },
         bucket: process.env.S3_BUCKET,
         config: {
           endpoint: process.env.S3_ENDPOINT,

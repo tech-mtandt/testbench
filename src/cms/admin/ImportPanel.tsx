@@ -33,6 +33,7 @@ export function ImportPanel() {
       setStatus((s) => ({ ...s, [task.key]: "running" }));
       setLog((l) => [...l, `▶ ${task.label}`]);
       let cursor: number | null = 0;
+      let skipped = 0;
       while (cursor !== null && !stop.current) {
         const res: Response = await fetch("/api/cms-import", {
           method: "POST",
@@ -46,9 +47,12 @@ export function ImportPanel() {
           setLog((l) => [...l, `  ✗ ${j.error ?? res.status}`]);
           return false;
         }
-        setLog((l) => [...l, ...(j.log as string[]).filter((x) => x.includes("!") || x.includes("created") || x.includes("saved"))]);
+        const lines = j.log as string[];
+        skipped += lines.filter((x) => x.includes("skipped")).length;
+        setLog((l) => [...l, ...lines.filter((x) => x.includes("!") || x.includes("created") || x.includes("saved") || x.includes("filled") || x.includes("updated"))]);
         cursor = j.next;
       }
+      if (skipped) setLog((l) => [...l, `  (${skipped} already imported, left as they are)`]);
       setStatus((s) => ({ ...s, [task.key]: cursor === null ? "done" : "idle" }));
       return cursor === null;
     },

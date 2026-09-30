@@ -199,7 +199,10 @@ export async function upsert(
   const body = drafts ? { ...data, _status: "published" } : data;
   if (found.docs.length) {
     const id = found.docs[0].id as number;
-    if (!ctx.overwrite) return id;
+    if (!ctx.overwrite) {
+      ctx.log(`  skipped ${collection} ${JSON.stringify(where)} (exists)`);
+      return id;
+    }
     await ctx.payload.update({ collection, id, data: body as any, depth: 0, req: ctx.req });
     ctx.log(`  updated ${collection} ${JSON.stringify(where)}`);
     return id;
