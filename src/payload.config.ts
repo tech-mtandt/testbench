@@ -2,6 +2,7 @@ import { postgresAdapter } from "@payloadcms/db-postgres";
 import { s3Storage } from "@payloadcms/storage-s3";
 import { resendAdapter } from "@payloadcms/email-resend";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import { seoPlugin } from "@payloadcms/plugin-seo";
 import path from "path";
 import { buildConfig } from "payload";
 import { fileURLToPath } from "url";
@@ -48,6 +49,25 @@ const storagePlugins = process.env.S3_BUCKET
     ]
   : [];
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.mtandt.com";
+
+// Per-page SEO (meta title, description, share image) on an "SEO" tab. Empty
+// fields fall back to the legacy site's meta in each page's generateMetadata.
+// Adding a collection/global here adds meta_* columns: write a migration.
+const seo = seoPlugin({
+  collections: ["blogs", "services"],
+  globals: ["about"],
+  uploadsCollection: "media",
+  tabbedUI: true,
+  // Meta titles are used verbatim (absolute), so include the brand suffix here.
+  generateTitle: ({ doc }) => (doc?.title ? `${doc.title} | MTandT` : "MTandT"),
+  generateDescription: ({ doc }) => doc?.excerpt || "",
+  generateURL: ({ doc, collectionSlug, globalSlug }) => {
+    if (globalSlug === "about") return `${SITE_URL}/about-us`;
+    return `${SITE_URL}/${collectionSlug}/${doc?.slug ?? ""}`;
+  },
+});
+
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -93,7 +113,8 @@ export default buildConfig({
     // Safety: never auto-sync/alter the live schema on boot. Dev-push hit an
     // ambiguous rename prompt (contact_locations) and can drop/recreate columns.
     push: false,
+    migrationDir: path.resolve(dirname, "migrations"),
   }),
   sharp,
-  plugins: [...storagePlugins],
+  plugins: [...storagePlugins, seo],
 });

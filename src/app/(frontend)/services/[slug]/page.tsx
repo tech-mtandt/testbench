@@ -15,9 +15,10 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const s = await getService(slug);
   if (!s) return {};
   return {
-    title: s.scraped.meta.title || s.title,
-    description: s.scraped.meta.description,
+    title: s.seo.title ? { absolute: s.seo.title } : s.scraped.meta.title || s.title,
+    description: s.seo.description,
     alternates: { canonical: `/services/${slug}` },
+    openGraph: s.seo.image ? { images: [s.seo.image] } : undefined,
   };
 }
 

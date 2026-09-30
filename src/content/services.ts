@@ -87,6 +87,12 @@ export async function getService(slug: string) {
     /** Payload media first, scraped legacy copy underneath as a CSS fallback layer. */
     banners: [mediaUrl(db?.poster), scraped.kind === "detail" ? scraped.banner : null].filter(Boolean) as string[],
     body: usableBody(db?.body ?? null),
+    /** Admin SEO tab; empty fields fall back to the scraped legacy meta. `title` is admin-only (used verbatim). */
+    seo: {
+      title: db?.meta?.title || null,
+      description: db?.meta?.description || scraped.meta.description || null,
+      image: mediaUrl(db?.meta?.image),
+    },
     source: db ? (usableBody(db.body ?? null) ? "db+scrape (db body)" : "db+scrape") : "scrape",
   };
 }

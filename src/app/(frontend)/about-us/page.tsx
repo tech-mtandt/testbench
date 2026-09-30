@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { cache } from "react";
 import { RichText } from "@/components/RichText";
 import { mediaAlt, mediaUrl, payloadClient } from "@/lib/payload";
 import type { About } from "@/payload-types";
@@ -14,11 +15,17 @@ import {
   WhyMtandt,
 } from "@/ui/About/Sections";
 
-export const metadata: Metadata = {
-  title: data.meta.title,
-  description: data.meta.description,
-  alternates: { canonical: "/about-us" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  // Admin SEO tab (Pages > About > SEO) wins; empty fields keep the legacy meta.
+  const meta = (await getAbout())?.meta;
+  const image = mediaUrl(meta?.image);
+  return {
+    title: meta?.title ? { absolute: meta.title } : data.meta.title,
+    description: meta?.description || data.meta.description,
+    alternates: { canonical: "/about-us" },
+    openGraph: image ? { images: [image] } : undefined,
+  };
+}
 
 function youTubeEmbed(url?: string | null) {
   const m = url?.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/);
@@ -51,7 +58,8 @@ const scrapedMembers = (rows: { name: string; designation: string; image: string
 /** Prefer the DB list, unless it is less complete than what is live. */
 const pick = (db: TeamMember[], live: TeamMember[]) => (db.length >= live.length ? db : live);
 
-async function getAbout(): Promise<About | null> {
+// cache(): generateMetadata and the page share one read per request.
+const getAbout = cache(async (): Promise<About | null> => {
   try {
     const payload = await payloadClient();
     return await payload.findGlobal({ slug: "about", depth: 2 });
@@ -59,7 +67,7 @@ async function getAbout(): Promise<About | null> {
     console.error("[about-us] failed to load about global", err);
     return null;
   }
-}
+});
 
 export default async function Page() {
   const about = await getAbout();

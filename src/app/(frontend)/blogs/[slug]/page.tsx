@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { RichText } from "@/components/RichText";
 import { blogFallback, blogHero, fmtDMY, fmtLong, getBlog, getBlogSlugs, getLatestBlogs, scrapedBlogs } from "@/content/media";
-import { lexicalToText } from "@/lib/payload";
+import { lexicalToText, mediaUrl } from "@/lib/payload";
 import { Breadcrumbs } from "@/ui/PageChrome";
 import Img from "@/ui/Img";
 import ShareLinks from "@/ui/Media/ShareLinks";
@@ -21,13 +21,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await getBlog((await params).slug);
   if (!post) return {};
   const live = scrapedBlogs[post.slug]?.meta;
-  const description = live?.description || post.excerpt || lexicalToText(post.body, 160);
-  const image = blogHero(post);
+  // Admin SEO tab wins, then the legacy site's meta, then the post itself.
+  const seoTitle = post.meta?.title || live?.title;
+  const description = post.meta?.description || live?.description || post.excerpt || lexicalToText(post.body, 160);
+  const image = mediaUrl(post.meta?.image) ?? blogHero(post);
   return {
-    title: live?.title ? { absolute: live.title } : post.title,
+    title: seoTitle ? { absolute: seoTitle } : post.title,
     description,
     alternates: { canonical: `/blogs/${post.slug}` },
-    openGraph: { type: "article", title: post.title, description, images: image ? [image] : undefined },
+    openGraph: { type: "article", title: post.meta?.title || post.title, description, images: image ? [image] : undefined },
   };
 }
 
