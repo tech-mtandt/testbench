@@ -52,6 +52,8 @@ export const legacyRedirects: Record<string, string> = {
   "/category-by-subcategory/skylight-mesh": "/custom-product-detail-buy/fall-protection-lifeline-systems/skylight-mesh",
   "/product-category-rental/aerial-work-platform/porta-pad": "/custom-product-detail-buy/temporary-road-mats/porta-pad",
   "/custom-product-detail-buy/tools-and-supplies/web-systems-international": "/category-by-subcategory/web-systems-international",
+  "/custom-product-detail-buy/fall-protection-lifeline-systems/safety-barriers-system":
+    "/custom-product-detail-buy/fall-protection-lifeline-systems/safety-barrier-system",
 };
 
 const decode = (s: string) => {

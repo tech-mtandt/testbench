@@ -20,6 +20,8 @@ const nextConfig = {
         permanent: true,
       })),
       { source: '/joint-ventures', destination: '/about-us#bussiness-unit', permanent: true },
+      { source: '/public/services/:slug', destination: '/services/:slug', permanent: true },
+      { source: '/media/news', destination: '/media/events', permanent: true },
     ]
   },
   async rewrites() {
