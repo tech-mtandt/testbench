@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
+import { redirectLegacy } from "@/content/legacy-redirects";
 import { Breadcrumbs } from "@/ui/PageChrome";
 import Img from "@/ui/Img";
 import ProductTabs from "@/ui/CustomProduct/ProductTabs";
 import EnquireButton from "@/ui/CustomProduct/EnquireButton";
 import FilterGallery from "@/ui/CustomProduct/FilterGallery";
 import { CenterTitle, ClientLogos, RelatedProducts } from "@/ui/CustomProduct/Sections";
-import { customProductPath, getCustomProduct, type Kind } from "@/content/customProducts";
+import { customProductPath, findCustomProduct, getCustomProduct, type Kind } from "@/content/customProducts";
 
 export type ProductParams = Promise<{ category: string; slug: string }>;
 
@@ -26,7 +27,13 @@ export async function productMetadata(kind: Kind, params: ProductParams): Promis
 export default async function ProductPage({ kind, params }: { kind: Kind; params: ProductParams }) {
   const { category, slug } = await params;
   const p = await getCustomProduct(kind, category, slug);
-  if (!p) notFound();
+  if (!p) {
+    // Old site served every custom product under any category segment: send to the real one.
+    const other = await findCustomProduct(kind, slug);
+    if (other) permanentRedirect(customProductPath(kind, other, slug));
+    redirectLegacy(`/custom-product-detail-${kind}/${category}/${slug}`);
+    notFound();
+  }
 
   return (
     <main>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { redirectLegacy } from "@/content/legacy-redirects";
 import { allProducts, getCategory, getProduct, listingHref, relatedProducts } from "@/content/products";
 import { Breadcrumbs, type Crumb } from "@/ui/PageChrome";
 import Carousel from "@/ui/Carousel";
@@ -28,8 +29,12 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 export default async function Page({ params }: Params) {
-  const p = await getProduct((await params).slug);
-  if (!p) notFound();
+  const { slug } = await params;
+  const p = await getProduct(slug);
+  if (!p) {
+    redirectLegacy(`/product-detail/${slug}`);
+    notFound();
+  }
   const mode = p.mode === "rent" ? "rental" : "buy";
   const cat = p.category ? await getCategory(p.category) : null;
   const crumbs: Crumb[] = [{ label: p.mode === "rent" ? "Rent" : "Buy" }];

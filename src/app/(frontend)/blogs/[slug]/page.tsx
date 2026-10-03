@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { blogFallback, blogHero, fmtDMY, fmtLong, getBlog, getBlogSlugs, getLatestBlogs, scrapedBlogs } from "@/content/media";
 import { lexicalToText, mediaUrl } from "@/lib/payload";
 import { Breadcrumbs } from "@/ui/PageChrome";
@@ -11,6 +11,15 @@ import Tags from "@/ui/Media/Tags";
 
 type Props = { params: Promise<{ slug: string }> };
 
+/** Route params can arrive percent-encoded (e.g. "mtandt%E2%80%99s"); slugs are stored decoded. */
+const decodeSlug = (s: string) => {
+  try {
+    return decodeURIComponent(s);
+  } catch {
+    return s;
+  }
+};
+
 // Prerender every post at build; refresh every 10 minutes (was rendered on every request).
 export const revalidate = 600;
 export async function generateStaticParams() {
@@ -20,7 +29,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const post = await getBlog((await params).slug);
+  const post = await getBlog(decodeSlug((await params).slug));
   if (!post) return {};
   const live = scrapedBlogs[post.slug]?.meta;
   // Admin SEO tab wins, then the legacy site's meta, then the post itself.
@@ -36,9 +45,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function Page({ params }: Props) {
-  const { slug } = await params;
+  const slug = decodeSlug((await params).slug);
   const post = await getBlog(slug);
-  if (!post) notFound();
+  if (!post) {
+    // Old-site links used mixed-case slugs (e.g. /blogs/Dingli-scaling-new-heights-…).
+    const lower = slug.toLowerCase();
+    if (lower !== slug && (await getBlog(lower))) permanentRedirect(`/blogs/${encodeURIComponent(lower)}`);
+    notFound();
+  }
   const latest = await getLatestBlogs(slug);
   const hero = blogHero(post);
   const fallback = blogFallback(post);

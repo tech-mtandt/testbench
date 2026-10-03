@@ -95,6 +95,11 @@ export async function getCustomProduct(kind: Kind, category: string, slug: strin
   return category === p.category || p.altCategories.includes(category) ? p : null;
 }
 
+/** The product with this slug under any category (the old site accepted any category segment). */
+export async function findCustomProduct(kind: Kind, slug: string): Promise<CustomProduct | null> {
+  return (await readStore())[kind][slug] ?? null;
+}
+
 export async function customProductParams(kind: Kind) {
   return Object.entries((await readStore())[kind]).flatMap(([slug, p]) => [
     { category: p.category, slug },

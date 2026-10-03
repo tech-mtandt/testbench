@@ -10,6 +10,18 @@ const legacyAssetsBase =
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // The old Laravel site served its uploads from the web root; keep those links (shared PDFs,
+  // image search results) working after the domain moves here.
+  async redirects() {
+    return [
+      ...['imageFile', 'forntend', 'service_brochure'].map((dir) => ({
+        source: `/${dir}/:path*`,
+        destination: `/legacy/${dir}/:path*`,
+        permanent: true,
+      })),
+      { source: '/joint-ventures', destination: '/about-us#bussiness-unit', permanent: true },
+    ]
+  },
   async rewrites() {
     if (!legacyAssetsBase) return []
     return [

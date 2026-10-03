@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { redirectLegacy } from "@/content/legacy-redirects";
 import { getCatalog, getListing, hasListing, listingHref, summarize, type FacetKey, type Mode } from "@/content/products";
 import { Breadcrumbs } from "@/ui/PageChrome";
 import ListingView, { type FacetGroup, type NavOption } from "./ListingView";
@@ -35,7 +36,10 @@ export async function listingMetadata(mode: Mode, { params }: ListingParams): Pr
 export default async function ListingPage({ mode, params }: ListingParams & { mode: Mode }) {
   const { category, subcategory } = await params;
   const [l, catalog] = await Promise.all([getListing(mode, category, subcategory), getCatalog()]);
-  if (!l) notFound();
+  if (!l) {
+    redirectLegacy(listingHref(mode, category, subcategory));
+    notFound();
+  }
   const other: Mode = mode === "buy" ? "rental" : "buy";
 
   const categoryNav: NavOption[] = catalog.categories.map((c) => {

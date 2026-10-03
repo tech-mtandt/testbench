@@ -127,7 +127,24 @@ const productsTask = eachTask("products-items", "Products", () => products, asyn
     if (byId && !byId.mode && byId.title.trim().toLowerCase() === p.title.trim().toLowerCase()) existing = byId;
   }
   // Docs from the first migration have no mode yet: fill them even without overwrite.
-  if (existing?.mode && !ctx.overwrite) return;
+  if (existing?.mode && !ctx.overwrite) {
+    // Repair links an earlier, interrupted run couldn't make (categories or PDFs weren't there
+    // yet). Only fills empty fields, so admin edits are never touched.
+    const patch: Record<string, unknown> = {};
+    if (!existing.productCategory && p.category) {
+      const id = (await idBy(ctx, "product-categories", [p.category])).get(p.category);
+      if (id) patch.productCategory = id;
+    }
+    if (!existing.downloads?.length && p.download) {
+      const file = await document(ctx, p.download);
+      if (file) patch.downloads = [{ label: "Brochure", file }];
+    }
+    if (Object.keys(patch).length) {
+      await ctx.payload.update({ collection: "products", id: existing.id, data: patch as any, depth: 0, req: ctx.req });
+      ctx.log(`  updated products ${p.slug} (filled ${Object.keys(patch).join(", ")})`);
+    } else ctx.log(`  skipped products ${p.slug} (exists)`);
+    return;
+  }
 
   const cats = await idBy(ctx, "product-categories", [p.category ?? ""]);
   const facets: Record<string, number[]> = {};

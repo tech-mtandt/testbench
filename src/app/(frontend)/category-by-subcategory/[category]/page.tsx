@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { redirectLegacy } from "@/content/legacy-redirects";
 import { getCategories, getCategory, listingHref } from "@/content/products";
 import { Breadcrumbs } from "@/ui/PageChrome";
 import CategoryTabs from "@/ui/Products/CategoryTabs";
@@ -23,8 +24,12 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 export default async function Page({ params }: Params) {
-  const c = await getCategory((await params).category);
-  if (!c) notFound();
+  const { category } = await params;
+  const c = await getCategory(category);
+  if (!c) {
+    redirectLegacy(`/category-by-subcategory/${category}`);
+    notFound();
+  }
   const tabs = c.subcategories.map((s) => ({
     ...s,
     buyHref: listingHref("buy", c.slug, s.slug),
