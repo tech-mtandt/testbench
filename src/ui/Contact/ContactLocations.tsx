@@ -121,11 +121,13 @@ export default function ContactLocations({
               location.addressText || location.title || "",
             );
             const embedSrc = mapQuery
-              ? `https://www.google.com/maps?q=${mapQuery}&output=embed`
+              ? `https://www.google.com/maps?q=${mapQuery}&hl=en&output=embed`
               : null;
             const openInMapsHref =
               location.mapsUrl ||
-              (mapQuery ? `https://www.google.com/maps?q=${mapQuery}` : null);
+              (mapQuery
+                ? `https://www.google.com/maps?q=${mapQuery}&hl=en`
+                : null);
 
             return (
               <div
