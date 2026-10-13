@@ -29,6 +29,8 @@ const STATIC = [
   "/dealer",
   "/vendors",
   "/annual-returns",
+  "/boom-lifts",
+  "/scissor-lifts",
 ];
 
 /** One section failing (e.g. a DB hiccup) must not empty the whole sitemap. */
