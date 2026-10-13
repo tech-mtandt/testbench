@@ -4,6 +4,7 @@ import { enquiryFields } from "@/content/forms";
 import { getListing, listingHref, type CatalogProduct } from "@/content/products";
 import { contact } from "@/content/site";
 import LeadForm from "@/ui/Forms/LeadForm";
+import LeadPopup from "@/ui/Landing/LeadPopup";
 import Faqs from "@/ui/Products/Faqs";
 import ProductCard from "@/ui/Products/ProductCard";
 
@@ -63,6 +64,7 @@ export default async function LiftLanding({ config: c }: { config: LiftLandingCo
 
   return (
     <>
+      <LeadPopup product={c.product} page={c.path.slice(1)} />
       <section className="bg-ink text-white">
         <div className="default-margin py-14 md:py-20">
           <p className="text-xs font-semibold uppercase tracking-widest text-brand">Aerial Work Platforms</p>
