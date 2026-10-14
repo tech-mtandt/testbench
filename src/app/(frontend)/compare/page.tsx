@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getProduct, type Product } from "@/content/products";
+import { productHref } from "@/content/urls";
 import { Breadcrumbs } from "@/ui/PageChrome";
 import Img from "@/ui/Img";
 import CompareSync, { RemoveFromCompare } from "@/ui/Products/CompareSync";
@@ -57,7 +58,7 @@ export default async function Page({ searchParams }: Props) {
                     <div className="flex h-36 items-center justify-center">
                       <Img src={p.image ?? undefined} alt={p.title} className="max-h-full max-w-full object-contain" />
                     </div>
-                    <Link href={`/product-detail/${p.slug}`} className="mt-2 block text-xs font-semibold uppercase text-ink no-underline hover:underline">
+                    <Link href={productHref(p)} className="mt-2 block text-xs font-semibold uppercase text-ink no-underline hover:underline">
                       {p.title}
                     </Link>
                     <RemoveFromCompare slug={p.slug} />

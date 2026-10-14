@@ -3,7 +3,8 @@
  * Editable in the `site-settings` global ("Header & Footer"); the static values below
  * are the import source and the fallback until that global is saved.
  */
-import { landingPages } from "@/content/landing";
+import { landingConfig } from "@/content/landing";
+import { categoryHref, listingHref, modernizeHref, subcategoryHref } from "@/content/urls";
 import { cached, fileUrl, readGlobal } from "@/cms/read";
 import type { SiteSetting } from "@/payload-types";
 
@@ -28,22 +29,24 @@ export type NavLink = { label: string; href: string };
 export type NavGroup = { label: string; href?: string; links: NavLink[] };
 
 const buyRent = (mode: "buy" | "rental"): NavGroup[] => {
-  const std = (cat: string, sub: string) => `/product-category-${mode}/${cat}/${sub}`;
+  // Ranges with a campaign landing page link to it (the hub); the rest to the buy/rent listing.
+  const std = (cat: string, sub: string) =>
+    landingConfig(cat, sub) ? subcategoryHref(cat, sub) : listingHref(mode, cat, sub);
   const custom = (cat: string, sub: string) => `/custom-product-detail-buy/${cat}/${sub}`;
   const groups: NavGroup[] = [
     {
       label: "Aerial Work Platforms",
-      href: "/category-by-subcategory/aerial-work-platform",
+      href: categoryHref("aerial-work-platform"),
       links: [
-        { label: "Boom Lift", href: landingPages["boom-lift"].href },
-        { label: "Scissor Lift", href: landingPages["scissor-lift"].href },
+        { label: "Boom Lift", href: std("aerial-work-platform", "boom-lift") },
+        { label: "Scissor Lift", href: std("aerial-work-platform", "scissor-lift") },
         { label: "Vertical Lift", href: std("aerial-work-platform", "vertical-lift") },
         { label: "Spider Lift", href: std("aerial-work-platform", "spider-lift") },
       ],
     },
     {
       label: "Material Handling Equipment",
-      href: "/category-by-subcategory/material-handling-equipment",
+      href: categoryHref("material-handling-equipment"),
       links: [
         { label: "Duct Lifter", href: std("material-handling-equipment", "duct-lifter") },
         { label: "Order Picker", href: std("material-handling-equipment", "order-picker") },
@@ -54,7 +57,7 @@ const buyRent = (mode: "buy" | "rental"): NavGroup[] => {
     },
     {
       label: "Aluminium Scaffolding",
-      href: "/category-by-subcategory/aluminium-scaffold",
+      href: categoryHref("aluminium-scaffold"),
       links: [
         { label: "Ladder Series", href: std("aluminium-scaffold", "ladder-series") },
         { label: "Stairway Series", href: std("aluminium-scaffold", "stairway-series") },
@@ -66,7 +69,7 @@ const buyRent = (mode: "buy" | "rental"): NavGroup[] => {
   if (mode === "rental") {
     groups.push({
       label: "Temporary Road Mats",
-      href: "/category-by-subcategory/temporary-road-mats",
+      href: categoryHref("temporary-road-mats"),
       links: [
         { label: "PortaDeck", href: "/custom-product-detail-rental/temporary-road-mats/porta-deck" },
         { label: "PortaMat", href: "/custom-product-detail-rental/temporary-road-mats/porta-mat" },
@@ -77,7 +80,7 @@ const buyRent = (mode: "buy" | "rental"): NavGroup[] => {
   groups.push(
     {
       label: "Under-Deck & Net Systems",
-      href: "/category-by-subcategory/web-systems-international",
+      href: categoryHref("web-systems-international"),
       links: [
         { label: "WEB Deck®", href: custom("web-systems-international", "web-deck") },
         { label: "WEB Net®", href: custom("web-systems-international", "web-net") },
@@ -86,7 +89,7 @@ const buyRent = (mode: "buy" | "rental"): NavGroup[] => {
     },
     {
       label: "Fall Protection Lifeline Systems",
-      href: "/category-by-subcategory/fall-protection-lifeline-systems",
+      href: categoryHref("fall-protection-lifeline-systems"),
       links: [
         { label: "Horizontal Lifeline System", href: custom("fall-protection-lifeline-systems", "horizontal-lifeline-system-roof-lifeline-system") },
         { label: "Vertical Lifeline System", href: custom("fall-protection-lifeline-systems", "vertical-lifeline-system") },
@@ -100,7 +103,7 @@ const buyRent = (mode: "buy" | "rental"): NavGroup[] => {
     },
     {
       label: "MLIT",
-      href: "/category-by-subcategory/mlit",
+      href: categoryHref("mlit"),
       links: [
         { label: "Mobile Light Tower", href: std("mlit", "mobile-light-tower") },
         { label: "Battery Power Stations", href: std("mlit", "battery-power-stations") },
@@ -108,7 +111,7 @@ const buyRent = (mode: "buy" | "rental"): NavGroup[] => {
     },
     {
       label: "Temporary Road Mats",
-      href: "/category-by-subcategory/temporary-road-mats",
+      href: categoryHref("temporary-road-mats"),
       links: [
         { label: "PortaDeck", href: custom("temporary-road-mats", "porta-deck") },
         { label: "PortaMat", href: custom("temporary-road-mats", "porta-mat") },
@@ -117,7 +120,7 @@ const buyRent = (mode: "buy" | "rental"): NavGroup[] => {
     },
     {
       label: "Tools and Supplies",
-      href: "/category-by-subcategory/tools-and-supplies",
+      href: categoryHref("tools-and-supplies"),
       links: [
         { label: "Personal Protective Equipment", href: custom("tools-and-supplies", "personal-protective-equipment") },
         { label: "Tools, Tackles and Consumables", href: custom("tools-and-supplies", "tools-tackles-and-consumables") },
@@ -249,14 +252,14 @@ export const footer = {
     {
       title: "Products",
       links: [
-        { label: "Aerial Work Platforms", href: "/category-by-subcategory/aerial-work-platform" },
-        { label: "Material Handling Equipment", href: "/category-by-subcategory/material-handling-equipment" },
-        { label: "Aluminum Scaffolding", href: "/category-by-subcategory/aluminium-scaffold" },
-        { label: "MLIT", href: "/category-by-subcategory/mlit" },
-        { label: "Temporary Road Mats", href: "/category-by-subcategory/temporary-road-mats" },
-        { label: "Fall Protection Lifeline Systems", href: "/category-by-subcategory/fall-protection-lifeline-systems" },
-        { label: "Under-Deck Access Systems", href: "/category-by-subcategory/web-systems-international" },
-        { label: "Tool and Supplies", href: "/category-by-subcategory/tools-and-supplies" },
+        { label: "Aerial Work Platforms", href: categoryHref("aerial-work-platform") },
+        { label: "Material Handling Equipment", href: categoryHref("material-handling-equipment") },
+        { label: "Aluminum Scaffolding", href: categoryHref("aluminium-scaffold") },
+        { label: "MLIT", href: categoryHref("mlit") },
+        { label: "Temporary Road Mats", href: categoryHref("temporary-road-mats") },
+        { label: "Fall Protection Lifeline Systems", href: categoryHref("fall-protection-lifeline-systems") },
+        { label: "Under-Deck Access Systems", href: categoryHref("web-systems-international") },
+        { label: "Tool and Supplies", href: categoryHref("tools-and-supplies") },
       ],
     },
     {
@@ -293,10 +296,12 @@ export type SiteData = {
   defaults: typeof siteDefaults;
 };
 
-// Buy/rent listings for subcategories with a landing page link to the landing page (the hub).
+// Links saved in the CMS may use old-site catalogue addresses: map them to the current ones,
+// and ranges with a campaign landing page to that page.
 const hub = (href: string) => {
-  const m = href.match(/^\/product-category-(?:buy|rental)\/[^/]+\/([^/?#]+)\/?$/);
-  return (m && landingPages[m[1]]?.href) || href;
+  const url = modernizeHref(href);
+  const m = url.match(/^\/([^/]+)\/([^/]+)\/(?:buy|rent)$/);
+  return m && landingConfig(m[1], m[2]) ? subcategoryHref(m[1], m[2]) : url;
 };
 
 const links = (v: { label: string; href: string }[] | null | undefined): NavLink[] =>
@@ -310,10 +315,10 @@ const readSite = cached(async (): Promise<SiteData> => {
     contact: { phone, phoneHref, email, whatsapp },
     socials: (doc.socials ?? []).map(({ key, label, href }) => ({ key, label, href })),
     mainNav: (doc.mainNav ?? []).map((item): NavItem => {
-      if (item.kind === "link") return { label: item.label, kind: "link", href: item.href ?? "" };
+      if (item.kind === "link") return { label: item.label, kind: "link", href: hub(item.href ?? "") };
       const groups = (item.groups ?? []).map((g): NavGroup => ({
         label: g.label,
-        ...(g.href ? { href: g.href } : {}),
+        ...(g.href ? { href: hub(g.href) } : {}),
         links: links(g.links),
       }));
       return { label: item.label, kind: item.kind, groups };

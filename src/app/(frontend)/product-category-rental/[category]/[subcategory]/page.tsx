@@ -1,12 +1,10 @@
-import { listingParams } from "@/content/products";
-import ListingPage, { listingMetadata, type ListingParams } from "@/ui/Products/ListingPage";
+import { permanentRedirect } from "next/navigation";
+import { redirectLegacy } from "@/content/legacy-redirects";
+import { listingHref } from "@/content/urls";
 
-export function generateStaticParams() {
-  return listingParams();
-}
-
-export const generateMetadata = (p: ListingParams) => listingMetadata("rental", p);
-
-export default function Page(p: ListingParams) {
-  return <ListingPage mode="rental" {...p} />;
+/** Old listing address -> /<category>/<subcategory>/rent. */
+export default async function Page({ params }: { params: Promise<{ category: string; subcategory: string }> }) {
+  const { category, subcategory } = await params;
+  redirectLegacy(`/product-category-rental/${category}/${subcategory}`);
+  permanentRedirect(listingHref("rental", category, subcategory));
 }

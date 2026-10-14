@@ -1,12 +1,10 @@
-import { listingParams } from "@/content/products";
-import ListingPage, { listingMetadata, type ListingParams } from "@/ui/Products/ListingPage";
+import { permanentRedirect } from "next/navigation";
+import { redirectLegacy } from "@/content/legacy-redirects";
+import { listingHref } from "@/content/urls";
 
-export function generateStaticParams() {
-  return listingParams();
-}
-
-export const generateMetadata = (p: ListingParams) => listingMetadata("buy", p);
-
-export default function Page(p: ListingParams) {
-  return <ListingPage mode="buy" {...p} />;
+/** Old listing address -> /<category>/<subcategory>/buy. */
+export default async function Page({ params }: { params: Promise<{ category: string; subcategory: string }> }) {
+  const { category, subcategory } = await params;
+  redirectLegacy(`/product-category-buy/${category}/${subcategory}`);
+  permanentRedirect(listingHref("buy", category, subcategory));
 }

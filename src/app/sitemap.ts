@@ -4,7 +4,7 @@ import { customProductParams } from "@/content/customProducts";
 import { getIndustrySlugs } from "@/content/industries";
 import { getLegalPages } from "@/content/legal";
 import { events, getBlogSlugs, pressItems } from "@/content/media";
-import { allProducts, getCatalog, hasListing, listingHref, type Mode } from "@/content/products";
+import { allProducts, categoryHref, getCatalog, hasListing, listingHref, productHref, subcategoryHref, type Mode } from "@/content/products";
 import { getServiceSlugs } from "@/content/services";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.mtandt.com";
@@ -45,12 +45,14 @@ async function paths(load: () => Promise<string[]>): Promise<string[]> {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const groups = await Promise.all([
-    paths(async () => (await allProducts()).map((p) => `/product-detail/${p.slug}`)),
+    paths(async () => (await allProducts()).map((p) => productHref(p))),
     paths(async () => {
       const c = await getCatalog();
       return (["buy", "rental"] as Mode[]).flatMap((mode) =>
         c.categories.flatMap((cat) => [
-          ...(mode === "buy" ? [`/category-by-subcategory/${cat.slug}`] : []),
+          ...(mode === "buy"
+            ? [categoryHref(cat.slug), ...cat.subcategories.map((s) => subcategoryHref(cat.slug, s.slug))]
+            : []),
           ...cat.subcategories.filter((s) => hasListing(c, mode, cat.slug, s.slug)).map((s) => listingHref(mode, cat.slug, s.slug)),
         ]),
       );

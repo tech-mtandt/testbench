@@ -3,11 +3,12 @@
 import Link from "next/link";
 import Img from "@/ui/Img";
 import type { ProductSummary } from "@/content/products";
+import { productHref } from "@/content/urls";
 import { useCompare } from "./useCompare";
 
 export default function ProductRow({ p }: { p: ProductSummary }) {
   const { list, toggle } = useCompare();
-  const href = `/product-detail/${p.slug}`;
+  const href = productHref(p);
   const id = `cmp-${p.slug}`;
   return (
     <article className="grid gap-5 bg-surface p-4 sm:grid-cols-[155px_minmax(0,1fr)] md:p-5 lg:grid-cols-[155px_minmax(0,1fr)_170px] lg:items-center">

@@ -19,7 +19,7 @@ export const Products: CollectionConfig = {
     group: 'Products',
     useAsTitle: 'title',
     defaultColumns: ['title', 'mode', 'productCategory', 'subcategory', 'updatedAt'],
-    description: 'Standard equipment pages at /product-detail/<slug>, listed on the buy/rent listing pages.',
+    description: 'Standard equipment pages at /<category>/<subcategory>/<slug>, listed on the buy/rent listing pages.',
   },
   access: {
     read: () => true,
@@ -247,7 +247,7 @@ export const Products: CollectionConfig = {
         },
       ],
     },
-    base('slug', { position: 'sidebar', description: 'URL segment: /product-detail/<slug>' }),
+    base('slug', { position: 'sidebar', description: 'URL segment: /<category>/<subcategory>/<slug>' }),
     {
       name: 'mode',
       type: 'select',

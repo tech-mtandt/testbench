@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { allProducts, getCategories } from "@/content/products";
+import { categoryHref } from "@/content/urls";
 import { PageBanner } from "@/ui/PageChrome";
 import Img from "@/ui/Img";
 import { getHome } from "@/content/home";
@@ -32,7 +33,7 @@ export default async function Page() {
             return (
               <Link
                 key={c.slug}
-                href={`/category-by-subcategory/${c.slug}`}
+                href={categoryHref(c.slug)}
                 className="group flex flex-col bg-white shadow-[0_2px_10px_rgba(0,0,0,0.12)] no-underline"
               >
                 <div className="flex h-48 items-center justify-center bg-surface p-4">

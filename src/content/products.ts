@@ -3,6 +3,7 @@ import type { CollectionSlug, PopulateType, SelectType, Where } from "payload";
 import taxonomy from "@/content/scraped/product-categories.json";
 import productsJson from "@/content/scraped/products.json";
 import { cached, fileUrl, html, str } from "@/cms/read";
+import { modernizeDeep, modernizeHref, subcategoryHref } from "@/content/urls";
 import { payloadClient } from "@/lib/payload";
 import type {
   Product as ProductDoc,
@@ -78,7 +79,18 @@ export type CatalogProduct = Omit<
 /** What a listing row / card needs on the client. */
 export type ProductSummary = Pick<
   Product,
-  "slug" | "title" | "model" | "image" | "row" | "facets" | "num" | "mode" | "categoryName" | "subcategoryName"
+  | "slug"
+  | "title"
+  | "model"
+  | "image"
+  | "row"
+  | "facets"
+  | "num"
+  | "mode"
+  | "category"
+  | "subcategory"
+  | "categoryName"
+  | "subcategoryName"
 >;
 
 export type Listing = {
@@ -328,7 +340,13 @@ const readProduct = cached(async (slug: string): Promise<Product | null> => {
 /** Taxonomy + product index, once per request. */
 export const getCatalog = cache(async (): Promise<Catalog & { cms: boolean }> => {
   const [tax, idx] = await Promise.all([readTaxonomy(), readIndex()]);
-  return { ...tax, ...idx, bySlug: new Map(idx.products.map((p) => [p.slug, p])) };
+  return {
+    ...tax,
+    // Write-ups/FAQs saved with old-site catalogue links point at the current addresses.
+    categories: modernizeDeep(tax.categories),
+    ...idx,
+    bySlug: new Map(idx.products.map((p) => [p.slug, p])),
+  };
 });
 
 // ---------- helpers ----------
@@ -345,8 +363,8 @@ export async function categoryAlias(slug: string) {
   return c.aliases[slug] ?? (findCategory(c, slug) ? slug : null);
 }
 
-/** Full product (page content included). */
-export async function getProduct(slug: string): Promise<Product | null> {
+/** Full product as stored (page content included). */
+async function readProductPage(slug: string): Promise<Product | null> {
   const c = await getCatalog();
   if (!c.cms) return jsonBySlug.get(slug) ?? null;
   if (!c.bySlug.has(slug)) return null;
@@ -354,9 +372,15 @@ export async function getProduct(slug: string): Promise<Product | null> {
   return (await readProduct(slug)) ?? jsonBySlug.get(slug) ?? null;
 }
 
+/** Full product (page content included). */
+export async function getProduct(slug: string): Promise<Product | null> {
+  const p = await readProductPage(slug);
+  return p && modernizeDeep(p);
+}
+
 export const allProducts = async () => (await getCatalog()).products;
 
-export const listingHref = (mode: Mode, cat: string, sub: string) => `/product-category-${mode}/${cat}/${sub}`;
+export { categoryHref, listingHref, productHref, subcategoryHref } from "@/content/urls";
 
 export async function getListing(mode: Mode, cat: string, sub: string): Promise<Listing | null> {
   const c = await getCatalog();
@@ -392,6 +416,8 @@ export const summarize = (p: ProductSummary): ProductSummary => ({
   facets: p.facets,
   num: p.num,
   mode: p.mode,
+  category: p.category,
+  subcategory: p.subcategory,
   categoryName: p.categoryName,
   subcategoryName: p.subcategoryName,
 });
@@ -445,11 +471,9 @@ export async function searchProducts(q: string): Promise<SearchResult> {
       .map((subcategory) => ({
         category,
         subcategory,
-        href:
-          subcategory.button?.href ??
-          (hasListing(catalog, "buy", category.slug, subcategory.slug)
-            ? listingHref("buy", category.slug, subcategory.slug)
-            : `/category-by-subcategory/${category.slug}`),
+        href: subcategory.button?.href
+          ? modernizeHref(subcategory.button.href)
+          : subcategoryHref(category.slug, subcategory.slug),
       })),
   );
   return { products: ranked.map((x) => x.p), subcategories: subs };

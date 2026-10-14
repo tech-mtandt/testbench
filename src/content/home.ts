@@ -1,4 +1,5 @@
 import home from "@/content/scraped/home.json";
+import { modernizeDeep } from "@/content/urls";
 import { cached, fileUrl, readGlobal, str } from "@/cms/read";
 import { homeDefaults } from "@/globals/Home";
 import type { Home } from "@/payload-types";
@@ -80,5 +81,6 @@ const load = cached(async (): Promise<HomeData | null> => {
 
 /** Homepage content: the `home` global, or the scraped JSON until it has been saved. */
 export async function getHome(): Promise<HomeData> {
-  return (await load()) ?? fallback;
+  // Content saved with old-site catalogue links points at the current addresses.
+  return modernizeDeep((await load()) ?? fallback);
 }

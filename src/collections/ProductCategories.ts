@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-/** Equipment categories: the /category-by-subcategory/<slug> landing pages and the
+/** Equipment categories: the /<slug> category pages and the
  * category/subcategory structure behind the product listings. */
 export const ProductCategories: CollectionConfig = {
   slug: 'product-categories',
@@ -9,7 +9,7 @@ export const ProductCategories: CollectionConfig = {
     group: 'Products',
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug', 'order', 'updatedAt'],
-    description: 'Category pages at /category-by-subcategory/<slug>, with their subcategory tabs and FAQs.',
+    description: 'Category pages at /<slug>, with their subcategory tabs and FAQs; each subcategory has a hub at /<slug>/<subcategory>.',
   },
   access: {
     read: () => true,

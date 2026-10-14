@@ -9,14 +9,14 @@ const setPath: CollectionBeforeChangeHook = async ({ data, originalDoc, req }) =
   if (!mode || !sub || !catId) return data
   try {
     const cat = await req.payload.findByID({ collection: 'product-categories', id: catId, depth: 0, req })
-    if (cat?.slug) data.path = `/product-category-${mode}/${cat.slug}/${sub}`
+    if (cat?.slug) data.path = `/${cat.slug}/${sub}/${mode === 'buy' ? 'buy' : 'rent'}`
   } catch {
     /* category missing; leave path as is */
   }
   return data
 }
 
-/** One buy or rent listing page per subcategory: /product-category-<buy|rental>/<category>/<subcategory>. */
+/** One buy or rent listing page per subcategory: /<category>/<subcategory>/<buy|rent>. */
 export const ProductListings: CollectionConfig = {
   slug: 'product-listings',
   labels: { singular: 'Product Listing', plural: 'Product Listings' },
@@ -25,7 +25,7 @@ export const ProductListings: CollectionConfig = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'mode', 'path', 'updatedAt'],
     description:
-      'Listing pages with filters: /product-category-buy/<category>/<subcategory> and /product-category-rental/…',
+      'Listing pages with filters: /<category>/<subcategory>/buy and /<category>/<subcategory>/rent.',
   },
   access: {
     read: () => true,

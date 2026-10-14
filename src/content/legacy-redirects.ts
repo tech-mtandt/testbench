@@ -1,7 +1,9 @@
 import { permanentRedirect } from "next/navigation";
 
-const buyListing = (cat: string, sub: string) => `/product-category-buy/${cat}/${sub}`;
-const rentListing = (cat: string, sub: string) => `/product-category-rental/${cat}/${sub}`;
+import { listingHref } from "@/content/urls";
+
+const buyListing = (cat: string, sub: string) => listingHref("buy", cat, sub);
+const rentListing = (cat: string, sub: string) => listingHref("rental", cat, sub);
 
 /**
  * Old-site URLs (from www.mtandt.com's sitemap, checked live before the cutover) that have no
@@ -51,7 +53,7 @@ export const legacyRedirects: Record<string, string> = {
   // Category-level pages that became custom products / listings
   "/category-by-subcategory/skylight-mesh": "/custom-product-detail-buy/fall-protection-lifeline-systems/skylight-mesh",
   "/product-category-rental/aerial-work-platform/porta-pad": "/custom-product-detail-buy/temporary-road-mats/porta-pad",
-  "/custom-product-detail-buy/tools-and-supplies/web-systems-international": "/category-by-subcategory/web-systems-international",
+  "/custom-product-detail-buy/tools-and-supplies/web-systems-international": "/web-systems-international",
   "/custom-product-detail-buy/fall-protection-lifeline-systems/safety-barriers-system":
     "/custom-product-detail-buy/fall-protection-lifeline-systems/safety-barrier-system",
 };

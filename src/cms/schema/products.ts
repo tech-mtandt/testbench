@@ -2,6 +2,7 @@ import { CustomProducts } from "../../collections/CustomProducts";
 import { ProductAttributes } from "../../collections/ProductAttributes";
 import { ProductCategories } from "../../collections/ProductCategories";
 import { ProductListings } from "../../collections/ProductListings";
+import { modernizeHref } from "../../content/urls";
 import type { Area } from "./types";
 
 // `products` itself is registered directly in payload.config (it predates the areas).
@@ -15,11 +16,12 @@ export const productsArea: Area = {
       if (!doc) return undefined;
       switch (collectionSlug) {
         case "products":
+          // Redirects to /<category>/<subcategory>/<slug>.
           return `/product-detail/${doc.slug ?? ""}`;
         case "product-categories":
-          return `/category-by-subcategory/${doc.slug ?? ""}`;
+          return `/${doc.slug ?? ""}`;
         case "product-listings":
-          return doc.path || undefined;
+          return doc.path ? modernizeHref(doc.path) : undefined;
         case "custom-products":
           return `/custom-product-detail-${doc.kind ?? "buy"}/${doc.category ?? ""}/${doc.slug ?? ""}`;
       }
