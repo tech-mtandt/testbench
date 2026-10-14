@@ -3,6 +3,7 @@
  * Editable in the `site-settings` global ("Header & Footer"); the static values below
  * are the import source and the fallback until that global is saved.
  */
+import { landingPages } from "@/content/landing";
 import { cached, fileUrl, readGlobal } from "@/cms/read";
 import type { SiteSetting } from "@/payload-types";
 
@@ -34,8 +35,8 @@ const buyRent = (mode: "buy" | "rental"): NavGroup[] => {
       label: "Aerial Work Platforms",
       href: "/category-by-subcategory/aerial-work-platform",
       links: [
-        { label: "Boom Lift", href: std("aerial-work-platform", "boom-lift") },
-        { label: "Scissor Lift", href: std("aerial-work-platform", "scissor-lift") },
+        { label: "Boom Lift", href: landingPages["boom-lift"].href },
+        { label: "Scissor Lift", href: landingPages["scissor-lift"].href },
         { label: "Vertical Lift", href: std("aerial-work-platform", "vertical-lift") },
         { label: "Spider Lift", href: std("aerial-work-platform", "spider-lift") },
       ],
@@ -292,8 +293,14 @@ export type SiteData = {
   defaults: typeof siteDefaults;
 };
 
+// Buy/rent listings for subcategories with a landing page link to the landing page (the hub).
+const hub = (href: string) => {
+  const m = href.match(/^\/product-category-(?:buy|rental)\/[^/]+\/([^/?#]+)\/?$/);
+  return (m && landingPages[m[1]]?.href) || href;
+};
+
 const links = (v: { label: string; href: string }[] | null | undefined): NavLink[] =>
-  (v ?? []).map(({ label, href }) => ({ label, href }));
+  (v ?? []).map(({ label, href }) => ({ label, href: hub(href) }));
 
 const readSite = cached(async (): Promise<SiteData> => {
   const doc = await readGlobal<SiteSetting>("site-settings");

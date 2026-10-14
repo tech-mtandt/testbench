@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { redirectLegacy } from "@/content/legacy-redirects";
 import { getCatalog, getListing, hasListing, listingHref, summarize, type FacetKey, type Mode } from "@/content/products";
+import { landingFor } from "@/content/landing";
 import { Breadcrumbs } from "@/ui/PageChrome";
 import ListingView, { type FacetGroup, type NavOption } from "./ListingView";
 
@@ -40,6 +41,7 @@ export default async function ListingPage({ mode, params }: ListingParams & { mo
     redirectLegacy(listingHref(mode, category, subcategory));
     notFound();
   }
+  const landing = landingFor(subcategory);
   const other: Mode = mode === "buy" ? "rental" : "buy";
 
   const categoryNav: NavOption[] = catalog.categories.map((c) => {
@@ -68,11 +70,19 @@ export default async function ListingPage({ mode, params }: ListingParams & { mo
     <div className="default-margin pb-16">
       <div className="flex flex-col gap-3 py-3 sm:flex-row sm:items-start sm:justify-between">
         <Breadcrumbs
-          items={[
-            { label: label(mode) },
-            { label: l.category.crumb || l.category.title, href: `/category-by-subcategory/${category}` },
-            { label: l.title },
-          ]}
+          items={
+            landing
+              ? [
+                  { label: l.category.crumb || l.category.title, href: `/category-by-subcategory/${category}` },
+                  { label: landing.label, href: landing.href },
+                  { label: `${label(mode)} ${l.title}` },
+                ]
+              : [
+                  { label: label(mode) },
+                  { label: l.category.crumb || l.category.title, href: `/category-by-subcategory/${category}` },
+                  { label: l.title },
+                ]
+          }
         />
         <Link href={listingHref(other, category, subcategory)} className="btn-yellow self-start text-xs no-underline shadow-sm sm:mt-2">
           Browse for {label(other)}

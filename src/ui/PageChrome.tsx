@@ -2,12 +2,25 @@ import Link from "next/link";
 import { ChevronRight } from "@/ui/Icons";
 import { bgUrl } from "@/lib/img";
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.mtandt.com";
+
 export type Crumb = { label: string; href?: string };
 
 export function Breadcrumbs({ items, light }: { items: Crumb[]; light?: boolean }) {
   const all: Crumb[] = [{ label: "Home", href: "/" }, ...items];
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: all.map((c, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: c.label,
+      ...(c.href ? { item: `${SITE_URL}${c.href}` } : {}),
+    })),
+  };
   return (
     <nav aria-label="Breadcrumb" className="text-xs">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
       <ol className="flex flex-wrap items-center gap-1.5">
         {all.map((c, i) => (
           <li key={i} className={`flex items-center gap-1.5 text-xs leading-none ${light ? "text-white/85" : "text-ink-soft"}`}>

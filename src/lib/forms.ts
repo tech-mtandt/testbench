@@ -30,13 +30,14 @@ export async function submitForm(_prev: FormState, formData: FormData): Promise<
     return { ok: false, message: "Please enter a valid email address." };
   }
 
+  const page = fields.find(([k]) => k === "page")?.[1];
   const to = process.env.FORMS_TO_EMAIL;
   if (process.env.RESEND_API_KEY && to) {
     try {
       const payload = await getPayload({ config: configPromise });
       await payload.sendEmail({
         to,
-        subject: `[mtandt.com] New ${form} submission`,
+        subject: `[mtandt.com] New ${form} submission${page ? ` from /${page.replace(/^\//, "")}` : ""}`,
         html: `<h2>${escape(form)}</h2><table>${fields
           .map(([k, v]) => `<tr><td><b>${escape(k)}</b></td><td>${escape(v)}</td></tr>`)
           .join("")}</table>`,

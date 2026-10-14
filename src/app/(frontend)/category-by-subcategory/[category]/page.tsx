@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { redirectLegacy } from "@/content/legacy-redirects";
 import { getCategories, getCategory, listingHref } from "@/content/products";
+import Link from "next/link";
+import { landingFor } from "@/content/landing";
 import { Breadcrumbs } from "@/ui/PageChrome";
 import CategoryTabs from "@/ui/Products/CategoryTabs";
 
@@ -46,6 +48,20 @@ export default async function Page({ params }: Params) {
       </header>
       <div className="mx-auto max-w-[1140px]">
         <CategoryTabs tabs={tabs} />
+        <nav aria-label={`${c.title} ranges`} className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {c.subcategories.map((s) => {
+            const landing = landingFor(s.slug);
+            return (
+              <Link
+                key={s.slug}
+                href={landing?.href ?? listingHref("buy", c.slug, s.slug)}
+                className="border-l-4 border-brand bg-[#f2f2f2] px-4 py-3 text-sm font-semibold text-ink no-underline hover:bg-brand-cream"
+              >
+                {landing?.label ?? s.name}
+              </Link>
+            );
+          })}
+        </nav>
       </div>
     </div>
   );

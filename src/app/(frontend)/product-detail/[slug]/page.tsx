@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { redirectLegacy } from "@/content/legacy-redirects";
 import { allProducts, getCategory, getProduct, listingHref, relatedProducts } from "@/content/products";
+import { landingFor } from "@/content/landing";
 import { Breadcrumbs, type Crumb } from "@/ui/PageChrome";
 import Carousel from "@/ui/Carousel";
 import ProductGallery from "@/ui/Products/ProductGallery";
@@ -37,10 +38,15 @@ export default async function Page({ params }: Params) {
   }
   const mode = p.mode === "rent" ? "rental" : "buy";
   const cat = p.category ? await getCategory(p.category) : null;
-  const crumbs: Crumb[] = [{ label: p.mode === "rent" ? "Rent" : "Buy" }];
+  const landing = landingFor(p.subcategory);
+  const crumbs: Crumb[] = landing ? [] : [{ label: p.mode === "rent" ? "Rent" : "Buy" }];
   if (cat) crumbs.push({ label: cat.crumb || cat.title, href: `/category-by-subcategory/${cat.slug}` });
+  if (landing) crumbs.push({ label: landing.label, href: landing.href });
   if (p.category && p.subcategory)
-    crumbs.push({ label: p.subcategoryName || p.subcategory, href: listingHref(mode, p.category, p.subcategory) });
+    crumbs.push({
+      label: landing ? `${p.mode === "rent" ? "Rent" : "Buy"} ${p.subcategoryName || p.subcategory}` : p.subcategoryName || p.subcategory,
+      href: listingHref(mode, p.category, p.subcategory),
+    });
   crumbs.push({ label: p.title });
   const related = await relatedProducts(p);
 
