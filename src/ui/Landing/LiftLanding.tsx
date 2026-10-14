@@ -89,11 +89,11 @@ export default async function LiftLanding({
     getCategory(CATEGORY),
     getCatalogues().catch(() => []),
   ]);
-  // Brochure: the first catalogue filed under this subcategory in the admin (Catalogues).
+  // Brochure: the first catalogue (admin > Catalogues) whose title names this product, e.g. "Boom Lift Brochure".
   const norm = (s: string | null | undefined) =>
     (s ?? "").toLowerCase().replace(/[^a-z]/g, "");
   const brochure = catalogues.find(
-    (x) => norm(x.subcategory) === norm(c.product) && x.documentUrl,
+    (x) => norm(x.title).includes(norm(c.product)) && x.documentUrl,
   );
   const page = c.path.slice(1);
   const siblings = (category?.subcategories ?? []).filter(
