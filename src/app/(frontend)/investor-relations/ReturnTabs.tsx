@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { ReturnTab as Tab } from "@/content/annual-returns";
+import type { ReturnTab as Tab } from "@/content/investor-relations";
 
 export default function ReturnTabs({ tabs }: { tabs: Tab[] }) {
   const [active, setActive] = useState(0);

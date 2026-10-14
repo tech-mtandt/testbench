@@ -4,7 +4,7 @@
  * are the import source and the fallback until that global is saved.
  */
 import { landingConfig } from "@/content/landing";
-import { categoryHref, listingHref, modernizeHref, subcategoryHref } from "@/content/urls";
+import { categoryHref, listingHref, modernizeHref, resolveSegments, subcategoryHref } from "@/content/urls";
 import { cached, fileUrl, readGlobal } from "@/cms/read";
 import type { SiteSetting } from "@/payload-types";
 
@@ -246,7 +246,7 @@ export const footer = {
         { label: "Customer Credit Application Form", href: "/customers" },
         { label: "Dealer Application Form", href: "/dealer" },
         { label: "Vendor Application Form", href: "/vendors" },
-        { label: "Annual Returns", href: "/annual-returns" },
+        { label: "Investor Relations", href: "/investor-relations" },
       ],
     },
     {
@@ -301,11 +301,18 @@ export type SiteData = {
 const hub = (href: string) => {
   const url = modernizeHref(href);
   const m = url.match(/^\/([^/]+)\/([^/]+)\/(?:buy|rent)$/);
-  return m && landingConfig(m[1], m[2]) ? subcategoryHref(m[1], m[2]) : url;
+  if (!m) return url;
+  const { category, subcategory } = resolveSegments(m[1], m[2]);
+  return landingConfig(category, subcategory) ? subcategoryHref(category, subcategory) : url;
+};
+
+// The Annual Returns page became Investor Relations; links saved in the CMS follow it.
+const renamed: Record<string, NavLink> = {
+  "/annual-returns": { label: "Investor Relations", href: "/investor-relations" },
 };
 
 const links = (v: { label: string; href: string }[] | null | undefined): NavLink[] =>
-  (v ?? []).map(({ label, href }) => ({ label, href: hub(href) }));
+  (v ?? []).map(({ label, href }) => renamed[href] ?? { label, href: hub(href) });
 
 const readSite = cached(async (): Promise<SiteData> => {
   const doc = await readGlobal<SiteSetting>("site-settings");

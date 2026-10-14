@@ -22,6 +22,7 @@ const nextConfig = {
       { source: '/joint-ventures', destination: '/about-us#bussiness-unit', permanent: true },
       { source: '/public/services/:slug', destination: '/services/:slug', permanent: true },
       { source: '/media/news', destination: '/media/events', permanent: true },
+      { source: '/annual-returns', destination: '/investor-relations', permanent: true },
     ]
   },
   async rewrites() {

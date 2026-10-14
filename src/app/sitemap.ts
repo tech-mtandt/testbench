@@ -28,7 +28,7 @@ const STATIC = [
   "/customers",
   "/dealer",
   "/vendors",
-  "/annual-returns",
+  "/investor-relations",
   "/boom-lifts",
   "/scissor-lifts",
 ];

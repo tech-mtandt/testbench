@@ -1,9 +1,13 @@
 import type { GlobalConfig } from 'payload'
 
-/** The /annual-returns page: one tab per company, grouped PDF links. */
+/**
+ * The /investor-relations page (formerly /annual-returns): one tab per company, with groups
+ * such as Annual Report, Annual Return and Corporate Social Responsibility. The slug keeps its
+ * old name because it is the database table name.
+ */
 export const AnnualReturnsPage: GlobalConfig = {
   slug: 'annual-returns-page',
-  label: 'Annual Returns Page',
+  label: 'Investor Relations Page',
   admin: {
     group: 'Pages',
   },
@@ -25,7 +29,7 @@ export const AnnualReturnsPage: GlobalConfig = {
           labels: { singular: 'Group', plural: 'Groups' },
           admin: { initCollapsed: true },
           fields: [
-            { name: 'title', type: 'text', required: true, admin: { description: 'e.g. "Annual Return"' } },
+            { name: 'title', type: 'text', required: true, admin: { description: 'e.g. "Annual Report", "Annual Return" or "Corporate Social Responsibility"' } },
             {
               name: 'docs',
               type: 'array',

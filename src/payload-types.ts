@@ -348,7 +348,7 @@ export interface Partnership {
   createdAt: string;
 }
 /**
- * Standard equipment pages at /product-detail/<slug>, listed on the buy/rent listing pages.
+ * Standard equipment pages at /<category>/<subcategory>/<slug>, listed on the buy/rent listing pages.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "products".
@@ -512,7 +512,7 @@ export interface Product {
     image?: (number | null) | Media;
   };
   /**
-   * URL segment: /product-detail/<slug>
+   * URL segment: /<category>/<subcategory>/<slug>
    */
   slug: string;
   /**
@@ -557,7 +557,7 @@ export interface Product {
   createdAt: string;
 }
 /**
- * Category pages at /category-by-subcategory/<slug>, with their subcategory tabs and FAQs.
+ * Category pages at /<slug>, with their subcategory tabs and FAQs; each subcategory has a hub at /<slug>/<subcategory>.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "product-categories".
@@ -1201,7 +1201,7 @@ export interface Social {
   createdAt: string;
 }
 /**
- * Listing pages with filters: /product-category-buy/<category>/<subcategory> and /product-category-rental/…
+ * Listing pages with filters: /<category>/<subcategory>/buy and /<category>/<subcategory>/rent.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "product-listings".
@@ -3388,7 +3388,7 @@ export interface AnnualReturnsPage {
         groups?:
           | {
               /**
-               * e.g. "Annual Return"
+               * e.g. "Annual Report", "Annual Return" or "Corporate Social Responsibility"
                */
               title: string;
               docs?:

@@ -19,7 +19,7 @@ export const pagesArea: Area = {
       if (collectionSlug === "legal-pages") return `/pages/${doc?.slug ?? ""}`;
       if (globalSlug === "services-page") return "/services";
       if (globalSlug === "catalogues-page") return "/catalogues";
-      if (globalSlug === "annual-returns-page") return "/annual-returns";
+      if (globalSlug === "annual-returns-page") return "/investor-relations";
       return undefined;
     },
   },
