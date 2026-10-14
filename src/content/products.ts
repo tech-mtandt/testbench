@@ -3,7 +3,7 @@ import type { CollectionSlug, PopulateType, SelectType, Where } from "payload";
 import taxonomy from "@/content/scraped/product-categories.json";
 import productsJson from "@/content/scraped/products.json";
 import { cached, fileUrl, html, str } from "@/cms/read";
-import { modernizeDeep, modernizeHref, subcategoryHref } from "@/content/urls";
+import { categorySegment, modernizeDeep, modernizeHref, subcategoryHref, subcategorySegment } from "@/content/urls";
 import { payloadClient } from "@/lib/payload";
 import type {
   Product as ProductDoc,
@@ -380,7 +380,7 @@ export async function getProduct(slug: string): Promise<Product | null> {
 
 export const allProducts = async () => (await getCatalog()).products;
 
-export { categoryHref, listingHref, productHref, subcategoryHref } from "@/content/urls";
+export { categoryHref, listingHref, productHref, resolveSegments, subcategoryHref } from "@/content/urls";
 
 export async function getListing(mode: Mode, cat: string, sub: string): Promise<Listing | null> {
   const c = await getCatalog();
@@ -401,8 +401,11 @@ export async function getListing(mode: Mode, cat: string, sub: string): Promise<
   };
 }
 
+/** Route params (address segments) for every category/subcategory. */
 export const listingParams = async () =>
-  (await getCategories()).flatMap((c) => c.subcategories.map((s) => ({ category: c.slug, subcategory: s.slug })));
+  (await getCategories()).flatMap((c) =>
+    c.subcategories.map((s) => ({ category: categorySegment(c.slug), subcategory: subcategorySegment(s.slug) })),
+  );
 
 export const hasListing = (c: Catalog, mode: Mode, cat: string, sub: string) =>
   (c.listings[`${mode}/${cat}/${sub}`]?.products.length ?? 0) > 0;

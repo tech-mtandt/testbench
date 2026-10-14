@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { redirectLegacy } from "@/content/legacy-redirects";
-import { categoryHref, getCatalog, getListing, hasListing, listingHref, subcategoryHref, summarize, type FacetKey, type Mode } from "@/content/products";
+import { categoryHref, getCatalog, resolveSegments, getListing, hasListing, listingHref, subcategoryHref, summarize, type FacetKey, type Mode } from "@/content/products";
 import { landingConfig } from "@/content/landing";
 import { Breadcrumbs } from "@/ui/PageChrome";
 import ListingView, { type FacetGroup, type NavOption } from "./ListingView";
 
 export type ListingParams = { params: Promise<{ category: string; subcategory: string }> };
+
+const segs = (p: { category: string; subcategory: string }) => [p.category, p.subcategory] as const;
 
 const GROUPS: { key: FacetKey; title: string; showAll?: boolean }[] = [
   { key: "condition", title: "Product Condition", showAll: true },
@@ -22,7 +24,7 @@ const GROUPS: { key: FacetKey; title: string; showAll?: boolean }[] = [
 const label = (mode: Mode) => (mode === "buy" ? "Buy" : "Rent");
 
 export async function listingMetadata(mode: Mode, { params }: ListingParams): Promise<Metadata> {
-  const { category, subcategory } = await params;
+  const { category, subcategory } = resolveSegments(...segs(await params));
   const l = await getListing(mode, category, subcategory);
   if (!l) return {};
   return {
@@ -35,7 +37,8 @@ export async function listingMetadata(mode: Mode, { params }: ListingParams): Pr
 }
 
 export default async function ListingPage({ mode, params }: ListingParams & { mode: Mode }) {
-  const { category, subcategory } = await params;
+  const { category, subcategory, canonical } = resolveSegments(...segs(await params));
+  if (!canonical) permanentRedirect(listingHref(mode, category, subcategory));
   const [l, catalog] = await Promise.all([getListing(mode, category, subcategory), getCatalog()]);
   if (!l) {
     redirectLegacy(`/product-category-${mode}/${category}/${subcategory}`);

@@ -9,6 +9,7 @@ import {
   getListing,
   listingHref,
   productHref,
+  resolveSegments,
   subcategoryHref,
   type CatalogProduct,
 } from "@/content/products";
@@ -43,7 +44,8 @@ async function load(cat: string, sub: string) {
 }
 
 export async function hubMetadata({ params }: HubParams): Promise<Metadata> {
-  const { category, subcategory } = await params;
+  const p = await params;
+  const { category, subcategory } = resolveSegments(p.category, p.subcategory);
   const h = await load(category, subcategory);
   if (!h) return {};
   const meta = h.buy?.meta ?? h.rent?.meta ?? {};

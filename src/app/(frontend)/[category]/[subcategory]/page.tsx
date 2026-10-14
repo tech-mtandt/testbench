@@ -1,5 +1,5 @@
-import { notFound } from "next/navigation";
-import { listingParams } from "@/content/products";
+import { notFound, permanentRedirect } from "next/navigation";
+import { listingParams, resolveSegments, subcategoryHref } from "@/content/products";
 import SubcategoryHub, { hubMetadata, type HubParams } from "@/ui/Landing/SubcategoryHub";
 
 export function generateStaticParams() {
@@ -9,7 +9,9 @@ export function generateStaticParams() {
 export const generateMetadata = hubMetadata;
 
 export default async function Page({ params }: HubParams) {
-  const { category, subcategory } = await params;
+  const p = await params;
+  const { category, subcategory, canonical } = resolveSegments(p.category, p.subcategory);
+  if (!canonical) permanentRedirect(subcategoryHref(category, subcategory));
   const hub = await SubcategoryHub({ category, subcategory });
   if (!hub) notFound();
   return hub;

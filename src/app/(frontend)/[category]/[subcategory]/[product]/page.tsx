@@ -9,6 +9,7 @@ import {
   listingHref,
   productHref,
   relatedProducts,
+  resolveSegments,
   subcategoryHref,
 } from "@/content/products";
 import { Breadcrumbs, type Crumb } from "@/ui/PageChrome";
@@ -23,7 +24,10 @@ type Params = { params: Promise<{ category: string; subcategory: string; product
 export async function generateStaticParams() {
   return (await allProducts())
     .filter((p) => p.category && p.subcategory)
-    .map((p) => ({ category: p.category!, subcategory: p.subcategory!, product: p.slug }));
+    .map((p) => {
+      const [, category, subcategory] = productHref(p).split("/");
+      return { category, subcategory, product: p.slug };
+    });
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
@@ -40,11 +44,12 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 export default async function Page({ params }: Params) {
-  const { category, subcategory, product } = await params;
+  const { category: catSeg, subcategory: subSeg, product } = await params;
+  const { category, subcategory, canonical } = resolveSegments(catSeg, subSeg);
   const p = await getProduct(product);
   if (!p) notFound();
   // One address per product: a wrong category/subcategory in the path goes to the right one.
-  if (p.category !== category || p.subcategory !== subcategory) permanentRedirect(productHref(p));
+  if (!canonical || p.category !== category || p.subcategory !== subcategory) permanentRedirect(productHref(p));
   const mode = p.mode === "rent" ? "rental" : "buy";
   const cat = await getCategory(category);
   const range = cat?.subcategories.find((s) => s.slug === subcategory);
