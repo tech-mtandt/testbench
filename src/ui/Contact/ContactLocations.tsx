@@ -90,7 +90,7 @@ export default function ContactLocations({
       </div>
 
       {cities.length > 0 && (
-        <div className="flex flex-wrap gap-6 bg-[#f2f2f2] px-6 py-4">
+        <div className="flex flex-wrap gap-6 rounded-md bg-[#f2f2f2] px-6 py-4">
           {cities.map((city) => (
             <div key={city} className="relative overflow-hidden">
               <button
@@ -209,7 +209,7 @@ export default function ContactLocations({
                       href={openInMapsHref}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="absolute top-3 left-3 bg-white px-3 py-1.5 text-xs font-semibold text-black shadow"
+                      className="absolute top-3 left-3 rounded bg-white px-3 py-1.5 text-xs font-semibold text-black shadow"
                     >
                       Open in Maps ↗
                     </a>

@@ -25,7 +25,7 @@ export default function ProductGallery({ images }: { images: GalleryImage[] }) {
               key={`${image.url}-${index}`}
               type="button"
               onClick={() => setActiveIndex(index)}
-              className={`relative h-16 w-16 shrink-0 overflow-hidden border bg-white ${
+              className={`relative h-16 w-16 shrink-0 overflow-hidden rounded border bg-white ${
                 index === activeIndex ? "border-primary-yellow" : "border-black/10"
               }`}
             >

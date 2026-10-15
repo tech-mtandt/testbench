@@ -14,7 +14,7 @@ export default function ProductGallery({ main, images, alt }: { main: string | n
               key={src}
               type="button"
               onClick={() => setCurrent(src)}
-              className={`h-16 w-16 shrink-0 border bg-white p-1 ${current === src ? "border-ink" : "border-neutral-300"}`}
+              className={`h-16 w-16 shrink-0 rounded border bg-white p-1 ${current === src ? "border-ink" : "border-neutral-300"}`}
               aria-label="Show image"
             >
               <Img src={src} alt="" className="h-full w-full object-contain" />
@@ -22,7 +22,7 @@ export default function ProductGallery({ main, images, alt }: { main: string | n
           ))}
         </div>
       )}
-      <div className="flex aspect-square w-full max-w-[360px] items-center justify-center bg-surface p-2">
+      <div className="flex aspect-square w-full max-w-[360px] items-center justify-center rounded-md bg-surface p-2">
         <Img src={current ?? undefined} alt={alt} loading="eager" className="max-h-full max-w-full object-contain" />
       </div>
     </div>

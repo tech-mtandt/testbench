@@ -50,7 +50,7 @@ export default function NavBar({ items }: { items: NavItem[] }) {
               )}
 
               {item.kind === "mega" && open === item.label && (
-                <div className="absolute inset-x-0 top-full border-t-4 border-brand bg-white shadow-xl">
+                <div className="absolute inset-x-0 top-full rounded-b-md border-t-4 border-brand bg-white shadow-xl">
                   <div className="default-margin grid grid-cols-4 gap-x-8 gap-y-6 py-8">
                     {item.groups.map((g) => (
                       <div key={g.label}>
@@ -79,7 +79,7 @@ export default function NavBar({ items }: { items: NavItem[] }) {
               )}
 
               {item.kind === "dropdown" && open === item.label && (
-                <div className="absolute right-0 top-full min-w-56 border-t-4 border-brand bg-white py-2 shadow-xl">
+                <div className="absolute right-0 top-full min-w-56 overflow-hidden rounded-b-md border-t-4 border-brand bg-white py-2 shadow-xl">
                   {item.groups.flatMap((g) => g.links).map((l) => (
                     <Link
                       key={l.href}

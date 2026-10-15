@@ -14,7 +14,7 @@ const LOOKING_TO_OPTIONS = ["Buy", "Rent", "Service", "General Enquiry"];
 
 export default function ContactForm() {
   const inputClass =
-    "w-full border border-black/20 bg-white px-4 py-3 text-sm text-black placeholder:text-black/40 focus:border-primary-yellow focus:outline-none";
+    "w-full rounded border border-black/20 bg-white px-4 py-3 text-sm text-black placeholder:text-black/40 focus:border-primary-yellow focus:outline-none";
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

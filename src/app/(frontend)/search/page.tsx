@@ -39,7 +39,7 @@ export default async function Page({ searchParams }: Props) {
                 <Link
                   key={`${s.category.slug}/${s.subcategory.slug}`}
                   href={s.href}
-                  className="border border-brand bg-brand-cream px-3 py-1.5 text-sm text-ink no-underline hover:bg-brand"
+                  className="rounded border border-brand bg-brand-cream px-3 py-1.5 text-sm text-ink no-underline hover:bg-brand"
                 >
                   {s.subcategory.name} <span className="text-ink-soft">· {s.category.crumb || s.category.title}</span>
                 </Link>
@@ -54,7 +54,7 @@ export default async function Page({ searchParams }: Props) {
               ))}
             </div>
           ) : (
-            <p className="bg-surface p-8 text-center text-sm text-ink-soft">
+            <p className="rounded-md bg-surface p-8 text-center text-sm text-ink-soft">
               No products matched your search. Try a shorter term such as “scissor lift” or browse{" "}
               <Link href="/products" className="text-ink underline">
                 all products

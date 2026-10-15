@@ -92,7 +92,7 @@ export default function DetailTabs({ p }: { p: Pick<Product, "specs" | "features
             </button>
           ))}
       </div>
-      <div role="tabpanel" className="mt-5 overflow-x-auto border border-neutral-100 bg-white p-4 shadow-[0_0_10px_rgba(0,0,0,0.06)] md:p-5">
+      <div role="tabpanel" className="mt-5 overflow-x-auto rounded-md border border-neutral-100 bg-white p-4 shadow-[0_0_10px_rgba(0,0,0,0.06)] md:p-5">
         {pane.body}
       </div>
     </section>

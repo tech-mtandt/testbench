@@ -53,7 +53,7 @@ export function WhyUs({ items, heading }: { items: { title: string; text: string
       <h2 className="section-title mb-8">{heading}</h2>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((w, i) => (
-          <div key={w.title} className="border-2 border-brand-light bg-white px-6 py-7 text-center">
+          <div key={w.title} className="rounded-md border-2 border-brand-light bg-white px-6 py-7 text-center">
             <svg viewBox="0 0 24 24" aria-hidden className="mx-auto mb-3 h-9 w-9 text-brand" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round">
               <path d={whyIconPaths[i % whyIconPaths.length]} />
             </svg>

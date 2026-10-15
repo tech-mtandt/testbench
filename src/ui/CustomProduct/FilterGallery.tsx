@@ -36,7 +36,7 @@ export default function FilterGallery({ filters, items }: Props) {
             key={item.image}
             type="button"
             onClick={() => setOpen(shown.indexOf(item))}
-            className="group relative aspect-square overflow-hidden border border-neutral-200 bg-white p-1 text-left"
+            className="group relative aspect-square overflow-hidden rounded-md border border-neutral-200 bg-white p-1 text-left"
             aria-label={item.title || "Open image"}
           >
             <Img src={item.image} alt={item.title} className="h-full w-full object-cover" />

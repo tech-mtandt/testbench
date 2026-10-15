@@ -180,7 +180,7 @@ export default function ListingView({ title, description, products, groups, cate
             ))}
           </div>
         ) : (
-          <p className="bg-surface p-8 text-center text-sm text-ink-soft">No products found.</p>
+          <p className="rounded-md bg-surface p-8 text-center text-sm text-ink-soft">No products found.</p>
         )}
 
         {pages > 1 && (
@@ -220,7 +220,7 @@ function FilterBox({ title, children }: { title: string; children: React.ReactNo
   return (
     <div>
       <h2 className="mb-3 text-xs font-bold uppercase tracking-wide text-ink">{title}</h2>
-      <div className="space-y-2 bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.12)]">{children}</div>
+      <div className="space-y-2 rounded-md bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.12)]">{children}</div>
     </div>
   );
 }

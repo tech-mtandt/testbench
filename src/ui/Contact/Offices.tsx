@@ -15,7 +15,7 @@ export type Region = { name: string; cities: { name: string; offices: Office[] }
 function Row({ o }: { o: Office }) {
   return (
     <div className="grid grid-cols-1 items-center gap-3 md:grid-cols-3">
-      <div className="flex h-full flex-col items-center justify-center bg-ink px-6 py-10 text-center md:py-16">
+      <div className="flex h-full flex-col items-center justify-center rounded-md bg-ink px-6 py-10 text-center md:py-16">
         <p className="mb-2 text-lg text-white">{o.company}</p>
         <h3 className="text-2xl font-semibold text-[#ffeb3b]">{o.label}</h3>
       </div>
@@ -50,7 +50,7 @@ function Row({ o }: { o: Office }) {
           </li>
         ))}
       </ul>
-      <div className="h-full min-h-60 border-2 border-[#ffeb3b] p-0.5">
+      <div className="h-full min-h-60 overflow-hidden rounded-md border-2 border-[#ffeb3b] p-0.5">
         {o.map && (
           <iframe
             src={o.map}

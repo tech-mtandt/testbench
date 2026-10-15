@@ -41,7 +41,7 @@ export function RelatedProducts({ items }: { items: { title: string; href: strin
             <Link
               key={p.href}
               href={p.href}
-              className="group flex flex-col items-center bg-white px-4 pb-10 pt-6 text-center text-ink no-underline shadow-[0_0_10px_rgba(0,0,0,0.12)]"
+              className="group flex flex-col items-center rounded-md bg-white px-4 pb-10 pt-6 text-center text-ink no-underline shadow-[0_0_10px_rgba(0,0,0,0.12)]"
             >
               <div className="flex aspect-square w-full items-center justify-center">
                 <Img src={p.image ?? undefined} alt={p.title} className="max-h-full w-full object-contain" />
@@ -66,7 +66,7 @@ export function CaseStudyCards({ items, title = "Case Studies" }: { items: CaseS
         <CenterTitle>{title}</CenterTitle>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((c) => (
-            <article key={c.href ?? c.title} className="bg-white p-2 text-center shadow-[0_0_12px_rgba(0,0,0,0.12)]">
+            <article key={c.href ?? c.title} className="rounded-md bg-white p-2 text-center shadow-[0_0_12px_rgba(0,0,0,0.12)]">
               {c.href ? (
                 <Link href={c.href} className="block aspect-[7/5] overflow-hidden">
                   <Img src={c.image ?? undefined} alt={c.title} className="h-full w-full object-cover" />

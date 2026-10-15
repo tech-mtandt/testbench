@@ -7,7 +7,7 @@ export default function ProductCard({ href, title, image, className = "" }: { hr
   return (
     <Link
       href={href}
-      className={`relative mb-5 flex flex-col bg-white shadow-[0_2px_10px_rgba(0,0,0,0.15)] no-underline ${className}`}
+      className={`relative mb-5 flex flex-col rounded-md bg-white shadow-[0_2px_10px_rgba(0,0,0,0.15)] no-underline ${className}`}
     >
       <div className="flex h-48 items-center justify-center p-4">
         <Img src={image ?? undefined} alt={title} className="max-h-full max-w-full object-contain" />

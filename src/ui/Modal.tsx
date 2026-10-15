@@ -27,7 +27,7 @@ export default function Modal({ open, onClose, title, children, wide }: Props) {
       ref={ref}
       onClose={onClose}
       onClick={(e) => e.target === ref.current && onClose()}
-      className={`m-auto w-[calc(100%-2rem)] ${wide ? "max-w-3xl" : "max-w-lg"} bg-white p-0 shadow-2xl backdrop:bg-black/60`}
+      className={`m-auto w-[calc(100%-2rem)] ${wide ? "max-w-3xl" : "max-w-lg"} overflow-hidden rounded-md bg-white p-0 shadow-2xl backdrop:bg-black/60`}
     >
       <div className="flex items-center justify-between border-b-4 border-brand bg-ink px-5 py-3">
         <h3 className="text-lg text-white">{title}</h3>

@@ -106,7 +106,7 @@ export default async function Page({ params }: Params) {
             </a>
             <a
               href={contact.phoneHref}
-              className="border border-white px-5 py-2.5 text-sm font-semibold text-white no-underline"
+              className="rounded border border-white px-5 py-2.5 text-sm font-semibold text-white no-underline"
             >
               Call {contact.phone}
             </a>
@@ -114,7 +114,7 @@ export default async function Page({ params }: Params) {
               title={`${c.title} Brochure`}
               href={brochure?.documentUrl ?? null}
               page={page}
-              className="inline-flex items-center gap-2 border border-brand px-5 py-2.5 text-sm font-semibold text-brand"
+              className="inline-flex items-center gap-2 rounded border border-brand px-5 py-2.5 text-sm font-semibold text-brand"
             />
           </div>
         </div>
@@ -125,7 +125,7 @@ export default async function Page({ params }: Params) {
           <h2 className="mb-6 text-xl font-semibold uppercase text-ink md:text-2xl">Our {c.title} Range</h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {ranges.map((r) => (
-              <div key={r.slug} className="flex flex-col bg-white shadow-[0_2px_10px_rgba(0,0,0,0.15)]">
+              <div key={r.slug} className="flex flex-col overflow-hidden rounded-md bg-white shadow-[0_2px_10px_rgba(0,0,0,0.15)]">
                 <Link href={subcategoryHref(c.slug, r.slug)} className="flex flex-1 flex-col no-underline">
                   <div className="flex h-44 items-center justify-center bg-[#f7f7f7] p-4">
                     {r.image ? (
@@ -168,7 +168,7 @@ export default async function Page({ params }: Params) {
 
       <section id="enquire" className="scroll-mt-24 bg-white py-12 md:py-16">
         <div className="default-margin">
-          <div className="bg-[#f2f2f2] px-5 py-8 md:px-9 md:py-11">
+          <div className="rounded-md bg-[#f2f2f2] px-5 py-8 md:px-9 md:py-11">
             <h2 className="text-2xl font-medium uppercase text-ink md:text-[28px]">Enquire about {c.title}</h2>
             <p className="mt-2 mb-6 text-sm text-ink/80">
               Tell us about your site and our team will recommend the right equipment to buy or rent.

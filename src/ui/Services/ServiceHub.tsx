@@ -71,7 +71,7 @@ export default function ServiceHub({ data, title }: { data: ServiceHubData; titl
             className={`mt-8 grid gap-6 sm:grid-cols-2 ${why.items.length > 4 ? "lg:grid-cols-5" : "lg:grid-cols-4"}`}
           >
             {why.items.map((w, i) => (
-              <div key={i} className="flex min-w-0 flex-col justify-center border border-brand p-4 text-center">
+              <div key={i} className="flex min-w-0 flex-col justify-center rounded-md border border-brand p-4 text-center">
                 {w.title && <h3 className="mb-2 text-base font-medium !text-white">{w.title}</h3>}
                 <p className="text-[13px] leading-relaxed !text-[#bbb]">{w.text}</p>
               </div>

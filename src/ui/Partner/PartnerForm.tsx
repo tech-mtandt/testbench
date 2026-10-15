@@ -89,7 +89,7 @@ export default function PartnerForm({ form, title, sections }: { form: string; t
 
   if (state?.ok) {
     return (
-      <div className="border border-brand bg-brand-cream p-8 text-center">
+      <div className="rounded-md border border-brand bg-brand-cream p-8 text-center">
         <p className="font-semibold text-ink">{state.message}</p>
       </div>
     );
@@ -108,7 +108,7 @@ export default function PartnerForm({ form, title, sections }: { form: string; t
         const t = e.target as unknown as HTMLSelectElement;
         if (t.tagName === "SELECT") setValues((v) => ({ ...v, [t.name]: t.value }));
       }}
-      className="bg-[#fcfcfc] px-5 py-8 shadow-[0_5px_15px_rgba(0,0,0,0.35)] sm:px-9 md:py-10"
+      className="rounded-md bg-[#fcfcfc] px-5 py-8 shadow-[0_5px_15px_rgba(0,0,0,0.35)] sm:px-9 md:py-10"
     >
       <h2 className="mb-8 text-center text-lg font-semibold text-ink">{title}</h2>
       <input type="hidden" name="_form" value={form} />

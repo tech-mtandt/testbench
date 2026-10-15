@@ -43,7 +43,7 @@ export default function Lightbox({
       <div className={gridClassName}>
         {items.map((it, i) =>
           it.type === "video" ? (
-            <div key={i} className={`min-w-0 border border-neutral-200 bg-black p-0.5 ${thumbClassName}`}>
+            <div key={i} className={`min-w-0 rounded border border-neutral-200 bg-black p-0.5 ${thumbClassName}`}>
               <iframe
                 src={it.src}
                 title={`Mtandt Group video ${i + 1}`}
@@ -58,7 +58,7 @@ export default function Lightbox({
               key={i}
               type="button"
               onClick={() => setIdx(images.indexOf(it))}
-              className={`min-w-0 cursor-zoom-in overflow-hidden border border-neutral-200 bg-white p-0.5 ${thumbClassName}`}
+              className={`min-w-0 cursor-zoom-in overflow-hidden rounded border border-neutral-200 bg-white p-0.5 ${thumbClassName}`}
               aria-label={`Open image ${images.indexOf(it) + 1} of ${n}`}
             >
               <Img src={it.src} alt="" className="h-full w-full object-cover transition-transform duration-300 hover:scale-105" />

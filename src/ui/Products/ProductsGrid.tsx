@@ -67,7 +67,7 @@ function CheckboxGroup({
   if (options.length === 0) return null;
 
   return (
-    <div className="border border-black/10 bg-white p-4">
+    <div className="rounded-md border border-black/10 bg-white p-4">
       <p className="mb-3 text-xs font-bold tracking-wide text-black/70 uppercase">
         {title}
       </p>
@@ -207,7 +207,7 @@ export default function ProductsGrid({ products }: { products: ProductItem[] }) 
           />
         )}
 
-        <div className="border border-black/10 bg-white p-4">
+        <div className="rounded-md border border-black/10 bg-white p-4">
           <p className="mb-3 text-xs font-bold tracking-wide text-black/70 uppercase">
             Product Availability
           </p>
@@ -272,7 +272,7 @@ export default function ProductsGrid({ products }: { products: ProductItem[] }) 
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value as SortKey)}
-              className="border border-black/30 bg-white px-4 py-2 text-sm text-black/80 focus:border-primary-yellow focus:outline-none"
+              className="rounded border border-black/30 bg-white px-4 py-2 text-sm text-black/80 focus:border-primary-yellow focus:outline-none"
             >
               {SORT_OPTIONS.map((option) => (
                 <option key={option.value} value={option.value}>

@@ -34,7 +34,7 @@ export default async function Page() {
             {services.map((s) => (
               <div
                 key={s.slug}
-                className="group relative h-[385px] overflow-hidden border-[3px] border-white bg-neutral-500 bg-cover bg-center"
+                className="group relative h-[385px] overflow-hidden rounded-md border-[3px] border-white bg-neutral-500 bg-cover bg-center"
                 style={bgLayers(s.images)}
               >
                 <Link href={`/services/${s.slug}`} className="absolute inset-0 z-10 md:hidden" aria-label={s.title} />
@@ -45,7 +45,7 @@ export default async function Page() {
                     <p className="mb-6 text-sm font-light text-white">{s.excerpt}</p>
                     <Link
                       href={`/services/${s.slug}`}
-                      className="relative z-20 inline-block border-2 border-[#ffeb3b] px-3 py-1.5 text-sm font-semibold uppercase tracking-wider text-white no-underline transition-colors hover:bg-[#ffeb3b] hover:text-ink"
+                      className="relative z-20 inline-block rounded border-2 border-[#ffeb3b] px-3 py-1.5 text-sm font-semibold uppercase tracking-wider text-white no-underline transition-colors hover:bg-[#ffeb3b] hover:text-ink"
                     >
                       {s.button || "Read More"}
                     </Link>

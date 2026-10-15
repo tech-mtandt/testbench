@@ -34,7 +34,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ p
             <li key={e.slug}>
               <Link
                 href={`/event/${e.slug}`}
-                className="group grid items-center gap-5 border-b-2 border-brand-light bg-[#fcfcfc] p-5 no-underline shadow-[0_0_6px_rgb(0_0_0/.06)] md:grid-cols-[272px_minmax(0,1fr)_60px] md:gap-8 md:py-9"
+                className="group grid items-center gap-5 rounded-md border-b-2 border-brand-light bg-[#fcfcfc] p-5 no-underline shadow-[0_0_6px_rgb(0_0_0/.06)] md:grid-cols-[272px_minmax(0,1fr)_60px] md:gap-8 md:py-9"
               >
                 <span className="block aspect-[3/2] overflow-hidden bg-neutral-100">
                   <Img src={e.thumb || undefined} alt={e.title} className="h-full w-full object-cover" />

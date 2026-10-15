@@ -33,7 +33,7 @@ export default function CatalogueGrid({ catalogues, categories }: { catalogues: 
   const brands = useMemo(() => (category ? uniq(inSub.map((c) => c.brand)) : []), [category, inSub]);
   const filtered = useMemo(() => inSub.filter((c) => !brand || c.brand === brand), [inSub, brand]);
 
-  const select = "w-full appearance-auto border border-neutral-500 bg-white px-3 py-2 text-sm text-ink-soft focus:border-ink focus:outline-none";
+  const select = "w-full appearance-auto rounded border border-neutral-500 bg-white px-3 py-2 text-sm text-ink-soft focus:border-ink focus:outline-none";
 
   return (
     <>
@@ -100,12 +100,12 @@ export default function CatalogueGrid({ catalogues, categories }: { catalogues: 
                 key={item.id}
                 type="button"
                 onClick={() => setActive(item)}
-                className="group mt-8 mb-4 flex flex-col overflow-hidden rounded-[3px] bg-white text-center shadow-[0_2px_4px_rgba(22,23,24,0.16)]"
+                className="group mt-8 mb-4 flex flex-col overflow-hidden rounded-md bg-white text-center shadow-[0_2px_4px_rgba(22,23,24,0.16)]"
               >
                 <span className="relative block h-[383px] w-full overflow-hidden bg-neutral-100">
                   <FallbackImg src={item.posterUrl} fallback={item.fallbackPosterUrl} alt={item.title} className="h-full w-full object-cover" />
                   <span className="absolute inset-x-0 bottom-4 flex justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
-                    <span className="inline-flex items-center gap-2 bg-brand px-8 py-2.5 text-sm font-semibold text-ink">
+                    <span className="inline-flex items-center gap-2 rounded bg-brand px-8 py-2.5 text-sm font-semibold text-ink">
                       <DownloadIcon className="h-4 w-4" /> Download
                     </span>
                   </span>

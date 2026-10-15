@@ -75,7 +75,7 @@ export default async function ProductPage({ kind, params }: { kind: Kind; params
               <CenterTitle>Customer Journey</CenterTitle>
               <ol className="mx-auto mb-10 grid max-w-[1100px] gap-6 md:grid-cols-2 md:gap-8">
                 {p.journey.map((step, i) => (
-                  <li key={step.title} className="relative min-h-40 bg-white py-8 pl-20 pr-6 shadow-[0_0_12px_rgba(0,0,0,0.06)] md:pl-24">
+                  <li key={step.title} className="relative min-h-40 rounded-md bg-white py-8 pl-20 pr-6 shadow-[0_0_12px_rgba(0,0,0,0.06)] md:pl-24">
                     <span className="absolute left-0 top-1/2 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-r-full bg-brand text-3xl text-ink md:h-[70px] md:w-[70px] md:text-4xl">
                       {i + 1}
                     </span>

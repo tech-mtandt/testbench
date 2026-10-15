@@ -35,7 +35,7 @@ export default function ProductTabs({ specs, features, benefits, download }: Pro
           </a>
         )}
       </div>
-      <div role="tabpanel" className="mt-6 bg-white p-2 shadow-[0_0_12px_rgba(0,0,0,0.08)]">
+      <div role="tabpanel" className="mt-6 rounded-md bg-white p-2 shadow-[0_0_12px_rgba(0,0,0,0.08)]">
         {active === "specs" && (
           <table className="w-full border-collapse text-sm">
             <tbody>

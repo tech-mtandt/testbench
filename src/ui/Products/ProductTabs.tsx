@@ -78,7 +78,7 @@ export default function ProductTabs({
 
       <div className="mt-6">
         {active === "specifications" && (
-          <div className="border border-black/10">
+          <div className="overflow-hidden rounded-md border border-black/10">
             {specifications.map((row, index) => (
               <div
                 key={`${row.label}-${index}`}

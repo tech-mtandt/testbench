@@ -27,7 +27,7 @@ export default async function Page() {
 
       <section className="bg-white pt-10 md:pt-14">
         <div className="default-margin">
-          <div className="bg-[#f2f2f2] px-5 py-8 md:px-9 md:py-11">
+          <div className="rounded-md bg-[#f2f2f2] px-5 py-8 md:px-9 md:py-11">
             <h2 className="text-2xl font-medium uppercase text-ink md:text-[28px]">{c.heading}</h2>
             <p className="mt-2 mb-6 flex items-center gap-2 text-xs font-semibold uppercase text-ink">
               <span aria-hidden className="h-px w-9 bg-ink" />

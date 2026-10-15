@@ -29,7 +29,7 @@ export default async function IndustriesPage() {
             <Link
               key={c.href}
               href={c.href}
-              className="group flex flex-col items-center border-b-[6px] border-brand bg-white px-6 pb-10 pt-8 text-center no-underline shadow-[0_0_20px_rgba(0,0,0,0.08)] transition-transform hover:-translate-y-1"
+              className="group flex flex-col items-center rounded-md border-b-[6px] border-brand bg-white px-6 pb-10 pt-8 text-center no-underline shadow-[0_0_20px_rgba(0,0,0,0.08)] transition-transform hover:-translate-y-1"
             >
               <span className="flex h-[74px] w-[74px] items-center justify-center rounded-full bg-brand text-ink">
                 <IndustryIcon name={c.icon} className="h-8 w-8" />

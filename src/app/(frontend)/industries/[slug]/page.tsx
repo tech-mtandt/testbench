@@ -51,7 +51,7 @@ export default async function IndustryPage({ params }: { params: Params }) {
           </div>
           <div className="flex min-w-0 flex-col gap-4">
             {d.images.map((src) => (
-              <div key={src} className="border border-neutral-200 bg-white p-1">
+              <div key={src} className="overflow-hidden rounded border border-neutral-200 bg-white p-1">
                 <Img src={src} alt={d.title} className="aspect-[9/4] w-full object-cover" />
               </div>
             ))}

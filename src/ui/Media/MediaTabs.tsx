@@ -37,7 +37,7 @@ const TABS: { key: MediaTab; label: string; href: string; Icon: (p: P) => React.
 export default function MediaTabs({ active }: { active: MediaTab }) {
   return (
     <nav aria-label="Media sections" className="relative z-10 -mt-6 px-4 lg:-mt-[27px]">
-      <ul className="mx-auto grid max-w-[762px] grid-cols-4 shadow-sm">
+      <ul className="mx-auto grid max-w-[762px] grid-cols-4 overflow-hidden rounded-md shadow-sm">
         {TABS.map(({ key, label, href, Icon }) => {
           const on = key === active;
           return (

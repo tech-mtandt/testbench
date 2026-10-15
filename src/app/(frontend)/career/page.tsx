@@ -76,7 +76,7 @@ export default async function Page() {
         <div className="default-margin">
           <h2 className="text-center text-2xl font-bold text-ink">{data.form.title}</h2>
           <p className="mt-1 text-center text-lg text-ink-soft">{data.form.subtitle}</p>
-          <div className="mx-auto mt-5 max-w-[540px] bg-[#dcdcdc] p-5 shadow-[0_4px_12px_rgba(0,0,0,0.15)] md:p-6">
+          <div className="mx-auto mt-5 max-w-[540px] rounded-md bg-[#dcdcdc] p-5 shadow-[0_4px_12px_rgba(0,0,0,0.15)] md:p-6">
             <CareerForm functionalAreas={data.form.functionalAreas} education={data.form.education} />
           </div>
         </div>

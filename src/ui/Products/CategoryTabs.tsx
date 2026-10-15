@@ -32,7 +32,7 @@ export default function CategoryTabs({ tabs }: { tabs: Tab[] }) {
         ))}
       </div>
 
-      <div role="tabpanel" className="mt-4 bg-white p-5 shadow-[0_0_12px_rgba(0,0,0,0.08)] md:px-6 md:py-6">
+      <div role="tabpanel" className="mt-4 rounded-md bg-white p-5 shadow-[0_0_12px_rgba(0,0,0,0.08)] md:px-6 md:py-6">
         <div className="text-[15px] leading-relaxed text-ink [&_p]:text-ink [&_a]:text-ink [&_a]:no-underline [&_div]:min-h-4 [&_p]:mb-4">
           <div dangerouslySetInnerHTML={{ __html: tab.html }} />
         </div>
@@ -67,7 +67,7 @@ export default function CategoryTabs({ tabs }: { tabs: Tab[] }) {
             <Link
               key={o.label}
               href={o.href}
-              className="flex flex-col items-center gap-3 border border-neutral-200 p-6 text-ink no-underline transition-colors hover:border-brand hover:bg-brand-cream"
+              className="flex flex-col items-center gap-3 rounded-md border border-neutral-200 p-6 text-ink no-underline transition-colors hover:border-brand hover:bg-brand-cream"
             >
               <TruckIcon className="h-10 w-10" />
               <span className="text-lg font-semibold">{o.label}</span>

@@ -40,7 +40,7 @@ export default async function Page({ searchParams }: Props) {
       <h1 className="pt-4 pb-6 text-2xl font-bold uppercase text-ink">Compare</h1>
 
       {products.length === 0 ? (
-        <p className="bg-surface p-8 text-center text-sm text-ink-soft">
+        <p className="rounded-md bg-surface p-8 text-center text-sm text-ink-soft">
           No products selected. Tick “Add to compare” on a{" "}
           <Link href="/products" className="text-ink underline">
             product listing

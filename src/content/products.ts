@@ -338,14 +338,42 @@ const readProduct = cached(async (slug: string): Promise<Product | null> => {
 }, "products:detail");
 
 /** Taxonomy + product index, once per request. */
+/**
+ * Many CMS products have no category relation (and some no subcategory either), but every
+ * product needs both for its address (/<category>/<subcategory>/<slug>). Fill the gaps from
+ * the subcategory (its parent category), else from the scraped catalogue.
+ */
+function placeProduct<P extends Pick<Product, "slug" | "category" | "subcategory" | "categoryName" | "subcategoryName">>(
+  p: P,
+  categories: Category[],
+): P {
+  const scraped = jsonBySlug.get(p.slug);
+  const subcategory = p.subcategory || scraped?.subcategory || null;
+  const cat =
+    categories.find((c) => c.slug === p.category) ??
+    categories.find((c) => !!subcategory && c.subcategories.some((s) => s.slug === subcategory)) ??
+    categories.find((c) => c.slug === scraped?.category) ??
+    null;
+  if (p.category === (cat?.slug ?? p.category) && p.subcategory === subcategory) return p;
+  return {
+    ...p,
+    category: cat?.slug ?? p.category,
+    subcategory,
+    categoryName: p.categoryName || cat?.title || "",
+    subcategoryName: p.subcategoryName || cat?.subcategories.find((s) => s.slug === subcategory)?.name || "",
+  };
+}
+
 export const getCatalog = cache(async (): Promise<Catalog & { cms: boolean }> => {
   const [tax, idx] = await Promise.all([readTaxonomy(), readIndex()]);
+  const products = idx.products.map((p) => placeProduct(p, tax.categories));
   return {
     ...tax,
     // Write-ups/FAQs saved with old-site catalogue links point at the current addresses.
     categories: modernizeDeep(tax.categories),
     ...idx,
-    bySlug: new Map(idx.products.map((p) => [p.slug, p])),
+    products,
+    bySlug: new Map(products.map((p) => [p.slug, p])),
   };
 });
 
@@ -375,7 +403,7 @@ async function readProductPage(slug: string): Promise<Product | null> {
 /** Full product (page content included). */
 export async function getProduct(slug: string): Promise<Product | null> {
   const p = await readProductPage(slug);
-  return p && modernizeDeep(p);
+  return p && modernizeDeep(placeProduct(p, (await getCatalog()).categories));
 }
 
 export const allProducts = async () => (await getCatalog()).products;

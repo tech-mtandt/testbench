@@ -15,7 +15,7 @@ export const serviceInquiryFields: FieldDef[] = [
 export default function InquiryForm({ service }: { service: string }) {
   return (
     <div className="default-margin py-10">
-      <div className="border border-[#e7e7e7] bg-white p-5 md:p-8">
+      <div className="rounded-md border border-[#e7e7e7] bg-white p-5 md:p-8">
         <h2 className="mb-6 text-center text-2xl font-semibold text-ink">Service Inquiry Form</h2>
         <LeadForm
           form="service-enquiry"

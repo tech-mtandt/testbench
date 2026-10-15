@@ -34,7 +34,7 @@ export default async function Page() {
               <Link
                 key={c.slug}
                 href={categoryHref(c.slug)}
-                className="group flex flex-col bg-white shadow-[0_2px_10px_rgba(0,0,0,0.12)] no-underline"
+                className="group flex flex-col overflow-hidden rounded-md bg-white shadow-[0_2px_10px_rgba(0,0,0,0.12)] no-underline"
               >
                 <div className="flex h-48 items-center justify-center bg-surface p-4">
                   {imageFor(c.slug) ? (
