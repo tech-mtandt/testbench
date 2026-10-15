@@ -34,8 +34,12 @@ export default function Carousel({ children, className = "" }: { children: React
           <ChevronLeft className="h-4 w-4" />
         </button>
       )}
-      {/* Bottom padding leaves room for badges hanging off the cards (e.g. ProductCard's "+"). */}
-      <div ref={track} className="no-scrollbar flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth px-8 pt-3 pb-6">
+      {/* scroll-px-8: cards snap clear of the arrows instead of under them. Bottom padding leaves
+          room for badges hanging off the cards (e.g. ProductCard's "+"). */}
+      <div
+        ref={track}
+        className="no-scrollbar flex snap-x snap-mandatory scroll-px-8 gap-5 overflow-x-auto scroll-smooth px-8 pt-3 pb-6"
+      >
         {children}
       </div>
       {overflowing && (

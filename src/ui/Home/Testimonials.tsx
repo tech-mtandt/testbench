@@ -23,7 +23,7 @@ export default function Testimonials({ items, heading }: { items: Testimonial[];
             <figure
               key={n}
               inert={n !== i}
-              className={`[grid-area:1/1] transition-opacity duration-500 motion-reduce:transition-none ${n === i ? "opacity-100" : "opacity-0"}`}
+              className={`flex flex-col justify-center [grid-area:1/1] transition-opacity duration-500 motion-reduce:transition-none ${n === i ? "opacity-100" : "opacity-0"}`}
             >
               <blockquote className="relative min-h-28 px-8">
                 <QuoteIcon className="absolute left-0 top-0 h-7 w-7 text-brand" />
