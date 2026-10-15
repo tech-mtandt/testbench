@@ -1,10 +1,11 @@
 /**
  * Download of a file uploaded with a website lead (career CV, partner documents), linked from
- * the lead's `fields` in Supabase and from the lead email. Admin login required: the files
+ * the lead's `fields` in Supabase and from the lead email. Editor/administrator login required: the files
  * are personal documents (ID cards, CVs) and are never public.
  */
 import config from "@payload-config";
-import { getPayload } from "payload";
+import { createLocalReq, getPayload } from "payload";
+import { isEditor } from "@/access/roles";
 import { getLeadFile, type Db } from "@/lib/leads";
 
 export const dynamic = "force-dynamic";
@@ -22,6 +23,10 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
   const payload = await getPayload({ config });
   const { user } = await payload.auth({ headers: req.headers }).catch(() => ({ user: null }));
   if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 });
+  // Editors and administrators only (not e.g. the imported team-profile "User" accounts).
+  if (!(await isEditor(await createLocalReq({ user }, payload)))) {
+    return Response.json({ error: "Forbidden" }, { status: 403 });
+  }
 
   const { id } = await params;
   if (!/^\d{1,18}$/.test(id)) return Response.json({ error: "Not found" }, { status: 404 });
