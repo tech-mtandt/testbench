@@ -11,20 +11,23 @@ type Tab = Subcategory & { buyHref: string; rentHref: string };
 export default function CategoryTabs({ tabs }: { tabs: Tab[] }) {
   const [active, setActive] = useState(0);
   const [choose, setChoose] = useState(false);
-  const tab = tabs[active];
+  const tab = tabs[active] ?? tabs[0];
+  if (!tab) return null;
 
   return (
     <>
-      <div role="tablist" className="no-scrollbar flex overflow-x-auto">
+      {/* Phones: swipeable strip (next tab peeks in); from sm up every tab is visible, wrapping as needed. */}
+      <div role="tablist" className="tab-strip sm:grid sm:grid-cols-[repeat(auto-fit,minmax(10rem,1fr))]">
         {tabs.map((t, i) => (
           <button
             key={t.slug}
+            id={`range-tab-${t.slug}`}
             role="tab"
             type="button"
-            aria-selected={i === active}
+            aria-selected={t === tab}
             onClick={() => setActive(i)}
-            className={`w-1/2 shrink-0 px-3 py-3 text-center text-sm transition-colors sm:w-1/3 ${
-              i === active ? "bg-brand font-medium text-ink" : "text-ink hover:bg-brand-cream"
+            className={`w-[42%] shrink-0 px-3 py-3 text-center text-sm transition-colors sm:w-auto ${
+              t === tab ? "bg-brand font-medium text-ink" : "text-ink hover:bg-brand-cream"
             }`}
           >
             {t.name}
@@ -32,7 +35,7 @@ export default function CategoryTabs({ tabs }: { tabs: Tab[] }) {
         ))}
       </div>
 
-      <div role="tabpanel" className="mt-4 rounded-md bg-white p-5 shadow-[0_0_12px_rgba(0,0,0,0.08)] md:px-6 md:py-6">
+      <div role="tabpanel" aria-labelledby={`range-tab-${tab.slug}`} className="mt-4 rounded-md bg-white p-5 shadow-[0_0_12px_rgba(0,0,0,0.08)] md:px-6 md:py-6">
         <div className="text-[15px] leading-relaxed text-ink [&_p]:text-ink [&_a]:text-ink [&_a]:no-underline [&_div]:min-h-4 [&_p]:mb-4">
           <div dangerouslySetInnerHTML={{ __html: tab.html }} />
         </div>

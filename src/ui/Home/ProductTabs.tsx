@@ -14,12 +14,13 @@ export type ProductTab = {
 export default function ProductTabs({ tabs, heading }: { tabs: ProductTab[]; heading: string }) {
   const [active, setActive] = useState(0);
   const tab = tabs[active];
+  if (!tab) return null;
 
   return (
     <section className="default-margin py-10">
       <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-10">
         <h2 className="section-title shrink-0">{heading}</h2>
-        <div role="tablist" className="no-scrollbar flex gap-1 overflow-x-auto">
+        <div role="tablist" className="tab-strip gap-1">
           {tabs.map((t, i) => (
             <button
               key={t.label}

@@ -167,6 +167,20 @@ body {
     @apply w-full rounded border border-neutral-300 bg-white px-3 py-2.5 text-sm text-ink placeholder:text-neutral-500 focus:border-ink focus:outline-none;
   }
 
+  // Tab rows. Phones: one swipeable row whose right edge fades out to hint at more tabs (the
+  // trailing padding lets the last tab scroll clear of the fade). From sm up the tabs wrap.
+  .tab-strip {
+    @apply flex overflow-x-auto pr-8 sm:flex-wrap sm:overflow-visible sm:pr-0;
+    scrollbar-width: none;
+    mask-image: linear-gradient(to right, #000 calc(100% - 2rem), transparent);
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    @media (min-width: 40rem) {
+      mask-image: none;
+    }
+  }
+
   // Rich text from Payload/Lexical and legacy HTML
   .prose-legacy {
     @apply text-ink-soft;
