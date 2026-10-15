@@ -34,7 +34,7 @@ export default async function ProductDetail({ p, crumbs }: { p: Product; crumbs:
           <ProductGallery main={p.image} images={p.gallery} alt={p.title} />
         </div>
         <div className="min-w-0">
-          <h1 className="text-xl font-bold uppercase leading-snug text-ink md:text-2xl" style={{ fontFamily: "Arial, sans-serif" }}>
+          <h1 className="text-xl font-bold uppercase leading-snug text-ink md:text-2xl">
             {p.title}
           </h1>
           {p.model && <p className="mt-1 text-sm text-ink">Model No : {p.model}</p>}
@@ -64,7 +64,7 @@ export default async function ProductDetail({ p, crumbs }: { p: Product; crumbs:
 
       {related.length > 0 && (
         <section className="mt-12">
-          <h2 className="mb-4 text-2xl font-bold text-ink" style={{ fontFamily: "Arial, sans-serif" }}>
+          <h2 className="mb-4 text-2xl font-bold text-ink">
             Related Products
           </h2>
           <Carousel>
