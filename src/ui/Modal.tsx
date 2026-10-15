@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useId, useRef } from "react";
 import { CloseIcon } from "@/ui/Icons";
 
 type Props = {
@@ -14,6 +14,7 @@ type Props = {
 /** Native <dialog> wrapper: focus trapping, Esc and backdrop close come for free. */
 export default function Modal({ open, onClose, title, children, wide }: Props) {
   const ref = useRef<HTMLDialogElement>(null);
+  const titleId = useId();
 
   useEffect(() => {
     const d = ref.current;
@@ -25,12 +26,13 @@ export default function Modal({ open, onClose, title, children, wide }: Props) {
   return (
     <dialog
       ref={ref}
+      aria-labelledby={title ? titleId : undefined}
       onClose={onClose}
       onClick={(e) => e.target === ref.current && onClose()}
       className={`m-auto w-[calc(100%-2rem)] ${wide ? "max-w-3xl" : "max-w-lg"} overflow-hidden rounded-md bg-white p-0 shadow-2xl backdrop:bg-black/60`}
     >
       <div className="flex items-center justify-between border-b-4 border-brand bg-ink px-5 py-3">
-        <h3 className="text-lg text-white">{title}</h3>
+        <h3 id={titleId} className="text-lg text-white">{title}</h3>
         <button type="button" onClick={onClose} aria-label="Close" className="text-white hover:text-brand">
           <CloseIcon className="h-6 w-6" />
         </button>

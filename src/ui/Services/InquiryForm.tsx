@@ -2,12 +2,12 @@ import LeadForm, { type FieldDef } from "@/ui/Forms/LeadForm";
 
 /** Mirrors the live "service-Inner-Get-In_touch_form" field set. */
 export const serviceInquiryFields: FieldDef[] = [
-  { name: "name", label: "Enter Your Full Name", required: true },
-  { name: "companyName", label: "Enter Your Company Name", required: true },
+  { name: "name", label: "Full Name", required: true },
+  { name: "companyName", label: "Company Name", required: true },
   { name: "email", label: "Email", type: "email", required: true },
   { name: "mobile", label: "Mobile Number", type: "tel", required: true },
-  { name: "designation", label: "Enter Your Designation" },
-  { name: "location", label: "Enter Your Location", required: true },
+  { name: "designation", label: "Designation" },
+  { name: "location", label: "Location", required: true },
   { name: "inquiryFor", label: "Inquiry For" },
   { name: "message", label: "Message", type: "textarea" },
 ];
