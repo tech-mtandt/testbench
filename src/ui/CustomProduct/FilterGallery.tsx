@@ -21,8 +21,8 @@ export default function FilterGallery({ filters, items }: Props) {
               type="button"
               onClick={() => setFilter(f.id)}
               aria-pressed={filter === f.id}
-              className={`px-3.5 py-1.5 text-sm uppercase transition-colors ${
-                filter === f.id ? "bg-brand text-white" : "text-ink-soft hover:text-ink"
+              className={`rounded px-3.5 py-1.5 text-sm uppercase transition-colors ${
+                filter === f.id ? "bg-brand text-ink" : "text-ink-soft hover:text-ink"
               }`}
             >
               {f.label}

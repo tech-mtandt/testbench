@@ -14,7 +14,7 @@ export function Principles({ title, items }: { title: string; items: Principle[]
           {items.map((p) => (
             <article
               key={p.title}
-              className="group overflow-hidden bg-[#F4F0D1] px-6 pt-4 transition-all duration-500 hover:rounded-[40px_0] hover:bg-black"
+              className="group overflow-hidden bg-brand-sand px-6 pt-4 transition-all duration-500 hover:rounded-[40px_0] hover:bg-black"
             >
               {p.icon && (
                 <div
@@ -23,7 +23,7 @@ export function Principles({ title, items }: { title: string; items: Principle[]
                   dangerouslySetInnerHTML={{ __html: p.icon }}
                 />
               )}
-              <h3 className="mt-1 text-4xl leading-none font-bold uppercase text-black group-hover:text-[#F8EA0D]">
+              <h3 className="mt-1 text-4xl leading-none font-bold uppercase text-black group-hover:text-brand">
                 <span className="block text-xl text-[#444] group-hover:text-white">{p.prefix}</span>
                 {p.title}
               </h3>
@@ -108,15 +108,15 @@ export function WhyMtandt({ why }: { why: Why }) {
       style={why.bg ? { backgroundImage: `url("${bgUrl(why.bg)}")` } : undefined}
     >
       <div className="default-margin">
-        <h2 className="relative mb-6 pl-3 text-2xl font-bold uppercase text-[#FFEB3B] before:absolute before:top-1 before:bottom-1 before:left-0 before:w-[3px] before:bg-[#FFEB3B] md:text-3xl">
+        <h2 className="relative mb-6 pl-3 text-2xl font-bold uppercase text-brand before:absolute before:top-1 before:bottom-1 before:left-0 before:w-[3px] before:bg-brand md:text-3xl">
           {why.title}
         </h2>
         <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12">
-          <ul className="max-h-[400px] overflow-y-auto pr-3 lg:col-span-7 [scrollbar-color:#25282d_#191b1f] [scrollbar-width:thin]">
+          <ul data-lenis-prevent className="max-h-[400px] overflow-y-auto overscroll-contain pr-3 lg:col-span-7 [scrollbar-color:#25282d_#191b1f] [scrollbar-width:thin]">
             {why.points.map((p) => (
               <li
                 key={p}
-                className="relative mb-4 bg-no-repeat pl-6 text-white/80 transition-colors hover:text-[#FFE61C]"
+                className="relative mb-4 bg-no-repeat pl-6 text-white/80 transition-colors hover:text-brand"
                 style={why.bullet ? { backgroundImage: `url("${why.bullet}")`, backgroundPosition: "0 4px" } : undefined}
               >
                 {p}
@@ -142,13 +142,18 @@ export function Journey({ journey }: { journey: JourneyData }) {
       <div className="mt-6 bg-no-repeat pl-0 lg:pl-[5%]" style={journey.bg ? { backgroundImage: `url("${bgUrl(journey.bg)}")`, backgroundPosition: "2% 0" } : undefined}>
         <Carousel>
           {journey.items.map((j) => (
-            <div key={j.year} className="group relative w-[260px] shrink-0 snap-start text-center sm:w-[300px]">
-              <div className="flex h-[78px] items-end justify-center px-12 opacity-0 transition-opacity group-hover:opacity-100">
+            // Below lg the picture and write-up are always shown; on lg+ they appear on hover or focus.
+            <div
+              key={j.year}
+              tabIndex={0}
+              className="group relative w-[260px] shrink-0 snap-start rounded-md text-center sm:w-[300px]"
+            >
+              <div className="flex h-[78px] items-end justify-center px-12 transition-opacity lg:opacity-0 lg:group-focus-within:opacity-100 lg:group-hover:opacity-100">
                 <Img src={j.image ?? undefined} alt="" className="max-h-[78px] w-auto" />
               </div>
-              <p className="relative h-7 text-xl font-bold text-[#666] group-hover:font-extrabold group-hover:text-black">
+              <p className="relative h-7 text-xl font-bold text-[#666] group-focus-within:font-extrabold group-focus-within:text-black group-hover:font-extrabold group-hover:text-black">
                 {j.year}
-                <span className="absolute top-[47px] left-1/2 h-1 w-7 -translate-x-1/2 bg-[#FFE61C]" />
+                <span className="absolute top-[47px] left-1/2 h-1 w-7 -translate-x-1/2 bg-brand" />
               </p>
               <div
                 aria-hidden
@@ -156,7 +161,7 @@ export function Journey({ journey }: { journey: JourneyData }) {
                 style={journey.road ? { backgroundImage: `url("${bgUrl(journey.road)}")`, backgroundSize: "100%" } : undefined}
               />
               <p className="px-2 text-[15px] font-medium text-[#666]">{j.title}</p>
-              <p className="mx-2 mt-3 rounded-lg bg-gradient-to-b from-[#545454] to-[#18191D] p-4 text-sm text-white opacity-0 shadow-[0_0_14px_2px_rgba(0,0,0,0.2)] transition-opacity group-hover:opacity-100">
+              <p className="mx-2 mt-3 rounded-lg bg-gradient-to-b from-[#545454] to-[#18191D] p-4 text-sm text-white shadow-[0_0_14px_2px_rgba(0,0,0,0.2)] transition-opacity lg:opacity-0 lg:group-focus-within:opacity-100 lg:group-hover:opacity-100">
                 {j.text}
               </p>
             </div>
@@ -171,7 +176,7 @@ export function AccreditationsAwards({ acc, awards }: { acc: Accreditations; awa
   return (
     <section
       id="accreditations"
-      className="scroll-mt-28 bg-[#FFFDDB] bg-no-repeat py-12 lg:bg-[length:54%_100%] lg:bg-right"
+      className="scroll-mt-28 bg-brand-cream bg-no-repeat py-12 lg:bg-[length:54%_100%] lg:bg-right"
       style={acc.bg ? { backgroundImage: `url("${bgUrl(acc.bg)}")` } : undefined}
     >
       <div className="default-margin grid grid-cols-1 gap-10 lg:grid-cols-2">

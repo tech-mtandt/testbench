@@ -32,7 +32,7 @@ export default function Header({ contact, socials, mainNav }: Pick<SiteData, "co
       <div className="bg-black">
         <div className="default-margin flex h-16 items-center justify-between">
           <Link href="/" aria-label="MT&T home" className="shrink-0">
-            <Image src={Logo} alt="MT&T — Since 1974" width={126} height={48} priority className="h-12 w-auto" />
+            <Image src={Logo} alt="MT&T — Since 1974" width={126} height={48} priority className="h-12 w-[126px] object-contain" />
           </Link>
           <NavBar items={mainNav} />
         </div>

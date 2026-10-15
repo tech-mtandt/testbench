@@ -8,7 +8,7 @@ export default function Faqs({ items, title = "Frequently Asked Questions" }: { 
   const [open, setOpen] = useState<number | null>(null);
   return (
     <div className="px-4 py-5 md:px-4">
-      <h2 className="mb-3 text-xl font-bold text-ink md:text-2xl" style={{ fontFamily: "Arial, sans-serif" }}>
+      <h2 className="mb-3 text-xl font-bold text-ink md:text-2xl">
         {title}
       </h2>
       <div className="divide-y divide-neutral-200">

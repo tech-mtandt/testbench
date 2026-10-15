@@ -36,7 +36,7 @@ export default async function ProductPage({ kind, params }: { kind: Kind; params
   }
 
   return (
-    <main>
+    <div>
       <div className="default-margin py-3">
         <Breadcrumbs
           items={[
@@ -56,7 +56,7 @@ export default async function ProductPage({ kind, params }: { kind: Kind; params
       <section className="py-10 md:py-14">
         <div className="default-margin grid gap-10 md:grid-cols-2 md:gap-8">
           <div className="min-w-0">
-            <h1 className="mb-8 text-xl font-semibold text-ink">{p.title}</h1>
+            <h1 className="mb-8 text-2xl font-semibold text-ink md:text-3xl">{p.title}</h1>
             <div
               className="prose-legacy text-[15px] md:text-justify leading-relaxed [&_b]:text-ink [&_strong]:text-ink"
               dangerouslySetInnerHTML={{ __html: p.intro }}
@@ -106,6 +106,6 @@ export default async function ProductPage({ kind, params }: { kind: Kind; params
 
       <RelatedProducts items={p.related} />
       <ClientLogos logos={p.clients} />
-    </main>
+    </div>
   );
 }

@@ -16,7 +16,7 @@ export default function ProductRow({ p }: { p: ProductSummary }) {
         <Img src={p.image ?? undefined} alt={p.title} className="max-h-full max-w-full object-contain" />
       </Link>
       <div className="min-w-0">
-        <h3 className="mb-3 truncate text-[13px] font-bold uppercase tracking-wide text-ink" title={p.title}>
+        <h3 className="mb-3 line-clamp-2 min-h-[2.75em] text-[13px] leading-snug font-bold uppercase tracking-wide text-ink" title={p.title}>
           <Link href={href} className="text-ink no-underline hover:underline">
             {p.title}
           </Link>

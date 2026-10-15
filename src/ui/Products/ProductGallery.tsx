@@ -8,7 +8,7 @@ export default function ProductGallery({ main, images, alt }: { main: string | n
   return (
     <div className="flex flex-col-reverse gap-4 sm:flex-row">
       {images.length > 1 && (
-        <div className="no-scrollbar flex gap-3 overflow-x-auto sm:max-h-[360px] sm:flex-col sm:overflow-y-auto">
+        <div data-lenis-prevent className="no-scrollbar flex gap-3 overflow-x-auto overscroll-contain sm:max-h-[360px] sm:flex-col sm:overflow-y-auto">
           {images.map((src) => (
             <button
               key={src}

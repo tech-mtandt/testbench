@@ -3,12 +3,27 @@
 import Link from "next/link";
 import { useCompare } from "./useCompare";
 
+/**
+ * Publishes the bar's height as --compare-bar-h on <html> while it is shown, so the page
+ * (body padding) and the floating buttons make room for it.
+ */
+function reserveSpace(el: HTMLDivElement | null) {
+  if (!el) return;
+  const root = document.documentElement;
+  const observer = new ResizeObserver(() => root.style.setProperty("--compare-bar-h", `${el.offsetHeight}px`));
+  observer.observe(el);
+  return () => {
+    observer.disconnect();
+    root.style.removeProperty("--compare-bar-h");
+  };
+}
+
 /** Sticky bar shown while products are selected for comparison. */
 export default function CompareBar() {
   const { list, clear } = useCompare();
   if (!list.length) return null;
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t-4 border-brand bg-ink text-white">
+    <div ref={reserveSpace} className="fixed inset-x-0 bottom-0 z-40 border-t-4 border-brand bg-ink text-white">
       <div className="default-margin flex flex-wrap items-center justify-between gap-3 py-3 text-sm">
         <span>
           {list.length} product{list.length > 1 ? "s" : ""} selected for comparison

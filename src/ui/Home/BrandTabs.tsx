@@ -18,13 +18,15 @@ export default function BrandTabs({
   tagline: string;
 }) {
   const [active, setActive] = useState(0);
+  const tab = tabs[active];
+  if (!tab) return null;
 
   return (
     <section className="bg-brand-cream py-12">
       <div className="default-margin">
         <h2 className="section-title">{heading}</h2>
         <p className="mt-1 mb-6">{tagline}</p>
-        <div role="tablist" className="no-scrollbar mb-8 flex gap-2 overflow-x-auto">
+        <div role="tablist" className="tab-strip mb-8 gap-2">
           {tabs.map((t, i) => (
             <button
               key={t.label}
@@ -41,7 +43,7 @@ export default function BrandTabs({
           ))}
         </div>
         <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
-          {tabs[active].brands.map((b, i) => {
+          {tab.brands.map((b, i) => {
             const inner = (
               <>
                 <div className="mb-4 flex h-16 items-center justify-center">

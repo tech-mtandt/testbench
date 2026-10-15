@@ -103,7 +103,7 @@ export default function ListingView({ title, description, products, groups, cate
   };
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[265px_minmax(0,1fr)]" id="listing-top">
+    <div className="grid scroll-mt-28 gap-8 lg:grid-cols-[265px_minmax(0,1fr)]" id="listing-top">
       <aside className="min-w-0">
         <div className="flex items-center justify-between lg:justify-end">
           <button
@@ -145,7 +145,7 @@ export default function ListingView({ title, description, products, groups, cate
       <section className="min-w-0 lg:pt-4">
         <div className="mb-8 flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
           <div className="max-w-2xl">
-            <h1 className="text-xl font-semibold text-ink">{title}</h1>
+            <h1 className="text-2xl font-semibold text-ink md:text-3xl">{title}</h1>
             {description && <p className="mt-3 text-[13px] leading-snug text-ink">{description}</p>}
           </div>
           <div className="shrink-0 space-y-3 md:w-52">
