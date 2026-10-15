@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { adminOnly, adminOnlyField, adminOrSelf, isEditor } from '../access/roles'
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -7,6 +8,13 @@ export const Users: CollectionConfig = {
     group: 'Admin',
   },
   auth: true,
+  access: {
+    // Only editors and admins can sign in to the admin panel; only admins manage accounts.
+    admin: ({ req }) => isEditor(req),
+    create: adminOnly,
+    delete: adminOnly,
+    update: adminOrSelf,
+  },
   fields: [
     // Email added by default
     {
@@ -35,6 +43,7 @@ export const Users: CollectionConfig = {
       type: 'select',
       hasMany: true,
       required: true,
+      access: { create: adminOnlyField, update: adminOnlyField },
       options: [
         { label: 'Administrator', value: 'administrator' },
         { label: 'Editor', value: 'editor' },

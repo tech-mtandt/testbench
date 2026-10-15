@@ -1,4 +1,5 @@
 import type { CollectionBeforeChangeHook, CollectionConfig } from 'payload'
+import { listingHref, subcategorySlug } from '../content/urls'
 
 /** Keep `path` (the public URL, used for the SEO preview and admin list) in sync. */
 const setPath: CollectionBeforeChangeHook = async ({ data, originalDoc, req }) => {
@@ -9,7 +10,7 @@ const setPath: CollectionBeforeChangeHook = async ({ data, originalDoc, req }) =
   if (!mode || !sub || !catId) return data
   try {
     const cat = await req.payload.findByID({ collection: 'product-categories', id: catId, depth: 0, req })
-    if (cat?.slug) data.path = `/${cat.slug}/${sub}/${mode === 'buy' ? 'buy' : 'rent'}`
+    if (cat?.slug) data.path = listingHref(mode === 'buy' ? 'buy' : 'rental', cat.slug, subcategorySlug(sub))
   } catch {
     /* category missing; leave path as is */
   }
@@ -127,7 +128,7 @@ export const ProductListings: CollectionConfig = {
       type: 'text',
       required: true,
       index: true,
-      admin: { position: 'sidebar', description: "Subcategory URL segment from the category's subcategories, e.g. scissor-lift" },
+      admin: { position: 'sidebar', description: "The subcategory's slug, as listed on its category (e.g. scissor-lift, not scissor-lifts)" },
     },
     {
       name: 'path',

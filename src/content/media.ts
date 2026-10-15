@@ -252,9 +252,29 @@ async function fetchBlogSlugs() {
 
 // Blog reads are cached across requests (Payload/Supabase round-trips were ~0.3–1s per page view).
 const BLOG_CACHE = { revalidate: 600, tags: ["blogs"] };
-export const getBlogPage = unstable_cache(fetchBlogPage, ["blog-page"], BLOG_CACHE);
+// Lists degrade to empty while the database is unreachable (errors are never cached), so
+// /media and blog sidebars still render; a single post errors (error page) rather than 404.
+const orElse =
+  <A extends unknown[], R>(fn: (...args: A) => Promise<R>, fallback: (...args: A) => R, label: string) =>
+  async (...args: A): Promise<R> => {
+    try {
+      return await fn(...args);
+    } catch (err) {
+      console.error(`[blogs] ${label} failed`, err);
+      return fallback(...args);
+    }
+  };
+export const getBlogPage = orElse(
+  unstable_cache(fetchBlogPage, ["blog-page"], BLOG_CACHE),
+  (page: number) => ({ cards: [] as BlogCard[], totalPages: 1, page }),
+  "page",
+);
 export const getBlog = unstable_cache(fetchBlog, ["blog"], BLOG_CACHE);
-export const getLatestBlogs = unstable_cache(fetchLatestBlogs, ["blog-latest"], BLOG_CACHE);
+export const getLatestBlogs = orElse(
+  unstable_cache(fetchLatestBlogs, ["blog-latest"], BLOG_CACHE),
+  () => [] as BlogCard[],
+  "latest",
+);
 export const getBlogSlugs = unstable_cache(fetchBlogSlugs, ["blog-slugs"], BLOG_CACHE);
 
 export const blogHero = (b: Blog) => blogFallback(b)?.hero || mediaUrl(b.hero) || mediaUrl(b.thumbnail);

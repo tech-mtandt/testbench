@@ -1,11 +1,14 @@
 import type { Field, GlobalConfig } from "payload";
 
+import { adminOnlyField } from "../access/roles";
 import { baseGlobalFields } from "../fields/baseGlobalFields";
 
 const svgField = (name: string, label: string, description: string): Field => ({
   name,
   type: "code",
   label,
+  // Rendered as raw markup on the public site, so only administrators may change it.
+  access: { update: adminOnlyField },
   admin: { language: "html", description },
 });
 

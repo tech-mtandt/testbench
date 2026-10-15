@@ -10,7 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
   // Admin SEO tab (Pages > Careers Page > SEO) wins; empty fields keep the original meta.
   const seo = (await getCareer()).seo;
   return {
-    title: seo?.title ? { absolute: seo.title } : "Careers | Mtandt Group",
+    title: seo?.title ? { absolute: seo.title } : "Careers",
     description:
       seo?.description ||
       "Join Mtandt Group - for the ones who get it done, Dil Se. Explore current openings and apply with your resume.",

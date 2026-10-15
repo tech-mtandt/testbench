@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { brandTitle } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/ui/PageChrome";
 import { getLegalPage, getLegalPages } from "@/content/legal";
@@ -14,7 +15,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const p = await getLegalPage(slug);
   if (!p) return {};
   return {
-    title: p.seo.title ? { absolute: p.seo.title } : p.meta.title,
+    title: p.seo.title ? { absolute: p.seo.title } : brandTitle(p.meta.title),
     description: p.meta.description || undefined,
     alternates: { canonical: `/pages/${slug}` },
     openGraph: p.seo.image ? { images: [p.seo.image] } : undefined,

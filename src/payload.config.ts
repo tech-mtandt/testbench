@@ -27,6 +27,7 @@ import { About } from "./globals/About";
 import { Contact } from "./globals/Contact";
 import { areas } from "./cms/schema";
 import { collectionRevalidate, globalRevalidate } from "./cms/hooks";
+import { editorsOnly } from "./access/roles";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -78,6 +79,8 @@ const seo = seoPlugin({
 // Every admin change refreshes the site (see cms/hooks).
 const withRevalidate = (c: CollectionConfig): CollectionConfig => ({
   ...c,
+  // Writes need the Editor role (or Administrator/Developer) unless a collection says otherwise.
+  access: { create: editorsOnly, update: editorsOnly, delete: editorsOnly, ...c.access },
   hooks: {
     ...c.hooks,
     afterChange: [...(c.hooks?.afterChange ?? []), ...collectionRevalidate.afterChange],
@@ -86,6 +89,7 @@ const withRevalidate = (c: CollectionConfig): CollectionConfig => ({
 });
 const withGlobalRevalidate = (g: GlobalConfig): GlobalConfig => ({
   ...g,
+  access: { update: editorsOnly, ...g.access },
   hooks: { ...g.hooks, afterChange: [...(g.hooks?.afterChange ?? []), ...globalRevalidate.afterChange] },
 });
 

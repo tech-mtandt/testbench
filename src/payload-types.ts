@@ -390,7 +390,7 @@ export interface Product {
   } | null;
   productCategory?: (number | null) | ProductCategory;
   /**
-   * Subcategory URL segment from the category's subcategories, e.g. scissor-lift
+   * The subcategory's slug, as listed on its category (e.g. scissor-lift, not scissor-lifts)
    */
   subcategory?: string | null;
   /**
@@ -1247,7 +1247,7 @@ export interface ProductListing {
   mode: 'buy' | 'rental';
   productCategory: number | ProductCategory;
   /**
-   * Subcategory URL segment from the category's subcategories, e.g. scissor-lift
+   * The subcategory's slug, as listed on its category (e.g. scissor-lift, not scissor-lifts)
    */
   subcategory: string;
   /**

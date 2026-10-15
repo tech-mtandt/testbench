@@ -68,7 +68,7 @@ export const Products: CollectionConfig = {
                 {
                   name: 'subcategory',
                   type: 'text',
-                  admin: { description: "Subcategory URL segment from the category's subcategories, e.g. scissor-lift" },
+                  admin: { description: "The subcategory's slug, as listed on its category (e.g. scissor-lift, not scissor-lifts)" },
                 },
               ],
             },

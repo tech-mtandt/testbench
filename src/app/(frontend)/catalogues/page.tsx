@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { brandTitle } from "@/lib/seo";
 import { getCatalogues, getCataloguesPage } from "@/content/catalogues";
 import CatalogueGrid from "@/ui/Catalogue/CatalogueGrid";
 import ImageBanner from "@/ui/Contact/ImageBanner";
@@ -6,7 +7,7 @@ import ImageBanner from "@/ui/Contact/ImageBanner";
 export async function generateMetadata(): Promise<Metadata> {
   const { meta } = await getCataloguesPage();
   return {
-    title: meta.absolute ? { absolute: meta.title } : meta.title,
+    title: meta.absolute ? { absolute: meta.title } : brandTitle(meta.title),
     description: meta.description || undefined,
     alternates: { canonical: "/catalogues" },
     openGraph: meta.image ? { images: [meta.image] } : undefined,

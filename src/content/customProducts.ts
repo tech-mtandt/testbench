@@ -1,5 +1,6 @@
 import customData from "@/content/scraped/custom-products.json";
 import { cached, fileUrl, html, readAll, str } from "@/cms/read";
+import { modernizeDeep } from "@/content/urls";
 import type { CustomProduct as CustomProductDoc } from "@/payload-types";
 
 /**
@@ -83,10 +84,12 @@ function mapDoc(d: CustomProductDoc): Stored {
 
 const readStore = cached(async (): Promise<Store> => {
   const docs = await readAll<CustomProductDoc>("custom-products", { depth: 1, sort: "id" });
-  if (!docs) return fromJson();
+  // Breadcrumbs, related links and copy saved with old-site catalogue links point at the
+  // current addresses (no redirect hop).
+  if (!docs) return modernizeDeep(fromJson());
   const store: Store = { buy: {}, rental: {} };
   for (const d of docs) store[d.kind][d.slug] = mapDoc(d);
-  return store;
+  return modernizeDeep(store);
 }, "custom-products");
 
 export async function getCustomProduct(kind: Kind, category: string, slug: string): Promise<CustomProduct | null> {

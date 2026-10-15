@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { brandTitle } from "@/lib/seo";
 import Link from "next/link";
 import { Breadcrumbs } from "@/ui/PageChrome";
 import { bgLayers, getServicesPage, listServices } from "@/content/services";
@@ -7,7 +8,7 @@ import { bgUrl } from "@/lib/img";
 export async function generateMetadata(): Promise<Metadata> {
   const { meta } = await getServicesPage();
   return {
-    title: meta.absolute ? { absolute: meta.title } : meta.title,
+    title: meta.absolute ? { absolute: meta.title } : brandTitle(meta.title),
     description: meta.description,
     alternates: { canonical: "/services" },
     openGraph: meta.image ? { images: [meta.image] } : undefined,

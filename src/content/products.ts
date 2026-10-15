@@ -2,8 +2,8 @@ import { cache } from "react";
 import type { CollectionSlug, PopulateType, SelectType, Where } from "payload";
 import taxonomy from "@/content/scraped/product-categories.json";
 import productsJson from "@/content/scraped/products.json";
-import { cached, fileUrl, html, str } from "@/cms/read";
-import { categorySegment, modernizeDeep, modernizeHref, subcategoryHref, subcategorySegment } from "@/content/urls";
+import { cached, fileUrl, html, markCmsFailure, str } from "@/cms/read";
+import { categorySegment, modernizeDeep, modernizeHref, subcategoryHref, subcategorySegment, subcategorySlug } from "@/content/urls";
 import { payloadClient } from "@/lib/payload";
 import type {
   Product as ProductDoc,
@@ -156,6 +156,7 @@ async function find<T>(
     return docs.length ? (docs as T[]) : null;
   } catch (err) {
     console.error(`[cms] collection "${collection}" read failed`, err);
+    markCmsFailure();
     return null;
   }
 }
@@ -196,9 +197,10 @@ function mapProduct(d: ProductDoc): Product {
     model: d.modelNo ?? "",
     mode: d.mode === "rent" ? "rent" : "buy",
     category: cat?.slug ?? null,
-    subcategory: d.subcategory ?? null,
+    // Editors may type the address form ("boom-lifts"): normalise to the slug ("boom-lift").
+    subcategory: d.subcategory ? subcategorySlug(d.subcategory) : null,
     categoryName: cat?.title ?? "",
-    subcategoryName: cat?.subcategories?.find((s) => s.slug === d.subcategory)?.name ?? "",
+    subcategoryName: cat?.subcategories?.find((s) => s.slug === (d.subcategory && subcategorySlug(d.subcategory)))?.name ?? "",
     image: fileUrl(d.featuredImage),
     gallery: (d.gallery ?? []).map((g) => fileUrl(g.image)).filter((x): x is string => !!x),
     descriptionHtml: html(d.content),
@@ -254,7 +256,7 @@ function mapListing(d: ListingDoc): [string, RawListing] | null {
   const cat = obj(d.productCategory);
   if (!cat) return null;
   return [
-    `${d.mode}/${cat.slug}/${d.subcategory}`,
+    `${d.mode}/${cat.slug}/${subcategorySlug(d.subcategory)}`,
     {
       title: d.title,
       description: d.description ?? "",

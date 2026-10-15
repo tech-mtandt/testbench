@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { brandTitle } from "@/lib/seo";
 import { notFound, permanentRedirect } from "next/navigation";
 import { blogFallback, blogHero, fmtDMY, fmtLong, getBlog, getBlogSlugs, getLatestBlogs, scrapedBlogs } from "@/content/media";
 import { lexicalToText, mediaUrl } from "@/lib/payload";
@@ -37,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = post.meta?.description || live?.description || post.excerpt || lexicalToText(post.body, 160);
   const image = mediaUrl(post.meta?.image) ?? blogHero(post);
   return {
-    title: seoTitle ? { absolute: seoTitle } : post.title,
+    title: seoTitle ? { absolute: seoTitle } : brandTitle(post.title),
     description,
     alternates: { canonical: `/blogs/${post.slug}` },
     openGraph: { type: "article", title: post.meta?.title || post.title, description, images: image ? [image] : undefined },

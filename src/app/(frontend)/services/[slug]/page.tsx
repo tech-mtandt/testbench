@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { brandTitle } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import { getService, getServiceSlugs } from "@/content/services";
 import ServiceDetail from "@/ui/Services/ServiceDetail";
@@ -15,7 +16,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const s = await getService(slug);
   if (!s) return {};
   return {
-    title: s.seo.title ? { absolute: s.seo.title } : s.scraped.meta.title || s.title,
+    title: s.seo.title ? { absolute: s.seo.title } : brandTitle(s.scraped.meta.title || s.title),
     description: s.seo.description,
     alternates: { canonical: `/services/${slug}` },
     openGraph: s.seo.image ? { images: [s.seo.image] } : undefined,

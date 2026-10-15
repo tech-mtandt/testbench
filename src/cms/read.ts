@@ -7,6 +7,7 @@
  * yet (not imported) or the database is unreachable. Rich text is rendered to an
  * HTML string and uploads to a URL string, so components stay unchanged.
  */
+import { AsyncLocalStorage } from "node:async_hooks";
 import { unstable_cache } from "next/cache";
 import { convertLexicalToHTML } from "@payloadcms/richtext-lexical/html";
 import type { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
@@ -19,8 +20,48 @@ export { CMS_TAG };
 
 export const CMS_REVALIDATE = 600;
 
+// Set when a read inside a cached() call falls back because the database failed.
+const failures = new AsyncLocalStorage<{ failed: boolean }>();
+
+/** Call from a read's catch block: the result being built is a fallback, not CMS content. */
+export function markCmsFailure() {
+  const ctx = failures.getStore();
+  if (ctx) ctx.failed = true;
+}
+
+class CmsUnavailable<R> extends Error {
+  constructor(readonly result: R) {
+    super("CMS unavailable; serving fallback content");
+    this.name = "CmsUnavailable";
+  }
+}
+
+/**
+ * Caches a CMS read for CMS_REVALIDATE seconds (tag CMS_TAG). A result built while the
+ * database was failing (scraped-JSON fallback) is returned but never cached: Next keeps
+ * serving the last good cached value, and the next request tries the database again.
+ */
 export function cached<A extends unknown[], R>(fn: (...args: A) => Promise<R>, key: string) {
-  return unstable_cache(fn, [key], { revalidate: CMS_REVALIDATE, tags: [CMS_TAG] });
+  const run = unstable_cache(
+    async (...args: A) => {
+      const ctx = { failed: false };
+      const result = await failures.run(ctx, () => fn(...args));
+      if (ctx.failed) throw new CmsUnavailable(result);
+      return result;
+    },
+    [key],
+    { revalidate: CMS_REVALIDATE, tags: [CMS_TAG] },
+  );
+  return async (...args: A): Promise<R> => {
+    try {
+      return await run(...args);
+    } catch (err) {
+      if (err instanceof CmsUnavailable || (err as Error)?.name === "CmsUnavailable") {
+        return (err as CmsUnavailable<R>).result;
+      }
+      throw err;
+    }
+  };
 }
 
 type Upload = { url?: string | null; legacySrc?: string | null } | number | string | null | undefined;
@@ -56,6 +97,7 @@ export async function readGlobal<T>(slug: GlobalSlug, depth = 1): Promise<T | nu
     return doc?.updatedAt ? doc : null;
   } catch (err) {
     console.error(`[cms] global "${slug}" read failed`, err);
+    markCmsFailure();
     return null;
   }
 }
@@ -78,6 +120,7 @@ export async function readAll<T>(
     return docs.length ? (docs as T[]) : null;
   } catch (err) {
     console.error(`[cms] collection "${collection}" read failed`, err);
+    markCmsFailure();
     return null;
   }
 }

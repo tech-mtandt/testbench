@@ -38,4 +38,9 @@ const load = cached(async (): Promise<Record<string, CaseStudy>> => {
 }, "case-studies");
 
 export const getCaseStudySlugs = async () => Object.keys(await load());
-export const getCaseStudy = async (slug: string): Promise<CaseStudy | null> => (await load())[slug] ?? null;
+export async function getCaseStudy(slug: string): Promise<CaseStudy | null> {
+  const all = await load();
+  const c = all[slug];
+  // Related cards may point at case studies that were since removed: drop those links.
+  return c ? { ...c, related: c.related.filter((r) => !r.href?.startsWith("/casestudy/") || r.href.slice(11) in all) } : null;
+}

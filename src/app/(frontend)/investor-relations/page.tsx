@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { brandTitle } from "@/lib/seo";
 import { getInvestorRelations } from "@/content/investor-relations";
 import { PageBanner } from "@/ui/PageChrome";
 import ReturnTabs from "./ReturnTabs";
@@ -6,7 +7,7 @@ import ReturnTabs from "./ReturnTabs";
 export async function generateMetadata(): Promise<Metadata> {
   const { meta } = await getInvestorRelations();
   return {
-    title: meta.absolute ? { absolute: meta.title } : meta.title,
+    title: meta.absolute ? { absolute: meta.title } : brandTitle(meta.title),
     description: meta.description || undefined,
     alternates: { canonical: "/investor-relations" },
     openGraph: meta.image ? { images: [meta.image] } : undefined,

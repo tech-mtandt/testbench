@@ -19,7 +19,7 @@ const STATIC = [
   "/services",
   "/catalogues",
   "/industries",
-  "/media",
+  "/media/blogs",
   "/media/press",
   "/media/events",
   "/media/gallery",
@@ -49,7 +49,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       return (["buy", "rental"] as Mode[]).flatMap((mode) =>
         c.categories.flatMap((cat) => [
           ...(mode === "buy"
-            ? [categoryHref(cat.slug), ...cat.subcategories.map((s) => subcategoryHref(cat.slug, s.slug))]
+            ? [
+                categoryHref(cat.slug),
+                // Ranges without products canonicalise to their solution page (SubcategoryHub).
+                ...cat.subcategories
+                  .filter((s) => hasListing(c, "buy", cat.slug, s.slug) || hasListing(c, "rental", cat.slug, s.slug))
+                  .map((s) => subcategoryHref(cat.slug, s.slug)),
+              ]
             : []),
           ...cat.subcategories.filter((s) => hasListing(c, mode, cat.slug, s.slug)).map((s) => listingHref(mode, cat.slug, s.slug)),
         ]),

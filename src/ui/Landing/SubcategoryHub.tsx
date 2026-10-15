@@ -14,6 +14,7 @@ import {
   type CatalogProduct,
 } from "@/content/products";
 import { contact } from "@/content/site";
+import { modernizeHref } from "@/content/urls";
 import LeadForm from "@/ui/Forms/LeadForm";
 import BrochureButton from "@/ui/Landing/BrochureButton";
 import LeadPopup from "@/ui/Landing/LeadPopup";
@@ -48,12 +49,19 @@ export async function hubMetadata({ params }: HubParams): Promise<Metadata> {
   const { category, subcategory } = resolveSegments(p.category, p.subcategory);
   const h = await load(category, subcategory);
   if (!h) return {};
-  const meta = h.buy?.meta ?? h.rent?.meta ?? {};
+  const meta = [h.buy?.meta, h.rent?.meta].find((m) => m?.title || m?.description) ?? {};
+  const hasProducts = Boolean(h.buy?.products.length || h.rent?.products.length);
+  // Ranges without catalogue products (fall protection, road mats, tools…) are presented on
+  // their solution page; point search engines there instead of at this thin hub.
+  const solution = !hasProducts && h.subcategory.button?.href ? modernizeHref(h.subcategory.button.href) : null;
+  const description = h.config?.metaDescription || meta.description || h.buy?.description || h.rent?.description;
   return {
-    title: { absolute: h.config?.metaTitle || `${h.subcategory.name} for Sale & Rent | Mtandt` },
-    description: h.config?.metaDescription || meta.description || h.buy?.description || undefined,
+    title: {
+      absolute: h.config?.metaTitle || meta.title || `${h.subcategory.name}${hasProducts ? " for Sale & Rent" : ""} | Mtandt`,
+    },
+    description: description || `${h.subcategory.name} from Mtandt Group: ${h.category.title.toLowerCase()} for sale and rent across India.`,
     keywords: meta.keywords,
-    alternates: { canonical: subcategoryHref(category, subcategory) },
+    alternates: { canonical: solution?.startsWith("/") ? solution : subcategoryHref(category, subcategory) },
     openGraph: meta.image ? { images: [meta.image] } : undefined,
   };
 }

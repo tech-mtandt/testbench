@@ -46,7 +46,8 @@ export default async function ListingPage({ mode, params }: ListingParams & { mo
   }
   const other: Mode = mode === "buy" ? "rental" : "buy";
 
-  const categoryNav: NavOption[] = catalog.categories.map((c) => {
+  // A category saved before it has any subcategories has nowhere to link to yet.
+  const categoryNav: NavOption[] = catalog.categories.filter((c) => c.subcategories.length).map((c) => {
     const first = c.subcategories.find((s) => hasListing(catalog, mode, c.slug, s.slug));
     return {
       label: c.crumb || c.title,

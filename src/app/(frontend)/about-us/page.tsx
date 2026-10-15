@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { brandTitle } from "@/lib/seo";
 import { cache } from "react";
 import { RichText } from "@/components/RichText";
 import { mediaAlt, mediaUrl, payloadClient } from "@/lib/payload";
@@ -21,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const meta = (await getAbout())?.meta;
   const image = mediaUrl(meta?.image);
   return {
-    title: meta?.title ? { absolute: meta.title } : data.meta.title,
+    title: meta?.title ? { absolute: meta.title } : brandTitle(data.meta.title),
     description: meta?.description || data.meta.description,
     alternates: { canonical: "/about-us" },
     openGraph: image ? { images: [image] } : undefined,

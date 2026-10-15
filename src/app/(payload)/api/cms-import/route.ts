@@ -4,15 +4,18 @@
  * Each call does a slice of one task and returns a cursor; the panel keeps calling.
  */
 import config from "@payload-config";
-import { getPayload } from "payload";
+import { createLocalReq, getPayload } from "payload";
+import { isAdmin } from "@/access/roles";
 
 export const maxDuration = 300;
 export const dynamic = "force-dynamic";
 
+/** Imports can overwrite content: administrators (and developers) only. */
 async function authed(req: Request) {
   const payload = await getPayload({ config });
   const { user } = await payload.auth({ headers: req.headers });
-  return user ? payload : null;
+  if (!user) return null;
+  return (await isAdmin(await createLocalReq({ user }, payload))) ? payload : null;
 }
 
 export async function GET(req: Request) {

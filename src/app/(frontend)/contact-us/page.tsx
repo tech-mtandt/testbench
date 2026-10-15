@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { brandTitle } from "@/lib/seo";
 import data from "@/content/scraped/contact.json";
 import { contactFields } from "@/content/forms";
 import LeadForm from "@/ui/Forms/LeadForm";
@@ -11,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
   // Admin SEO tab (Pages > Contact Page > SEO) wins; empty fields keep the legacy meta.
   const seo = (await getContact()).seo;
   return {
-    title: seo?.title ? { absolute: seo.title } : data.meta.title,
+    title: seo?.title ? { absolute: seo.title } : brandTitle(data.meta.title),
     description: seo?.description || data.meta.description,
     alternates: { canonical: "/contact-us" },
     openGraph: seo?.image ? { images: [seo.image] } : undefined,

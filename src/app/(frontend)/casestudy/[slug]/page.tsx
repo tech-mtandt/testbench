@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { brandTitle } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/ui/PageChrome";
 import { DownloadIcon, SocialIcon } from "@/ui/Icons";
@@ -23,7 +24,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   if (!d) return {};
   // Admin SEO tab wins; empty fields keep the original meta.
   return {
-    title: d.seo?.title ? { absolute: d.seo.title } : d.title,
+    title: d.seo?.title ? { absolute: d.seo.title } : brandTitle(d.title),
     description: d.seo?.description || caseStudyDescription(d.blocks[0]?.html),
     alternates: { canonical: `/casestudy/${slug}` },
     openGraph: d.seo?.image ? { images: [d.seo.image] } : undefined,

@@ -14,7 +14,9 @@ const key = (label: string) => label.toLowerCase().replace(/\(.*?\)/g, "").repla
 
 export default async function Page({ searchParams }: Props) {
   const raw = [(await searchParams).p].flat()[0] ?? "";
-  const products = (await Promise.all(raw.split(",").map((s) => getProduct(s.trim()))))
+  // At most 4 distinct products: never fetch more than that, whatever the query string says.
+  const slugs = [...new Set(raw.split(",").map((s) => s.trim()).filter(Boolean))].slice(0, 4);
+  const products = (await Promise.all(slugs.map((s) => getProduct(s))))
     .filter((p): p is Product => !!p)
     .slice(0, 4);
 

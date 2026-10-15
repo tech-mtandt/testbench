@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { brandTitle } from "@/lib/seo";
 import { getPartnerPage, type PartnerKey } from "@/content/partner-forms";
 import ImageBanner from "@/ui/Contact/ImageBanner";
 import PartnerForm from "./PartnerForm";
@@ -6,7 +7,7 @@ import PartnerForm from "./PartnerForm";
 export async function partnerMetadata(key: PartnerKey): Promise<Metadata> {
   const { meta } = await getPartnerPage(key);
   return {
-    title: meta.absolute ? { absolute: meta.title } : meta.title,
+    title: meta.absolute ? { absolute: meta.title } : brandTitle(meta.title),
     description: meta.description,
     alternates: { canonical: `/${key}` },
     openGraph: meta.image ? { images: [meta.image] } : undefined,

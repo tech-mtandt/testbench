@@ -1,9 +1,14 @@
 import { permanentRedirect } from "next/navigation";
 
-import { listingHref } from "@/content/urls";
+import productsJson from "@/content/scraped/products.json";
+import { listingHref, productHref } from "@/content/urls";
 
 const buyListing = (cat: string, sub: string) => listingHref("buy", cat, sub);
 const rentListing = (cat: string, sub: string) => listingHref("rental", cat, sub);
+
+// Renamed products go straight to the product's current address (no second redirect hop).
+const scrapedProducts = productsJson as { slug: string; category: string | null; subcategory: string | null }[];
+const product = (slug: string) => productHref(scrapedProducts.find((p) => p.slug === slug) ?? { slug });
 
 /**
  * Old-site URLs (from www.mtandt.com's sitemap, checked live before the cutover) that have no
@@ -13,13 +18,13 @@ const rentListing = (cat: string, sub: string) => listingHref("rental", cat, sub
  */
 export const legacyRedirects: Record<string, string> = {
   // Same product, renamed slug
-  "/product-detail/s13f-spider-lift": "/product-detail/track-mounted-spider-lift-s-13-f",
-  "/product-detail/track-mounted-spider-lift-s13f": "/product-detail/track-mounted-spider-lift-s-13-f",
-  "/product-detail/s13f-spider-lift-rent": "/product-detail/track-mounted-spider-lift-rent-s13f",
-  "/product-detail/track-mounted-spider-lift-s15": "/product-detail/track-mounted-spider-lift-s-15",
-  "/product-detail/articulated-boom-lift-bt24rt": "/product-detail/telescopic-boom-lift-bt24rt",
-  "/product-detail/rent-m5-mobile-light-tower": "/product-detail/m5-mobile-light-tower",
-  "/product-detail/self-propelled-mast-boom-vertical-lift-wheel-880": "/product-detail/self-propelled-mast-boom-lift-electric-880r",
+  "/product-detail/s13f-spider-lift": product("track-mounted-spider-lift-s-13-f"),
+  "/product-detail/track-mounted-spider-lift-s13f": product("track-mounted-spider-lift-s-13-f"),
+  "/product-detail/s13f-spider-lift-rent": product("track-mounted-spider-lift-rent-s13f"),
+  "/product-detail/track-mounted-spider-lift-s15": product("track-mounted-spider-lift-s-15"),
+  "/product-detail/articulated-boom-lift-bt24rt": product("telescopic-boom-lift-bt24rt"),
+  "/product-detail/rent-m5-mobile-light-tower": product("m5-mobile-light-tower"),
+  "/product-detail/self-propelled-mast-boom-vertical-lift-wheel-880": product("self-propelled-mast-boom-lift-electric-880r"),
   "/product-detail/podium-platform": buyListing("aluminium-scaffold", "low-reach-platform"),
 
   // Products not carried over: closest listing
