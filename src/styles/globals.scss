@@ -236,3 +236,17 @@ body {
     display: none;
   }
 }
+
+// Page transition on client-side navigation (app/(frontend)/template.tsx): a short fade-in.
+@keyframes page-enter {
+  from {
+    opacity: 0;
+  }
+}
+
+.page-enter {
+  animation: page-enter 0.25s ease-out;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
