@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
+import { useAutoplay } from "@/components/useAutoplay";
 import FallbackImg from "@/ui/Catalogue/FallbackImg";
 
 export type TeamMember = {
@@ -16,22 +17,21 @@ export type TeamMember = {
 const INTERVAL_MS = 3000;
 const TRANSITION_MS = 700;
 
-function useItemsPerView(max: number, perView: number) {
-  const [itemsPerView, setItemsPerView] = useState(1);
+function subscribeResize(onChange: () => void) {
+  window.addEventListener("resize", onChange);
+  return () => window.removeEventListener("resize", onChange);
+}
 
-  useEffect(() => {
-    function update() {
-      const width = window.innerWidth;
-      const columns = width >= 1024 ? perView : width >= 768 ? Math.min(3, perView) : width >= 480 ? 2 : 1;
-      setItemsPerView(Math.max(1, Math.min(max, columns)));
-    }
-
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, [max, perView]);
-
-  return itemsPerView;
+/** Breakpoint index matching the CSS below: 0 phones, 1 ≥480px, 2 md, 3 lg; -1 while server rendering. */
+function useBreakpoint() {
+  return useSyncExternalStore(
+    subscribeResize,
+    () => {
+      const w = window.innerWidth;
+      return w >= 1024 ? 3 : w >= 768 ? 2 : w >= 480 ? 1 : 0;
+    },
+    () => -1,
+  );
 }
 
 /** Auto-sliding row of round portraits (legacy owl-carousel on About Us). */
@@ -44,18 +44,17 @@ export default function TeamCarousel({
   perView?: number;
   size?: "md" | "lg";
 }) {
-  const itemsPerView = useItemsPerView(members.length || 1, perView);
-  const canSlide = members.length > itemsPerView;
+  // Portraits per view at each breakpoint (1 / 2 / up to 3 / perView), never more than there are
+  // members. Slide widths come from CSS, so the server render already has the final layout.
+  const counts = [1, 2, Math.min(3, perView), perView].map((c) => Math.max(1, Math.min(members.length, c)));
+  const breakpoint = useBreakpoint();
+  const canSlide = breakpoint >= 0 && members.length > counts[breakpoint];
 
   const [index, setIndex] = useState(0);
   const [withTransition, setWithTransition] = useState(true);
+  const autoplay = useAutoplay(() => setIndex((prev) => Math.min(prev + 1, members.length)), INTERVAL_MS, canSlide);
 
-  useEffect(() => {
-    if (!canSlide) return;
-    const timer = setInterval(() => setIndex((prev) => prev + 1), INTERVAL_MS);
-    return () => clearInterval(timer);
-  }, [canSlide]);
-
+  // After sliding onto the copies of the first portraits, jump back to the real ones unanimated.
   useEffect(() => {
     if (!canSlide || index !== members.length) return;
     const timeout = setTimeout(() => {
@@ -73,24 +72,31 @@ export default function TeamCarousel({
 
   if (members.length === 0) return null;
 
-  const slides = canSlide ? [...members, ...members.slice(0, itemsPerView)] : members;
+  const copies = members.length > 1 ? members.slice(0, Math.max(...counts)) : [];
   const circle = size === "lg" ? "h-44 w-44" : "h-36 w-36 md:h-[150px] md:w-[150px]";
+  const vars = Object.fromEntries(counts.map((c, i) => [`--per-view-${i}`, c])) as React.CSSProperties;
 
   return (
-    <div className="min-w-0 overflow-hidden">
+    // Reduced motion: no autoplay, so the row scrolls by hand instead.
+    <div
+      className="min-w-0 overflow-hidden motion-reduce:snap-x motion-reduce:snap-mandatory motion-reduce:overflow-x-auto"
+      {...autoplay}
+    >
       <div
-        className={`flex ${withTransition ? "transition-transform ease-in-out" : ""}`}
+        className={`flex [--per-view:var(--per-view-0)] min-[480px]:[--per-view:var(--per-view-1)] md:[--per-view:var(--per-view-2)] lg:[--per-view:var(--per-view-3)] ${withTransition ? "transition-transform ease-in-out" : ""}`}
         style={{
+          ...vars,
           transitionDuration: `${TRANSITION_MS}ms`,
-          transform: canSlide ? `translateX(-${index * (100 / itemsPerView)}%)` : undefined,
+          transform: canSlide ? `translateX(calc(-100% / var(--per-view) * ${index}))` : undefined,
         }}
       >
-        {slides.map((member, i) => (
+        {[...members, ...copies].map((member, i) => (
           <div
             key={`${member.id}-${i}`}
-            className="flex shrink-0 flex-col items-center gap-1 px-2 text-center"
-            style={{ width: `${100 / itemsPerView}%` }}
-            aria-hidden={i >= members.length || undefined}
+            inert={i >= members.length}
+            className={`flex w-[calc(100%/var(--per-view))] shrink-0 snap-start flex-col items-center gap-1 px-2 text-center ${
+              i >= members.length ? "motion-reduce:hidden" : ""
+            }`}
           >
             <div className={`${circle} mb-2 overflow-hidden rounded-full bg-neutral-800`}>
               <FallbackImg
