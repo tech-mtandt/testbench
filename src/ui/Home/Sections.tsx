@@ -145,7 +145,7 @@ export function HomeFeeds({
         </div>
         <div className={panel}>
           <h4 className="mb-3 text-center text-base">{headings.newsHeading}</h4>
-          <ul className="max-h-80 divide-y divide-neutral-200 overflow-y-auto pr-1">
+          <ul data-lenis-prevent className="max-h-80 divide-y divide-neutral-200 overflow-y-auto overscroll-contain pr-1">
             {news.map((n) => (
               <li key={n.href} className="py-2.5">
                 <Link href={n.href} className="block no-underline">

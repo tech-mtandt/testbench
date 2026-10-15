@@ -112,7 +112,7 @@ export function WhyMtandt({ why }: { why: Why }) {
           {why.title}
         </h2>
         <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12">
-          <ul className="max-h-[400px] overflow-y-auto pr-3 lg:col-span-7 [scrollbar-color:#25282d_#191b1f] [scrollbar-width:thin]">
+          <ul data-lenis-prevent className="max-h-[400px] overflow-y-auto overscroll-contain pr-3 lg:col-span-7 [scrollbar-color:#25282d_#191b1f] [scrollbar-width:thin]">
             {why.points.map((p) => (
               <li
                 key={p}
