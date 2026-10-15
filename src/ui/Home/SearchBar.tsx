@@ -6,7 +6,7 @@ export default function SearchBar({ defaultValue = "", floating = true }: { defa
     <form
       action="/search"
       role="search"
-      className={`${floating ? "relative z-10 -mt-6 mx-auto w-[calc(100%-2rem)] max-w-3xl shadow-lg" : "w-full max-w-3xl"} flex items-stretch overflow-hidden rounded-md bg-white`}
+      className={`${floating ? "relative z-10 -mt-6 mx-auto w-[calc(100%-2rem)] max-w-3xl shadow-lg" : "w-full max-w-3xl"} flex items-stretch overflow-hidden rounded-md bg-white focus-within:ring-2 focus-within:ring-ink`}
     >
       <label className="flex flex-1 items-center gap-2 px-4">
         <SearchIcon className="h-4 w-4 shrink-0 text-ink" />
@@ -18,7 +18,10 @@ export default function SearchBar({ defaultValue = "", floating = true }: { defa
           className="w-full py-3 text-sm outline-none placeholder:text-neutral-500"
         />
       </label>
-      <button type="submit" className="bg-brand px-6 text-sm font-semibold uppercase tracking-wide text-ink hover:bg-ink hover:text-brand sm:px-12">
+      <button
+        type="submit"
+        className="bg-brand px-6 text-sm font-semibold uppercase tracking-wide text-ink transition-colors hover:bg-ink hover:text-brand focus-visible:-outline-offset-4 sm:px-12"
+      >
         Search
       </button>
     </form>

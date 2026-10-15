@@ -128,6 +128,14 @@ body {
     text-decoration-thickness: 0.1em;
     text-underline-offset: 0.2em;
   }
+
+  // Keyboard focus: a dark ring around a thin white halo reads on white, yellow and dark
+  // backgrounds alike. Form fields use their own border + ring (see .field).
+  :where(a, button, summary, [role="tab"], [tabindex]:not([tabindex="-1"])):focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px #fff;
+  }
 }
 
 // Layouts
@@ -164,7 +172,7 @@ body {
   }
 
   .field {
-    @apply w-full rounded border border-neutral-300 bg-white px-3 py-2.5 text-sm text-ink placeholder:text-neutral-500 focus:border-ink focus:outline-none;
+    @apply w-full rounded border border-neutral-300 bg-white px-3 py-2.5 text-sm text-ink placeholder:text-neutral-500 focus:border-ink focus:outline-none focus:ring-2 focus:ring-brand;
   }
 
   // Tab rows. Phones: one swipeable row whose right edge fades out to hint at more tabs (the
