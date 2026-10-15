@@ -17,9 +17,9 @@ function Row({ o }: { o: Office }) {
     <div className="grid grid-cols-1 items-center gap-3 md:grid-cols-3">
       <div className="flex h-full flex-col items-center justify-center rounded-md bg-ink px-6 py-10 text-center md:py-16">
         <p className="mb-2 text-lg text-white">{o.company}</p>
-        <h3 className="text-2xl font-semibold text-[#ffeb3b]">{o.label}</h3>
+        <h3 className="text-2xl font-semibold text-brand">{o.label}</h3>
       </div>
-      <ul className="bg-[#ffeb3b] px-6 py-5">
+      <ul className="rounded-md bg-brand px-6 py-5">
         {[
           ["Address:", [o.address]],
           ["Phone:", o.phones],
@@ -50,7 +50,7 @@ function Row({ o }: { o: Office }) {
           </li>
         ))}
       </ul>
-      <div className="h-full min-h-60 overflow-hidden rounded-md border-2 border-[#ffeb3b] p-0.5">
+      <div className="h-full min-h-60 overflow-hidden rounded-md border-2 border-brand p-0.5">
         {o.map && (
           <iframe
             src={o.map}

@@ -61,7 +61,7 @@ export default function ServiceDetail({ data, title, banners, body }: Props) {
             <div className="mt-10 grid gap-6 md:grid-cols-3">
               {features.map((f, i) => (
                 <div key={i} className="p-6 text-center">
-                  <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#ffeb3b] text-ink shadow-[0_8px_20px_-2px_rgba(158,152,153,0.5)]">
+                  <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-brand text-ink shadow-[0_8px_20px_-2px_rgba(158,152,153,0.5)]">
                     <FeatureIcon icon={f.icon} className="h-6 w-6" />
                   </span>
                   {f.title && <h4 className="mt-4 font-bold capitalize text-ink">{f.title}</h4>}
