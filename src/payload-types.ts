@@ -89,7 +89,6 @@ export interface Config {
     'case-studies': CaseStudy;
     'legal-pages': LegalPage;
     'payload-kv': PayloadKv;
-    'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -117,7 +116,6 @@ export interface Config {
     'case-studies': CaseStudiesSelect<false> | CaseStudiesSelect<true>;
     'legal-pages': LegalPagesSelect<false> | LegalPagesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
-    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
@@ -1641,105 +1639,6 @@ export interface PayloadKv {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-locked-documents".
- */
-export interface PayloadLockedDocument {
-  id: number;
-  document?:
-    | ({
-        relationTo: 'catalogues';
-        value: number | Catalogue;
-      } | null)
-    | ({
-        relationTo: 'partnership';
-        value: number | Partnership;
-      } | null)
-    | ({
-        relationTo: 'products';
-        value: number | Product;
-      } | null)
-    | ({
-        relationTo: 'services';
-        value: number | Service;
-      } | null)
-    | ({
-        relationTo: 'blogs';
-        value: number | Blog;
-      } | null)
-    | ({
-        relationTo: 'careers';
-        value: number | Career;
-      } | null)
-    | ({
-        relationTo: 'documents';
-        value: number | Document;
-      } | null)
-    | ({
-        relationTo: 'events';
-        value: number | Event;
-      } | null)
-    | ({
-        relationTo: 'gallery';
-        value: number | Gallery;
-      } | null)
-    | ({
-        relationTo: 'media';
-        value: number | Media;
-      } | null)
-    | ({
-        relationTo: 'press';
-        value: number | Press;
-      } | null)
-    | ({
-        relationTo: 'brands';
-        value: number | Brand;
-      } | null)
-    | ({
-        relationTo: 'socials';
-        value: number | Social;
-      } | null)
-    | ({
-        relationTo: 'users';
-        value: number | User;
-      } | null)
-    | ({
-        relationTo: 'product-categories';
-        value: number | ProductCategory;
-      } | null)
-    | ({
-        relationTo: 'product-listings';
-        value: number | ProductListing;
-      } | null)
-    | ({
-        relationTo: 'product-attributes';
-        value: number | ProductAttribute;
-      } | null)
-    | ({
-        relationTo: 'custom-products';
-        value: number | CustomProduct;
-      } | null)
-    | ({
-        relationTo: 'industries';
-        value: number | Industry;
-      } | null)
-    | ({
-        relationTo: 'case-studies';
-        value: number | CaseStudy;
-      } | null)
-    | ({
-        relationTo: 'legal-pages';
-        value: number | LegalPage;
-      } | null);
-  globalSlug?: string | null;
-  user: {
-    relationTo: 'users';
-    value: number | User;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
@@ -2526,17 +2425,6 @@ export interface LegalPagesSelect<T extends boolean = true> {
 export interface PayloadKvSelect<T extends boolean = true> {
   key?: T;
   data?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-locked-documents_select".
- */
-export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
-  document?: T;
-  globalSlug?: T;
-  user?: T;
-  updatedAt?: T;
-  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
