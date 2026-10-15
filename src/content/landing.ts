@@ -16,6 +16,7 @@ export type LandingConfig = {
   intro: string;
   metaTitle: string;
   metaDescription: string;
+  /** Range-specific highlights (shown in the hero's fact strip; keep them short). */
   points: { title: string; text: string }[];
 };
 
@@ -33,9 +34,8 @@ const configs: LandingConfig[] = [
       "Buy or rent articulated and telescopic boom lifts from Mtandt. Electric and diesel models up to 42 m working height, with delivery, training and service support.",
     points: [
       { title: "Up to 42 m reach", text: "Telescopic and articulated booms for high, hard-to-reach work with outreach over obstacles." },
-      { title: "Buy or rent", text: "Flexible purchase and short- or long-term rental options to fit your project and budget." },
+      { title: "Articulated & telescopic", text: "Up-and-over reach around obstacles, or straight-line reach for height." },
       { title: "Electric & diesel", text: "Quiet, zero-emission units for indoor work and rough-terrain diesel models for outdoor sites." },
-      { title: "Trained & supported", text: "Operator training, certification and on-site service from our team." },
     ],
   },
   {
@@ -51,9 +51,8 @@ const configs: LandingConfig[] = [
       "Buy or rent electric and rough-terrain scissor lifts from Mtandt. Compact, stable work platforms for maintenance, construction and warehousing, with training and service support.",
     points: [
       { title: "Large, stable platform", text: "Room for multiple workers, tools and materials, with extension decks on most models." },
-      { title: "Buy or rent", text: "Flexible purchase and short- or long-term rental options to fit your project and budget." },
       { title: "Indoor & outdoor", text: "Narrow, non-marking electric units for indoors and rough-terrain models for site work." },
-      { title: "Trained & supported", text: "Operator training, certification and on-site service from our team." },
+      { title: "Electric & rough terrain", text: "Battery-powered units for clean sites and rough-terrain models for construction." },
     ],
   },
 ];
@@ -66,3 +65,36 @@ export const oldLandingPaths: Record<string, string> = {
   "/boom-lifts": subcategoryHref("aerial-work-platform", "boom-lift"),
   "/scissor-lifts": subcategoryHref("aerial-work-platform", "scissor-lift"),
 };
+
+/**
+ * Hero media for landing pages, keyed by category slug ("aerial-work-platform") or
+ * "category/subcategory" ("aerial-work-platform/boom-lift"). A range without its own
+ * entry uses its category's. `video` should be a short, muted, looping MP4 (~10–20 s,
+ * 1080p, under ~8 MB); `poster` is its first frame (shown while loading and to visitors
+ * who prefer reduced motion). Upload both in the admin (Media) and paste their URLs here.
+ */
+export type HeroMedia = { video?: string; poster?: string };
+
+const heroMedia: Record<string, HeroMedia> = {
+  // "aerial-work-platform": { video: "/api/media/file/awp-hero.mp4", poster: "/api/media/file/awp-hero.jpg" },
+};
+
+export const landingMedia = (category: string, subcategory?: string): HeroMedia =>
+  (subcategory && heroMedia[`${category}/${subcategory}`]) || heroMedia[category] || {};
+
+/** One-line category pitch for the hero (the long CMS intro stays in the About section). */
+const categoryTaglines: Record<string, string> = {
+  "aerial-work-platform": "Vertical, scissor, boom and spider lifts to buy or rent, for safe work at any height.",
+  "material-handling-equipment": "Duct lifters, order pickers and knuckle boom cranes to lift, place and pick with ease.",
+  "aluminium-scaffold": "Light, strong aluminium scaffolding that goes up fast and keeps crews safe.",
+  mlit: "Mobile light towers and battery power stations for bright, quiet, round-the-clock sites.",
+  "temporary-road-mats": "Ground protection mats that keep heavy equipment moving on soft or sensitive ground.",
+  "fall-protection-lifeline-systems": "Engineered lifelines, ladders, barriers and walkways that keep people safe at height.",
+  "web-systems-international": "Safety nets and deck systems that catch falls and dropped objects on site.",
+  "tools-and-supplies": "PPE, tools and site supplies to keep every crew equipped and safe.",
+};
+
+export const categoryTagline = (category: string) => categoryTaglines[category];
+
+/** Brand facts for category heroes. */
+export const brandFacts = ["Since 1974", "Buy or rent", "Operator training", "Service & AMC"];

@@ -250,3 +250,34 @@ body {
     animation: none;
   }
 }
+
+// Landing pages: backdrop shown until a hero video is set (content/landing heroMedia), and a
+// gentle entrance for the hero copy (none for reduced motion).
+.landing-backdrop {
+  background:
+    radial-gradient(60% 80% at 85% 20%, rgb(247 228 51 / 0.18), transparent 60%),
+    radial-gradient(50% 60% at 10% 100%, rgb(247 228 51 / 0.08), transparent 70%),
+    repeating-linear-gradient(135deg, rgb(255 255 255 / 0.035) 0 1px, transparent 1px 28px),
+    var(--color-ink);
+}
+
+@keyframes landing-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.landing-rise {
+  animation: landing-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-rise {
+    animation: none;
+  }
+}
