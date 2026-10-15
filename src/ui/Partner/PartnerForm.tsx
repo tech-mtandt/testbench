@@ -1,15 +1,29 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState, useState } from "react";
-import { submitForm, type FormState } from "@/lib/forms";
+import { useState } from "react";
+import { maxBytesFromHint, phoneInput } from "@/lib/form-rules";
 import type { PartnerField, PartnerSection } from "@/content/partner-forms";
+import { focusOnMount, useLeadForm } from "@/ui/Forms/useLeadForm";
 
 const SPAN: Record<number, string> = {
   3: "sm:col-span-6 lg:col-span-3",
   4: "col-span-12 sm:col-span-4",
   6: "sm:col-span-6",
   12: "",
+};
+
+/** Autofill only the applicant's own details (the forms also ask for references' contacts). */
+const AUTOCOMPLETE: Record<string, string> = {
+  name: "name",
+  name_director: "name",
+  contact_person: "name",
+  email: "email",
+  mobilenumber: "tel",
+  mobile_number: "tel",
+  landline_number: "tel",
+  companyname: "organization",
+  name_firm: "organization",
 };
 
 function Field({ f, hideLabel }: { f: PartnerField; hideLabel?: boolean }) {
@@ -27,7 +41,14 @@ function Field({ f, hideLabel }: { f: PartnerField; hideLabel?: boolean }) {
           {f.label}
           {f.required && " *"}
         </span>
-        <input type="file" name={f.name} required={f.required} accept={f.accept} className="field py-1.5 text-xs" />
+        <input
+          type="file"
+          name={f.name}
+          required={f.required}
+          accept={f.accept}
+          data-max-bytes={maxBytesFromHint(f.hint) ?? undefined}
+          className="field py-1.5 text-xs"
+        />
         {f.hint && <span className="text-[11px] text-red-600">{f.hint}</span>}
       </label>
     );
@@ -75,7 +96,8 @@ function Field({ f, hideLabel }: { f: PartnerField; hideLabel?: boolean }) {
         name={f.name}
         required={f.required}
         placeholder={/^Year \d$/.test(f.label) ? f.label : undefined}
-        inputMode={f.type === "number" ? "numeric" : undefined}
+        {...(f.type === "tel" ? phoneInput : { inputMode: f.type === "number" ? "numeric" : undefined })}
+        autoComplete={AUTOCOMPLETE[f.name]}
         className="field"
       />
     </label>
@@ -84,12 +106,14 @@ function Field({ f, hideLabel }: { f: PartnerField; hideLabel?: boolean }) {
 
 /** Long, sectioned application form with visible labels (legacy partner forms), posting to the shared form action. */
 export default function PartnerForm({ form, title, sections }: { form: string; title: string; sections: PartnerSection[] }) {
-  const [state, action, pending] = useActionState<FormState, FormData>(submitForm, null);
+  const { state, pending, error, onSubmit } = useLeadForm();
+  // Select values that show/hide "please specify" fields. The form is never reset (see
+  // useLeadForm), so these stay in step with the selects after an error.
   const [values, setValues] = useState<Record<string, string>>({});
 
   if (state?.ok) {
     return (
-      <div className="rounded-md border border-brand bg-brand-cream p-8 text-center">
+      <div ref={focusOnMount} tabIndex={-1} className="rounded-md border border-brand bg-brand-cream p-8 text-center outline-none">
         <p className="font-semibold text-ink">{state.message}</p>
       </div>
     );
@@ -103,7 +127,8 @@ export default function PartnerForm({ form, title, sections }: { form: string; t
 
   return (
     <form
-      action={action}
+      method="post"
+      onSubmit={onSubmit}
       onChange={(e) => {
         const t = e.target as unknown as HTMLSelectElement;
         if (t.tagName === "SELECT") setValues((v) => ({ ...v, [t.name]: t.value }));
@@ -142,7 +167,7 @@ export default function PartnerForm({ form, title, sections }: { form: string; t
       })}
 
       <label className="mt-6 flex items-start gap-2 text-xs text-ink-soft">
-        <input type="checkbox" name="marketingOptIn" value="yes" defaultChecked className="mt-0.5" />
+        <input type="checkbox" name="marketingOptIn" value="yes" className="mt-0.5" />
         <span>
           Sign up to receive emails from Mtandt Group about products, services, offers, news and events (you can
           unsubscribe at any time). See{" "}
@@ -152,7 +177,11 @@ export default function PartnerForm({ form, title, sections }: { form: string; t
           for more details.
         </span>
       </label>
-      {state && !state.ok && <p className="mt-3 text-center text-sm text-red-600">{state.message}</p>}
+      {error && (
+        <p role="alert" className="mt-3 text-center text-sm text-red-600">
+          {error}
+        </p>
+      )}
       <div className="mt-6 text-center">
         <button type="submit" disabled={pending} className="btn-yellow disabled:opacity-60">
           {pending ? "Sending…" : "Submit"}

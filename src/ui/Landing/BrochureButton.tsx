@@ -1,35 +1,22 @@
-"use client";
+import { getCatalogues } from "@/content/catalogues";
+import BrochureModal from "./BrochureModal";
 
-import { useState } from "react";
-import DownloadGate from "@/ui/Catalogue/DownloadGate";
-import { DownloadIcon } from "@/ui/Icons";
-import Modal from "@/ui/Modal";
-
-/** "Download Brochure" button: a short name + phone form, then the PDF link. */
-export default function BrochureButton({
+/**
+ * "Download Brochure" button: a short name + phone form, then the PDF link. A server
+ * component so `href` (a catalogue's PDF, from getCatalogues) stays on the server: the
+ * browser gets that catalogue's id, and submitForm returns the link once the form is sent.
+ */
+export default async function BrochureButton({
   title,
   href,
   page,
-  className = "",
+  className,
 }: {
   title: string;
   href: string | null;
   page: string;
   className?: string;
 }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <>
-      <button type="button" onClick={() => setOpen(true)} className={className}>
-        <DownloadIcon className="h-4 w-4" /> Download {title}
-      </button>
-      <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-        title={`Download ${title}`}
-      >
-        <DownloadGate title={title} href={href} page={page} simple />
-      </Modal>
-    </>
-  );
+  const id = href ? (await getCatalogues().catch(() => [])).find((c) => c.documentUrl === href)?.id : null;
+  return <BrochureModal title={title} catalogue={id == null ? null : String(id)} page={page} className={className} />;
 }

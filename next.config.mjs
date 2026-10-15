@@ -36,6 +36,11 @@ const nextConfig = {
   // Cap build workers: each opens its own DB pool while prerendering.
   experimental: {
     cpus: 4,
+    // Career CVs and partner documents are posted to the form server action (default limit
+    // 1 MB). Vercel caps request bodies at 4.5 MB; the forms check sizes before sending.
+    serverActions: {
+      bodySizeLimit: '4mb',
+    },
   },
   images: {
     remotePatterns: [

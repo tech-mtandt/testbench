@@ -1,73 +1,78 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
-import { submitForm, type FormState } from "@/lib/forms";
+import { phoneInput } from "@/lib/form-rules";
+import { focusOnMount, useLeadForm } from "@/ui/Forms/useLeadForm";
 import { DownloadIcon } from "@/ui/Icons";
 
 const simpleFields = [
-  { name: "name", label: "Your Name", type: "text", required: true },
-  { name: "mobile", label: "Phone Number", type: "tel", required: true },
-  { name: "email", label: "Email (optional)", type: "email", required: false },
+  { name: "name", label: "Your Name", type: "text", required: true, autoComplete: "name" },
+  { name: "mobile", label: "Phone Number", type: "tel", required: true, autoComplete: "tel" },
+  { name: "email", label: "Email (optional)", type: "email", required: false, autoComplete: "email" },
 ];
 
 const fullFields = [
-  { name: "name", label: "Enter Your Full Name", type: "text", required: true },
+  { name: "name", label: "Enter Your Full Name", type: "text", required: true, autoComplete: "name" },
   {
     name: "email",
     label: "Enter Your Email id",
     type: "email",
     required: true,
+    autoComplete: "email",
   },
   {
     name: "companyName",
     label: "Enter Your Company Name",
     type: "text",
     required: false,
+    autoComplete: "organization",
   },
   {
     name: "mobile",
     label: "Enter Your Mobile Number",
     type: "tel",
     required: true,
+    autoComplete: "tel",
   },
   {
     name: "location",
     label: "Enter Your Location",
     type: "text",
     required: true,
+    autoComplete: "address-level2",
   },
 ];
 
-/** Live gates catalogue PDFs behind a short lead form; the link is revealed once it is submitted. */
+/**
+ * Gates catalogue PDFs behind a short lead form. The page only knows the catalogue's id:
+ * submitForm looks up its PDF and returns the link once the lead is stored.
+ */
 export default function DownloadGate({
   title,
-  href,
+  catalogue,
   simple,
   page,
 }: {
   title: string;
-  href: string | null;
+  /** Catalogue id (see getCatalogues); null when there is no PDF to hand out. */
+  catalogue: string | null;
   /** Name + phone (+ optional email) only, as on the landing pages. */
   simple?: boolean;
   /** Path the request was sent from. */
   page?: string;
 }) {
   const fields = simple ? simpleFields : fullFields;
-  const [state, action, pending] = useActionState<FormState, FormData>(
-    submitForm,
-    null,
-  );
+  const { state, pending, error, onSubmit } = useLeadForm();
 
   if (state?.ok) {
     return (
       <div className="flex flex-col items-center gap-4 py-4 text-center">
-        <p className="font-semibold text-ink">
-          Thank you! Your catalogue is ready.
+        <p ref={focusOnMount} tabIndex={-1} className="font-semibold text-ink outline-none">
+          {state.download ? "Thank you! Your catalogue is ready." : "Thank you!"}
         </p>
-        {href ? (
+        {state.download ? (
           <a
-            href={href}
+            href={state.download}
             target="_blank"
             rel="noopener noreferrer"
             download
@@ -86,10 +91,10 @@ export default function DownloadGate({
   }
 
   return (
-    <form action={action} className="flex flex-col gap-3">
+    <form method="post" onSubmit={onSubmit} className="flex flex-col gap-3">
       <input type="hidden" name="_form" value="catalogue-download" />
+      <input type="hidden" name="_catalogue" value={catalogue ?? ""} />
       <input type="hidden" name="catalogName" value={title} />
-      <input type="hidden" name="filelink" value={href ?? ""} />
       {page && <input type="hidden" name="page" value={page} />}
       <input
         type="text"
@@ -104,9 +109,11 @@ export default function DownloadGate({
           <span className="sr-only">{f.label}</span>
           <input
             type={f.type}
+            {...(f.type === "tel" ? phoneInput : {})}
             name={f.name}
             required={f.required}
             placeholder={`${f.label}${f.required ? "*" : ""}`}
+            autoComplete={f.autoComplete}
             className="field"
           />
         </label>
@@ -117,7 +124,6 @@ export default function DownloadGate({
             type="checkbox"
             name="marketingOptIn"
             value="yes"
-            defaultChecked
             className="mt-0.5"
           />
           <span>
@@ -134,8 +140,10 @@ export default function DownloadGate({
           </span>
         </label>
       )}
-      {state && !state.ok && (
-        <p className="text-sm text-red-600">{state.message}</p>
+      {error && (
+        <p role="alert" className="text-sm text-red-600">
+          {error}
+        </p>
       )}
       <button
         type="submit"

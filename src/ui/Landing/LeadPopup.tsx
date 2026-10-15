@@ -1,10 +1,20 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
-import { submitForm, type FormState } from "@/lib/forms";
+import { useEffect, useState } from "react";
+import { phoneInput } from "@/lib/form-rules";
+import { focusOnMount, useLeadForm } from "@/ui/Forms/useLeadForm";
 import Modal from "@/ui/Modal";
 
 const DELAY_MS = 5000;
+/** While the visitor is busy elsewhere, ask again after this long. */
+const RETRY_MS = 4000;
+
+/** Typing in another form, or another dialog (enquiry, brochure…) is open: don't interrupt. */
+function busy() {
+  const el = document.activeElement;
+  const typing = el instanceof HTMLElement && (el.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(el.tagName));
+  return typing || Boolean(document.querySelector("dialog[open]"));
+}
 
 /**
  * Lead-capture popup for landing pages: name + phone (email optional). Opens once per
@@ -20,10 +30,7 @@ export default function LeadPopup({
 }) {
   const [open, setOpen] = useState(false);
   const [url, setUrl] = useState("");
-  const [state, action, pending] = useActionState<FormState, FormData>(
-    submitForm,
-    null,
-  );
+  const { state, pending, error, onSubmit } = useLeadForm();
   const seenKey = `lead-popup-seen:${page}`;
   const doneKey = `lead-popup-done:${page}`;
 
@@ -32,13 +39,19 @@ export default function LeadPopup({
       if (localStorage.getItem(doneKey) || sessionStorage.getItem(seenKey))
         return;
     } catch {}
-    const t = setTimeout(() => {
+    let t: ReturnType<typeof setTimeout>;
+    const show = () => {
+      if (busy()) {
+        t = setTimeout(show, RETRY_MS);
+        return;
+      }
       setUrl(window.location.href);
       setOpen(true);
       try {
         sessionStorage.setItem(seenKey, "1");
       } catch {}
-    }, DELAY_MS);
+    };
+    t = setTimeout(show, DELAY_MS);
     return () => clearTimeout(t);
   }, [seenKey, doneKey]);
 
@@ -56,11 +69,15 @@ export default function LeadPopup({
       title={`Get a ${product} quote`}
     >
       {state?.ok ? (
-        <p className="py-4 text-center font-semibold text-ink">
+        <p
+          ref={focusOnMount}
+          tabIndex={-1}
+          className="py-4 text-center font-semibold text-ink outline-none"
+        >
           {state.message}
         </p>
       ) : (
-        <form action={action} className="flex flex-col gap-3">
+        <form method="post" onSubmit={onSubmit} className="flex flex-col gap-3">
           <p className="text-sm text-ink/80">
             Leave your number and our team will call you back with prices and
             availability.
@@ -81,14 +98,17 @@ export default function LeadPopup({
             name="name"
             required
             placeholder="Your Name*"
+            aria-label="Your Name"
             autoComplete="name"
             className="field"
           />
           <input
             name="mobile"
             type="tel"
+            {...phoneInput}
             required
             placeholder="Phone Number*"
+            aria-label="Phone Number"
             autoComplete="tel"
             className="field"
           />
@@ -96,11 +116,14 @@ export default function LeadPopup({
             name="email"
             type="email"
             placeholder="Email (optional)"
+            aria-label="Email (optional)"
             autoComplete="email"
             className="field"
           />
-          {state && !state.ok && (
-            <p className="text-sm text-red-600">{state.message}</p>
+          {error && (
+            <p role="alert" className="text-sm text-red-600">
+              {error}
+            </p>
           )}
           <button
             type="submit"
