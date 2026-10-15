@@ -60,6 +60,8 @@ body {
   color: var(--color-ink);
   word-wrap: break-word;
   font-kerning: normal;
+  // Keeps the footer clear of the fixed compare bar while it is shown (set by CompareBar).
+  padding-bottom: var(--compare-bar-h, 0px);
 }
 
 *,
