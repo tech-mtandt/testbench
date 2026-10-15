@@ -98,7 +98,7 @@ export default async function Page({ params }: Params) {
       <section className="bg-ink text-white">
         <div className="default-margin py-14 md:py-20">
           <p className="text-xs font-semibold uppercase tracking-widest text-brand">Buy &amp; Rent</p>
-          <h1 className="mt-3 max-w-3xl text-3xl font-semibold uppercase md:text-5xl">{c.title}</h1>
+          <h1 className="mt-3 max-w-3xl text-3xl font-semibold uppercase text-white md:text-5xl">{c.title}</h1>
           {c.intro && <p className="mt-5 max-w-3xl text-base text-white/80 md:text-lg">{c.intro}</p>}
           <div className="mt-8 flex flex-wrap gap-3">
             <a href="#enquire" className="btn-yellow no-underline">

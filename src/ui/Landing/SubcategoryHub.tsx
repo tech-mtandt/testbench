@@ -114,7 +114,7 @@ export default async function SubcategoryHub({ category: cat, subcategory: sub }
       <section className="bg-ink text-white">
         <div className="default-margin py-14 md:py-20">
           <p className="text-xs font-semibold uppercase tracking-widest text-brand">{category.title}</p>
-          <h1 className="mt-3 max-w-3xl text-3xl font-semibold uppercase md:text-5xl">
+          <h1 className="mt-3 max-w-3xl text-3xl font-semibold uppercase text-white md:text-5xl">
             {c?.headline ?? `${name} for Sale & Rent`}
           </h1>
           <p className="mt-5 max-w-2xl text-base text-white/80 md:text-lg">
