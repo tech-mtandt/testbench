@@ -9,7 +9,7 @@ import SearchBar from "@/ui/Home/SearchBar";
 import { Clients, HomeFeeds, ServiceNavigator, WhyUs } from "@/ui/Home/Sections";
 import Testimonials from "@/ui/Home/Testimonials";
 
-export const revalidate = 600;
+export const revalidate = 86400; // CMS edits refresh it immediately (cms/hooks)
 
 export async function generateMetadata(): Promise<Metadata> {
   // Admin SEO tab (Pages > Homepage > SEO); when empty the layout defaults apply as before.

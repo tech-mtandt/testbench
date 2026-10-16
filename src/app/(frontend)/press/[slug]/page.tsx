@@ -10,7 +10,7 @@ import Tags from "@/ui/Media/Tags";
 type Props = { params: Promise<{ slug: string }> };
 
 // Releases added in the CMS get pages too; refresh every 10 minutes (admin edits also revalidate).
-export const revalidate = 600;
+export const revalidate = 86400; // CMS edits refresh it immediately (cms/hooks)
 export const dynamicParams = true;
 export async function generateStaticParams() {
   return (await pressItems()).map((p) => ({ slug: p.slug }));

@@ -22,7 +22,7 @@ const decodeSlug = (s: string) => {
 };
 
 // Prerender every post at build; refresh every 10 minutes (was rendered on every request).
-export const revalidate = 600;
+export const revalidate = 86400; // CMS edits refresh it immediately (cms/hooks)
 export async function generateStaticParams() {
   // DB unreachable at build: skip prerendering; posts render on first request instead.
   const slugs = await getBlogSlugs().catch((err) => (console.error("[blogs] static params", err), [] as string[]));

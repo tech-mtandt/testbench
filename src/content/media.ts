@@ -251,7 +251,7 @@ async function fetchBlogSlugs() {
 }
 
 // Blog reads are cached across requests (Payload/Supabase round-trips were ~0.3–1s per page view).
-const BLOG_CACHE = { revalidate: 600, tags: ["blogs"] };
+const BLOG_CACHE = { revalidate: 86400, tags: ["blogs"] }; // edits bust "blogs" (cms/hooks)
 // Lists degrade to empty while the database is unreachable (errors are never cached), so
 // /media and blog sidebars still render; a single post errors (error page) rather than 404.
 const orElse =

@@ -18,7 +18,9 @@ import { CMS_TAG } from "./tags";
 
 export { CMS_TAG };
 
-export const CMS_REVALIDATE = 600;
+// CMS edits refresh the site immediately (cms/hooks: revalidateTag on every change), so the
+// timed refresh is only a safety net: once a day keeps Vercel data-cache writes low.
+export const CMS_REVALIDATE = 86400;
 
 // Set when a read inside a cached() call falls back because the database failed.
 const failures = new AsyncLocalStorage<{ failed: boolean }>();

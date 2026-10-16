@@ -9,8 +9,8 @@ import { getServiceSlugs } from "@/content/services";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.mtandt.com";
 
-// Rebuilt hourly (and on any admin change, via the CMS revalidation hooks).
-export const revalidate = 3600;
+// Rebuilt daily (and on any admin change, via the CMS revalidation hooks).
+export const revalidate = 86400;
 
 const STATIC = [
   "/",
