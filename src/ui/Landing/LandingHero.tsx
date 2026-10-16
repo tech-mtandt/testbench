@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import type { HeroMedia } from "@/content/landing";
 import { Breadcrumbs, type Crumb } from "@/ui/PageChrome";
 import { PhoneIcon } from "@/ui/Icons";
@@ -7,6 +7,10 @@ import { PhoneIcon } from "@/ui/Icons";
  * Full-bleed landing hero: an optional muted looping video (poster for slow connections and
  * reduced motion) under a dark gradient, the page title and one line of copy, a primary
  * "Get a quote" action, call and brochure actions, and a strip of short facts.
+ *
+ * With a video, the banner takes the video's shape (the wide cut on landscape screens, the
+ * tall cut on portrait ones), so the whole frame shows. It only grows past that shape when
+ * the text needs more room, and stops at about the screen's height.
  */
 export default function LandingHero({
   eyebrow,
@@ -28,32 +32,79 @@ export default function LandingHero({
   brochure?: ReactNode;
   facts: string[];
 }) {
+  const { wide, tall } = media;
+  const main = wide ?? tall;
+  // The tall cut replaces the wide one on portrait screens.
+  const portrait = wide && tall ? tall : null;
+  // Height from the full-bleed width at the video's shape (e.g. 1920×800 -> 41.67vw).
+  const shape = {
+    ...(wide && {
+      "--hero-wide": `${((wide.height / wide.width) * 100).toFixed(2)}vw`,
+    }),
+    ...(tall && {
+      "--hero-tall": `${((tall.height / tall.width) * 100).toFixed(2)}vw`,
+    }),
+  } as CSSProperties;
+  const height = [
+    wide
+      ? "landscape:min-h-[min(var(--hero-wide),90svh)]"
+      : "landscape:min-h-[82vh]",
+    tall
+      ? "portrait:min-h-[min(var(--hero-tall),100svh)]"
+      : "portrait:min-h-[78svh]",
+  ].join(" ");
+
   return (
-    <section className="relative isolate flex min-h-[78svh] flex-col overflow-hidden bg-ink text-white md:min-h-[82vh]">
+    <section
+      className={`relative isolate flex flex-col overflow-hidden bg-ink text-white ${height}`}
+      style={shape}
+    >
       {/* Media: video when given, else a quiet brand backdrop. */}
-      {media.video ? (
+      {main ? (
         <>
-          {media.poster && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={media.poster} alt="" className="absolute inset-0 -z-20 h-full w-full object-cover" />
-          )}
+          <picture>
+            {portrait && (
+              <source
+                media="(orientation: portrait)"
+                srcSet={portrait.poster}
+              />
+            )}
+            <img
+              src={main.poster}
+              alt=""
+              className="absolute inset-0 -z-20 h-full w-full object-cover"
+            />
+          </picture>
           <video
             className="absolute inset-0 -z-20 h-full w-full object-cover motion-reduce:hidden"
-            src={media.video}
-            poster={media.poster}
             autoPlay
             muted
             loop
             playsInline
             preload="metadata"
             aria-hidden
-          />
+          >
+            {portrait && (
+              <source
+                media="(orientation: portrait)"
+                src={portrait.src}
+                type="video/mp4"
+              />
+            )}
+            <source src={main.src} type="video/mp4" />
+          </video>
         </>
       ) : (
         <div aria-hidden className="landing-backdrop absolute inset-0 -z-20" />
       )}
-      <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/55 to-ink/25" />
-      <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/80 via-ink/30 to-transparent" />
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/55 to-ink/25"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/80 via-ink/30 to-transparent"
+      />
 
       <div className="default-margin w-full pt-4">
         <Breadcrumbs items={crumbs} light />
@@ -68,7 +119,11 @@ export default function LandingHero({
           <h1 className="mt-5 text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl">
             {title}
           </h1>
-          {subtitle && <p className="mt-5 max-w-xl text-base leading-relaxed text-white/80 md:text-lg">{subtitle}</p>}
+          {subtitle && (
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-white/80 md:text-lg">
+              {subtitle}
+            </p>
+          )}
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <a href="#quote" className="btn-yellow px-7 py-3 no-underline">
               Get a quote
@@ -89,7 +144,10 @@ export default function LandingHero({
           <ul className="default-margin flex flex-wrap items-center gap-x-6 gap-y-2 py-4 text-sm text-white/90 md:gap-x-10">
             {facts.map((f) => (
               <li key={f} className="flex items-center gap-2.5">
-                <span aria-hidden className="h-1.5 w-1.5 shrink-0 rotate-45 bg-brand" />
+                <span
+                  aria-hidden
+                  className="h-1.5 w-1.5 shrink-0 rotate-45 bg-brand"
+                />
                 {f}
               </li>
             ))}
