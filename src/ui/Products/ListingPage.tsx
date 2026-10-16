@@ -18,7 +18,7 @@ const GROUPS: { key: FacetKey; title: string; showAll?: boolean }[] = [
   { key: "powerType", title: "Power Type", showAll: true },
   { key: "application", title: "Application", showAll: true },
   { key: "industry", title: "Industries", showAll: true },
-  { key: "brand", title: "Brands" },
+  // No "Brands" filter: supplier names are kept off the site.
 ];
 
 const label = (mode: Mode) => (mode === "buy" ? "Buy" : "Rent");

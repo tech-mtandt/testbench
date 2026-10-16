@@ -1,6 +1,7 @@
 import { permanentRedirect } from "next/navigation";
 
 import productsJson from "@/content/scraped/products.json";
+import renamedProducts from "@/content/renamed-products.json";
 import { listingHref, productHref } from "@/content/urls";
 
 const buyListing = (cat: string, sub: string) => listingHref("buy", cat, sub);
@@ -8,7 +9,11 @@ const rentListing = (cat: string, sub: string) => listingHref("rental", cat, sub
 
 // Renamed products go straight to the product's current address (no second redirect hop).
 const scrapedProducts = productsJson as { slug: string; category: string | null; subcategory: string | null }[];
-const product = (slug: string) => productHref(scrapedProducts.find((p) => p.slug === slug) ?? { slug });
+const renamed = renamedProducts as Record<string, string>;
+const product = (slug: string) => {
+  const s = renamed[slug] ?? slug;
+  return productHref(scrapedProducts.find((p) => p.slug === s) ?? { slug: s });
+};
 
 /**
  * Old-site URLs (from www.mtandt.com's sitemap, checked live before the cutover) that have no

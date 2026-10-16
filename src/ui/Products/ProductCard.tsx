@@ -10,7 +10,7 @@ export default function ProductCard({ href, title, image, className = "" }: { hr
       className={`relative mb-5 flex flex-col rounded-md bg-white shadow-[0_2px_10px_rgba(0,0,0,0.15)] no-underline ${className}`}
     >
       <div className="flex h-48 items-center justify-center p-4">
-        <Img src={image ?? undefined} alt={title} className="max-h-full max-w-full object-contain" />
+        <Img src={image ?? undefined} alt={title} pending className="max-h-full max-w-full object-contain" />
       </div>
       <h3
         className="mx-4 mb-9 line-clamp-2 min-h-[2.75em] text-center text-[13px] leading-snug font-semibold uppercase tracking-wide text-ink"

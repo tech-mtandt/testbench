@@ -6,6 +6,7 @@ import {
   categoryHref,
   getCategory,
   getProduct,
+  getProductOrRenamed,
   listingHref,
   productHref,
   resolveSegments,
@@ -33,10 +34,12 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 export default async function Page({ params }: Params) {
   const { category: catSeg, subcategory: subSeg, product } = await params;
   const { category, subcategory, canonical } = resolveSegments(catSeg, subSeg);
-  const p = await getProduct(product);
+  const p = await getProductOrRenamed(product);
   if (!p) notFound();
   // One address per product: a wrong category/subcategory in the path goes to the right one.
-  if (!canonical || p.category !== category || p.subcategory !== subcategory) permanentRedirect(productHref(p));
+  if (!canonical || p.slug !== product || p.category !== category || p.subcategory !== subcategory) {
+    permanentRedirect(productHref(p));
+  }
   const mode = p.mode === "rent" ? "rental" : "buy";
   const cat = await getCategory(category);
   const range = cat?.subcategories.find((s) => s.slug === subcategory);

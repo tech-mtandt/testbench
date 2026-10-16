@@ -13,7 +13,7 @@ export default function ProductRow({ p }: { p: ProductSummary }) {
   return (
     <article className="grid gap-5 rounded-md bg-surface p-4 sm:grid-cols-[155px_minmax(0,1fr)] md:p-5 lg:grid-cols-[155px_minmax(0,1fr)_170px] lg:items-center">
       <Link href={href} className="flex h-44 items-center justify-center rounded border border-neutral-300 bg-white p-2">
-        <Img src={p.image ?? undefined} alt={p.title} className="max-h-full max-w-full object-contain" />
+        <Img src={p.image ?? undefined} alt={p.title} pending className="max-h-full max-w-full object-contain" />
       </Link>
       <div className="min-w-0">
         <h3 className="mb-3 line-clamp-2 min-h-[2.75em] text-[13px] leading-snug font-bold uppercase tracking-wide text-ink" title={p.title}>

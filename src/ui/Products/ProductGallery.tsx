@@ -23,7 +23,7 @@ export default function ProductGallery({ main, images, alt }: { main: string | n
         </div>
       )}
       <div className="flex aspect-square w-full max-w-[360px] items-center justify-center rounded-md bg-surface p-2">
-        <Img src={current ?? undefined} alt={alt} loading="eager" className="max-h-full max-w-full object-contain" />
+        <Img src={current ?? undefined} alt={alt} loading="eager" pending className="max-h-full max-w-full object-contain" />
       </div>
     </div>
   );

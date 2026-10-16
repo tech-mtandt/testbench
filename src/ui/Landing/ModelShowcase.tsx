@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import Img from "@/ui/Img";
+import Img, { PhotoPending } from "@/ui/Img";
 
 export type ModelCard = { href: string; title: string; image: string | null; model: string; specs: [string, string][] };
 export type ModelSet = { cards: ModelCard[]; total: number; href: string };
@@ -57,7 +57,13 @@ export default function ModelShowcase({ label, buy, rent }: { label: string; buy
               >
                 <div className="relative aspect-[16/10] bg-surface sm:aspect-[4/3]">
                   {/* multiply: product shots on white blend into the card */}
-                  <Img src={c.image ?? undefined} alt={c.title} sizes="(min-width:1024px) 25vw, (min-width:640px) 50vw, 100vw" className="absolute inset-0 h-full w-full object-contain p-6 mix-blend-multiply transition-transform duration-300 group-hover:scale-105" />
+                  {c.image ? (
+                    <Img src={c.image} alt={c.title} sizes="(min-width:1024px) 25vw, (min-width:640px) 50vw, 100vw" className="absolute inset-0 h-full w-full object-contain p-6 mix-blend-multiply transition-transform duration-300 group-hover:scale-105" />
+                  ) : (
+                    <span className="absolute inset-0 flex items-center justify-center">
+                      <PhotoPending />
+                    </span>
+                  )}
                 </div>
                 <div className="flex flex-1 flex-col p-5">
                   {c.model && <p className="text-xs font-semibold uppercase tracking-wider text-ink-soft">{c.model}</p>}

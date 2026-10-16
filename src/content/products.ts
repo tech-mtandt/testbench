@@ -2,6 +2,7 @@ import { cache } from "react";
 import type { CollectionSlug, PopulateType, SelectType, Where } from "payload";
 import taxonomy from "@/content/scraped/product-categories.json";
 import productsJson from "@/content/scraped/products.json";
+import renamedProducts from "@/content/renamed-products.json";
 import { cached, fileUrl, html, markCmsFailure, str } from "@/cms/read";
 import { categorySegment, modernizeDeep, modernizeHref, subcategoryHref, subcategorySegment, subcategorySlug } from "@/content/urls";
 import { payloadClient } from "@/lib/payload";
@@ -400,6 +401,23 @@ async function readProductPage(slug: string): Promise<Product | null> {
   if (!c.bySlug.has(slug)) return null;
   // The index lists it, so a miss here is a failed read: fall back to the scraped copy.
   return (await readProduct(slug)) ?? jsonBySlug.get(slug) ?? null;
+}
+
+/**
+ * Products renamed in the October 2026 catalogue update (supplier names out of slugs,
+ * renamed models), old slug -> new slug. The fallback catalogue already uses the new slugs;
+ * the CMS does once the admin import task has run, so lookups try both directions.
+ */
+const renamedTo = renamedProducts as Record<string, string>;
+const renamedFrom = Object.fromEntries(Object.entries(renamedTo).map(([a, b]) => [b, a]));
+
+/** A product by slug, or by its former/new slug when it was renamed (callers redirect). */
+export async function getProductOrRenamed(slug: string): Promise<Product | null> {
+  return (
+    (await getProduct(slug)) ??
+    (renamedTo[slug] ? await getProduct(renamedTo[slug]) : null) ??
+    (renamedFrom[slug] ? await getProduct(renamedFrom[slug]) : null)
+  );
 }
 
 /** Full product (page content included). */

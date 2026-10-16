@@ -10,8 +10,20 @@ const DEFAULT_SIZES = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
  * (pass `sizes` when the image renders much larger/smaller than the default).
  * Use next/image where dimensions are known.
  */
-export default function Img({ src, alt = "", loading = "lazy", sizes, ...rest }: ImgHTMLAttributes<HTMLImageElement>) {
-  if (!src) return null;
+/** Shown instead of a missing product photo (e.g. new products before photos are added). */
+export function PhotoPending({ label = "Photo coming soon" }: { label?: string }) {
+  return <span className="text-center text-[11px] font-semibold uppercase tracking-[0.14em] text-ink/30">{label}</span>;
+}
+
+export default function Img({
+  src,
+  alt = "",
+  loading = "lazy",
+  sizes,
+  pending,
+  ...rest
+}: ImgHTMLAttributes<HTMLImageElement> & { pending?: boolean }) {
+  if (!src) return pending ? <PhotoPending /> : null;
   const variants = typeof src === "string" && !rest.srcSet ? legacySrcSet(src) : null;
   if (variants)
     return <img src={variants.src} srcSet={variants.srcSet} sizes={sizes ?? DEFAULT_SIZES} alt={alt} loading={loading} decoding="async" {...rest} />;
