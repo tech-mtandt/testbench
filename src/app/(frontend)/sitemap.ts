@@ -1,3 +1,5 @@
+// Lives in the (frontend) group, not the app root: metadata files at the root (outside both
+// route groups) left the Payload admin rendering an empty page.
 import type { MetadataRoute } from "next";
 import { getCaseStudySlugs } from "@/content/caseStudies";
 import { customProductParams } from "@/content/customProducts";

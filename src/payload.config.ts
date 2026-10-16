@@ -76,8 +76,14 @@ const seo = seoPlugin({
   },
 });
 
+// Document locking is off: Payload's save-time lock check queries outside the save's
+// transaction, so with a small connection pool (DATABASE_POOL_MAX, default 2) concurrent
+// admin requests deadlock and every save on that server instance hangs until it times out.
+const NO_LOCKING = { lockDocuments: false } as const;
+
 // Every admin change refreshes the site (see cms/hooks).
 const withRevalidate = (c: CollectionConfig): CollectionConfig => ({
+  ...NO_LOCKING,
   ...c,
   // Writes need the Editor role (or Administrator/Developer) unless a collection says otherwise.
   access: { create: editorsOnly, update: editorsOnly, delete: editorsOnly, ...c.access },
@@ -88,6 +94,7 @@ const withRevalidate = (c: CollectionConfig): CollectionConfig => ({
   },
 });
 const withGlobalRevalidate = (g: GlobalConfig): GlobalConfig => ({
+  ...NO_LOCKING,
   ...g,
   access: { update: editorsOnly, ...g.access },
   hooks: { ...g.hooks, afterChange: [...(g.hooks?.afterChange ?? []), ...globalRevalidate.afterChange] },
