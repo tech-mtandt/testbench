@@ -13,6 +13,8 @@ function bust() {
     revalidateTag(CMS_TAG, { expire: 0 });
     revalidateTag("blogs", { expire: 0 });
     revalidatePath("/", "layout");
+    // A route handler, so the layout refresh above doesn't reach it.
+    revalidatePath("/sitemap.xml");
   } catch {
     /* not running inside Next */
   }
