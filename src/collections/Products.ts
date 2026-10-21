@@ -20,6 +20,7 @@ export const Products: CollectionConfig = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'mode', 'productCategory', 'subcategory', 'updatedAt'],
     description: 'Standard equipment pages at /<category>/<subcategory>/<slug>, listed on the buy/rent listing pages.',
+    components: { beforeList: ['/cms/admin/ProductCsvImport#ProductCsvImport'] },
   },
   access: {
     read: () => true,
