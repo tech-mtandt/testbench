@@ -39,8 +39,13 @@ const nextConfig = {
     ]
   },
   async rewrites() {
-    if (!legacyAssetsBase) return []
+    // The admin's direct uploads to storage (src/payload.config.ts, uploadsViaSite).
+    const storageUploads = process.env.S3_ENDPOINT
+      ? [{ source: '/storage-upload/:path*', destination: `${process.env.S3_ENDPOINT.replace(/\/+$/, '')}/:path*` }]
+      : []
+    if (!legacyAssetsBase) return storageUploads
     return [
+      ...storageUploads,
       { source: '/legacy/:path*', destination: `${legacyAssetsBase}/:path*` },
       // responsive WebP variants (migration/scrape/optimize-images.mjs), stored alongside
       { source: '/legacy-opt/:path*', destination: `${legacyAssetsBase}-opt/:path*` },

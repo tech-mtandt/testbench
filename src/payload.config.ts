@@ -4,7 +4,7 @@ import { resendAdapter } from "@payloadcms/email-resend";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { seoPlugin } from "@payloadcms/plugin-seo";
 import path from "path";
-import { buildConfig, type CollectionConfig, type CollectionSlug, type GlobalConfig, type GlobalSlug } from "payload";
+import { buildConfig, type CollectionConfig, type CollectionSlug, type GlobalConfig, type GlobalSlug, type Plugin } from "payload";
 import { fileURLToPath } from "url";
 import sharp from "sharp";
 
@@ -27,10 +27,34 @@ import { About } from "./globals/About";
 import { Contact } from "./globals/Contact";
 import { areas } from "./cms/schema";
 import { collectionRevalidate, globalRevalidate } from "./cms/hooks";
-import { editorsOnly } from "./access/roles";
+import { editorsOnly, isEditor } from "./access/roles";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
+
+// Some Indian ISPs block *.supabase.co, so the admin's direct uploads go to /storage-upload on
+// this site, which next.config.mjs proxies to storage (a proxy, so no 4.5 MB cap). The signed
+// URL stays valid: the proxy forwards the same path, query and host that were signed.
+const STORAGE_UPLOAD_PATH = "/storage-upload";
+const uploadsViaSite: Plugin = (config) => {
+  const endpoint = (process.env.S3_ENDPOINT ?? "").replace(/\/+$/, "");
+  return {
+    ...config,
+    endpoints: (config.endpoints ?? []).map((e) =>
+      e.path !== "/storage-s3-generate-signed-url" || !endpoint
+        ? e
+        : {
+            ...e,
+            handler: async (req) => {
+              const res = await e.handler(req);
+              if (!res.ok) return res;
+              const body = (await res.json()) as { url: string };
+              return Response.json({ ...body, url: body.url.replace(endpoint, STORAGE_UPLOAD_PATH) });
+            },
+          },
+    ),
+  };
+};
 
 // Supabase Storage (S3-compatible). Enabled only when S3_* creds are set,
 // so the app still boots on local disk before storage is configured.
@@ -49,7 +73,11 @@ const storagePlugins = process.env.S3_BUCKET
           },
           forcePathStyle: true,
         },
+        // The admin sends files straight to storage: Vercel caps requests through the site
+        // at 4.5 MB, which ruled out large PDFs and videos.
+        clientUploads: { access: ({ req }) => isEditor(req) },
       }),
+      uploadsViaSite,
     ]
   : [];
 
