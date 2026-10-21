@@ -12,6 +12,8 @@
  * /product-detail/…) permanently redirect here.
  */
 
+import { brandRedirect, moved } from "./brandRedirects";
+
 export type ListingMode = "buy" | "rental";
 
 /**
@@ -46,13 +48,18 @@ export const subcategorySegment = (sub: string) => SUBCATEGORY_SEGMENTS[sub] ?? 
 export const categorySlug = (seg: string) => CATEGORY_SLUGS[seg] ?? seg;
 export const subcategorySlug = (seg: string) => SUBCATEGORY_SLUGS[seg] ?? seg;
 
-export const categoryHref = (cat: string) => `/${categorySegment(cat)}`;
-export const subcategoryHref = (cat: string, sub: string) => `${categoryHref(cat)}/${subcategorySegment(sub)}`;
-export const listingHref = (mode: ListingMode, cat: string, sub: string) =>
-  `${subcategoryHref(cat, sub)}/${mode === "buy" ? "buy" : "rent"}`;
+const subcategoryPath = (cat: string, sub: string) => `/${categorySegment(cat)}/${subcategorySegment(sub)}`;
 
-export const productHref = (p: { slug: string; category?: string | null; subcategory?: string | null }) =>
-  p.category && p.subcategory ? `${subcategoryHref(p.category, p.subcategory)}/${p.slug}` : `/product-detail/${p.slug}`;
+/** This site's own product address, even when the product moved to a brand website. */
+export const productPath = (p: { slug: string; category?: string | null; subcategory?: string | null }) =>
+  p.category && p.subcategory ? `${subcategoryPath(p.category, p.subcategory)}/${p.slug}` : `/product-detail/${p.slug}`;
+
+// Links to ranges that moved to a group brand website (brand-redirects.json) go straight there.
+export const categoryHref = (cat: string) => moved(`/${categorySegment(cat)}`);
+export const subcategoryHref = (cat: string, sub: string) => moved(subcategoryPath(cat, sub));
+export const listingHref = (mode: ListingMode, cat: string, sub: string) =>
+  moved(`${subcategoryPath(cat, sub)}/${mode === "buy" ? "buy" : "rent"}`);
+export const productHref = (p: { slug: string; category?: string | null; subcategory?: string | null }) => moved(productPath(p));
 
 /**
  * Route params -> CMS slugs, plus whether the address used the canonical segments (when not,
@@ -74,8 +81,15 @@ export function resolveSegments(catSeg: string, subSeg?: string) {
   };
 }
 
+// A link to this site (path only or full URL) and its path; the same inside an href attribute.
+const OWN_PATH = /^(?:https?:\/\/(?:www\.)?mtandt\.com)?(\/[^?#\s]*)/;
+const OWN_HREF = /(href=["'])(?:https?:\/\/(?:www\.)?mtandt\.com)?(\/[^"'?#\s]*)/g;
+
 /** Rewrites an old-site catalogue link (e.g. one saved in the CMS) to its current address. */
 export function modernizeHref(href: string): string {
+  const own = href.match(OWN_PATH);
+  const brand = own && brandRedirect(own[1]);
+  if (brand) return brand;
   let m = href.match(/^\/product-category-(buy|rental|rentel)\/([^/?#]+)\/([^/?#]+)\/?$/);
   if (m) return listingHref(m[1] === "buy" ? "buy" : "rental", m[2], m[3]);
   m = href.match(/^\/category-by-subcategory\/([^/?#]+)\/?$/);
@@ -86,11 +100,20 @@ export function modernizeHref(href: string): string {
 const OLD_LINK =
   /(?:https?:\/\/(?:www\.)?mtandt\.com)?\/(?:product-category-(buy|rental|rentel)\/([a-z0-9-]+)\/([a-z0-9-]+)|category-by-subcategory\/([a-z0-9-]+))(?=["'\s?#<]|\/?$|\/["'])/g;
 
-/** Rewrites old catalogue links inside text/HTML (CMS content) to their current addresses. */
-export const modernizeLinks = (text: string) =>
-  text.replace(OLD_LINK, (_m, mode, cat, sub, catOnly) =>
+/**
+ * Rewrites old catalogue links inside text/HTML (CMS content) to their current addresses, and
+ * links to pages that moved to a group brand website to that website.
+ */
+export const modernizeLinks = (text: string) => {
+  const out = text.replace(OLD_LINK, (_m, mode, cat, sub, catOnly) =>
     catOnly ? categoryHref(catOnly) : listingHref(mode === "buy" ? "buy" : "rental", cat, sub),
   );
+  if (OWN_PATH.test(out) && !/\s/.test(out)) return modernizeHref(out);
+  return out.replace(OWN_HREF, (m, attr: string, path: string) => {
+    const brand = brandRedirect(path);
+    return brand ? `${attr}${brand}` : m;
+  });
+};
 
 /** Applies `modernizeLinks` to every string in a plain JSON-like value. */
 export function modernizeDeep<T>(value: T): T {

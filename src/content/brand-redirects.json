@@ -1,0 +1,920 @@
+{
+  "_about": "301 redirects from MTandT pages to the TsaF, AQ Access and Comet Bharat websites. Read by next.config.mjs (redirects), src/content/brandRedirects.ts (internal links, sitemap) and migration/brand-redirects-sheet.py (the tracking sheet). 'also' lists older addresses of the same page; 'sections' send any other address under a moved section to the brand's overview page.",
+  "brands": {
+    "TsaF": "https://tsafsafety.com/",
+    "AQ Access": "https://aqaccess.com/",
+    "Comet Bharat": "https://cometbharat.com/"
+  },
+  "redirects": [
+    {
+      "from": "/fall-protection-lifeline-systems",
+      "to": "https://tsafsafety.com/solutions/",
+      "brand": "TsaF",
+      "page": "Category page: Fall Protection Lifeline Systems",
+      "reason": "Fall protection range now has its own TsaF brand website",
+      "also": [
+        "/category-by-subcategory/fall-protection-lifeline-systems",
+        "/category-by-subcategory/tactical-safety-for-access-falls",
+        "/categoryBySubcategory/fall-protection-lifeline-systems",
+        "/categoryBySubcategory/tactical-safety-for-access-falls",
+        "/tactical-safety-for-access-falls"
+      ]
+    },
+    {
+      "from": "/custom-product-detail-buy/fall-protection-lifeline-systems/horizontal-lifeline-system-roof-lifeline-system",
+      "to": "https://tsafsafety.com/solutions/horizontal-lifeline-system/",
+      "brand": "TsaF",
+      "page": "Product: Horizontal Lifeline System",
+      "reason": "Product now presented on the TsaF website",
+      "also": [
+        "/custom-product-detail-buy/tactical-safety-for-access-falls/horizontal-lifeline-system-roof-lifeline-system",
+        "/fall-protection-lifeline-systems/horizontal-lifeline-system-roof-lifeline-system"
+      ]
+    },
+    {
+      "from": "/custom-product-detail-buy/fall-protection-lifeline-systems/vertical-lifeline-system",
+      "to": "https://tsafsafety.com/solutions/vertical-lifeline-system/",
+      "brand": "TsaF",
+      "page": "Product: Vertical Lifeline System",
+      "reason": "Product now presented on the TsaF website",
+      "also": [
+        "/custom-product-detail-buy/tactical-safety-for-access-falls/vertical-lifeline-system",
+        "/fall-protection-lifeline-systems/vertical-lifeline-system"
+      ]
+    },
+    {
+      "from": "/custom-product-detail-buy/fall-protection-lifeline-systems/overhead-lifeline-system-fall-arrester-system",
+      "to": "https://tsafsafety.com/solutions/overhead-lifeline-system/",
+      "brand": "TsaF",
+      "page": "Product: Overhead Lifeline System",
+      "reason": "Product now presented on the TsaF website",
+      "also": [
+        "/custom-product-detail-buy/tactical-safety-for-access-falls/overhead-lifeline-system-fall-arrester-system",
+        "/fall-protection-lifeline-systems/overhead-lifeline-system-fall-arrester-system"
+      ]
+    },
+    {
+      "from": "/custom-product-detail-buy/fall-protection-lifeline-systems/barricade-system",
+      "to": "https://tsafsafety.com/solutions/rooftop-barricade-system/",
+      "brand": "TsaF",
+      "page": "Product: Barricade System",
+      "reason": "Product now presented on the TsaF website",
+      "remarks": "MTandT page covers rooftop guardrails and roof-edge barricades",
+      "also": [
+        "/custom-product-detail-buy/tactical-safety-for-access-falls/barricade-system",
+        "/fall-protection-lifeline-systems/barricade-system"
+      ]
+    },
+    {
+      "from": "/custom-product-detail-buy/fall-protection-lifeline-systems/flowlok-ladder-system",
+      "to": "https://tsafsafety.com/solutions/flowlok-ladder-system/",
+      "brand": "TsaF",
+      "page": "Product: Flowlok Ladder System",
+      "reason": "Product now presented on the TsaF website",
+      "also": [
+        "/custom-product-detail-buy/tactical-safety-for-access-falls/flowlok-ladder-system",
+        "/fall-protection-lifeline-systems/flowlok-ladder-system"
+      ]
+    },
+    {
+      "from": "/custom-product-detail-buy/fall-protection-lifeline-systems/aluminium-walkway-system",
+      "to": "https://tsafsafety.com/solutions/aluminium-frp-walkway-system/",
+      "brand": "TsaF",
+      "page": "Product: Aluminium Walkway System",
+      "reason": "Product now presented on the TsaF website",
+      "remarks": "TsaF page covers aluminium and FRP rooftop walkways",
+      "also": [
+        "/custom-product-detail-buy/tactical-safety-for-access-falls/aluminium-walkway-system",
+        "/fall-protection-lifeline-systems/aluminium-walkway-system"
+      ]
+    },
+    {
+      "from": "/custom-product-detail-buy/fall-protection-lifeline-systems/skylight-mesh",
+      "to": "https://tsafsafety.com/solutions/skylight-protection-system/",
+      "brand": "TsaF",
+      "page": "Product: Skylight Mesh",
+      "reason": "Product now presented on the TsaF website",
+      "remarks": "Skylight mesh is part of TsaF's skylight protection system",
+      "also": [
+        "/custom-product-detail-buy/tactical-safety-for-access-falls/skylight-mesh",
+        "/fall-protection-lifeline-systems/skylight-mesh",
+        "/category-by-subcategory/skylight-mesh"
+      ]
+    },
+    {
+      "from": "/custom-product-detail-buy/fall-protection-lifeline-systems/safety-barrier-system",
+      "to": "https://tsafsafety.com/solutions/modular-safety-barrier-system/",
+      "brand": "TsaF",
+      "page": "Product: Safety Barrier System",
+      "reason": "Product now presented on the TsaF website",
+      "remarks": "Same key-clamp safety barrier system",
+      "also": [
+        "/custom-product-detail-buy/tactical-safety-for-access-falls/safety-barrier-system",
+        "/fall-protection-lifeline-systems/safety-barrier-system",
+        "/custom-product-detail-buy/fall-protection-lifeline-systems/safety-barriers-system"
+      ]
+    },
+    {
+      "from": "/blogs/8-precision-engineered-access-and-fall-protection-solutions-by-tsaf",
+      "to": "https://tsafsafety.com/solutions/",
+      "brand": "TsaF",
+      "page": "Blog post: 8 Precision-Engineered Access and Fall Protection Solutions by TsaF",
+      "reason": "Article topic now covered on the TsaF website",
+      "remarks": "Overview of TsaF systems; TsaF solutions page lists them all"
+    },
+    {
+      "from": "/blogs/9-must-have-fall-protection-systems-for-maximum-jobsite-safety",
+      "to": "https://tsafsafety.com/blog/select-fall-protection-system-industrial-facilities/",
+      "brand": "TsaF",
+      "page": "Blog post: 9 Must-Have Fall Protection Systems for Maximum Jobsite Safety",
+      "reason": "Article topic now covered on the TsaF website"
+    },
+    {
+      "from": "/blogs/safety-barrier-system",
+      "to": "https://tsafsafety.com/blog/modular-safety-barrier-industrial/",
+      "brand": "TsaF",
+      "page": "Blog post: Safety Barrier System: The Game-Changer for Zero Accident Worksites",
+      "reason": "Article topic now covered on the TsaF website"
+    },
+    {
+      "from": "/blogs/why-every-rooftop-needs-a-roof-guardrails-and-barricade-system",
+      "to": "https://tsafsafety.com/blog/rooftop-barricade-design-guide/",
+      "brand": "TsaF",
+      "page": "Blog post: Why Every Rooftop Needs a Roof Guardrails & Barricade System (Before It’s Too Late!)",
+      "reason": "Article topic now covered on the TsaF website"
+    },
+    {
+      "from": "/blogs/why-every-industry-needs-the-flowlok-ladder-system-for-elevated-access",
+      "to": "https://tsafsafety.com/solutions/flowlok-ladder-system/",
+      "brand": "TsaF",
+      "page": "Blog post: Why Every Industry Needs the FlowLok Ladder System for Elevated Access!",
+      "reason": "Article topic now covered on the TsaF website",
+      "remarks": "No FlowLok article on TsaF; points to the FlowLok product page"
+    },
+    {
+      "from": "/blogs/7-reasons-skylight-mesh-systems-are-essential-for-fall-protection",
+      "to": "https://tsafsafety.com/blog/skylight-fall-protection-options/",
+      "brand": "TsaF",
+      "page": "Blog post: 7 Reasons Skylight Mesh Systems Are Essential for Fall Protection",
+      "reason": "Article topic now covered on the TsaF website"
+    },
+    {
+      "from": "/blogs/why-should-one-use-fall-protection-systems",
+      "to": "https://tsafsafety.com/blog/fall-protection-requirements-india/",
+      "brand": "TsaF",
+      "page": "Blog post: Why Should One Use Fall Protection Systems?",
+      "reason": "Article topic now covered on the TsaF website"
+    },
+    {
+      "from": "/blogs/vertical-lifeline-system-on-rent-in-delhi-ncr-india",
+      "to": "https://tsafsafety.com/solutions/vertical-lifeline-system/",
+      "brand": "TsaF",
+      "page": "Blog post: What Is a Vertical Lifeline System – Safe Vertical Movement at Height",
+      "reason": "Article topic now covered on the TsaF website",
+      "remarks": "Rental-focused article; TsaF product page covers supply and installation"
+    },
+    {
+      "from": "/blogs/horizontal-lifeline-system-in-delhi-ncr-india",
+      "to": "https://tsafsafety.com/solutions/horizontal-lifeline-system/",
+      "brand": "TsaF",
+      "page": "Blog post: What Is a Horizontal Lifeline System, and Where Is It Used?",
+      "reason": "Article topic now covered on the TsaF website"
+    },
+    {
+      "from": "/aluminium-scaffolds",
+      "to": "https://aqaccess.com/aluminium-scaffolding/",
+      "brand": "AQ Access",
+      "page": "Category page: Aluminium Scaffolding",
+      "reason": "Aluminium scaffolding range now has its own AQ Access brand website",
+      "also": [
+        "/category-by-subcategory/aluminium-scaffold",
+        "/categoryBySubcategory/aluminium-scaffold",
+        "/aluminium-scaffold"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/ladder-series",
+      "to": "https://aqaccess.com/ladder-series/",
+      "brand": "AQ Access",
+      "page": "Series page: Ladder Series",
+      "reason": "Series now presented on the AQ Access website",
+      "also": [
+        "/aluminium-scaffold/ladder-series"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/ladder-series/buy",
+      "to": "https://aqaccess.com/ladder-series/",
+      "brand": "AQ Access",
+      "page": "Buy listing: Ladder Series",
+      "reason": "Series now presented on the AQ Access website",
+      "also": [
+        "/aluminium-scaffold/ladder-series/buy",
+        "/product-category-buy/aluminium-scaffold/ladder-series"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/ladder-series/rent",
+      "to": "https://aqaccess.com/ladder-series/",
+      "brand": "AQ Access",
+      "page": "Rent listing: Ladder Series",
+      "reason": "Series now presented on the AQ Access website",
+      "remarks": "AQ Access series pages cover both buying and renting",
+      "also": [
+        "/aluminium-scaffold/ladder-series/rent",
+        "/product-category-rental/aluminium-scaffold/ladder-series",
+        "/product-category-rentel/aluminium-scaffold/ladder-series"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/stairway-series",
+      "to": "https://aqaccess.com/stairway-series/",
+      "brand": "AQ Access",
+      "page": "Series page: Stairway Series",
+      "reason": "Series now presented on the AQ Access website",
+      "also": [
+        "/aluminium-scaffold/stairway-series"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/stairway-series/buy",
+      "to": "https://aqaccess.com/stairway-series/",
+      "brand": "AQ Access",
+      "page": "Buy listing: Stairway Series",
+      "reason": "Series now presented on the AQ Access website",
+      "also": [
+        "/aluminium-scaffold/stairway-series/buy",
+        "/product-category-buy/aluminium-scaffold/stairway-series"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/stairway-series/rent",
+      "to": "https://aqaccess.com/stairway-series/",
+      "brand": "AQ Access",
+      "page": "Rent listing: Stairway Series",
+      "reason": "Series now presented on the AQ Access website",
+      "remarks": "AQ Access series pages cover both buying and renting",
+      "also": [
+        "/aluminium-scaffold/stairway-series/rent",
+        "/product-category-rental/aluminium-scaffold/stairway-series",
+        "/product-category-rentel/aluminium-scaffold/stairway-series"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/special",
+      "to": "https://aqaccess.com/special-series/",
+      "brand": "AQ Access",
+      "page": "Series page: Special Series",
+      "reason": "Series now presented on the AQ Access website",
+      "also": [
+        "/aluminium-scaffold/special"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/special/buy",
+      "to": "https://aqaccess.com/special-series/",
+      "brand": "AQ Access",
+      "page": "Buy listing: Special Series",
+      "reason": "Series now presented on the AQ Access website",
+      "also": [
+        "/aluminium-scaffold/special/buy",
+        "/product-category-buy/aluminium-scaffold/special"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/special/rent",
+      "to": "https://aqaccess.com/special-series/",
+      "brand": "AQ Access",
+      "page": "Rent listing: Special Series",
+      "reason": "Series now presented on the AQ Access website",
+      "remarks": "AQ Access series pages cover both buying and renting",
+      "also": [
+        "/aluminium-scaffold/special/rent",
+        "/product-category-rental/aluminium-scaffold/special",
+        "/product-category-rentel/aluminium-scaffold/special"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/low-reach-platforms",
+      "to": "https://aqaccess.com/podium-platform/",
+      "brand": "AQ Access",
+      "page": "Series page: Low Reach Platforms",
+      "reason": "Series now presented on the AQ Access website",
+      "remarks": "AQ Access groups its low-reach range under Podium Platforms",
+      "also": [
+        "/aluminium-scaffold/low-reach-platforms",
+        "/aluminium-scaffold/low-reach-platform",
+        "/aluminium-scaffolds/low-reach-platform"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/low-reach-platforms/buy",
+      "to": "https://aqaccess.com/podium-platform/",
+      "brand": "AQ Access",
+      "page": "Buy listing: Low Reach Platforms",
+      "reason": "Series now presented on the AQ Access website",
+      "remarks": "AQ Access groups its low-reach range under Podium Platforms",
+      "also": [
+        "/aluminium-scaffold/low-reach-platforms/buy",
+        "/aluminium-scaffold/low-reach-platform/buy",
+        "/aluminium-scaffolds/low-reach-platform/buy",
+        "/product-category-buy/aluminium-scaffold/low-reach-platform"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/low-reach-platforms/rent",
+      "to": "https://aqaccess.com/podium-platform/",
+      "brand": "AQ Access",
+      "page": "Rent listing: Low Reach Platforms",
+      "reason": "Series now presented on the AQ Access website",
+      "remarks": "AQ Access series pages cover both buying and renting; aQ Access groups its low-reach range under Podium Platforms",
+      "also": [
+        "/aluminium-scaffold/low-reach-platforms/rent",
+        "/aluminium-scaffold/low-reach-platform/rent",
+        "/aluminium-scaffolds/low-reach-platform/rent",
+        "/product-category-rental/aluminium-scaffold/low-reach-platform",
+        "/product-category-rentel/aluminium-scaffold/low-reach-platform"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/ladder-series/narrow-aluminium-scaffolding-towers",
+      "to": "https://aqaccess.com/product/narrow-aluminium-scaffolding-system/",
+      "brand": "AQ Access",
+      "page": "Product: Narrow Ladder",
+      "reason": "Product now presented on the AQ Access website",
+      "also": [
+        "/product-detail/narrow-aluminium-scaffolding-towers",
+        "/products/narrow-aluminium-scaffolding-towers",
+        "/aluminium-scaffold/ladder-series/narrow-aluminium-scaffolding-towers"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/ladder-series/narrow-aluminium-scaffolding-towers-rent",
+      "to": "https://aqaccess.com/product/narrow-aluminium-scaffolding-system/",
+      "brand": "AQ Access",
+      "page": "Product (rent): Narrow Ladder",
+      "reason": "Product now presented on the AQ Access website",
+      "remarks": "Rental version; the AQ Access page covers buying and renting",
+      "also": [
+        "/product-detail/narrow-aluminium-scaffolding-towers-rent",
+        "/products/narrow-aluminium-scaffolding-towers-rent",
+        "/aluminium-scaffold/ladder-series/narrow-aluminium-scaffolding-towers-rent"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/ladder-series/wide-aluminium-scaffolding-towers",
+      "to": "https://aqaccess.com/product/wide-aluminum-scaffolding-system/",
+      "brand": "AQ Access",
+      "page": "Product: Wide Ladder",
+      "reason": "Product now presented on the AQ Access website",
+      "also": [
+        "/product-detail/wide-aluminium-scaffolding-towers",
+        "/products/wide-aluminium-scaffolding-towers",
+        "/aluminium-scaffold/ladder-series/wide-aluminium-scaffolding-towers"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/ladder-series/wide-aluminium-scaffolding-towers-rent",
+      "to": "https://aqaccess.com/product/wide-aluminum-scaffolding-system/",
+      "brand": "AQ Access",
+      "page": "Product (rent): Wide Ladder",
+      "reason": "Product now presented on the AQ Access website",
+      "remarks": "Rental version; the AQ Access page covers buying and renting",
+      "also": [
+        "/product-detail/wide-aluminium-scaffolding-towers-rent",
+        "/products/wide-aluminium-scaffolding-towers-rent",
+        "/aluminium-scaffold/ladder-series/wide-aluminium-scaffolding-towers-rent"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/low-reach-platforms/aluminium-cage-ladder",
+      "to": "https://tsafsafety.com/solutions/aluminium-cage-ladder-system/",
+      "brand": "TsaF",
+      "page": "Product: Aluminium Cage Ladders",
+      "reason": "Product now presented on the TsaF website",
+      "remarks": "Cage ladders are a fall protection product: AQ Access has no cage ladder page, TsaF does",
+      "also": [
+        "/product-detail/aluminium-cage-ladder",
+        "/products/aluminium-cage-ladder",
+        "/aluminium-scaffold/low-reach-platform/aluminium-cage-ladder"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/low-reach-platforms/aluminium-cage-ladder-rent",
+      "to": "https://tsafsafety.com/solutions/aluminium-cage-ladder-system/",
+      "brand": "TsaF",
+      "page": "Product (rent): Aluminium Cage Ladders",
+      "reason": "Product now presented on the TsaF website",
+      "remarks": "Cage ladders are a fall protection product: AQ Access has no cage ladder page, TsaF does; Rental version; the TsaF page covers buying and renting",
+      "also": [
+        "/product-detail/aluminium-cage-ladder-rent",
+        "/products/aluminium-cage-ladder-rent",
+        "/aluminium-scaffold/low-reach-platform/aluminium-cage-ladder-rent"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/low-reach-platforms/podium-platform-10",
+      "to": "https://aqaccess.com/product/aluminium-podium-platform/",
+      "brand": "AQ Access",
+      "page": "Product: Podium Platform",
+      "reason": "Product now presented on the AQ Access website",
+      "also": [
+        "/product-detail/podium-platform-10",
+        "/products/podium-platform-10",
+        "/aluminium-scaffold/low-reach-platform/podium-platform-10",
+        "/product-detail/podium-platform"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/low-reach-platforms/podium-platform-285",
+      "to": "https://aqaccess.com/product/aluminium-podium-platform/",
+      "brand": "AQ Access",
+      "page": "Product: Podium Platform",
+      "reason": "Product now presented on the AQ Access website",
+      "also": [
+        "/product-detail/podium-platform-285",
+        "/products/podium-platform-285",
+        "/aluminium-scaffold/low-reach-platform/podium-platform-285"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/low-reach-platforms/podium-platform-315",
+      "to": "https://aqaccess.com/product/aluminium-podium-platform/",
+      "brand": "AQ Access",
+      "page": "Product: Podium Platform",
+      "reason": "Product now presented on the AQ Access website",
+      "also": [
+        "/product-detail/podium-platform-315",
+        "/products/podium-platform-315",
+        "/aluminium-scaffold/low-reach-platform/podium-platform-315"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/low-reach-platforms/podium-platform-rent-2",
+      "to": "https://aqaccess.com/product/aluminium-podium-platform/",
+      "brand": "AQ Access",
+      "page": "Product (rent): Podium Platform",
+      "reason": "Product now presented on the AQ Access website",
+      "remarks": "Rental version; the AQ Access page covers buying and renting",
+      "also": [
+        "/product-detail/podium-platform-rent-2",
+        "/products/podium-platform-rent-2",
+        "/aluminium-scaffold/low-reach-platform/podium-platform-rent-2"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/low-reach-platforms/project-dost",
+      "to": "https://aqaccess.com/product/project-dost-aluminium-scaffolding/",
+      "brand": "AQ Access",
+      "page": "Product: Project Dost",
+      "reason": "Product now presented on the AQ Access website",
+      "also": [
+        "/product-detail/project-dost",
+        "/products/project-dost",
+        "/aluminium-scaffold/low-reach-platform/project-dost"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/low-reach-platforms/project-dost-26",
+      "to": "https://aqaccess.com/product/project-dost-aluminium-scaffolding/",
+      "brand": "AQ Access",
+      "page": "Product: Project Dost",
+      "reason": "Product now presented on the AQ Access website",
+      "also": [
+        "/product-detail/project-dost-26",
+        "/products/project-dost-26",
+        "/aluminium-scaffold/low-reach-platform/project-dost-26"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/low-reach-platforms/project-dost-31",
+      "to": "https://aqaccess.com/product/project-dost-aluminium-scaffolding/",
+      "brand": "AQ Access",
+      "page": "Product: Project Dost",
+      "reason": "Product now presented on the AQ Access website",
+      "also": [
+        "/product-detail/project-dost-31",
+        "/products/project-dost-31",
+        "/aluminium-scaffold/low-reach-platform/project-dost-31"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/low-reach-platforms/project-dost-plus",
+      "to": "https://aqaccess.com/product/project-dost-plus-pdp-series/",
+      "brand": "AQ Access",
+      "page": "Product: Project Dost Plus",
+      "reason": "Product now presented on the AQ Access website",
+      "also": [
+        "/product-detail/project-dost-plus",
+        "/products/project-dost-plus",
+        "/aluminium-scaffold/low-reach-platform/project-dost-plus"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/low-reach-platforms/project-dost-plus-26",
+      "to": "https://aqaccess.com/product/project-dost-plus-pdp-series/",
+      "brand": "AQ Access",
+      "page": "Product: Project Dost Plus",
+      "reason": "Product now presented on the AQ Access website",
+      "also": [
+        "/product-detail/project-dost-plus-26",
+        "/products/project-dost-plus-26",
+        "/aluminium-scaffold/low-reach-platform/project-dost-plus-26"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/low-reach-platforms/project-dost-plus-31",
+      "to": "https://aqaccess.com/product/project-dost-plus-pdp-series/",
+      "brand": "AQ Access",
+      "page": "Product: Project Dost Plus",
+      "reason": "Product now presented on the AQ Access website",
+      "also": [
+        "/product-detail/project-dost-plus-31",
+        "/products/project-dost-plus-31",
+        "/aluminium-scaffold/low-reach-platform/project-dost-plus-31"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/low-reach-platforms/project-dost-plus-rent",
+      "to": "https://aqaccess.com/product/project-dost-plus-pdp-series/",
+      "brand": "AQ Access",
+      "page": "Product (rent): Project Dost Plus",
+      "reason": "Product now presented on the AQ Access website",
+      "remarks": "Rental version; the AQ Access page covers buying and renting",
+      "also": [
+        "/product-detail/project-dost-plus-rent",
+        "/products/project-dost-plus-rent",
+        "/aluminium-scaffold/low-reach-platform/project-dost-plus-rent"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/low-reach-platforms/project-dost-rent",
+      "to": "https://aqaccess.com/product/project-dost-aluminium-scaffolding/",
+      "brand": "AQ Access",
+      "page": "Product (rent): Project Dost",
+      "reason": "Product now presented on the AQ Access website",
+      "remarks": "Rental version; the AQ Access page covers buying and renting",
+      "also": [
+        "/product-detail/project-dost-rent",
+        "/products/project-dost-rent",
+        "/aluminium-scaffold/low-reach-platform/project-dost-rent"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/special/aluminium-bridge-scaffolding-tower",
+      "to": "https://aqaccess.com/product/aluminium-bridge-scaffolding-tower/",
+      "brand": "AQ Access",
+      "page": "Product: Bridge Scaffolding Tower",
+      "reason": "Product now presented on the AQ Access website",
+      "also": [
+        "/product-detail/aluminium-bridge-scaffolding-tower",
+        "/products/aluminium-bridge-scaffolding-tower",
+        "/aluminium-scaffold/special/aluminium-bridge-scaffolding-tower"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/special/aluminium-bridge-scaffolding-tower-rent",
+      "to": "https://aqaccess.com/product/aluminium-bridge-scaffolding-tower/",
+      "brand": "AQ Access",
+      "page": "Product (rent): Bridge Scaffolding Tower",
+      "reason": "Product now presented on the AQ Access website",
+      "remarks": "Rental version; the AQ Access page covers buying and renting",
+      "also": [
+        "/product-detail/aluminium-bridge-scaffolding-tower-rent",
+        "/products/aluminium-bridge-scaffolding-tower-rent",
+        "/aluminium-scaffold/special/aluminium-bridge-scaffolding-tower-rent"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/special/boiler-scaffolding-system",
+      "to": "https://aqaccess.com/special-series/",
+      "brand": "AQ Access",
+      "page": "Product: Boiler Scaffolding",
+      "reason": "Product now presented on the AQ Access website",
+      "remarks": "No boiler scaffolding page on AQ Access yet; points to its Special Series",
+      "also": [
+        "/product-detail/boiler-scaffolding-system",
+        "/products/boiler-scaffolding-system",
+        "/aluminium-scaffold/special/boiler-scaffolding-system"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/special/boiler-scaffolding-system-rent",
+      "to": "https://aqaccess.com/special-series/",
+      "brand": "AQ Access",
+      "page": "Product (rent): Boiler Scaffolding",
+      "reason": "Product now presented on the AQ Access website",
+      "remarks": "No boiler scaffolding page on AQ Access yet; points to its Special Series; Rental version; the AQ Access page covers buying and renting",
+      "also": [
+        "/product-detail/boiler-scaffolding-system-rent",
+        "/products/boiler-scaffolding-system-rent",
+        "/aluminium-scaffold/special/boiler-scaffolding-system-rent"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/special/cantilever-scaffold-towers",
+      "to": "https://aqaccess.com/product/cantilever-scaffold-towers/",
+      "brand": "AQ Access",
+      "page": "Product: Cantilever Scaffold Towers",
+      "reason": "Product now presented on the AQ Access website",
+      "also": [
+        "/product-detail/cantilever-scaffold-towers",
+        "/products/cantilever-scaffold-towers",
+        "/aluminium-scaffold/special/cantilever-scaffold-towers"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/special/cantilever-scaffold-towers-rent",
+      "to": "https://aqaccess.com/product/cantilever-scaffold-towers/",
+      "brand": "AQ Access",
+      "page": "Product (rent): Cantilever Scaffold Towers",
+      "reason": "Product now presented on the AQ Access website",
+      "remarks": "Rental version; the AQ Access page covers buying and renting",
+      "also": [
+        "/product-detail/cantilever-scaffold-towers-rent",
+        "/products/cantilever-scaffold-towers-rent",
+        "/aluminium-scaffold/special/cantilever-scaffold-towers-rent"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/stairway-series/narrow-stairway-aluminium-ladder",
+      "to": "https://aqaccess.com/product/aluminium-stairway-scaffolding/",
+      "brand": "AQ Access",
+      "page": "Product: Narrow Stairway",
+      "reason": "Product now presented on the AQ Access website",
+      "also": [
+        "/product-detail/narrow-stairway-aluminium-ladder",
+        "/products/narrow-stairway-aluminium-ladder",
+        "/aluminium-scaffold/stairway-series/narrow-stairway-aluminium-ladder"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/stairway-series/narrow-stairway-aluminium-ladder-rent",
+      "to": "https://aqaccess.com/product/aluminium-stairway-scaffolding/",
+      "brand": "AQ Access",
+      "page": "Product (rent): Narrow Stairway",
+      "reason": "Product now presented on the AQ Access website",
+      "remarks": "Rental version; the AQ Access page covers buying and renting",
+      "also": [
+        "/product-detail/narrow-stairway-aluminium-ladder-rent",
+        "/products/narrow-stairway-aluminium-ladder-rent",
+        "/aluminium-scaffold/stairway-series/narrow-stairway-aluminium-ladder-rent"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/stairway-series/wide-stairway-aluminium-ladder",
+      "to": "https://aqaccess.com/product/wide-stairway-aluminium-scaffolding/",
+      "brand": "AQ Access",
+      "page": "Product: Wide Stairway",
+      "reason": "Product now presented on the AQ Access website",
+      "also": [
+        "/product-detail/wide-stairway-aluminium-ladder",
+        "/products/wide-stairway-aluminium-ladder",
+        "/aluminium-scaffold/stairway-series/wide-stairway-aluminium-ladder"
+      ]
+    },
+    {
+      "from": "/aluminium-scaffolds/stairway-series/wide-stairway-aluminium-ladder-rent",
+      "to": "https://aqaccess.com/product/wide-stairway-aluminium-scaffolding/",
+      "brand": "AQ Access",
+      "page": "Product (rent): Wide Stairway",
+      "reason": "Product now presented on the AQ Access website",
+      "remarks": "Rental version; the AQ Access page covers buying and renting",
+      "also": [
+        "/product-detail/wide-stairway-aluminium-ladder-rent",
+        "/products/wide-stairway-aluminium-ladder-rent",
+        "/aluminium-scaffold/stairway-series/wide-stairway-aluminium-ladder-rent"
+      ]
+    },
+    {
+      "from": "/blogs/scaffold-tower-2025",
+      "to": "https://aqaccess.com/blogs/scaffold-towers/",
+      "brand": "AQ Access",
+      "page": "Blog post: Why Every Construction Site Needs a Scaffold Tower in 2025",
+      "reason": "Article topic now covered on the AQ Access website"
+    },
+    {
+      "from": "/blogs/aluminium-scaffolding-in-bangalore",
+      "to": "https://aqaccess.com/aluminium-scaffolding-rental-in-bangalore/",
+      "brand": "AQ Access",
+      "page": "Blog post: Aluminium Scaffolding in Bangalore – Rent & Buy for Safe Access",
+      "reason": "Article topic now covered on the AQ Access website",
+      "remarks": "AQ Access has a dedicated Bangalore page"
+    },
+    {
+      "from": "/blogs/aluminium-scaffolding-rental-in-india",
+      "to": "https://aqaccess.com/blogs/what-you-should-know-before-renting-aluminium-scaffolding/",
+      "brand": "AQ Access",
+      "page": "Blog post: Aluminium Scaffolding Rental in India—Lightweight, Safer & Certified Access",
+      "reason": "Article topic now covered on the AQ Access website"
+    },
+    {
+      "from": "/blogs/aluminium-scaffolding-guide-2025",
+      "to": "https://aqaccess.com/blogs/aluminium-scaffolding-systems-guide-india/",
+      "brand": "AQ Access",
+      "page": "Blog post: Aluminium Scaffolding: Benefits, Safety & Complete Guide 2025",
+      "reason": "Article topic now covered on the AQ Access website"
+    },
+    {
+      "from": "/blogs/buying-or-renting-aluminium-scaffolding",
+      "to": "https://aqaccess.com/blogs/aluminium-scaffolding-rental-vs-purchase-cost/",
+      "brand": "AQ Access",
+      "page": "Blog post: Buying or Renting Aluminium Scaffolding? Here’s What the Experts Recommend!",
+      "reason": "Article topic now covered on the AQ Access website"
+    },
+    {
+      "from": "/blogs/why-aluminium-podium-platforms-are-the-future",
+      "to": "https://aqaccess.com/blogs/podium-platform/",
+      "brand": "AQ Access",
+      "page": "Blog post: Stop Using Risky Makeshift Methods! Here’s Why Aluminium Podium Platforms Are the Future!",
+      "reason": "Article topic now covered on the AQ Access website"
+    },
+    {
+      "from": "/blogs/why-smart-builders-choose-aardwolf-quickfit-for-their-scaffolding-needs",
+      "to": "https://aqaccess.com/about-us/",
+      "brand": "AQ Access",
+      "page": "Blog post: Why Smart Builders Choose AARDWOLF QUICKFIT for Their Scaffolding Needs – Find Out Now!",
+      "reason": "Article topic now covered on the AQ Access website",
+      "remarks": "Article about the Aardwolf Quickfit (AQ) brand; points to AQ Access About Us"
+    },
+    {
+      "from": "/blogs/why-is-aluminium-scaffolding-better-than-steel",
+      "to": "https://aqaccess.com/blogs/aluminium-scaffolding-in-india-safer-faster-cheaper-access/",
+      "brand": "AQ Access",
+      "page": "Blog post: Why Is Aluminium Scaffolding Better Than Steel?",
+      "reason": "Article topic now covered on the AQ Access website"
+    },
+    {
+      "from": "/blogs/which-scaffold-do-i-hire-aluminium-steel",
+      "to": "https://aqaccess.com/blogs/which-aluminium-scaffold-tower-is-right-for-your-project/",
+      "brand": "AQ Access",
+      "page": "Blog post: Which Scaffold Do I Hire? Aluminium Or Steel?",
+      "reason": "Article topic now covered on the AQ Access website"
+    },
+    {
+      "from": "/blogs/must-haves-aluminium-scaffolding",
+      "to": "https://aqaccess.com/blogs/what-are-the-key-safety-features-of-aq-access-scaffolding-systems/",
+      "brand": "AQ Access",
+      "page": "Blog post: 8 Must-Have Aluminium Scaffolding Types You Need for Every Construction Project!",
+      "reason": "Article topic now covered on the AQ Access website"
+    },
+    {
+      "from": "/blogs/exploring-the-versatility-of-aluminium-scaffolding",
+      "to": "https://aqaccess.com/blogs/industries-in-india-that-benefit-the-most-from-aluminium-scaffolding/",
+      "brand": "AQ Access",
+      "page": "Blog post: Exploring the Versatility of Aluminium Scaffolding: A Comprehensive Guide",
+      "reason": "Article topic now covered on the AQ Access website"
+    },
+    {
+      "from": "/blogs/mtandt-aluminium-scaffolding-india-manufacturing",
+      "to": "https://aqaccess.com/about-us/",
+      "brand": "AQ Access",
+      "page": "Blog post: Your Guide To Aluminium Scaffolding Systems!",
+      "reason": "Article topic now covered on the AQ Access website",
+      "remarks": "Article about manufacturing aluminium scaffolding in India; AQ Access About Us covers this"
+    },
+    {
+      "from": "/blogs/which-comet-bharat-truck-mounted-boom-lift-is-right-for-you",
+      "to": "https://cometbharat.com/our-products/",
+      "brand": "Comet Bharat",
+      "page": "Blog post: Which Comet Bharat Truck Mounted Boom Lift Is Right for You?",
+      "reason": "Article topic now covered on the Comet Bharat website"
+    },
+    {
+      "from": "/blogs/what-is-a-truck-mounted-boom-lift",
+      "to": "https://cometbharat.com/product-category/eurosky/",
+      "brand": "Comet Bharat",
+      "page": "Blog post: What Is a Truck-Mounted Boom Lift, and Why Is COMET Bharat Redefining Aerial Access in India?",
+      "reason": "Article topic now covered on the Comet Bharat website"
+    },
+    {
+      "from": "/blogs/5-reasons-truck-mounted-boom-lifts-are-the-best-choice",
+      "to": "https://cometbharat.com/product-category/eurosky/",
+      "brand": "Comet Bharat",
+      "page": "Blog post: 5 Reasons Truck-Mounted Boom Lifts Are the Best Choice",
+      "reason": "Article topic now covered on the Comet Bharat website"
+    },
+    {
+      "from": "/blogs/hire-truck-mounted-platforms-for-any-terrain-book-yours-now",
+      "to": "https://cometbharat.com/our-products/",
+      "brand": "Comet Bharat",
+      "page": "Blog post: Hire Truck Mounted Platforms for Any Terrain—Book Yours Now!",
+      "reason": "Article topic now covered on the Comet Bharat website"
+    },
+    {
+      "from": "/blogs/truck-mounted-boom-lift-rental",
+      "to": "https://cometbharat.com/product-category/eurosky/",
+      "brand": "Comet Bharat",
+      "page": "Blog post: Truck-Mounted Boom Lift Rental—Fast Relocation & Roadside Access Solutions",
+      "reason": "Article topic now covered on the Comet Bharat website",
+      "remarks": "Rental-focused article; Comet Bharat's range page carries the enquiry form"
+    },
+    {
+      "from": "/blogs/everything-you-need-to-know-about-spider-boom-lifts-in-2025",
+      "to": "https://cometbharat.com/product-category/leopard/",
+      "brand": "Comet Bharat",
+      "page": "Blog post: Everything You Need to Know About Spider Boom Lifts in 2025",
+      "reason": "Article topic now covered on the Comet Bharat website",
+      "remarks": "Article covers Comet Bharat's Leopard spider boom lifts"
+    }
+  ],
+  "sections": [
+    {
+      "prefix": "/aluminium-scaffolds",
+      "to": "https://aqaccess.com/aluminium-scaffolding/",
+      "brand": "AQ Access"
+    },
+    {
+      "prefix": "/aluminium-scaffold",
+      "to": "https://aqaccess.com/aluminium-scaffolding/",
+      "brand": "AQ Access"
+    },
+    {
+      "prefix": "/fall-protection-lifeline-systems",
+      "to": "https://tsafsafety.com/solutions/",
+      "brand": "TsaF"
+    },
+    {
+      "prefix": "/tactical-safety-for-access-falls",
+      "to": "https://tsafsafety.com/solutions/",
+      "brand": "TsaF"
+    },
+    {
+      "prefix": "/custom-product-detail-buy/fall-protection-lifeline-systems",
+      "to": "https://tsafsafety.com/solutions/",
+      "brand": "TsaF"
+    },
+    {
+      "prefix": "/custom-product-detail-buy/tactical-safety-for-access-falls",
+      "to": "https://tsafsafety.com/solutions/",
+      "brand": "TsaF"
+    },
+    {
+      "prefix": "/custom-product-detail-rental/fall-protection-lifeline-systems",
+      "to": "https://tsafsafety.com/solutions/",
+      "brand": "TsaF"
+    },
+    {
+      "prefix": "/custom-product-detail-rental/tactical-safety-for-access-falls",
+      "to": "https://tsafsafety.com/solutions/",
+      "brand": "TsaF"
+    }
+  ],
+  "retained": [
+    {
+      "path": "/services/fall-protection-training",
+      "brand": "TsaF",
+      "note": "MTandT's own training service (run with CESL). Can point to tsafsafety.com/services/training-and-certification/ if this training moves to TsaF."
+    },
+    {
+      "path": "/catalogues",
+      "brand": "TsaF, AQ Access, Comet Bharat",
+      "note": "The brand catalogues stay on MTandT's catalogue page as lead-capture downloads. Can be replaced with links to each brand's catalogue page on request."
+    },
+    {
+      "path": "/press/mtandt-aluminium-scaffolding-manufacturing",
+      "brand": "AQ Access",
+      "note": "MTandT Group press release (company news), kept on MTandT."
+    },
+    {
+      "path": "/press/mtandt-group-partners-with-comet-officine-to-expand-product-portfolio-and-reach",
+      "brand": "Comet Bharat",
+      "note": "MTandT Group press release about the Comet partnership (company news), kept on MTandT."
+    },
+    {
+      "path": "/event/fall-protection-solutions-osh-india-2024",
+      "brand": "TsaF",
+      "note": "MTandT Group event history, kept on MTandT."
+    },
+    {
+      "path": "/event/fall-protection-solutions-osh-india",
+      "brand": "TsaF",
+      "note": "MTandT Group event history, kept on MTandT."
+    },
+    {
+      "path": "/event/scissor-lifts-aluminum-scaffolding-signage-solutions-advertising-industry",
+      "brand": "AQ Access",
+      "note": "MTandT Group event history (mainly scissor lifts), kept on MTandT."
+    },
+    {
+      "path": "/blogs/spider-lifts-the-ultimate-compact-access-solution-for-safe-work-at-heights",
+      "brand": "Comet Bharat",
+      "note": "General spider lift article; MTandT still sells and rents other spider lifts, so it stays."
+    },
+    {
+      "path": "/blogs/boom-lift-rental-in-india",
+      "brand": "Comet Bharat",
+      "note": "General boom lift rental article (mentions one Comet model); boom lifts stay on MTandT."
+    },
+    {
+      "path": "/blogs/mtandt-group-at-bauma-conexpo-india-2024",
+      "brand": "Comet Bharat",
+      "note": "MTandT Group trade show article, kept on MTandT."
+    },
+    {
+      "path": "/custom-product-detail-buy/tools-and-supplies/ladders-and-climbing-solutions",
+      "brand": "AQ Access",
+      "note": "MRO tools & supplies page (ladders from several makers), kept on MTandT."
+    }
+  ]
+}

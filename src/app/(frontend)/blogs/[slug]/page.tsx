@@ -3,6 +3,7 @@ import { brandTitle } from "@/lib/seo";
 import { notFound, permanentRedirect } from "next/navigation";
 import { blogFallback, blogHero, fmtDMY, fmtLong, getBlog, getBlogSlugs, getLatestBlogs, scrapedBlogs } from "@/content/media";
 import { lexicalToText, mediaUrl } from "@/lib/payload";
+import { modernizeLinks } from "@/content/urls";
 import { Breadcrumbs } from "@/ui/PageChrome";
 import Img from "@/ui/Img";
 import BlogBody from "@/ui/Media/BlogBody";
@@ -68,7 +69,7 @@ export default async function Page({ params }: Props) {
           <h1 className="mt-1 text-2xl font-semibold md:text-[1.9rem]">{post.title}</h1>
           {hero && <Img src={hero} alt={post.title} loading="eager" className="mt-4 w-full bg-neutral-100" />}
           {fallback ? (
-            <div className="prose-legacy mt-6 [&_img]:mx-auto [&_img]:max-h-[420px] [&_img]:w-auto [&_li]:text-ink [&_p]:text-ink" dangerouslySetInnerHTML={{ __html: fallback.body }} />
+            <div className="prose-legacy mt-6 [&_img]:mx-auto [&_img]:max-h-[420px] [&_img]:w-auto [&_li]:text-ink [&_p]:text-ink" dangerouslySetInnerHTML={{ __html: modernizeLinks(fallback.body) }} />
           ) : (
             <BlogBody data={post.body} className="prose-legacy mt-6 [&_img]:mx-auto [&_img]:max-h-[420px] [&_img]:w-auto [&_li]:text-ink [&_p]:text-ink" />
           )}

@@ -1,6 +1,7 @@
 // Lives in the (frontend) group, not the app root: metadata files at the root (outside both
 // route groups) left the Payload admin rendering an empty page.
 import type { MetadataRoute } from "next";
+import { brandRedirect } from "@/content/brandRedirects";
 import { getCaseStudySlugs } from "@/content/caseStudies";
 import { customProductParams } from "@/content/customProducts";
 import { getIndustrySlugs } from "@/content/industries";
@@ -84,6 +85,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     paths(async () => (await getBlogSlugs()).map((s) => `/blogs/${encodeURIComponent(s)}`)),
     paths(async () => Object.keys(await getLegalPages()).map((s) => `/pages/${s}`)),
   ]);
-  const all = [...new Set([...STATIC, ...groups.flat()])];
+  // Pages that moved to a group brand website (301) stay out; their links are already full URLs.
+  const all = [...new Set([...STATIC, ...groups.flat()])].filter((p) => p.startsWith("/") && !brandRedirect(p));
   return all.map((p) => ({ url: `${SITE_URL}${p === "/" ? "" : p}` }));
 }

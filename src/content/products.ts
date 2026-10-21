@@ -428,7 +428,7 @@ export async function getProduct(slug: string): Promise<Product | null> {
 
 export const allProducts = async () => (await getCatalog()).products;
 
-export { categoryHref, listingHref, productHref, resolveSegments, subcategoryHref } from "@/content/urls";
+export { categoryHref, listingHref, productHref, productPath, resolveSegments, subcategoryHref } from "@/content/urls";
 
 export async function getListing(mode: Mode, cat: string, sub: string): Promise<Listing | null> {
   const c = await getCatalog();

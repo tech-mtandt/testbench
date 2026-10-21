@@ -1,4 +1,16 @@
+import { readFileSync } from 'node:fs'
 import { withPayload } from '@payloadcms/next/withPayload'
+
+// Pages that moved to the group's brand websites (TsaF, AQ Access, Comet Bharat): one 301 hop
+// from every address the page has had, so search engines pass its ranking on.
+const brandRedirects = JSON.parse(readFileSync(new URL('./src/content/brand-redirects.json', import.meta.url), 'utf8'))
+const toBrandSites = [
+  ...brandRedirects.redirects.flatMap((r) =>
+    [r.from, ...(r.also ?? [])].map((source) => ({ source, destination: r.to, statusCode: 301 })),
+  ),
+  // Any other address in a moved section (e.g. a product added later) goes to the brand's overview.
+  ...brandRedirects.sections.map((s) => ({ source: `${s.prefix}/:path*`, destination: s.to, statusCode: 301 })),
+]
 
 // Scraped legacy assets live in Supabase Storage (media bucket, legacy/ prefix; see
 // migration/scrape/upload-legacy.mjs). Local public/legacy files win when present.
@@ -23,6 +35,7 @@ const nextConfig = {
       { source: '/public/services/:slug', destination: '/services/:slug', permanent: true },
       { source: '/media/news', destination: '/media/events', permanent: true },
       { source: '/annual-returns', destination: '/investor-relations', permanent: true },
+      ...toBrandSites,
     ]
   },
   async rewrites() {

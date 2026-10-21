@@ -9,6 +9,7 @@ import {
   getProductOrRenamed,
   listingHref,
   productHref,
+  productPath,
   resolveSegments,
   subcategoryHref,
 } from "@/content/products";
@@ -19,9 +20,10 @@ type Params = { params: Promise<{ category: string; subcategory: string; product
 
 export async function generateStaticParams() {
   return (await allProducts())
-    .filter((p) => p.category && p.subcategory)
+    // Products that moved to a group brand website only redirect (next.config.mjs).
+    .filter((p) => p.category && p.subcategory && productHref(p) === productPath(p))
     .map((p) => {
-      const [, category, subcategory] = productHref(p).split("/");
+      const [, category, subcategory] = productPath(p).split("/");
       return { category, subcategory, product: p.slug };
     });
 }

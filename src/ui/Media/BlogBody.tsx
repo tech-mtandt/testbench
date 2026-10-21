@@ -3,6 +3,7 @@ import type { SerializedLexicalNode } from "@payloadcms/richtext-lexical/lexical
 import { RichText, type JSXConvertersFunction } from "@payloadcms/richtext-lexical/react";
 import type { ComponentProps } from "react";
 import { fileUrl } from "@/cms/read";
+import { modernizeHref } from "@/content/urls";
 
 type Node = SerializedLexicalNode & { children?: Node[]; headerState?: number; colSpan?: number; rowSpan?: number };
 type UploadDoc = { url?: string | null; legacySrc?: string | null; alt?: string | null; mimeType?: string | null; filename?: string | null };
@@ -57,6 +58,14 @@ const converters: JSXConvertersFunction = ({ defaultConverters }) => ({
   },
 });
 
+/** Links to old catalogue addresses, or to pages that moved to a group brand website, point at the current page. */
+function currentLinks(value: unknown, key?: string): unknown {
+  if (typeof value === "string") return key === "url" ? modernizeHref(value) : value;
+  if (Array.isArray(value)) return value.map((v) => currentLinks(v));
+  if (!value || typeof value !== "object") return value;
+  return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, currentLinks(v, k)]));
+}
+
 export default function BlogBody({ data, className }: { data: ComponentProps<typeof RichText>["data"]; className?: string }) {
-  return <RichText data={data} className={className} converters={converters} />;
+  return <RichText data={currentLinks(data) as typeof data} className={className} converters={converters} />;
 }

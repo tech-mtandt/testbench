@@ -4,6 +4,7 @@ import galleryJson from "@/content/scraped/gallery.json";
 import pressJson from "@/content/scraped/press.json";
 import scrapedBlogsJson from "@/app/(frontend)/blogs/[slug]/scraped.json";
 import { cached, fileUrl, html, readAll, readGlobal, str } from "@/cms/read";
+import { movedBlogSlugs } from "@/content/brandRedirects";
 import { lexicalToText, mediaUrl, payloadClient } from "@/lib/payload";
 import type { Blog, Event, MediaPage, Press } from "@/payload-types";
 
@@ -62,6 +63,8 @@ export type MediaPagesData = {
 
 // ---------------------------------------------------------------- press / events / gallery (CMS, scraped fallback)
 const published = { _status: { equals: "published" as const } };
+// Published posts still on this site (some moved to a group brand website and only redirect).
+const listed = { ...published, slug: { not_in: movedBlogSlugs } };
 
 /** CMS date (stored at midday UTC) -> "YYYY-MM-DD", the scraped format. */
 const day = (v: string | null | undefined) => (v ? new Date(v).toISOString().slice(0, 10) : null);
@@ -215,7 +218,7 @@ async function fetchBlogPage(page: number) {
   const payload = await payloadClient();
   const res = await payload.find({
     collection: "blogs",
-    where: published,
+    where: listed,
     sort: ["-publishedDate", "-id"],
     limit: BLOGS_PER_PAGE,
     page,
@@ -235,7 +238,7 @@ async function fetchLatestBlogs(excludeSlug: string, limit = 7) {
   const payload = await payloadClient();
   const res = await payload.find({
     collection: "blogs",
-    where: { ...published, slug: { not_equals: excludeSlug } },
+    where: { ...published, slug: { not_in: [...movedBlogSlugs, excludeSlug] } },
     sort: ["-publishedDate", "-id"],
     limit,
     depth: 1,
@@ -246,7 +249,7 @@ async function fetchLatestBlogs(excludeSlug: string, limit = 7) {
 
 async function fetchBlogSlugs() {
   const payload = await payloadClient();
-  const res = await payload.find({ collection: "blogs", where: published, limit: 0, depth: 0, select: { slug: true } });
+  const res = await payload.find({ collection: "blogs", where: listed, limit: 0, depth: 0, select: { slug: true } });
   return res.docs.map((d) => d.slug);
 }
 
