@@ -138,7 +138,9 @@ def main():
     # ---- Testing done and go-live checklist.
     n_addr = sum(1 + len(r.get("also", [])) for r in redirects)
     n_dest = len({r["to"] for r in redirects} | {s["to"] for s in sections})
-    title(checks, "Testing and Go-Live Checklist", f"Tests run {a.tested} on a production build of the site.", 4)
+    live = a.status == "Live"
+    where = "on the live site (www.mtandt.com)" if live else "on a production build of the site"
+    title(checks, "Testing and Go-Live Checklist", f"Tests run {a.tested} {where}.", 4)
     tests = [
         ["Every listed address returns HTTP 301 to the correct brand URL",
          f"Pass ({n_addr} addresses + {len(sections)} section rules)", "Status code and Location header checked for each address."],
@@ -158,7 +160,7 @@ def main():
     todo_row = tlast + 3
     checks.cell(todo_row - 1, 1, "Go-live and follow-up (fill in Owner and Status)").font = BOLD
     todo = [
-        ["Deploy to www.mtandt.com and re-run the redirect test on the live site", "", "To do"],
+        ["Deploy to www.mtandt.com and re-run the redirect test on the live site", "Web team", "Done" if live else "To do"],
         ["Google Ads: change the final URL of any ad pointing at a moved page to the brand URL "
          "(ads whose final URL redirects to another domain are disapproved for destination mismatch)", "", "To do"],
         ["Google Search Console (mtandt.com): resubmit sitemap.xml; 'Page with redirect' for moved URLs is expected", "", "To do"],
