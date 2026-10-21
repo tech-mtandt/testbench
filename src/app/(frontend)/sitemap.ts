@@ -12,8 +12,9 @@ import { getServiceSlugs } from "@/content/services";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.mtandt.com";
 
-// Rebuilt daily (and on any admin change, via the CMS revalidation hooks).
-export const revalidate = 86400;
+// Rebuilt hourly, so new products are listed within the hour: on Vercel the CMS hooks' on-demand
+// refresh reaches pages but not this route handler (checked: it stayed cached after a save).
+export const revalidate = 3600;
 
 const STATIC = [
   "/",
