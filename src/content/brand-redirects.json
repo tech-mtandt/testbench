@@ -816,6 +816,17 @@
       "page": "Blog post: Everything You Need to Know About Spider Boom Lifts in 2025",
       "reason": "Article topic now covered on the Comet Bharat website",
       "remarks": "Article covers Comet Bharat's Leopard spider boom lifts"
+    },
+    {
+      "from": "/imageFile/1765185221indcatalogues.pdf",
+      "to": "https://cometbharat.com/catalogues/",
+      "brand": "Comet Bharat",
+      "page": "Catalogue PDF (old-site link): Truck Mounted Boom By Comet Bharat",
+      "reason": "Old catalogue file link; Comet Bharat's catalogues now live on its website",
+      "remarks": "The old file was retired (replaced by the V4 catalogue on mtandt.com/catalogues); old shared links land on Comet Bharat's catalogue page",
+      "also": [
+        "/legacy/imageFile/1765185221indcatalogues.pdf"
+      ]
     }
   ],
   "sections": [

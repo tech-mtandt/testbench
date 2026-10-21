@@ -26,6 +26,8 @@ const nextConfig = {
   // image search results) working after the domain moves here.
   async redirects() {
     return [
+      // First, so an old-site file link that moved goes to the brand site in one hop.
+      ...toBrandSites,
       ...['imageFile', 'forntend', 'service_brochure'].map((dir) => ({
         source: `/${dir}/:path*`,
         destination: `/legacy/${dir}/:path*`,
@@ -35,7 +37,6 @@ const nextConfig = {
       { source: '/public/services/:slug', destination: '/services/:slug', permanent: true },
       { source: '/media/news', destination: '/media/events', permanent: true },
       { source: '/annual-returns', destination: '/investor-relations', permanent: true },
-      ...toBrandSites,
     ]
   },
   async rewrites() {
