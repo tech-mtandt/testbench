@@ -179,12 +179,12 @@ def main():
 
     # ---- Summary: counts are formulas over the tracker, so they follow edits there.
     title(summary, "MTandT Brand Website Redirects: Summary",
-          f"301 permanent redirects from mtandt.com to the TsaF, AQ Access and Comet Bharat websites. Tested {a.tested}.", 7)
+          f"301 permanent redirects from mtandt.com to the TsaF, AQ Access and Comet Bharat websites. Tested {a.tested}.", 8)
     tr = f"'Redirect Tracker'!$D${first}:$D${last}"
     pg = f"'Redirect Tracker'!$I${first}:$I${last}"
     st = f"'Redirect Tracker'!$G${first}:$G${last}"
-    hdr = ["Brand", "Website", "Category & series", "Listings", "Products", "Blog posts", "Total pages"]
-    table(summary, 4, hdr, [46, 26, 15, 15, 15, 15, 15], [])
+    hdr = ["Brand", "Website", "Category & series", "Listings", "Products", "Blog posts", "Catalogue links", "Total pages"]
+    table(summary, 4, hdr, [46, 26, 15, 15, 15, 15, 15, 15], [])
     brands = list(data["brands"].items())
     for i, (b, url) in enumerate(brands, 5):
         summary.cell(i, 1, b).font = BOLD
@@ -194,14 +194,15 @@ def main():
         summary.cell(i, 4, f'=COUNTIFS({tr},A{i},{pg},"Buy listing*")+COUNTIFS({tr},A{i},{pg},"Rent listing*")')
         summary.cell(i, 5, f'=COUNTIFS({tr},A{i},{pg},"Product*")')
         summary.cell(i, 6, f'=COUNTIFS({tr},A{i},{pg},"Blog post*")')
-        summary.cell(i, 7, f"=COUNTIF({tr},A{i})")
+        summary.cell(i, 7, f'=COUNTIFS({tr},A{i},{pg},"Catalogue PDF*")')
+        summary.cell(i, 8, f"=COUNTIF({tr},A{i})")
     tot = 5 + len(brands)
     summary.cell(tot, 1, "Total").font = BOLD
-    for c in range(3, 8):
+    for c in range(3, 9):
         col = get_column_letter(c)
         summary.cell(tot, c, f"=SUM({col}5:{col}{tot - 1})").font = BOLD
     for rr in range(5, tot + 1):
-        for c in range(1, 8):
+        for c in range(1, 9):
             summary.cell(rr, c).border = THIN
             if rr < tot and c > 2:
                 summary.cell(rr, c).font = FONT
