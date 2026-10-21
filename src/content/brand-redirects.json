@@ -413,6 +413,17 @@
       ]
     },
     {
+      "from": "/imageFile/1765187621indcatalogues.pdf",
+      "to": "https://tsafsafety.com/resources/catalogue/",
+      "brand": "TsaF",
+      "page": "Catalogue PDF (old-site link): Fall Protection Lifeline Systems by TsaF",
+      "reason": "Old catalogue file link; the TsaF catalogue now lives on the TsaF website",
+      "remarks": "The old-site file was not carried over; old shared links land on TsaF's catalogue page",
+      "also": [
+        "/legacy/imageFile/1765187621indcatalogues.pdf"
+      ]
+    },
+    {
       "from": "/aluminium-scaffolds/low-reach-platforms/podium-platform-10",
       "to": "https://aqaccess.com/product/aluminium-podium-platform/",
       "brand": "AQ Access",
@@ -772,6 +783,17 @@
       "page": "Blog post: Your Guide To Aluminium Scaffolding Systems!",
       "reason": "Article topic now covered on the AQ Access website",
       "remarks": "Article about manufacturing aluminium scaffolding in India; AQ Access About Us covers this"
+    },
+    {
+      "from": "/imageFile/1765184694indcatalogues.pdf",
+      "to": "https://aqaccess.com/aluminium-scaffolding/",
+      "brand": "AQ Access",
+      "page": "Catalogue PDF (old-site link): Aluminium Scaffolding by Keywest",
+      "reason": "Old catalogue file link; AQ Access (Keywest) aluminium scaffolding now lives on its own website",
+      "remarks": "AQ Access has no catalogue page; points to its all-series page. The old-site file was not carried over",
+      "also": [
+        "/legacy/imageFile/1765184694indcatalogues.pdf"
+      ]
     },
     {
       "from": "/blogs/which-comet-bharat-truck-mounted-boom-lift-is-right-for-you",

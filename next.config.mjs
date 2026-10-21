@@ -12,6 +12,16 @@ const toBrandSites = [
   ...brandRedirects.sections.map((s) => ({ source: `${s.prefix}/:path*`, destination: s.to, statusCode: 301 })),
 ]
 
+// Old-site catalogue PDF links (/imageFile/…indcatalogues.pdf) have no file behind them any more:
+// the Catalogues page has each one, behind the enquiry form. Also from /legacy/…, where browsers
+// may have cached the old /imageFile redirect.
+const brandSources = new Set(toBrandSites.map((r) => r.source))
+const oldCatalogues = JSON.parse(readFileSync(new URL('./src/content/scraped/catalogues.json', import.meta.url), 'utf8'))
+  .items.map((c) => new URL(c.pdf).pathname)
+  .flatMap((path) => [path, `/legacy${path}`])
+  .filter((source) => !brandSources.has(source))
+  .map((source) => ({ source, destination: '/catalogues', statusCode: 301 }))
+
 // Scraped legacy assets live in Supabase Storage (media bucket, legacy/ prefix; see
 // migration/scrape/upload-legacy.mjs). Local public/legacy files win when present.
 const legacyAssetsBase =
@@ -26,8 +36,9 @@ const nextConfig = {
   // image search results) working after the domain moves here.
   async redirects() {
     return [
-      // First, so an old-site file link that moved goes to the brand site in one hop.
+      // Before the /imageFile rule, so old-site file links that moved take one hop.
       ...toBrandSites,
+      ...oldCatalogues,
       ...['imageFile', 'forntend', 'service_brochure'].map((dir) => ({
         source: `/${dir}/:path*`,
         destination: `/legacy/${dir}/:path*`,
