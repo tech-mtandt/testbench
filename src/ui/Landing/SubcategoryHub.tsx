@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getCatalogues } from "@/content/catalogues";
-import { brandFacts, landingConfig, landingMedia } from "@/content/landing";
+import { brandFacts, findBrochure, landingConfig, landingMedia } from "@/content/landing";
 import {
   categoryHref,
   getCategory,
@@ -76,10 +76,9 @@ export default async function SubcategoryHub({ category: cat, subcategory: sub }
   const page = subcategoryHref(cat, sub).slice(1);
   const site = await getSite();
 
-  // Brochure: the first catalogue (admin > Catalogues) whose title names this range, e.g. "Boom Lift Brochure".
-  const norm = (s: string | null | undefined) => (s ?? "").toLowerCase().replace(/[^a-z]/g, "");
-  const catalogues = await getCatalogues().catch(() => []);
-  const brochure = catalogues.find((x) => norm(x.title).includes(norm(product)) && x.documentUrl);
+  // Brochure: the first catalogue (admin > Catalogues) whose title names this range, e.g. "Boom Lift
+  // Brochure", else the category's (findBrochure).
+  const brochure = findBrochure(await getCatalogues().catch(() => []), cat, [product]);
   const siblings = await Promise.all(
     category.subcategories
       .filter((s) => s.slug !== sub)

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import { getCatalogues } from "@/content/catalogues";
-import { brandFacts, categoryTagline, landingConfig, landingMedia, oldLandingPaths } from "@/content/landing";
+import { brandFacts, categoryTagline, findBrochure, landingConfig, landingMedia, oldLandingPaths } from "@/content/landing";
 import { redirectLegacy } from "@/content/legacy-redirects";
 import {
   categoryHref,
@@ -74,11 +74,8 @@ export default async function Page({ params }: Params) {
   );
   const faqs = c.subcategories.flatMap((s) => s.faqs).slice(0, 8);
   const page = categoryHref(c.slug).slice(1);
-  // Brochure: the first catalogue (admin > Catalogues) whose title names this category.
-  const norm = (s: string | null | undefined) => (s ?? "").toLowerCase().replace(/[^a-z]/g, "");
-  const brochure = (await getCatalogues().catch(() => [])).find(
-    (x) => norm(x.title).includes(norm(c.title)) && x.documentUrl,
-  );
+  // Brochure: the first catalogue (admin > Catalogues) whose title names this category, else its brochure.
+  const brochure = findBrochure(await getCatalogues().catch(() => []), c.slug, [c.title]);
 
   return (
     <>

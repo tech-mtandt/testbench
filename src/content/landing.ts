@@ -100,27 +100,51 @@ export type HeroVideo = {
 
 /**
  * Hero media for landing pages, keyed by category slug ("aerial-work-platform") or
- * "category/subcategory" ("aerial-work-platform/boom-lift"). A range without its own
- * entry uses its category's. `wide` is shown on landscape screens (laptops, desktops):
+ * "category/subcategory" ("aerial-work-platform/boom-lift"). A range shows only its own
+ * video (another range's machine would be the wrong one). `wide` is shown on landscape screens (laptops, desktops):
  * 1920×800 (2.4:1), under ~6 MB. `tall` is shown on portrait screens (phones): 1080×1920
  * (9:16), under ~4 MB. Upload them in the admin (Media) and paste their URLs here.
  */
 export type HeroMedia = { wide?: HeroVideo; tall?: HeroVideo };
 
-const heroMedia: Record<string, HeroMedia> = {
-  // "aerial-work-platform": {
-  //   wide: { src: "/api/media/file/awp-hero.mp4", poster: "/api/media/file/awp-hero.jpg", width: 1920, height: 800 },
-  //   tall: { src: "/api/media/file/awp-hero-tall.mp4", poster: "/api/media/file/awp-hero-tall.jpg", width: 1080, height: 1920 },
-  // },
+const file = (name: string) => `/api/media/file/${encodeURIComponent(name)}`;
+const wide = (video: string, poster: string): HeroVideo => ({ src: file(video), poster: file(poster), width: 1920, height: 800 });
+const tall = (video: string, poster: string): HeroVideo => ({ src: file(video), poster: file(poster), width: 1080, height: 1920 });
+
+const boomLiftFilm: HeroMedia = {
+  wide: wide("24.WEBSITE VIDEO ANIMATION - DESKTOP SIZE.mp4", "hero-boom-lift-wide.jpg"),
+  tall: tall("25.WEBSITE VIDEO ANIMATION - MOBILE SIZE.mp4", "hero-boom-lift-tall.jpg"),
 };
 
-export const landingMedia = (
-  category: string,
-  subcategory?: string,
-): HeroMedia =>
-  (subcategory && heroMedia[`${category}/${subcategory}`]) ||
-  heroMedia[category] ||
-  {};
+const heroMedia: Record<string, HeroMedia> = {
+  // The aerial work platforms page leads with the boom lift film.
+  "aerial-work-platform": boomLiftFilm,
+  "aerial-work-platform/boom-lift": boomLiftFilm,
+  "aerial-work-platform/scissor-lift": {
+    wide: wide("24.WEBSITE VIDEO ANIMATION - DESKTOP SIZE -SCISSOR LIFT.mp4", "hero-scissor-lift-wide.jpg"),
+    tall: tall("25.WEBSITE VIDEO ANIMATION - MOBILE SIZE - SCISSOR LIFT.mp4", "hero-scissor-lift-tall.jpg"),
+  },
+};
+
+export const landingMedia = (category: string, subcategory?: string): HeroMedia =>
+  heroMedia[subcategory ? `${category}/${subcategory}` : category] ?? {};
+
+/**
+ * Catalogue (admin > Catalogues, matched by title) for a category's landing pages when none
+ * is named after the page's own range, e.g. the boom lift page offers the MEWP brochure.
+ */
+const categoryBrochures: Record<string, string> = {
+  "aerial-work-platform": "Mobile Elevated Work Platforms",
+  "material-handling-equipment": "Material Handling Equipment",
+  mlit: "Mobile Light Tower",
+};
+
+/** The first catalogue with a PDF whose title names one of `names`, else the category's brochure. */
+export function findBrochure<T extends { title: string; documentUrl?: string | null }>(catalogues: T[], category: string, names: string[]) {
+  const norm = (s: string | null | undefined) => (s ?? "").toLowerCase().replace(/[^a-z]/g, "");
+  const named = (name?: string) => (name ? catalogues.find((x) => x.documentUrl && norm(x.title).includes(norm(name))) : undefined);
+  return names.map(named).find(Boolean) ?? named(categoryBrochures[category]) ?? null;
+}
 
 /** One-line category pitch for the hero (the long CMS intro stays in the About section). */
 const categoryTaglines: Record<string, string> = {
