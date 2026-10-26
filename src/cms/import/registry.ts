@@ -3,12 +3,14 @@ import { homeTasks } from "./tasks/home";
 import { mediaTasks } from "./tasks/media";
 import { pagesTasks } from "./tasks/pages";
 import { catalogUpdateTask } from "./tasks/catalogUpdate";
+import { dbUpdatesTask } from "./tasks/dbUpdates";
 import { productsTasks } from "./tasks/products";
 import { siteTasks } from "./tasks/site";
 import type { ImportTask } from "./types";
 
 /** Run order matters: products taxonomy before products, etc. Each area orders its own. */
 export const tasks: ImportTask[] = [
+  dbUpdatesTask,
   ...siteTasks,
   ...homeTasks,
   ...pagesTasks,
