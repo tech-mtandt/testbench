@@ -24,6 +24,36 @@ function checkFiles(form: HTMLFormElement): { input: HTMLInputElement; message: 
   return null;
 }
 
+declare global {
+  interface Window {
+    /** Google Analytics (set up in the frontend layout, on the live domain only). */
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
+/**
+ * Forms that count as sales leads in Google Analytics. Career, partner (dealer, vendor, credit
+ * application), feedback and newsletter forms are not leads.
+ */
+const LEAD_FORMS = new Set([
+  "enquiry",
+  "productEnquiry",
+  "custom-product-enquiry",
+  "service-enquiry",
+  "get-in-touch",
+  "contact",
+  "landing-popup",
+  "catalogue-download",
+]);
+
+/** GA4 `generate_lead` for a stored lead: which form, and the product, service or brochure it was about. */
+function trackLead(data: FormData) {
+  const form = String(data.get("_form") || "enquiry");
+  if (!LEAD_FORMS.has(form) || data.get("_hp")) return;
+  const about = ["product", "service", "catalogName"].map((k) => data.get(k)).find((v) => typeof v === "string" && v);
+  window.gtag?.("event", "generate_lead", { form_name: form, ...(about ? { enquiry_about: about } : {}) });
+}
+
 /** Ref for a success message (with tabIndex={-1}): focuses it so screen readers announce it. */
 export const focusOnMount = (el: HTMLElement | null) => {
   el?.focus();
@@ -39,7 +69,9 @@ export const focusOnMount = (el: HTMLElement | null) => {
 export function useLeadForm() {
   const [state, action, pending] = useActionState<FormState, FormData>(async (prev, data) => {
     try {
-      return await submitForm(prev, data);
+      const result = await submitForm(prev, data);
+      if (result?.ok) trackLead(data);
+      return result;
     } catch (err) {
       console.error("[forms] submit failed", err);
       const files = Array.from(data.values()).some((v) => typeof v !== "string" && v.size);
