@@ -1,6 +1,7 @@
 import "@/styles/globals.scss";
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
+import Script from "next/script";
 
 import Footer from "@/ui/Footer";
 import Header from "@/ui/Header";
@@ -16,6 +17,23 @@ const poppins = Poppins({
   display: "swap",
 });
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter-nf", display: "swap" });
+
+// Google Analytics 4 (property "Mtandt Group - GA4"). Loads only on the live domain, so dev,
+// preview and local visits stay out of the figures. Client-side page changes are counted by GA4's
+// enhanced measurement (browser history events).
+const GA_ID = "G-H2Y4EMH8TB";
+const GA_HOST = "www.mtandt.com";
+const gaTag = `
+if (location.hostname === ${JSON.stringify(GA_HOST)}) {
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  window.gtag("js", new Date());
+  window.gtag("config", ${JSON.stringify(GA_ID)});
+  var s = document.createElement("script");
+  s.async = true;
+  s.src = "https://www.googletagmanager.com/gtag/js?id=${GA_ID}";
+  document.head.appendChild(s);
+}`;
 
 export async function generateMetadata(): Promise<Metadata> {
   const { defaults } = await getSite();
@@ -40,26 +58,7 @@ export default async function RootLayout({
     <html lang="en" data-scroll-behavior="smooth" className={`${poppins.variable} ${inter.variable}`}>
       <body>
         <Header contact={site.contact} socials={site.socials} mainNav={site.mainNav} />
-        {/*
-        <Script
-          async
-          strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-H2Y4EMH8TB"
-        ></Script>
-        <Script
-          strategy="afterInteractive"
-          id="ga-tag"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-
-              gtag('config', 'G-H2Y4EMH8TB');
-              `,
-          }}
-        />
-        */}
+        <Script id="ga-tag" strategy="afterInteractive">{gaTag}</Script>
         <Smooth>
           <main>{children}</main>
           <Footer contact={site.contact} socials={site.socials} footer={site.footer} />

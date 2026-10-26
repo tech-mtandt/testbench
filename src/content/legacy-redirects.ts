@@ -42,9 +42,11 @@ export const legacyRedirects: Record<string, string> = {
     ["1000r", "1100r"].map((m) => [`/product-detail/self-propelled-mast-boom-vertical-electric-lift-${m}`, buyListing("aerial-work-platform", "vertical-lift")]),
   ),
   "/product-detail/self-propelled-mast-boom-vertical-lift-wheel-12re": buyListing("aerial-work-platform", "vertical-lift"),
+  "/product-detail/self-propelled-mast-boom-vertical-lift-wheel-12re-copy": buyListing("aerial-work-platform", "vertical-lift"),
   "/product-detail/self-propelled-mast-boom-vertical-lift-wheel-13e": buyListing("aerial-work-platform", "vertical-lift"),
   "/product-detail/self-propelled-scissor-lift": buyListing("aerial-work-platform", "scissor-lift"),
   "/product-detail/articulated-knuckle-boom-crane": buyListing("material-handling-equipment", "knuckle-boom-crane"),
+  "/product-detail/articulated-knuckle-boom-crane-copy": buyListing("material-handling-equipment", "knuckle-boom-crane"),
   "/product-detail/articulated-knuckle-boom-crane-rent": rentListing("material-handling-equipment", "knuckle-boom-crane"),
   ...Object.fromEntries(
     ["self-propelled-order-picker", "self-propelled-order-picker-sprint-lp", "sprint-order-picker", "sprint-self-propelled-order-picker"].map((s) => [

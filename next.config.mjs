@@ -22,6 +22,27 @@ const oldCatalogues = JSON.parse(readFileSync(new URL('./src/content/scraped/cat
   .filter((source) => !brandSources.has(source))
   .map((source) => ({ source, destination: '/catalogues', statusCode: 301 }))
 
+// Old PDFs still in Google's index with no file behind them: earlier uploads of the catalogues
+// (any …indcatalogues.pdf; brand catalogues above take their own route first) and two
+// unidentified brochures.
+const missingPdfs = ['/imageFile/:file(\\d+indcatalogues\\.pdf)', '/imageFile/1679487488pdf.pdf', '/imageFile/1679469660pdf.pdf']
+  .flatMap((path) => [path, `/legacy${path}`])
+  .map((source) => ({ source, destination: '/catalogues', statusCode: 301 }))
+
+// Two annual-return PDFs Google indexed with a line break inside the address (from the old
+// site's markup); the files are under the plain name.
+const annualReturns = '/legacy/forntend/images/annual-return'
+const lineBreakPdfs = [
+  ['Mtandt \nLimited_Form_MGT_7_ML_2024-25_Signed.pdf', 'Mtandt Limited_Form_MGT_7_ML_2024-25_Signed.pdf'],
+  ['Annual Return_Form \nMGT-7_ML_2021-22.pdf', 'Annual Return_Form MGT-7_ML_2021-22.pdf'],
+].flatMap(([broken, name]) =>
+  ['/forntend/images/annual-return', annualReturns].map((dir) => ({
+    source: `${dir}/${encodeURIComponent(broken)}`,
+    destination: `${annualReturns}/${encodeURIComponent(name)}`,
+    statusCode: 301,
+  })),
+)
+
 // Scraped legacy assets live in Supabase Storage (media bucket, legacy/ prefix; see
 // migration/scrape/upload-legacy.mjs). Local public/legacy files win when present.
 const legacyAssetsBase =
@@ -39,6 +60,8 @@ const nextConfig = {
       // Before the /imageFile rule, so old-site file links that moved take one hop.
       ...toBrandSites,
       ...oldCatalogues,
+      ...missingPdfs,
+      ...lineBreakPdfs,
       ...['imageFile', 'forntend', 'service_brochure'].map((dir) => ({
         source: `/${dir}/:path*`,
         destination: `/legacy/${dir}/:path*`,
@@ -48,6 +71,7 @@ const nextConfig = {
       { source: '/public/services/:slug', destination: '/services/:slug', permanent: true },
       { source: '/media/news', destination: '/media/events', permanent: true },
       { source: '/annual-returns', destination: '/investor-relations', permanent: true },
+      { source: '/careers', destination: '/career', permanent: true },
     ]
   },
   async rewrites() {
