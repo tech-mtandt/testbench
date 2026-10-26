@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getCatalogues } from "@/content/catalogues";
-import { brandFacts, findBrochure, landingConfig, landingMedia } from "@/content/landing";
+import { brandFacts, findBrochure, landingConfig } from "@/content/landing";
+import { getLanding } from "@/content/landingPages";
 import {
   categoryHref,
   getCategory,
@@ -24,21 +25,22 @@ import QuoteBand from "@/ui/Landing/QuoteBand";
 /**
  * Range landing page at /<category>/<subcategory> (shared landing template): video hero,
  * the models with a Buy/Rent switch, about + FAQs, sibling ranges and the quote section.
- * Ranges with campaign copy in `@/content/landing` (boom and scissor lifts) also get their
- * own headline, highlights, the lead popup and an always-on brochure button.
+ * Ranges with campaign copy in `@/content/landing` (boom and scissor lifts) also get the lead
+ * popup and an always-on brochure button. Banner video and text: admin > Landing pages.
  */
 
 export type HubParams = { params: Promise<{ category: string; subcategory: string }> };
 
 async function load(cat: string, sub: string) {
-  const [category, buy, rent] = await Promise.all([
+  const [category, buy, rent, landing] = await Promise.all([
     getCategory(cat),
     getListing("buy", cat, sub),
     getListing("rental", cat, sub),
+    getLanding(`${cat}/${sub}`),
   ]);
   const subcategory = category?.subcategories.find((s) => s.slug === sub);
   if (!category || !subcategory) return null;
-  return { category, subcategory, buy, rent, config: landingConfig(cat, sub) };
+  return { category, subcategory, buy, rent, landing, config: landingConfig(cat, sub) };
 }
 
 export async function hubMetadata({ params }: HubParams): Promise<Metadata> {
@@ -51,10 +53,10 @@ export async function hubMetadata({ params }: HubParams): Promise<Metadata> {
   // Ranges without catalogue products (fall protection, road mats, tools…) are presented on
   // their solution page; point search engines there instead of at this thin hub.
   const solution = !hasProducts && h.subcategory.button?.href ? modernizeHref(h.subcategory.button.href) : null;
-  const description = h.config?.metaDescription || meta.description || h.buy?.description || h.rent?.description;
+  const description = h.landing.metaDescription || meta.description || h.buy?.description || h.rent?.description;
   return {
     title: {
-      absolute: h.config?.metaTitle || meta.title || `${h.subcategory.name}${hasProducts ? " for Sale & Rent" : ""} | Mtandt`,
+      absolute: h.landing.metaTitle || meta.title || `${h.subcategory.name}${hasProducts ? " for Sale & Rent" : ""} | Mtandt`,
     },
     description: description || `${h.subcategory.name} from Mtandt Group: ${h.category.title.toLowerCase()} for sale and rent across India.`,
     keywords: meta.keywords,
@@ -68,7 +70,7 @@ export async function hubMetadata({ params }: HubParams): Promise<Metadata> {
 export default async function SubcategoryHub({ category: cat, subcategory: sub }: { category: string; subcategory: string }) {
   const h = await load(cat, sub);
   if (!h) return null;
-  const { category, subcategory, buy, rent, config: c } = h;
+  const { category, subcategory, buy, rent, landing, config: c } = h;
 
   const name = subcategory.name;
   const label = c?.label ?? name;
@@ -93,10 +95,10 @@ export default async function SubcategoryHub({ category: cat, subcategory: sub }
       {c && <LeadPopup product={product} page={page} />}
       <LandingHero
         eyebrow={category.title}
-        title={c?.headline ?? label}
-        subtitle={c?.intro ?? `${label} to buy or rent from Mtandt, with delivery, operator training and service support.`}
+        title={landing.headline ?? label}
+        subtitle={landing.intro ?? `${label} to buy or rent from Mtandt, with delivery, operator training and service support.`}
         crumbs={[{ label: category.crumb || category.title, href: categoryHref(cat) }, { label }]}
-        media={landingMedia(cat, sub)}
+        media={landing.media}
         phone={{ label: site.contact.phone, href: site.contact.phoneHref }}
         brochure={
           (c || brochure) && (
@@ -108,7 +110,7 @@ export default async function SubcategoryHub({ category: cat, subcategory: sub }
             />
           )
         }
-        facts={c ? c.points.map((p) => p.title) : brandFacts}
+        facts={landing.facts ?? brandFacts}
       />
 
       <ModelShowcase

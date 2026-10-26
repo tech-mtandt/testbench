@@ -62,19 +62,22 @@ export default function LandingHero({
       {/* Media: video when given, else a quiet brand backdrop. */}
       {main ? (
         <>
-          <picture>
-            {portrait && (
-              <source
-                media="(orientation: portrait)"
-                srcSet={portrait.poster}
+          {/* Poster: shown while the video loads (a video set in the admin may have none). */}
+          {main.poster && (
+            <picture>
+              {portrait?.poster && (
+                <source
+                  media="(orientation: portrait)"
+                  srcSet={portrait.poster}
+                />
+              )}
+              <img
+                src={main.poster}
+                alt=""
+                className="absolute inset-0 -z-20 h-full w-full object-cover"
               />
-            )}
-            <img
-              src={main.poster}
-              alt=""
-              className="absolute inset-0 -z-20 h-full w-full object-cover"
-            />
-          </picture>
+            </picture>
+          )}
           <video
             className="absolute inset-0 -z-20 h-full w-full object-cover motion-reduce:hidden"
             autoPlay

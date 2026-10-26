@@ -1,5 +1,6 @@
 import type { Field, GlobalConfig } from 'payload'
 
+import { previewUrl } from '../cms/preview'
 import { baseGlobalFields } from '../fields/baseGlobalFields'
 
 /** Homepage headings/labels as they appear today. Used as field defaults and as the
@@ -46,10 +47,17 @@ export const Home: GlobalConfig = {
   label: 'Homepage',
   admin: {
     group: 'Pages',
-    description: 'Everything on the homepage, one tab per section (top to bottom).',
+    description:
+      'Everything on the homepage, one tab per section (top to bottom). Changes save as a draft you can check in Live Preview; visitors see them after Publish.',
+    livePreview: { url: ({ req }) => previewUrl(req, '/') },
+    preview: (_doc, { req }) => previewUrl(req, '/'),
   },
   access: {
     read: () => true,
+  },
+  versions: {
+    drafts: { autosave: { interval: 2000 } },
+    max: 25,
   },
   fields: [
     {
@@ -67,7 +75,56 @@ export const Home: GlobalConfig = {
               labels: { singular: 'Slide', plural: 'Slides' },
               admin: { initCollapsed: true, description: 'Rotating banner at the top of the page.' },
               fields: [
-                { name: 'image', type: 'upload', relationTo: 'media', label: 'Background image' },
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'image',
+                      type: 'upload',
+                      relationTo: 'media',
+                      label: 'Background image',
+                      admin: {
+                        width: '50%',
+                        description: 'With a video: its first frame (1920 × 800 px), shown while the video loads.',
+                      },
+                    },
+                    {
+                      name: 'video',
+                      type: 'upload',
+                      relationTo: 'media',
+                      label: 'Background video (optional)',
+                      filterOptions: { mimeType: { contains: 'video' } },
+                      admin: {
+                        width: '50%',
+                        description:
+                          'Plays instead of the image: MP4 (H.264), 1920 × 800 px, 10–15 s, no sound, under about 6 MB. The banner takes its shape.',
+                      },
+                    },
+                  ],
+                },
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'tallImage',
+                      type: 'upload',
+                      relationTo: 'media',
+                      label: 'Phone image (optional)',
+                      admin: { width: '50%', description: 'First frame of the phone video, 1080 × 1920 px.' },
+                    },
+                    {
+                      name: 'tallVideo',
+                      type: 'upload',
+                      relationTo: 'media',
+                      label: 'Phone video (optional)',
+                      filterOptions: { mimeType: { contains: 'video' } },
+                      admin: {
+                        width: '50%',
+                        description: 'Portrait cut for phones: 1080 × 1920 px, under about 4 MB. Without it, phones get the video above.',
+                      },
+                    },
+                  ],
+                },
                 { name: 'eyebrow', type: 'text', label: 'Small text above the title' },
                 {
                   name: 'titleLines',

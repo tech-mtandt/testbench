@@ -8,6 +8,8 @@ import Header from "@/ui/Header";
 import FloatingActions from "@/ui/FloatingActions";
 import { getSite } from "@/content/site";
 import Smooth from "@/components/Smooth";
+import { previewing } from "@/cms/read";
+import PreviewMode from "@/ui/PreviewMode";
 
 // Self-hosted via next/font; a CSS @import of Google Fonts gets dropped in production builds.
 const poppins = Poppins({
@@ -53,7 +55,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const site = await getSite();
+  const [site, preview] = await Promise.all([getSite(), previewing()]);
   return (
     <html lang="en" data-scroll-behavior="smooth" className={`${poppins.variable} ${inter.variable}`}>
       <body>
@@ -64,6 +66,7 @@ export default async function RootLayout({
           <Footer contact={site.contact} socials={site.socials} footer={site.footer} />
         </Smooth>
         <FloatingActions whatsapp={site.contact.whatsapp} />
+        {preview && <PreviewMode />}
       </body>
     </html>
   );

@@ -76,6 +76,7 @@ export interface Config {
     documents: Document;
     events: Event;
     gallery: Gallery;
+    'landing-pages': LandingPage;
     media: Media;
     press: Press;
     brands: Brand;
@@ -103,6 +104,7 @@ export interface Config {
     documents: DocumentsSelect<false> | DocumentsSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
     gallery: GallerySelect<false> | GallerySelect<true>;
+    'landing-pages': LandingPagesSelect<false> | LandingPagesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     press: PressSelect<false> | PressSelect<true>;
     brands: BrandsSelect<false> | BrandsSelect<true>;
@@ -1123,6 +1125,93 @@ export interface Gallery {
   createdAt: string;
 }
 /**
+ * Banner videos and text of the category and range pages (e.g. Boom Lifts). Fields left empty keep what the page shows today. Changes save as a draft you can check in Live Preview; visitors see them after Publish.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "landing-pages".
+ */
+export interface LandingPage {
+  id: number;
+  /**
+   * The page this changes.
+   */
+  page:
+    | 'aerial-work-platform'
+    | 'aerial-work-platform/vertical-lift'
+    | 'aerial-work-platform/scissor-lift'
+    | 'aerial-work-platform/boom-lift'
+    | 'aerial-work-platform/spider-lift'
+    | 'material-handling-equipment'
+    | 'material-handling-equipment/duct-lifter'
+    | 'material-handling-equipment/order-picker'
+    | 'material-handling-equipment/knuckle-boom-crane'
+    | 'mlit'
+    | 'mlit/mobile-light-tower'
+    | 'mlit/battery-power-stations'
+    | 'temporary-road-mats'
+    | 'temporary-road-mats/porta-deck'
+    | 'temporary-road-mats/porta-mat'
+    | 'temporary-road-mats/porta-pad'
+    | 'web-systems-international'
+    | 'web-systems-international/web-deck'
+    | 'web-systems-international/web-net'
+    | 'web-systems-international/web-catch'
+    | 'tools-and-supplies'
+    | 'tools-and-supplies/personal-protective-equipment'
+    | 'tools-and-supplies/tools-tackles-and-consumables'
+    | 'tools-and-supplies/material-handling-solutions'
+    | 'tools-and-supplies/traffic-management-solutions'
+    | 'tools-and-supplies/measuring-equipment-and-meters'
+    | 'tools-and-supplies/first-aid-and-rescue-solutions'
+    | 'tools-and-supplies/ladders-and-climbing-solutions'
+    | 'tools-and-supplies/innovative-products-and-solutions';
+  title?: string | null;
+  /**
+   * 1920 × 800 px (landscape), under about 6 MB.
+   */
+  wideVideo?: (number | null) | Media;
+  /**
+   * First frame of that video, 1920 × 800 px JPG. Shown while it loads.
+   */
+  widePoster?: (number | null) | Media;
+  /**
+   * 1080 × 1920 px (portrait), under about 4 MB.
+   */
+  tallVideo?: (number | null) | Media;
+  /**
+   * First frame of that video, 1080 × 1920 px JPG.
+   */
+  tallPoster?: (number | null) | Media;
+  /**
+   * The large heading in the banner, e.g. "Boom Lifts for Sale & Rent". Empty: the page's name.
+   */
+  headline?: string | null;
+  /**
+   * One or two sentences under the heading. Empty: a standard line about buying or renting.
+   */
+  intro?: string | null;
+  /**
+   * Short points in the strip along the bottom of the banner, e.g. "Up to 42 m reach". Empty: Since 1974, Buy or rent, Operator training, Service & AMC.
+   */
+  facts?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Shown as the headline in Google results, about 60 characters. Empty: the page keeps its current title.
+   */
+  metaTitle?: string | null;
+  /**
+   * Shown under the title in Google results, about 155 characters. Empty: the page keeps its current description.
+   */
+  metaDescription?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
  * Press releases, listed on /media/press (highest "Position" first). Each has its own page at /press/<slug>.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2051,6 +2140,31 @@ export interface GallerySelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "landing-pages_select".
+ */
+export interface LandingPagesSelect<T extends boolean = true> {
+  page?: T;
+  title?: T;
+  wideVideo?: T;
+  widePoster?: T;
+  tallVideo?: T;
+  tallPoster?: T;
+  headline?: T;
+  intro?: T;
+  facts?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  metaTitle?: T;
+  metaDescription?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
@@ -2448,7 +2562,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
- * Everything on the homepage, one tab per section (top to bottom).
+ * Everything on the homepage, one tab per section (top to bottom). Changes save as a draft you can check in Live Preview; visitors see them after Publish.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home".
@@ -2484,7 +2598,22 @@ export interface Home {
    */
   slides?:
     | {
+        /**
+         * With a video: its first frame (1920 × 800 px), shown while the video loads.
+         */
         image?: (number | null) | Media;
+        /**
+         * Plays instead of the image: MP4 (H.264), 1920 × 800 px, 10–15 s, no sound, under about 6 MB. The banner takes its shape.
+         */
+        video?: (number | null) | Media;
+        /**
+         * First frame of the phone video, 1080 × 1920 px.
+         */
+        tallImage?: (number | null) | Media;
+        /**
+         * Portrait cut for phones: 1080 × 1920 px, under about 4 MB. Without it, phones get the video above.
+         */
+        tallVideo?: (number | null) | Media;
         eyebrow?: string | null;
         /**
          * Each line is shown on its own row.
@@ -2660,6 +2789,7 @@ export interface Home {
      */
     image?: (number | null) | Media;
   };
+  _status?: ('draft' | 'published') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -3320,6 +3450,9 @@ export interface HomeSelect<T extends boolean = true> {
     | T
     | {
         image?: T;
+        video?: T;
+        tallImage?: T;
+        tallVideo?: T;
         eyebrow?: T;
         titleLines?:
           | T
@@ -3426,6 +3559,7 @@ export interface HomeSelect<T extends boolean = true> {
         description?: T;
         image?: T;
       };
+  _status?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

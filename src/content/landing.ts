@@ -1,9 +1,11 @@
-import { subcategoryHref } from "@/content/urls";
+import categoriesJson from "@/content/scraped/product-categories.json";
+import { categoryHref, subcategoryHref } from "@/content/urls";
 
 /**
  * Campaign copy for range hubs (/<category>/<subcategory>) that run as ad landing pages.
  * Ranges listed here also get the lead popup and an always-on brochure button; every other
- * range gets a generic hub built from its catalogue data.
+ * range gets a generic hub built from its catalogue data. The headline, intro, points and SEO
+ * text here are defaults: admin > Landing pages overrides them (src/content/landingPages.ts).
  */
 export type LandingConfig = {
   category: string;
@@ -103,7 +105,8 @@ export type HeroVideo = {
  * "category/subcategory" ("aerial-work-platform/boom-lift"). A range shows only its own
  * video (another range's machine would be the wrong one). `wide` is shown on landscape screens (laptops, desktops):
  * 1920×800 (2.4:1), under ~6 MB. `tall` is shown on portrait screens (phones): 1080×1920
- * (9:16), under ~4 MB. Upload them in the admin (Media) and paste their URLs here.
+ * (9:16), under ~4 MB. These are the defaults for pages without an entry in admin > Landing pages,
+ * where editors set the videos now.
  */
 export type HeroMedia = { wide?: HeroVideo; tall?: HeroVideo };
 
@@ -165,7 +168,6 @@ const categoryTaglines: Record<string, string> = {
     "PPE, tools and site supplies to keep every crew equipped and safe.",
 };
 
-export const categoryTagline = (category: string) => categoryTaglines[category];
 
 /** Brand facts for category heroes. */
 export const brandFacts = [
@@ -174,3 +176,41 @@ export const brandFacts = [
   "Operator training",
   "Service & AMC",
 ];
+
+/**
+ * The pages admin > Landing pages can change: every category page and range page on this site
+ * (not the sections moved to the brand websites). `key` is the category slug, or
+ * "category/subcategory" for a range, as in `heroMedia`.
+ */
+type CategoryJson = { slug: string; title: string; subcategories?: { slug: string; name: string }[] };
+const own = (path: string) => path.startsWith("/");
+export const landingPages = (categoriesJson.categories as CategoryJson[]).flatMap((c) =>
+  own(categoryHref(c.slug))
+    ? [
+        { key: c.slug, label: c.title, path: categoryHref(c.slug) },
+        ...(c.subcategories ?? [])
+          .map((s) => ({
+            key: `${c.slug}/${s.slug}`,
+            label: `${c.title} › ${landingConfig(c.slug, s.slug)?.label ?? s.name}`,
+            path: subcategoryHref(c.slug, s.slug),
+          }))
+          .filter((p) => own(p.path)),
+      ]
+    : [],
+);
+
+export const landingPath = (key: unknown) => landingPages.find((p) => p.key === key)?.path ?? null;
+
+/** What a landing page shows today without CMS edits: the defaults the CMS fields fall back to. */
+export function landingDefaults(key: string) {
+  const [category, subcategory] = key.split("/");
+  const config = subcategory ? landingConfig(category, subcategory) : undefined;
+  return {
+    headline: config?.headline ?? null,
+    intro: config?.intro ?? (subcategory ? null : (categoryTaglines[category] ?? null)),
+    facts: config ? config.points.map((p) => p.title) : null,
+    metaTitle: config?.metaTitle ?? null,
+    metaDescription: config?.metaDescription ?? null,
+    media: landingMedia(category, subcategory),
+  };
+}

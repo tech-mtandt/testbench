@@ -4,6 +4,7 @@ import { mediaTasks } from "./tasks/media";
 import { pagesTasks } from "./tasks/pages";
 import { catalogUpdateTask } from "./tasks/catalogUpdate";
 import { dbUpdatesTask } from "./tasks/dbUpdates";
+import { landingPagesTask } from "./tasks/landingPages";
 import { productsTasks } from "./tasks/products";
 import { siteTasks } from "./tasks/site";
 import type { ImportTask } from "./types";
@@ -18,4 +19,5 @@ export const tasks: ImportTask[] = [
   ...mediaTasks,
   ...productsTasks,
   catalogUpdateTask,
+  landingPagesTask,
 ];

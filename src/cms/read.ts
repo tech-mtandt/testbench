@@ -9,6 +9,7 @@
  */
 import { AsyncLocalStorage } from "node:async_hooks";
 import { unstable_cache } from "next/cache";
+import { draftMode } from "next/headers";
 import { convertLexicalToHTML } from "@payloadcms/richtext-lexical/html";
 import type { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
 import type { CollectionSlug, GlobalSlug, Where } from "payload";
@@ -85,6 +86,18 @@ export function html(value: unknown): string {
   } catch (err) {
     console.error("[cms] rich text render failed", err);
     return "";
+  }
+}
+
+/**
+ * True while an editor previews unpublished drafts (admin Live Preview, via /api/preview).
+ * Reads for drafts-enabled content then skip the cache and return the latest drafts.
+ */
+export async function previewing(): Promise<boolean> {
+  try {
+    return (await draftMode()).isEnabled;
+  } catch {
+    return false; // outside a request (build-time helpers, scripts)
   }
 }
 

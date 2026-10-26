@@ -18,16 +18,23 @@ function bust() {
   }
 }
 
-const afterChange: CollectionAfterChangeHook = ({ doc }) => {
-  bust();
+/**
+ * Saving a draft (Save Draft, or autosave every few seconds while editing) only stores a
+ * version; the published content the site shows is unchanged, so the cache stays. Publishing,
+ * unpublishing and ordinary saves refresh the site.
+ */
+const isDraftSave = (req: { query?: Record<string, unknown> }) => req.query?.draft === "true" || req.query?.draft === true;
+
+const afterChange: CollectionAfterChangeHook = ({ doc, req }) => {
+  if (!isDraftSave(req)) bust();
   return doc;
 };
 const afterDelete: CollectionAfterDeleteHook = ({ doc }) => {
   bust();
   return doc;
 };
-const afterGlobalChange: GlobalAfterChangeHook = ({ doc }) => {
-  bust();
+const afterGlobalChange: GlobalAfterChangeHook = ({ doc, req }) => {
+  if (!isDraftSave(req)) bust();
   return doc;
 };
 

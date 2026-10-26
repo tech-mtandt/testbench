@@ -1,15 +1,16 @@
 import home from "@/content/scraped/home.json";
 import { modernizeDeep } from "@/content/urls";
-import { cached, fileUrl, readGlobal, str } from "@/cms/read";
+import { cached, fileUrl, markCmsFailure, previewing, readGlobal, str } from "@/cms/read";
 import { homeDefaults } from "@/globals/Home";
-import type { Home } from "@/payload-types";
+import { payloadClient } from "@/lib/payload";
+import type { Home, Media } from "@/payload-types";
 
 export type HomeHeadings = typeof homeDefaults;
 
 /** The scraped home.json shape, plus the headings and SEO values editable in the CMS. */
 export type HomeData = {
   meta: typeof home.meta;
-  slides: { image: string | null; eyebrow: string; title: string[] }[];
+  slides: Slide[];
   productTabs: { label: string; items: { title: string; image: string | null; href: string | null }[] }[];
   brandTabs: {
     label: string;
@@ -25,11 +26,30 @@ export type HomeData = {
   seo: { title: string | null; description: string | null; image: string | null } | null;
 };
 
-const fallback: HomeData = { ...home, headings: homeDefaults, seo: null };
+/** A banner slide; with a video, `width`/`height` (its image's size) give the banner its shape. */
+export type Slide = {
+  image: string | null;
+  eyebrow: string;
+  title: string[];
+  video: string | null;
+  tallImage: string | null;
+  tallVideo: string | null;
+  width: number | null;
+  height: number | null;
+  tallWidth: number | null;
+  tallHeight: number | null;
+};
 
-const load = cached(async (): Promise<HomeData | null> => {
-  const doc = await readGlobal<Home>("home", 1);
-  if (!doc) return null;
+const fallback: HomeData = {
+  ...home,
+  slides: home.slides.map((s) => ({ ...s, video: null, tallImage: null, tallVideo: null, width: null, height: null, tallWidth: null, tallHeight: null })),
+  headings: homeDefaults,
+  seo: null,
+};
+
+const media = (m: number | Media | null | undefined) => (m && typeof m === "object" ? m : null);
+
+function toHomeData(doc: Home): HomeData {
   const headings = Object.fromEntries(
     (Object.keys(homeDefaults) as (keyof HomeHeadings)[]).map((k) => [k, str(doc[k]) ?? homeDefaults[k]]),
   ) as HomeHeadings;
@@ -39,6 +59,13 @@ const load = cached(async (): Promise<HomeData | null> => {
       image: fileUrl(s.image),
       eyebrow: s.eyebrow ?? "",
       title: (s.titleLines ?? []).map((l) => l.value).filter(Boolean),
+      video: fileUrl(s.video),
+      tallImage: fileUrl(s.tallImage),
+      tallVideo: fileUrl(s.tallVideo),
+      width: media(s.image)?.width ?? null,
+      height: media(s.image)?.height ?? null,
+      tallWidth: media(s.tallImage)?.width ?? null,
+      tallHeight: media(s.tallImage)?.height ?? null,
     })),
     productTabs: (doc.productTabs ?? []).map((t) => ({
       label: t.label,
@@ -77,10 +104,28 @@ const load = cached(async (): Promise<HomeData | null> => {
         ? { title: str(doc.meta.title), description: str(doc.meta.description), image: fileUrl(doc.meta.image) }
         : null,
   };
+}
+
+const load = cached(async (): Promise<HomeData | null> => {
+  const doc = await readGlobal<Home>("home", 1);
+  return doc ? toHomeData(doc) : null;
 }, "cms:home");
+
+/** The latest draft, for an editor's preview (admin Live Preview); never cached. */
+async function loadDraft(): Promise<HomeData | null> {
+  try {
+    const payload = await payloadClient();
+    return toHomeData((await payload.findGlobal({ slug: "home", depth: 1, draft: true })) as Home);
+  } catch (err) {
+    console.error('[cms] global "home" draft read failed', err);
+    markCmsFailure();
+    return null;
+  }
+}
 
 /** Homepage content: the `home` global, or the scraped JSON until it has been saved. */
 export async function getHome(): Promise<HomeData> {
+  const data = (await previewing()) ? ((await loadDraft()) ?? (await load())) : await load();
   // Content saved with old-site catalogue links points at the current addresses.
-  return modernizeDeep((await load()) ?? fallback);
+  return modernizeDeep(data ?? fallback);
 }

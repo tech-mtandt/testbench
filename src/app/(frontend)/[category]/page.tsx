@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import { getCatalogues } from "@/content/catalogues";
-import { brandFacts, categoryTagline, findBrochure, landingConfig, landingMedia, oldLandingPaths } from "@/content/landing";
+import { brandFacts, findBrochure, landingConfig, oldLandingPaths } from "@/content/landing";
+import { getLanding } from "@/content/landingPages";
 import { redirectLegacy } from "@/content/legacy-redirects";
 import {
   categoryHref,
@@ -35,9 +36,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const c = await getCategory(resolveSegments((await params).category).category);
   if (!c) return {};
+  const landing = await getLanding(c.slug);
   return {
-    title: { absolute: c.meta.title || `${c.title} for Sale & Rent | Mtandt` },
-    description: c.meta.description || c.intro || undefined,
+    title: { absolute: landing.metaTitle || c.meta.title || `${c.title} for Sale & Rent | Mtandt` },
+    description: landing.metaDescription || c.meta.description || c.intro || undefined,
     keywords: c.meta.keywords,
     alternates: { canonical: categoryHref(c.slug) },
     openGraph: c.meta.image ? { images: [c.meta.image] } : undefined,
@@ -56,7 +58,7 @@ export default async function Page({ params }: Params) {
   }
   if (!canonical) permanentRedirect(categoryHref(c.slug));
 
-  const site = await getSite();
+  const [site, landing] = await Promise.all([getSite(), getLanding(c.slug)]);
   const ranges = await Promise.all(
     c.subcategories.map(async (s) => {
       const [buy, rent] = await Promise.all([getListing("buy", c.slug, s.slug), getListing("rental", c.slug, s.slug)]);
@@ -82,10 +84,10 @@ export default async function Page({ params }: Params) {
       <LeadPopup product={c.title} page={page} />
       <LandingHero
         eyebrow="Buy & rent"
-        title={c.title}
-        subtitle={categoryTagline(c.slug) ?? c.intro.split(/(?<=\.)\s/)[0]}
+        title={landing.headline ?? c.title}
+        subtitle={landing.intro ?? c.intro.split(/(?<=\.)\s/)[0]}
         crumbs={[{ label: c.crumb || c.title }]}
-        media={landingMedia(c.slug)}
+        media={landing.media}
         phone={{ label: site.contact.phone, href: site.contact.phoneHref }}
         brochure={
           <BrochureButton
@@ -95,7 +97,7 @@ export default async function Page({ params }: Params) {
             className="inline-flex items-center gap-2 px-2 py-3 text-sm font-semibold text-brand underline-offset-4 hover:underline"
           />
         }
-        facts={brandFacts}
+        facts={landing.facts ?? brandFacts}
       />
 
       <section className="bg-white py-16 md:py-24">

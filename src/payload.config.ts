@@ -22,6 +22,7 @@ import { Careers } from "./collections/Careers";
 import { Press } from "./collections/Press";
 import { Events } from "./collections/Events";
 import { Gallery } from "./collections/Gallery";
+import { LandingPages } from "./collections/LandingPages";
 import { Home } from "./globals/Home";
 import { About } from "./globals/About";
 import { Contact } from "./globals/Contact";
@@ -148,6 +149,7 @@ export default buildConfig({
     Documents,
     Events,
     Gallery,
+    LandingPages,
     Media,
     Press,
     Brands,
