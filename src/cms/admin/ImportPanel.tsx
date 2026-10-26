@@ -8,8 +8,9 @@ type Status = "idle" | "running" | "done" | "error";
 
 /**
  * Dashboard panel: copies the website's current content (bundled scraped JSON + legacy
- * images/PDFs) into the admin. Safe to re-run: existing content is kept unless
- * "Replace existing content" is ticked.
+ * images/PDFs) into the admin, and runs one-off steps such as "Apply database updates". Each
+ * step has its own Run button. Existing content is kept unless "Replace existing content" is
+ * ticked, but "Import all" recreates old-site content that was deleted since, so it asks first.
  */
 export function ImportPanel() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -29,7 +30,7 @@ export function ImportPanel() {
   }, [open, tasks.length]);
 
   const runOne = useCallback(
-    async (task: Task) => {
+    async (task: Task, verbose = false) => {
       setStatus((s) => ({ ...s, [task.key]: "running" }));
       setLog((l) => [...l, `▶ ${task.label}`]);
       let cursor: number | null = 0;
@@ -49,7 +50,8 @@ export function ImportPanel() {
         }
         const lines = j.log as string[];
         skipped += lines.filter((x) => x.includes("skipped")).length;
-        setLog((l) => [...l, ...lines.filter((x) => x.includes("!") || x.includes("created") || x.includes("saved") || x.includes("filled") || x.includes("updated"))]);
+        const shown = verbose ? lines : lines.filter((x) => x.includes("!") || x.includes("created") || x.includes("saved") || x.includes("filled") || x.includes("updated"));
+        setLog((l) => [...l, ...shown]);
         cursor = j.next;
       }
       if (skipped) setLog((l) => [...l, `  (${skipped} already imported, left as they are)`]);
@@ -59,7 +61,19 @@ export function ImportPanel() {
     [overwrite],
   );
 
+  const runSingle = async (t: Task) => {
+    setBusy(true);
+    stop.current = false;
+    const ok = await runOne(t, true);
+    setLog((l) => [...l, stop.current ? "Stopped." : ok ? "Finished." : "Failed: see the message above."]);
+    setBusy(false);
+  };
+
   const runAll = async () => {
+    const sure = window.confirm(
+      "Import all re-runs every step. It recreates anything from the old website that is missing here, including pages, PDFs and photos deleted since the first import. Continue?",
+    );
+    if (!sure) return;
     setBusy(true);
     stop.current = false;
     let failed = 0;
@@ -93,10 +107,20 @@ export function ImportPanel() {
             <input type="checkbox" checked={overwrite} disabled={busy} onChange={(e) => setOverwrite(e.target.checked)} />
             Replace existing content (overwrites edits made in the admin)
           </label>
-          <ul style={{ listStyle: "none", padding: 0, margin: "0.75rem 0", columns: 2, fontSize: 13 }}>
+          <ul style={{ listStyle: "none", padding: 0, margin: "0.75rem 0", fontSize: 13, display: "grid", gap: 4 }}>
             {tasks.map((t) => (
-              <li key={t.key}>
-                {icon(status[t.key])} {t.label}
+              <li key={t.key} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <button
+                  type="button"
+                  disabled={busy}
+                  onClick={() => runSingle(t)}
+                  style={{ font: "inherit", fontSize: 12, padding: "1px 10px", borderRadius: 3, border: "1px solid var(--theme-elevation-250)", background: "var(--theme-elevation-50)", cursor: busy ? "default" : "pointer" }}
+                >
+                  Run
+                </button>
+                <span>
+                  {icon(status[t.key])} {t.label}
+                </span>
               </li>
             ))}
           </ul>
