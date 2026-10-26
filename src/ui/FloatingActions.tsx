@@ -29,8 +29,8 @@ export default function FloatingActions({ whatsapp }: { whatsapp: string }) {
       >
         <WhatsAppIcon className="h-8 w-8" />
       </a>
-      <Modal open={open} onClose={() => setOpen(false)} title="Mtandt Get in Touch" wide>
-        <LeadForm form="get-in-touch" fields={enquiryFields} />
+      <Modal open={open} onClose={() => setOpen(false)} title="Mtandt Get in Touch">
+        <LeadForm form="get-in-touch" fields={enquiryFields} columns={1} />
       </Modal>
     </>
   );

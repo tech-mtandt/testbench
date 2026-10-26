@@ -39,6 +39,9 @@ const AUTOCOMPLETE: Record<string, string> = {
   location: "address-level2",
 };
 
+/** The browser autofill hint for a field: its own, else the one for its name. */
+export const autoCompleteFor = (f: FieldDef) => f.autoComplete ?? AUTOCOMPLETE[f.name];
+
 /** Short example values; the label above each field says what it is. */
 const PLACEHOLDER: Partial<Record<NonNullable<FieldDef["type"]>, string>> = {
   email: "name@company.com",
@@ -64,9 +67,10 @@ export default function LeadForm({ form, fields, submitLabel = "Submit", hidden,
       <div className={`grid gap-4 ${columns === 2 ? "sm:grid-cols-2" : ""}`}>
         {fields.map((f) => {
           const label = `${f.label}${f.required ? "*" : ""}`;
-          const span = f.full || f.type === "textarea" ? "sm:col-span-2" : "";
+          // Only in two columns: in one, a two-column span would add a second column.
+          const span = columns === 2 && (f.full || f.type === "textarea") ? "sm:col-span-2" : "";
           const caption = <span className="mb-1 block text-sm text-ink-soft">{label}</span>;
-          const autoComplete = f.autoComplete ?? AUTOCOMPLETE[f.name];
+          const autoComplete = autoCompleteFor(f);
           if (f.type === "select") {
             return (
               <label key={f.name} className={`block ${span}`}>

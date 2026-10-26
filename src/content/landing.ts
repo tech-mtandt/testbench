@@ -12,7 +12,7 @@ export type LandingConfig = {
   subcategory: string;
   /** Plural range name used in headings and breadcrumbs. */
   label: string;
-  /** Matches an option in `productInterestOptions`. */
+  /** Product name sent with the page's enquiries. */
   product: string;
   headline: string;
   intro: string;

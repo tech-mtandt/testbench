@@ -29,7 +29,7 @@ export default function BrochureModal({
         onClose={() => setOpen(false)}
         title={`Download ${title}`}
       >
-        <DownloadGate title={title} catalogue={catalogue} page={page} simple />
+        <DownloadGate title={title} catalogue={catalogue} page={page} />
       </Modal>
     </>
   );

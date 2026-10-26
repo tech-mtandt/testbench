@@ -97,6 +97,12 @@ export function useLeadForm() {
       return;
     }
     const data = new FormData(e.currentTarget);
+    // Every lead says where it was sent from: the page (unless the form names it) and its full
+    // address, with any campaign parameters.
+    if (LEAD_FORMS.has(String(data.get("_form")))) {
+      if (!data.get("page")) data.set("page", window.location.pathname);
+      if (!data.get("pageUrl")) data.set("pageUrl", window.location.href);
+    }
     startTransition(() => action(data));
   };
 

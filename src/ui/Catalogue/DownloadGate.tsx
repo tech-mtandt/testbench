@@ -1,47 +1,10 @@
 "use client";
 
-import Link from "next/link";
+import { enquiryFields } from "@/content/forms";
 import { phoneInput } from "@/lib/form-rules";
+import { autoCompleteFor } from "@/ui/Forms/LeadForm";
 import { focusOnMount, useLeadForm } from "@/ui/Forms/useLeadForm";
 import { DownloadIcon } from "@/ui/Icons";
-
-const simpleFields = [
-  { name: "name", label: "Your Name", type: "text", required: true, autoComplete: "name" },
-  { name: "mobile", label: "Phone Number", type: "tel", required: true, autoComplete: "tel" },
-  { name: "email", label: "Email (optional)", type: "email", required: false, autoComplete: "email" },
-];
-
-const fullFields = [
-  { name: "name", label: "Enter Your Full Name", type: "text", required: true, autoComplete: "name" },
-  {
-    name: "email",
-    label: "Enter Your Email id",
-    type: "email",
-    required: true,
-    autoComplete: "email",
-  },
-  {
-    name: "companyName",
-    label: "Enter Your Company Name",
-    type: "text",
-    required: false,
-    autoComplete: "organization",
-  },
-  {
-    name: "mobile",
-    label: "Enter Your Mobile Number",
-    type: "tel",
-    required: true,
-    autoComplete: "tel",
-  },
-  {
-    name: "location",
-    label: "Enter Your Location",
-    type: "text",
-    required: true,
-    autoComplete: "address-level2",
-  },
-];
 
 /**
  * Gates catalogue PDFs behind a short lead form. The page only knows the catalogue's id:
@@ -50,18 +13,14 @@ const fullFields = [
 export default function DownloadGate({
   title,
   catalogue,
-  simple,
   page,
 }: {
   title: string;
   /** Catalogue id (see getCatalogues); null when there is no PDF to hand out. */
   catalogue: string | null;
-  /** Name + phone (+ optional email) only, as on the landing pages. */
-  simple?: boolean;
   /** Path the request was sent from. */
   page?: string;
 }) {
-  const fields = simple ? simpleFields : fullFields;
   const { state, pending, error, onSubmit } = useLeadForm();
 
   if (state?.ok) {
@@ -83,7 +42,7 @@ export default function DownloadGate({
         ) : (
           <p className="text-sm text-ink-soft">
             This catalogue is not available for download yet. Our team will
-            email it to you.
+            send it to you.
           </p>
         )}
       </div>
@@ -104,42 +63,20 @@ export default function DownloadGate({
         className="hidden"
         aria-hidden
       />
-      {fields.map((f) => (
+      {enquiryFields.map((f) => (
         <label key={f.name}>
           <span className="sr-only">{f.label}</span>
           <input
-            type={f.type}
+            type={f.type ?? "text"}
             {...(f.type === "tel" ? phoneInput : {})}
             name={f.name}
             required={f.required}
             placeholder={`${f.label}${f.required ? "*" : ""}`}
-            autoComplete={f.autoComplete}
+            autoComplete={autoCompleteFor(f)}
             className="field"
           />
         </label>
       ))}
-      {!simple && (
-        <label className="flex items-start gap-2 text-xs text-ink-soft">
-          <input
-            type="checkbox"
-            name="marketingOptIn"
-            value="yes"
-            className="mt-0.5"
-          />
-          <span>
-            Sign up to receive emails from Mtandt Group about products,
-            services, offers, news and events (you can unsubscribe at any time).
-            See{" "}
-            <Link
-              href="/pages/privacy-policy"
-              className="font-semibold text-ink"
-            >
-              privacy policy
-            </Link>{" "}
-            for more details.
-          </span>
-        </label>
-      )}
       {error && (
         <p role="alert" className="text-sm text-red-600">
           {error}

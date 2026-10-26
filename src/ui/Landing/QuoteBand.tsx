@@ -1,14 +1,6 @@
-import type { FieldDef } from "@/ui/Forms/LeadForm";
+import { enquiryFields } from "@/content/forms";
 import LeadForm from "@/ui/Forms/LeadForm";
 import { MailIcon, PhoneIcon, WhatsAppIcon } from "@/ui/Icons";
-
-const FIELDS: FieldDef[] = [
-  { name: "name", label: "Your name", required: true },
-  { name: "mobile", label: "Phone number", type: "tel", required: true },
-  { name: "email", label: "Email (optional)", type: "email" },
-  { name: "lookingTo", label: "Looking to", type: "select", required: true, options: ["Buy", "Rent", "Not sure yet"] },
-  { name: "message", label: "Anything we should know? (optional)", type: "textarea", full: true },
-];
 
 /**
  * Closing call to action shared by the landing pages: a short quote form next to the
@@ -59,8 +51,8 @@ export default function QuoteBand({
             ))}
           </ul>
         </div>
-        <div className="rounded-md bg-white p-6 text-ink shadow-2xl md:p-8">
-          <LeadForm form="enquiry" fields={FIELDS} hidden={{ product, page }} submitLabel="Request my quote" />
+        <div className="rounded-md bg-white p-6 text-ink shadow-2xl md:p-8 lg:self-center">
+          <LeadForm form="enquiry" fields={enquiryFields} hidden={{ product, page }} submitLabel="Request my quote" />
         </div>
       </div>
     </section>

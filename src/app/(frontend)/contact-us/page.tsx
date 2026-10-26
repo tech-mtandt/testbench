@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { brandTitle } from "@/lib/seo";
 import data from "@/content/scraped/contact.json";
-import { contactFields } from "@/content/forms";
+import { enquiryFields } from "@/content/forms";
 import LeadForm from "@/ui/Forms/LeadForm";
 import ImageBanner from "@/ui/Contact/ImageBanner";
 import Offices from "@/ui/Contact/Offices";
@@ -39,7 +39,7 @@ export default async function Page() {
               <span className="ml-2">{c.subheading}</span>
             </p>
             <div className="md:px-2.5">
-              <LeadForm form="contact" fields={contactFields} hidden={{ page: "contact-us" }} submitLabel="Submit" />
+              <LeadForm form="contact" fields={enquiryFields} submitLabel="Submit" />
             </div>
           </div>
         </div>

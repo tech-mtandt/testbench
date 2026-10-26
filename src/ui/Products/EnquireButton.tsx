@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Modal from "@/ui/Modal";
 import LeadForm from "@/ui/Forms/LeadForm";
-import { productEnquiryFields } from "@/content/forms";
+import { enquiryFields } from "@/content/forms";
 
 export default function EnquireButton({ product, slug, mode }: { product: string; slug: string; mode: string }) {
   const [open, setOpen] = useState(false);
@@ -12,13 +12,14 @@ export default function EnquireButton({ product, slug, mode }: { product: string
       <button type="button" onClick={() => setOpen(true)} className="btn-yellow text-xs">
         Enquire Now
       </button>
-      <Modal open={open} onClose={() => setOpen(false)} title="Product Enquiry Form" wide>
+      <Modal open={open} onClose={() => setOpen(false)} title="Product Enquiry Form">
         <p className="mb-4 text-sm text-ink-soft">
           Product: <strong className="text-ink">{product}</strong>
         </p>
         <LeadForm
           form="productEnquiry"
-          fields={productEnquiryFields}
+          fields={enquiryFields}
+          columns={1}
           hidden={{ product, productSlug: slug, productType: mode }}
         />
       </Modal>

@@ -1,16 +1,5 @@
-import LeadForm, { type FieldDef } from "@/ui/Forms/LeadForm";
-
-/** Mirrors the live "service-Inner-Get-In_touch_form" field set. */
-export const serviceInquiryFields: FieldDef[] = [
-  { name: "name", label: "Full Name", required: true },
-  { name: "companyName", label: "Company Name", required: true },
-  { name: "email", label: "Email", type: "email", required: true },
-  { name: "mobile", label: "Mobile Number", type: "tel", required: true },
-  { name: "designation", label: "Designation" },
-  { name: "location", label: "Location", required: true },
-  { name: "inquiryFor", label: "Inquiry For" },
-  { name: "message", label: "Message", type: "textarea" },
-];
+import { enquiryFields } from "@/content/forms";
+import LeadForm from "@/ui/Forms/LeadForm";
 
 export default function InquiryForm({ service }: { service: string }) {
   return (
@@ -19,9 +8,9 @@ export default function InquiryForm({ service }: { service: string }) {
         <h2 className="mb-6 text-center text-2xl font-semibold text-ink">Service Inquiry Form</h2>
         <LeadForm
           form="service-enquiry"
-          fields={serviceInquiryFields}
+          fields={enquiryFields}
           columns={1}
-          hidden={{ service, page: "Service" }}
+          hidden={{ service }}
           className="[&_button[type=submit]]:w-full [&_label]:!col-span-full"
         />
       </div>

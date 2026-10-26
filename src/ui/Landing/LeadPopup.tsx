@@ -17,9 +17,9 @@ function busy() {
 }
 
 /**
- * Lead-capture popup for landing pages: name + phone (email optional). Opens once per
- * visit and never again after a submit. Sends the page path and full URL (with any
- * campaign parameters) so each lead shows where it came from.
+ * Lead-capture popup for landing pages: name + phone (email optional), the field set every
+ * enquiry form uses (see enquiryFields). Opens once per visit and never again after a submit.
+ * Like every enquiry, it sends the page and its full URL (see useLeadForm).
  */
 export default function LeadPopup({
   product,
@@ -29,7 +29,6 @@ export default function LeadPopup({
   page: string;
 }) {
   const [open, setOpen] = useState(false);
-  const [url, setUrl] = useState("");
   const { state, pending, error, onSubmit } = useLeadForm();
   const seenKey = `lead-popup-seen:${page}`;
   const doneKey = `lead-popup-done:${page}`;
@@ -45,7 +44,6 @@ export default function LeadPopup({
         t = setTimeout(show, RETRY_MS);
         return;
       }
-      setUrl(window.location.href);
       setOpen(true);
       try {
         sessionStorage.setItem(seenKey, "1");
@@ -85,7 +83,6 @@ export default function LeadPopup({
           <input type="hidden" name="_form" value="landing-popup" />
           <input type="hidden" name="product" value={product} />
           <input type="hidden" name="page" value={page} />
-          <input type="hidden" name="pageUrl" value={url} />
           <input
             type="text"
             name="_hp"
