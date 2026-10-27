@@ -3,7 +3,7 @@
 import { useState } from "react";
 import type { ReturnTab as Tab } from "@/content/investor-relations";
 
-/** One tab per company; inside it, one sub-tab per group (Annual Report, Annual Return, CSR...). */
+/** One tab per company; inside it, one sub-tab per group (Notice of General Meeting, Annual Return, CSR...). */
 export default function ReturnTabs({ tabs }: { tabs: Tab[] }) {
   const [active, setActive] = useState(0);
   const [sub, setSub] = useState(0);

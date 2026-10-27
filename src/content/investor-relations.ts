@@ -6,7 +6,7 @@ export type ReturnTab = { label: string; groups: { title: string; docs: { label:
 
 const TITLE = "Investor Relations";
 const DESCRIPTION =
-  "Annual reports, annual returns (MGT-7) and corporate social responsibility (CSR) disclosures of Mtandt Limited and Mtandt Rentals Limited.";
+  "Notices of general meetings, annual returns (MGT-7) and corporate social responsibility (CSR) disclosures of Mtandt Limited and Mtandt Rentals Limited.";
 
 // Values carried over from the old "Annual Returns" page: replaced by the new name/description.
 const legacyText = (s: string | null | undefined) => (s && /^annual returns?\b/i.test(s.trim()) ? null : s);
@@ -15,8 +15,8 @@ const legacyBanner = (url: string | null) => (url && /an+ual-return/i.test(url) 
 
 /**
  * The /investor-relations page (formerly /annual-returns): one tab per company, each with
- * groups such as Annual Report, Annual Return and Corporate Social Responsibility. Edited in
- * the `annual-returns-page` global (admin: Pages > Investor Relations Page).
+ * groups such as Notice of General Meeting, Annual Return and Corporate Social Responsibility.
+ * Edited in the `annual-returns-page` global (admin: Pages > Investor Relations Page).
  */
 export const getInvestorRelations = cached(async () => {
   const g = await readGlobal<AnnualReturnsPage>("annual-returns-page");

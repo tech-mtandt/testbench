@@ -3406,7 +3406,7 @@ export interface AnnualReturnsPage {
         groups?:
           | {
               /**
-               * e.g. "Annual Report", "Annual Return" or "Corporate Social Responsibility"
+               * e.g. "Notice of General Meeting", "Annual Return" or "Corporate Social Responsibility"
                */
               title: string;
               docs?:
