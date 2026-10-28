@@ -60,6 +60,14 @@ export const subcategoryHref = (cat: string, sub: string) => moved(subcategoryPa
 export const listingHref = (mode: ListingMode, cat: string, sub: string) =>
   moved(`${subcategoryPath(cat, sub)}/${mode === "buy" ? "buy" : "rent"}`);
 export const productHref = (p: { slug: string; category?: string | null; subcategory?: string | null }) => moved(productPath(p));
+/**
+ * A product's address, opening with Rent selected when `rent` is asked for and the machine is
+ * also for sale (a rent-only machine opens on Rent anyway).
+ */
+export const productLink = (
+  p: { slug: string; category?: string | null; subcategory?: string | null; buy: boolean; rent: boolean },
+  rent: boolean,
+) => `${productHref(p)}${rent && p.rent && p.buy ? "?for=rent" : ""}`;
 
 /**
  * Route params -> CMS slugs, plus whether the address used the canonical segments (when not,

@@ -18,9 +18,12 @@ export const Products: CollectionConfig = {
   admin: {
     group: 'Products',
     useAsTitle: 'title',
-    defaultColumns: ['title', 'mode', 'productCategory', 'subcategory', 'updatedAt'],
-    description: 'Standard equipment pages at /<category>/<subcategory>/<slug>, listed on the buy/rent listing pages.',
+    defaultColumns: ['title', 'forSale', 'forRent', 'productCategory', 'subcategory', 'updatedAt'],
+    description:
+      'Standard equipment pages at /<category>/<subcategory>/<slug>: one page per machine, listed on the buy and/or rent listing pages.',
     components: { beforeList: ['/cms/admin/ProductCsvImport#ProductCsvImport'] },
+    // Separate rent pages merged into their machine (see mergedInto) stay out of the list.
+    baseFilter: () => ({ mergedInto: { exists: false } }),
   },
   access: {
     read: () => true,
@@ -166,7 +169,7 @@ export const Products: CollectionConfig = {
                 isSortable: true,
                 description: 'Shown under the product; when empty, other products of the same subcategory are shown',
               },
-              filterOptions: ({ id }) => (id ? { id: { not_equals: id } } : true),
+              filterOptions: ({ id }) => ({ mergedInto: { exists: false }, ...(id ? { id: { not_equals: id } } : {}) }),
             },
           ],
         },
@@ -250,20 +253,67 @@ export const Products: CollectionConfig = {
     },
     base('slug', { position: 'sidebar', description: 'URL segment: /<category>/<subcategory>/<slug>' }),
     {
+      name: 'forSale',
+      type: 'checkbox',
+      index: true,
+      label: 'Available to buy',
+      admin: { position: 'sidebar' },
+    },
+    {
+      name: 'forRent',
+      type: 'checkbox',
+      index: true,
+      label: 'Available to rent',
+      admin: {
+        position: 'sidebar',
+        description: 'Listed on the buy and/or rent listings; the page has a Buy | Rent switch when both are ticked. Products with neither are not shown on the site catalogue.',
+      },
+    },
+    {
+      name: 'formerSlugs',
+      type: 'array',
+      label: 'Old addresses',
+      labels: { singular: 'Old address', plural: 'Old addresses' },
+      admin: {
+        position: 'sidebar',
+        initCollapsed: true,
+        description: 'Earlier URL segments of this product, such as its old separate rent page. They redirect here.',
+      },
+      fields: [
+        { name: 'slug', type: 'text', required: true, index: true },
+        { name: 'rent', type: 'checkbox', label: 'Opens with Rent selected' },
+      ],
+    },
+    {
+      // The old separate rent page of a machine, kept (hidden) after the buy/rent merge.
+      name: 'mergedInto',
+      type: 'relationship',
+      relationTo: 'products',
+      label: 'Merged into',
+      index: true,
+      admin: {
+        position: 'sidebar',
+        readOnly: true,
+        description: 'This was the separate rent page of that product. It is no longer shown; its address redirects there.',
+        condition: (data) => data?.mergedInto != null,
+      },
+    },
+    {
+      // Buy or rent, from before one product could be both (forSale/forRent replace it).
       name: 'mode',
       type: 'select',
       index: true,
-      label: 'Buy or rent',
+      label: 'Buy or rent (old)',
       options: [
         { label: 'Buy', value: 'buy' },
         { label: 'Rent', value: 'rent' },
       ],
-      admin: { position: 'sidebar', description: 'Products without this are not shown on the site catalogue' },
+      admin: hidden,
     },
     {
       name: 'order',
       type: 'number',
-      admin: { position: 'sidebar', description: 'Position in product lists (lowest first)' },
+      admin: { position: 'sidebar', description: 'Breaks ties in product lists, which run by working height (lowest first)' },
     },
     {
       name: 'metaKeywords',

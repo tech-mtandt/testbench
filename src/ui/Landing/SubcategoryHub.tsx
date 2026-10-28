@@ -19,12 +19,13 @@ import Img from "@/ui/Img";
 import AboutFaq from "@/ui/Landing/AboutFaq";
 import LandingHero from "@/ui/Landing/LandingHero";
 import ModelShowcase from "@/ui/Landing/ModelShowcase";
-import { modelSet } from "@/ui/Landing/modelCards";
+import { rangeModels } from "@/ui/Landing/modelCards";
 import QuoteBand from "@/ui/Landing/QuoteBand";
 
 /**
  * Range landing page at /<category>/<subcategory> (shared landing template): video hero,
- * the models with a Buy/Rent switch, about + FAQs, sibling ranges and the quote section.
+ * the models with a Buy/Rent switch and height slider, about + FAQs, sibling ranges and the
+ * quote section.
  * Ranges with campaign copy in `@/content/landing` (boom and scissor lifts) also get the lead
  * popup and an always-on brochure button. Banner video and text: admin > Landing pages.
  */
@@ -115,8 +116,8 @@ export default async function SubcategoryHub({ category: cat, subcategory: sub }
 
       <ModelShowcase
         label={label}
-        buy={modelSet(buy, listingHref("buy", cat, sub))}
-        rent={modelSet(rent, listingHref("rental", cat, sub))}
+        models={rangeModels(buy, rent)}
+        listings={{ buy: listingHref("buy", cat, sub), rent: listingHref("rental", cat, sub) }}
       />
 
       <AboutFaq title={label} html={subcategory.html} faqs={subcategory.faqs} />

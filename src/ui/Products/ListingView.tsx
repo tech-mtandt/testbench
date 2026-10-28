@@ -2,25 +2,21 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import type { FacetKey, ProductSummary, SortOption } from "@/content/products";
+import type { FacetKey, Mode, ProductSummary, SortOption } from "@/content/products";
 import ProductRow from "./ProductRow";
 import CompareBar from "./CompareBar";
+import HeightFilter, { inHeight, useHeightRange } from "./HeightFilter";
 
 export type NavOption = { label: string; href: string; active: boolean; disabled?: boolean };
 export type FacetGroup = { key: FacetKey; title: string; options: { id: string; label: string }[]; showAll?: boolean };
 
-const HEIGHTS: [number, number][] = [
-  [0, 50],
-  [51, 99],
-  [100, 150],
-  [151, 190],
-  [191, 205],
-  [205, 1000],
-  [1000, 99999],
-];
 const PER_PAGE = 8;
 
+/** Working height, or lifting height for material handling (as the listing order uses). */
+const heightOf = (p: ProductSummary) => p.num.working_height ?? p.num.mhe_maxliftingheight ?? null;
+
 type Props = {
+  mode: Mode;
   title: string;
   description: string;
   products: ProductSummary[];
@@ -30,9 +26,9 @@ type Props = {
   sorts: SortOption[];
 };
 
-export default function ListingView({ title, description, products, groups, categoryNav, subcategoryNav, sorts }: Props) {
+export default function ListingView({ mode, title, description, products, groups, categoryNav, subcategoryNav, sorts }: Props) {
   const [sel, setSel] = useState<Partial<Record<FacetKey, string[]>>>({});
-  const [heights, setHeights] = useState<number[]>([]);
+  const [height, setHeight] = useHeightRange();
   const [sort, setSort] = useState(0);
   const [page, setPage] = useState(0);
   const [showFilters, setShowFilters] = useState(false);
@@ -45,17 +41,19 @@ export default function ListingView({ title, description, products, groups, cate
     });
   };
 
+  // The other filters, for the height histogram (which then shows what the height would add).
+  const matching = useMemo(
+    () =>
+      products.filter((p) =>
+        (Object.entries(sel) as [FacetKey, string[]][]).every(([key, ids]) => !ids.length || ids.some((id) => p.facets[key]?.includes(id))),
+      ),
+    [products, sel],
+  );
+  const heightLabel = products.some((p) => p.num.working_height != null) ? "Working height" : "Lifting height";
+  const known = (list: ProductSummary[]) => list.map(heightOf).filter((h): h is number => h != null);
+
   const filtered = useMemo(() => {
-    const out = products.filter((p) => {
-      for (const [key, ids] of Object.entries(sel) as [FacetKey, string[]][]) {
-        if (ids.length && !ids.some((id) => p.facets[key]?.includes(id))) return false;
-      }
-      if (heights.length) {
-        const h = p.num.working_height;
-        if (h == null || !heights.some((i) => h >= HEIGHTS[i][0] && h <= HEIGHTS[i][1])) return false;
-      }
-      return true;
-    });
+    const out = matching.filter((p) => inHeight(heightOf(p), height));
     const s = sorts[sort];
     if (s) {
       const dir = s.dir === "asc" ? 1 : -1;
@@ -68,7 +66,7 @@ export default function ListingView({ title, description, products, groups, cate
       });
     }
     return out;
-  }, [products, sel, heights, sort, sorts]);
+  }, [matching, height, sort, sorts]);
 
   const pages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
   const current = Math.min(page, pages - 1);
@@ -76,7 +74,7 @@ export default function ListingView({ title, description, products, groups, cate
   const count = (key: FacetKey, id: string) => products.filter((p) => p.facets[key]?.includes(id)).length;
   const reset = () => {
     setSel({});
-    setHeights([]);
+    setHeight(null);
     setPage(0);
   };
   const go = (n: number) => {
@@ -123,19 +121,22 @@ export default function ListingView({ title, description, products, groups, cate
           <NavGroup title="Category" options={categoryNav} />
           <NavGroup title="Subcategory" options={subcategoryNav} />
           {groups.filter((g) => g.key === "primaryType" || g.key === "powerType").map(renderGroup)}
-          {products.some((p) => p.num.working_height) && (
-            <FilterBox title="Working Height (In Meteres)">
-              {HEIGHTS.map(([lo, hi], i) => (
-                <Check
-                  key={i}
-                  label={`${lo}-${hi}`}
-                  checked={heights.includes(i)}
-                  onChange={() => {
-                    setPage(0);
-                    setHeights((h) => (h.includes(i) ? h.filter((x) => x !== i) : [...h, i]));
-                  }}
-                />
-              ))}
+          {known(products).length > 1 && (
+            <FilterBox title={`${heightLabel} (m)`}>
+              <HeightFilter
+                all={known(products)}
+                heights={known(matching)}
+                value={height}
+                label={heightLabel}
+                showLabel={false}
+                onChange={(r) => {
+                  setPage(0);
+                  setHeight(r);
+                }}
+              />
+              {height && matching.some((p) => heightOf(p) == null) && (
+                <p className="pt-2 text-xs text-ink-soft">Machines without a listed height are not shown.</p>
+              )}
             </FilterBox>
           )}
           {groups.filter((g) => ["application", "industry", "brand"].includes(g.key)).map(renderGroup)}
@@ -176,7 +177,7 @@ export default function ListingView({ title, description, products, groups, cate
         {visible.length ? (
           <div className="space-y-5">
             {visible.map((p) => (
-              <ProductRow key={p.slug} p={p} />
+              <ProductRow key={p.slug} p={p} rent={mode === "rental"} />
             ))}
           </div>
         ) : (

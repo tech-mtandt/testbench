@@ -348,7 +348,7 @@ export interface Partnership {
   createdAt: string;
 }
 /**
- * Standard equipment pages at /<category>/<subcategory>/<slug>, listed on the buy/rent listing pages.
+ * Standard equipment pages at /<category>/<subcategory>/<slug>: one page per machine, listed on the buy and/or rent listing pages.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "products".
@@ -515,12 +515,28 @@ export interface Product {
    * URL segment: /<category>/<subcategory>/<slug>
    */
   slug: string;
+  forSale?: boolean | null;
   /**
-   * Products without this are not shown on the site catalogue
+   * Listed on the buy and/or rent listings; the page has a Buy | Rent switch when both are ticked. Products with neither are not shown on the site catalogue.
    */
+  forRent?: boolean | null;
+  /**
+   * Earlier URL segments of this product, such as its old separate rent page. They redirect here.
+   */
+  formerSlugs?:
+    | {
+        slug: string;
+        rent?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * This was the separate rent page of that product. It is no longer shown; its address redirects there.
+   */
+  mergedInto?: (number | null) | Product;
   mode?: ('buy' | 'rent') | null;
   /**
-   * Position in product lists (lowest first)
+   * Breaks ties in product lists, which run by working height (lowest first)
    */
   order?: number | null;
   /**
@@ -1288,7 +1304,7 @@ export interface Social {
   createdAt: string;
 }
 /**
- * Listing pages with filters: /<category>/<subcategory>/buy and /<category>/<subcategory>/rent.
+ * Listing pages with filters: /<category>/<subcategory>/buy and /<category>/<subcategory>/rent. They list every product of the range that is available to buy (or rent), smallest working height first.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "product-listings".
@@ -1303,9 +1319,6 @@ export interface ProductListing {
    * Paragraph under the heading
    */
   description?: string | null;
-  /**
-   * Products listed, in this order (drag to reorder)
-   */
   products?: (number | Product)[] | null;
   /**
    * Choices in the "Sort by" dropdown; the first is the default
@@ -1898,6 +1911,16 @@ export interface ProductsSelect<T extends boolean = true> {
         image?: T;
       };
   slug?: T;
+  forSale?: T;
+  forRent?: T;
+  formerSlugs?:
+    | T
+    | {
+        slug?: T;
+        rent?: T;
+        id?: T;
+      };
+  mergedInto?: T;
   mode?: T;
   order?: T;
   metaKeywords?: T;

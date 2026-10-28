@@ -3,12 +3,13 @@
 import Link from "next/link";
 import Img from "@/ui/Img";
 import type { ProductSummary } from "@/content/products";
-import { productHref } from "@/content/urls";
+import { productLink } from "@/content/urls";
 import { useCompare } from "./useCompare";
 
-export default function ProductRow({ p }: { p: ProductSummary }) {
+/** A listing row; on a rent listing (`rent`) it opens the machine's page with Rent selected. */
+export default function ProductRow({ p, rent = false }: { p: ProductSummary; rent?: boolean }) {
   const { list, toggle } = useCompare();
-  const href = productHref(p);
+  const href = productLink(p, rent);
   const id = `cmp-${p.slug}`;
   return (
     <article className="grid gap-5 rounded-md bg-surface p-4 sm:grid-cols-[155px_minmax(0,1fr)] md:p-5 lg:grid-cols-[155px_minmax(0,1fr)_170px] lg:items-center">

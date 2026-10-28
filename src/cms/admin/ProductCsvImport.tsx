@@ -8,7 +8,7 @@ type Planned = {
   model: string;
   range: string | null;
   title: string;
-  actions: { mode: "buy" | "rent"; action: "create" | "update"; slug: string }[];
+  action: { kind: "create" | "update"; slug: string; buy: boolean; rent: boolean } | null;
   errors: string[];
   warnings: string[];
 };
@@ -28,12 +28,15 @@ async function readText(file: File) {
   return utf8.includes("�") ? new TextDecoder("windows-1252").decode(buf) : utf8;
 }
 
+const available = (a: { buy: boolean; rent: boolean }) => (a.buy && a.rent ? "Buy & Rent" : a.buy ? "Buy" : a.rent ? "Rent" : "not listed");
+
 const cellStyle = { padding: "4px 8px", borderBottom: "1px solid var(--theme-elevation-100)", verticalAlign: "top" } as const;
 
 /**
  * Products list panel: import products from a CSV. Download the template, choose a file, check the
  * preview (what each row will create or update), then import. Re-importing a file updates the same
- * products (matched by model number and buy/rent); it never makes duplicates.
+ * products (matched by model number); it never makes duplicates. One product per machine: "Buy or
+ * Rent" sets what it is available for.
  */
 export function ProductCsvImport() {
   const [open, setOpen] = useState(false);
@@ -106,7 +109,7 @@ export function ProductCsvImport() {
 
   const rows = preview?.rows ?? [];
   const ok = rows.filter((r) => !r.errors.length);
-  const count = (action: string) => ok.reduce((n, r) => n + r.actions.filter((a) => a.action === action).length, 0);
+  const count = (kind: string) => ok.filter((r) => r.action?.kind === kind).length;
 
   return (
     <div style={{ margin: "0 var(--gutter-h, 60px) 1.5rem", padding: "1rem 1.25rem", border: "1px solid var(--theme-elevation-150)", borderRadius: 4 }}>
@@ -203,7 +206,7 @@ export function ProductCsvImport() {
                         <td style={cellStyle}>{r.model || "—"}</td>
                         <td style={cellStyle}>{r.range ?? "—"}</td>
                         <td style={cellStyle}>{r.title}</td>
-                        <td style={cellStyle}>{r.errors.length ? "skipped" : r.actions.map((a) => `${a.mode === "buy" ? "Buy" : "Rent"}: ${a.action === "create" ? "new" : "update"}`).join(", ")}</td>
+                        <td style={cellStyle}>{r.errors.length || !r.action ? "skipped" : `${r.action.kind === "create" ? "new" : "update"}: ${available(r.action)}`}</td>
                         <td style={cellStyle}>{[...r.errors, ...r.warnings].join("; ")}</td>
                       </tr>
                     ))}

@@ -26,7 +26,7 @@ export const ProductListings: CollectionConfig = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'mode', 'path', 'updatedAt'],
     description:
-      'Listing pages with filters: /<category>/<subcategory>/buy and /<category>/<subcategory>/rent.',
+      "Listing pages with filters: /<category>/<subcategory>/buy and /<category>/<subcategory>/rent. They list every product of the range that is available to buy (or rent), smallest working height first.",
   },
   access: {
     read: () => true,
@@ -48,12 +48,8 @@ export const ProductListings: CollectionConfig = {
               type: 'relationship',
               relationTo: 'products',
               hasMany: true,
-              admin: {
-                description: 'Products listed, in this order (drag to reorder)',
-                isSortable: true,
-              },
-              filterOptions: ({ data }) =>
-                data?.mode ? { mode: { equals: data.mode === 'rental' ? 'rent' : 'buy' } } : true,
+              // Listings fill themselves from the products' Available to buy/rent (src/content/products.ts).
+              admin: { hidden: true },
             },
             {
               name: 'sorts',

@@ -6,10 +6,11 @@ import {
   categoryHref,
   getCategory,
   getProduct,
-  getProductOrRenamed,
   listingHref,
   productHref,
+  productLink,
   productPath,
+  resolveProduct,
   resolveSegments,
   subcategoryHref,
 } from "@/content/products";
@@ -36,20 +37,24 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 export default async function Page({ params }: Params) {
   const { category: catSeg, subcategory: subSeg, product } = await params;
   const { category, subcategory, canonical } = resolveSegments(catSeg, subSeg);
-  const p = await getProductOrRenamed(product);
-  if (!p) notFound();
-  // One address per product: a wrong category/subcategory in the path goes to the right one.
+  const found = await resolveProduct(product);
+  if (!found) notFound();
+  const { p, rent } = found;
+  // One address per product: a wrong category/subcategory in the path, a renamed product or an
+  // old address (such as its former separate rent page) goes to the right one.
   if (!canonical || p.slug !== product || p.category !== category || p.subcategory !== subcategory) {
-    permanentRedirect(productHref(p));
+    permanentRedirect(productLink(p, rent));
   }
-  const mode = p.mode === "rent" ? "rental" : "buy";
   const cat = await getCategory(category);
   const range = cat?.subcategories.find((s) => s.slug === subcategory);
   const rangeLabel = landingConfig(category, subcategory)?.label ?? range?.name ?? p.subcategoryName ?? subcategory;
+  // A machine that is only for sale (or only for hire) sits under that listing; one that is
+  // both has a Buy | Rent switch on the page instead.
+  const only = p.buy && !p.rent ? "buy" : p.rent && !p.buy ? "rental" : null;
   const crumbs: Crumb[] = [
     { label: cat?.crumb || cat?.title || p.categoryName || category, href: categoryHref(category) },
     { label: rangeLabel, href: subcategoryHref(category, subcategory) },
-    { label: mode === "buy" ? "Buy" : "Rent", href: listingHref(mode, category, subcategory) },
+    ...(only ? [{ label: only === "buy" ? "Buy" : "Rent", href: listingHref(only, category, subcategory) }] : []),
     { label: p.title },
   ];
   return <ProductDetail p={p} crumbs={crumbs} />;

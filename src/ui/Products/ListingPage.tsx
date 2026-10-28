@@ -88,6 +88,7 @@ export default async function ListingPage({ mode, params }: ListingParams & { mo
       </div>
       <ListingView
         key={`${mode}/${category}/${subcategory}`}
+        mode={mode}
         title={l.title}
         description={l.description}
         products={products}

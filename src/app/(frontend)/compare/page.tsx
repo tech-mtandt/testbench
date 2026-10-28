@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getProduct, type Product } from "@/content/products";
+import { resolveProduct, type Product } from "@/content/products";
 import { productHref } from "@/content/urls";
 import { Breadcrumbs } from "@/ui/PageChrome";
 import Img from "@/ui/Img";
@@ -16,9 +16,15 @@ export default async function Page({ searchParams }: Props) {
   const raw = [(await searchParams).p].flat()[0] ?? "";
   // At most 4 distinct products: never fetch more than that, whatever the query string says.
   const slugs = [...new Set(raw.split(",").map((s) => s.trim()).filter(Boolean))].slice(0, 4);
-  const products = (await Promise.all(slugs.map((s) => getProduct(s))))
-    .filter((p): p is Product => !!p)
-    .slice(0, 4);
+  // Old addresses (a machine's former rent page) in a saved compare list find their machine.
+  const products = [
+    ...new Map(
+      (await Promise.all(slugs.map((s) => resolveProduct(s))))
+        .map((r) => r?.p)
+        .filter((p): p is Product => !!p)
+        .map((p) => [p.slug, p]),
+    ).values(),
+  ].slice(0, 4);
 
   const rows: { label: string; values: string[] }[] = [];
   const index = new Map<string, number>();

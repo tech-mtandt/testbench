@@ -45,7 +45,7 @@ export default async function ProductDetail({ p, crumbs }: { p: Product; crumbs:
             />
           )}
           <div className="mt-6">
-            <EnquireButton product={p.title} slug={p.slug} mode={p.mode} />
+            <EnquireButton product={p.title} slug={p.slug} buy={p.buy} rent={p.rent} />
           </div>
         </div>
       </div>

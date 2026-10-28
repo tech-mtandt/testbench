@@ -191,6 +191,33 @@ body {
     }
   }
 
+  // Two-handle slider (HeightFilter): two range inputs stacked on one track. Only their thumbs
+  // take the pointer, so each handle can be dragged past the other's input.
+  .range-dual {
+    @apply pointer-events-none absolute inset-0 m-0 h-full w-full appearance-none bg-transparent;
+    &::-webkit-slider-runnable-track {
+      @apply h-full bg-transparent;
+    }
+    &::-webkit-slider-thumb {
+      @apply pointer-events-auto mt-0.5 h-5 w-5 cursor-grab appearance-none rounded-full border-2 border-ink bg-brand shadow-md transition-transform active:scale-110 active:cursor-grabbing;
+    }
+    &::-moz-range-track {
+      @apply bg-transparent;
+    }
+    &::-moz-range-thumb {
+      @apply pointer-events-auto h-4 w-4 cursor-grab rounded-full border-2 border-ink bg-brand shadow-md;
+    }
+    &:focus-visible {
+      @apply outline-none;
+    }
+    &:focus-visible::-webkit-slider-thumb {
+      @apply ring-2 ring-ink ring-offset-2;
+    }
+    &:focus-visible::-moz-range-thumb {
+      @apply ring-2 ring-ink ring-offset-2;
+    }
+  }
+
   // Rich text from Payload/Lexical and legacy HTML
   .prose-legacy {
     @apply text-ink-soft;

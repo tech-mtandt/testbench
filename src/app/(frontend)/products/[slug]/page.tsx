@@ -1,6 +1,6 @@
 import { notFound, permanentRedirect } from "next/navigation";
 import { redirectLegacy } from "@/content/legacy-redirects";
-import { getProductOrRenamed, productHref } from "@/content/products";
+import { productLink, resolveProduct } from "@/content/products";
 
 /**
  * Leftover address from an earlier build: one product page per product lives at
@@ -8,8 +8,8 @@ import { getProductOrRenamed, productHref } from "@/content/products";
  */
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const p = await getProductOrRenamed(slug);
-  if (p) permanentRedirect(productHref(p));
+  const found = await resolveProduct(slug);
+  if (found) permanentRedirect(productLink(found.p, found.rent));
   redirectLegacy(`/product-detail/${slug}`);
   notFound();
 }

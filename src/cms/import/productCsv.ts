@@ -26,7 +26,7 @@ export type CsvRow = {
   seoDescription: string;
   specs: [string, string][];
   /** Only the columns this row has values for are written when a product is updated. */
-  has: { title: boolean; description: boolean; applications: boolean; seo: boolean; specs: boolean };
+  has: { title: boolean; modes: boolean; description: boolean; applications: boolean; seo: boolean; specs: boolean };
   errors: string[];
   warnings: string[];
 };
@@ -236,6 +236,7 @@ export function readCsv(text: string, ranges: Range[], defaultRange?: string | n
       specs,
       has: {
         title: !!(titleIn || get("type")),
+        modes: !!modesIn,
         description: !!description,
         applications: applications.length > 0,
         seo: !!(seoTitle || seoDescription),
@@ -248,9 +249,8 @@ export function readCsv(text: string, ranges: Range[], defaultRange?: string | n
   return { rows, errors: [] };
 }
 
-/** Address of a new product: "<type> <model>", "-rent" for the rental copy (as the catalogue update). */
-export const newSlug = (row: Pick<CsvRow, "type" | "model">, mode: Mode) =>
-  `${slugify(`${row.type} ${row.model}`)}${mode === "rent" ? "-rent" : ""}`;
+/** Address of a new product: "<type> <model>" (one page per machine, for sale and/or hire). */
+export const newSlug = (row: Pick<CsvRow, "type" | "model">) => slugify(`${row.type} ${row.model}`);
 
 /** Specification rows: Model No first, then the file's columns. */
 export const specRows = (row: CsvRow) => [["Model No", row.model] as [string, string], ...row.specs];

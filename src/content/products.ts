@@ -16,7 +16,7 @@ import type {
 /**
  * The standard-equipment catalogue: categories, listings, filter values and products.
  * Read from Payload (`product-categories`, `product-listings`, `product-attributes`,
- * `products` with a `mode`), mapped back into the shape of the scraped JSON
+ * `products` available to buy and/or rent), mapped back into the shape of the scraped JSON
  * (migration/scrape/extract_products.py), which stays the fallback until the content is
  * imported or when the database is unreachable.
  *
@@ -50,7 +50,11 @@ export type Product = {
   dbId: number | null;
   title: string;
   model: string;
-  mode: "buy" | "rent";
+  /** Available to buy / to rent: one page per machine, with a Buy | Rent switch when both. */
+  buy: boolean;
+  rent: boolean;
+  /** Old addresses (slugs) that redirect here; `rent` ones open with Rent selected. */
+  former: { slug: string; rent: boolean }[];
   category: string | null;
   subcategory: string | null;
   categoryName: string;
@@ -71,6 +75,9 @@ export type Product = {
   num: Partial<Record<string, number>>;
 };
 
+/** A product of the scraped fallback catalogue, which has a separate page per buy/rent copy. */
+export type ScrapedProduct = Omit<Product, "buy" | "rent" | "former"> & { mode: "buy" | "rent" };
+
 /** A product as held in the catalogue index: no page-only HTML, plus plain text for search. */
 export type CatalogProduct = Omit<
   Product,
@@ -87,7 +94,8 @@ export type ProductSummary = Pick<
   | "row"
   | "facets"
   | "num"
-  | "mode"
+  | "buy"
+  | "rent"
   | "category"
   | "subcategory"
   | "categoryName"
@@ -106,7 +114,7 @@ export type Listing = {
   products: CatalogProduct[];
 };
 
-type RawListing = Omit<Listing, "mode" | "category" | "subcategory" | "products"> & { products: string[] };
+type RawListing = Omit<Listing, "mode" | "category" | "subcategory" | "products">;
 
 type Taxonomy = {
   categories: Category[];
@@ -125,7 +133,9 @@ const FACETS: FacetKey[] = ["condition", "country", "primaryType", "powerType", 
 // ---------- scraped JSON (fallback) ----------
 
 const json = taxonomy as unknown as Taxonomy;
-const jsonProducts = productsJson as unknown as Product[];
+const jsonProducts = (productsJson as unknown as ScrapedProduct[]).map(
+  ({ mode, ...p }): Product => ({ ...p, buy: mode === "buy", rent: mode === "rent", former: [] }),
+);
 const jsonBySlug = new Map(jsonProducts.map((p) => [p.slug, p]));
 
 const strip = (h: string) => h.replace(/<[^>]+>/g, " ");
@@ -196,7 +206,9 @@ function mapProduct(d: ProductDoc): Product {
     dbId: d.id,
     title: d.title,
     model: d.modelNo ?? "",
-    mode: d.mode === "rent" ? "rent" : "buy",
+    buy: !!d.forSale,
+    rent: !!d.forRent,
+    former: (d.formerSlugs ?? []).map((f) => ({ slug: f.slug, rent: !!f.rent })),
     category: cat?.slug ?? null,
     // Editors may type the address form ("boom-lifts"): normalise to the slug ("boom-lift").
     subcategory: d.subcategory ? subcategorySlug(d.subcategory) : null,
@@ -269,7 +281,6 @@ function mapListing(d: ListingDoc): [string, RawListing] | null {
         keywords: text(d.metaKeywords),
         image: fileUrl(d.meta?.image),
       },
-      products: (d.products ?? []).flatMap((p) => (obj(p)?.slug ? [obj(p)!.slug] : [])),
     },
   ];
 }
@@ -280,9 +291,11 @@ const readTaxonomy = cached(async (): Promise<Taxonomy> => {
   const [cats, attrs, lists] = await Promise.all([
     find<CategoryDoc>("product-categories", { depth: 0, sort: ["order", "id"] }),
     find<AttributeDoc>("product-attributes", { depth: 0, sort: "id" }),
+    // Listings fill themselves from the products (listingProducts); their old hand-made lists aren't read.
     find<ListingDoc>("product-listings", {
       depth: 1,
-      populate: { "product-categories": { slug: true }, products: { slug: true } } as PopulateType,
+      select: { products: false } as SelectType,
+      populate: { "product-categories": { slug: true } } as PopulateType,
     }),
   ]);
 
@@ -310,9 +323,12 @@ const readTaxonomy = cached(async (): Promise<Taxonomy> => {
   return { categories, aliases, listings, facets };
 }, "products:taxonomy");
 
+/** On the site catalogue: available to buy or to rent (merged rent pages are neither). */
+const LISTED: Where = { or: [{ forSale: { equals: true } }, { forRent: { equals: true } }] };
+
 const readIndex = cached(async (): Promise<{ products: CatalogProduct[]; cms: boolean }> => {
   const docs = await find<ProductDoc>("products", {
-    where: { mode: { exists: true } },
+    where: LISTED,
     sort: ["order", "id"],
     // Page-only content stays out of the index (see readProduct).
     select: {
@@ -330,15 +346,17 @@ const readIndex = cached(async (): Promise<{ products: CatalogProduct[]; cms: bo
   });
   if (!docs) return { products: jsonProducts.map(toEntry), cms: false };
   return { products: docs.map((d) => toEntry(mapProduct(d))), cms: true };
-}, "products:index");
+  // Cache keys carry the shape version: the data cache outlives deploys, and an entry from
+  // before buy/rent became flags (mode) would empty every listing until it expired.
+}, "products:index:v2");
 
 const readProduct = cached(async (slug: string): Promise<Product | null> => {
   const docs = await find<ProductDoc>("products", {
-    where: { and: [{ slug: { equals: slug } }, { mode: { exists: true } }] },
+    where: { and: [{ slug: { equals: slug } }, LISTED] },
     populate: POPULATE,
   });
   return docs ? mapProduct(docs[0]) : null;
-}, "products:detail");
+}, "products:detail:v2");
 
 /** Taxonomy + product index, once per request. */
 /**
@@ -420,6 +438,20 @@ export async function getProductOrRenamed(slug: string): Promise<Product | null>
   );
 }
 
+/**
+ * The product an address belongs to: its own slug, a renamed one, or one of its Old addresses
+ * (e.g. the separate rent page it was merged from). `rent`: the address was a rent page, so it
+ * should open with Rent selected (see productLink).
+ */
+export async function resolveProduct(slug: string): Promise<{ p: Product; rent: boolean } | null> {
+  const p = await getProductOrRenamed(slug);
+  if (p) return { p, rent: false };
+  const owner = (await getCatalog()).products.find((x) => x.former.some((f) => f.slug === slug));
+  const full = owner && (await getProduct(owner.slug));
+  return full ? { p: full, rent: owner.former.some((f) => f.slug === slug && f.rent) } : null;
+}
+
+
 /** Full product (page content included). */
 export async function getProduct(slug: string): Promise<Product | null> {
   const p = await readProductPage(slug);
@@ -428,8 +460,21 @@ export async function getProduct(slug: string): Promise<Product | null> {
 
 export const allProducts = async () => (await getCatalog()).products;
 
-export { categoryHref, listingHref, productHref, productPath, resolveSegments, subcategoryHref } from "@/content/urls";
+export { categoryHref, listingHref, productHref, productLink, productPath, resolveSegments, subcategoryHref } from "@/content/urls";
 
+/** Height that orders a range: working height, or lifting height for material handling. */
+export const heightOf = (p: Pick<Product, "num">) => p.num.working_height ?? p.num.mhe_maxliftingheight ?? null;
+
+/** A range's products available to buy (or rent), lowest first; the index order breaks ties. */
+const listingProducts = (c: Catalog, mode: Mode, cat: string, sub: string) =>
+  c.products
+    .filter((p) => p.category === cat && p.subcategory === sub && (mode === "buy" ? p.buy : p.rent))
+    .sort((a, b) => (heightOf(a) ?? Infinity) - (heightOf(b) ?? Infinity));
+
+/**
+ * A buy or rent listing: every product of the range available that way (no hand-made list), with
+ * the listing record's heading, text, sort options and SEO.
+ */
 export async function getListing(mode: Mode, cat: string, sub: string): Promise<Listing | null> {
   const c = await getCatalog();
   const category = findCategory(c, cat);
@@ -445,7 +490,7 @@ export async function getListing(mode: Mode, cat: string, sub: string): Promise<
     columns: raw?.columns ?? ["Model No", "Working Height", "Platform Height"],
     sorts: raw?.sorts ?? [],
     meta: raw?.meta ?? {},
-    products: (raw?.products ?? []).map((s) => c.bySlug.get(s)!).filter(Boolean),
+    products: listingProducts(c, mode, cat, sub),
   };
 }
 
@@ -456,7 +501,7 @@ export const listingParams = async () =>
   );
 
 export const hasListing = (c: Catalog, mode: Mode, cat: string, sub: string) =>
-  (c.listings[`${mode}/${cat}/${sub}`]?.products.length ?? 0) > 0;
+  c.products.some((p) => p.category === cat && p.subcategory === sub && (mode === "buy" ? p.buy : p.rent));
 
 export const summarize = (p: ProductSummary): ProductSummary => ({
   slug: p.slug,
@@ -466,18 +511,19 @@ export const summarize = (p: ProductSummary): ProductSummary => ({
   row: p.row,
   facets: p.facets,
   num: p.num,
-  mode: p.mode,
+  buy: p.buy,
+  rent: p.rent,
   category: p.category,
   subcategory: p.subcategory,
   categoryName: p.categoryName,
   subcategoryName: p.subcategoryName,
 });
 
-export async function relatedProducts(p: Pick<Product, "slug" | "related" | "subcategory" | "mode">) {
+export async function relatedProducts(p: Pick<Product, "slug" | "related" | "subcategory">) {
   const { products, bySlug } = await getCatalog();
   const rel = p.related.map((s) => bySlug.get(s)).filter((x): x is CatalogProduct => !!x);
   if (rel.length) return rel;
-  return products.filter((x) => x.slug !== p.slug && x.subcategory === p.subcategory && x.mode === p.mode).slice(0, 12);
+  return products.filter((x) => x.slug !== p.slug && x.subcategory === p.subcategory).slice(0, 12);
 }
 
 const fold = (s: string) =>

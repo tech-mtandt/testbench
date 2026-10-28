@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
 import { redirectLegacy } from "@/content/legacy-redirects";
-import { getProductOrRenamed, productHref } from "@/content/products";
+import { getProductOrRenamed, productLink, resolveProduct } from "@/content/products";
 import ProductDetail, { productMetadata } from "@/ui/Products/ProductDetail";
 
 type Params = { params: Promise<{ slug: string }> };
@@ -20,8 +20,9 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
  */
 export default async function Page({ params }: Params) {
   const { slug } = await params;
-  const p = await getProductOrRenamed(slug);
-  if (p && (placed(p) || p.slug !== slug)) permanentRedirect(productHref(p));
+  const found = await resolveProduct(slug);
+  const p = found?.p;
+  if (p && (placed(p) || p.slug !== slug)) permanentRedirect(productLink(p, found.rent));
   if (!p) {
     redirectLegacy(`/product-detail/${slug}`);
     notFound();

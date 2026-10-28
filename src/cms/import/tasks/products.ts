@@ -1,7 +1,7 @@
 import taxonomyJson from "@/content/scraped/product-categories.json";
 import productsJson from "@/content/scraped/products.json";
 import customJson from "@/content/scraped/custom-products.json";
-import type { Category, FacetKey, Mode, Product } from "@/content/products";
+import type { Category, FacetKey, Mode, ScrapedProduct as Product } from "@/content/products";
 import type { CustomProduct, Kind } from "@/content/customProducts";
 
 import { document, eachTask, lexical, mapSeq, media, pairs, upsert } from "../helpers";
@@ -121,6 +121,11 @@ const productsTask = eachTask("products-items", "Products", () => products, asyn
     req: ctx.req,
   });
   let existing = found.docs[0];
+  // A rent page merged into its machine (buy & rent merge) stays hidden: never bring it back.
+  if (existing?.mergedInto) {
+    ctx.log(`  skipped products ${p.slug} (merged into another product)`);
+    return;
+  }
   if (!existing && p.dbId) {
     // Fallback to the linked doc when its slug was changed (same product title, not filled yet).
     const byId = await ctx.payload.findByID({ collection: "products", id: p.dbId, depth: 0, req: ctx.req, disableErrors: true });
@@ -156,6 +161,8 @@ const productsTask = eachTask("products-items", "Products", () => products, asyn
     title: p.title,
     slug: p.slug,
     mode: p.mode,
+    forSale: p.mode === "buy",
+    forRent: p.mode === "rent",
     legacyId: p.legacyId,
     order: i,
     modelNo: p.model || null,
