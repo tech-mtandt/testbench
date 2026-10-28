@@ -138,6 +138,8 @@ export default buildConfig({
     components: {
       beforeDashboard: ["/cms/admin/ImportPanel#ImportPanel"],
     },
+    // The site's icon on the admin's browser tabs, in place of Payload's.
+    meta: { icons: [{ rel: "icon", type: "image/png", url: "/icon-192.png" }] },
   },
   collections: [
     Catalogues,
