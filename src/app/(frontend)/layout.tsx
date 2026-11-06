@@ -20,10 +20,10 @@ const poppins = Poppins({
 });
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter-nf", display: "swap" });
 
-// Google Analytics 4 (property "Mtandt Group - GA4"). Loads only on the live domain, so dev,
+// Google Analytics 4 (measurement ID from the marketing team, Nov 2026). Loads only on the live domain, so dev,
 // preview and local visits stay out of the figures. Client-side page changes are counted by GA4's
 // enhanced measurement (browser history events).
-const GA_ID = "G-H2Y4EMH8TB";
+const GA_ID = "G-HPJMWJJCWN";
 const GA_HOST = "www.mtandt.com";
 const gaTag = `
 if (location.hostname === ${JSON.stringify(GA_HOST)}) {
@@ -34,6 +34,20 @@ if (location.hostname === ${JSON.stringify(GA_HOST)}) {
   var s = document.createElement("script");
   s.async = true;
   s.src = "https://www.googletagmanager.com/gtag/js?id=${GA_ID}";
+  document.head.appendChild(s);
+}`;
+
+// Google Tag Manager container. Same live-domain guard as GA4, and the same dataLayer, so tags set
+// up in GTM see the site's gtag events too. Pushes the standard `gtm.js` start event that GTM's
+// page view triggers fire on.
+const GTM_ID = "GTM-K34SKQ7";
+const gtmTag = `
+if (location.hostname === ${JSON.stringify(GA_HOST)}) {
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+  var s = document.createElement("script");
+  s.async = true;
+  s.src = "https://www.googletagmanager.com/gtm.js?id=${GTM_ID}";
   document.head.appendChild(s);
 }`;
 
@@ -65,6 +79,11 @@ export default async function RootLayout({
   const [site, preview] = await Promise.all([getSite(), previewing()]);
   return (
     <html lang="en" data-scroll-behavior="smooth" className={`${poppins.variable} ${inter.variable}`}>
+      <head>
+        {/* A plain inline script so GTM starts as the page is parsed, as Google recommends. Next's
+            beforeInteractive would instead queue it in <body> for its runtime to run later. */}
+        <script id="gtm-tag" dangerouslySetInnerHTML={{ __html: gtmTag }} />
+      </head>
       <body>
         <Header contact={site.contact} socials={site.socials} mainNav={site.mainNav} />
         <Script id="ga-tag" strategy="afterInteractive">{gaTag}</Script>
