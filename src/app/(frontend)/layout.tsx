@@ -20,10 +20,10 @@ const poppins = Poppins({
 });
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter-nf", display: "swap" });
 
-// Google Analytics 4 (property "Mtandt Group - GA4"). Loads only on the live domain, so dev,
+// Google Analytics 4 (measurement ID from the marketing team, Nov 2026). Loads only on the live domain, so dev,
 // preview and local visits stay out of the figures. Client-side page changes are counted by GA4's
 // enhanced measurement (browser history events).
-const GA_ID = "G-H2Y4EMH8TB";
+const GA_ID = "G-HPJMWJJCWN";
 const GA_HOST = "www.mtandt.com";
 const gaTag = `
 if (location.hostname === ${JSON.stringify(GA_HOST)}) {
