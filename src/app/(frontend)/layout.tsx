@@ -37,6 +37,20 @@ if (location.hostname === ${JSON.stringify(GA_HOST)}) {
   document.head.appendChild(s);
 }`;
 
+// Google Tag Manager container. Same live-domain guard as GA4, and the same dataLayer, so tags set
+// up in GTM see the site's gtag events too. Pushes the standard `gtm.js` start event that GTM's
+// page view triggers fire on.
+const GTM_ID = "GTM-K34SKQ7";
+const gtmTag = `
+if (location.hostname === ${JSON.stringify(GA_HOST)}) {
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+  var s = document.createElement("script");
+  s.async = true;
+  s.src = "https://www.googletagmanager.com/gtm.js?id=${GTM_ID}";
+  document.head.appendChild(s);
+}`;
+
 export async function generateMetadata(): Promise<Metadata> {
   const { defaults } = await getSite();
   return {
@@ -65,6 +79,11 @@ export default async function RootLayout({
   const [site, preview] = await Promise.all([getSite(), previewing()]);
   return (
     <html lang="en" data-scroll-behavior="smooth" className={`${poppins.variable} ${inter.variable}`}>
+      <head>
+        {/* A plain inline script so GTM starts as the page is parsed, as Google recommends. Next's
+            beforeInteractive would instead queue it in <body> for its runtime to run later. */}
+        <script id="gtm-tag" dangerouslySetInnerHTML={{ __html: gtmTag }} />
+      </head>
       <body>
         <Header contact={site.contact} socials={site.socials} mainNav={site.mainNav} />
         <Script id="ga-tag" strategy="afterInteractive">{gaTag}</Script>
