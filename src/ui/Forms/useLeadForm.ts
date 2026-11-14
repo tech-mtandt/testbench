@@ -26,8 +26,8 @@ function checkFiles(form: HTMLFormElement): { input: HTMLInputElement; message: 
 
 declare global {
   interface Window {
-    /** Google Analytics (set up in the frontend layout, on the live domain only). */
-    gtag?: (...args: unknown[]) => void;
+    /** Google Tag Manager's data layer (set up in the frontend layout, on the live domain only). */
+    dataLayer?: Record<string, unknown>[];
   }
 }
 
@@ -46,12 +46,17 @@ const LEAD_FORMS = new Set([
   "catalogue-download",
 ]);
 
-/** GA4 `generate_lead` for a stored lead: which form, and the product, service or brochure it was about. */
+/**
+ * `generate_lead` for a stored lead, pushed to GTM's data layer: which form (`form_name`) and the
+ * product, service or brochure it was about (`enquiry_about`). A GA4 event tag in GTM, triggered by
+ * this custom event, sends it on to Google Analytics. `enquiry_about` is always set (undefined when
+ * there is none) because GTM keeps data layer values from earlier pushes.
+ */
 function trackLead(data: FormData) {
   const form = String(data.get("_form") || "enquiry");
   if (!LEAD_FORMS.has(form) || data.get("_hp")) return;
   const about = ["product", "service", "catalogName"].map((k) => data.get(k)).find((v) => typeof v === "string" && v);
-  window.gtag?.("event", "generate_lead", { form_name: form, ...(about ? { enquiry_about: about } : {}) });
+  window.dataLayer?.push({ event: "generate_lead", form_name: form, enquiry_about: about || undefined });
 }
 
 /** Ref for a success message (with tabIndex={-1}): focuses it so screen readers announce it. */
