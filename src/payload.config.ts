@@ -136,7 +136,13 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
     components: {
-      beforeDashboard: ["/cms/admin/ImportPanel#ImportPanel"],
+      // Website leads (form submissions) are stored outside Payload's collections (see lib/leads):
+      // a read-only Leads page, linked from the dashboard and the sidebar.
+      beforeDashboard: ["/cms/admin/LeadsDashboardLink#LeadsDashboardLink", "/cms/admin/ImportPanel#ImportPanel"],
+      afterNavLinks: ["/cms/admin/LeadsNavLink#LeadsNavLink"],
+      views: {
+        leads: { Component: "/cms/admin/LeadsView#LeadsView", path: "/leads", meta: { title: "Leads" } },
+      },
     },
     // The site's icon on the admin's browser tabs, in place of Payload's.
     meta: { icons: [{ rel: "icon", type: "image/png", url: "/icon-192.png" }] },

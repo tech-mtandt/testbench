@@ -1,11 +1,12 @@
 /**
  * Website leads (every public form), stored in the site's Supabase Postgres database in the
  * `website_leads` table, with uploaded files (CVs, partner documents) in `website_lead_files`.
- * Browse/export them in Supabase > Table Editor; files download from /api/lead-files/<id>
- * (admin login required).
+ * Editors browse and export them on the admin Leads page (/admin/leads, cms/admin/LeadsView);
+ * files download from /api/lead-files/<id> (admin login required).
  *
- * The tables sit outside Payload's schema (no migration or admin screen yet), so they are
- * created on first use. Row level security is on with no policies: only the app's own
+ * The tables sit outside Payload's schema (no migration or collection), so they are created on
+ * first use. Keep Payload's dev schema push off (payload.config `push: false`): it offers to drop
+ * tables it doesn't know, these included. Row level security is on with no policies: only the app's own
  * database role (the table owner) can read or write them, not Supabase's public API keys.
  */
 import { isEmailKey, isPhoneKey } from "@/lib/form-rules";
@@ -186,4 +187,141 @@ export async function getLeadFile(pool: Db, id: string) {
   const row = rows[0];
   if (!row) return null;
   return { filename: String(row.filename), contentType: (row.content_type as string | null) ?? null, data: row.data as Buffer };
+}
+
+/** Filters for browsing leads (admin Leads page and its Excel export); dates are IST calendar days. */
+export type LeadQuery = {
+  /** "leads" = sales lead forms only (LEAD_FORMS), "all" = every form, else one form name. */
+  show: string;
+  from: string | null;
+  to: string | null;
+  q: string | null;
+};
+
+export type LeadRow = {
+  id: number;
+  createdAt: Date;
+  form: string;
+  name: string | null;
+  phone: string | null;
+  email: string | null;
+  company: string | null;
+  product: string | null;
+  message: string | null;
+  page: string | null;
+  pageUrl: string | null;
+  referrer: string | null;
+  fields: Record<string, string>;
+};
+
+const DAY = /^\d{4}-\d{2}-\d{2}$/;
+
+/** The IST calendar day `days` days ago, as YYYY-MM-DD (0 = today in India). */
+export const istDay = (days = 0) => new Date(Date.now() + 330 * 60_000 - days * 86_400_000).toISOString().slice(0, 10);
+
+/** Reads a LeadQuery from URL search params, ignoring anything malformed. */
+export function leadQueryFrom(params: Record<string, string | string[] | undefined> | URLSearchParams): LeadQuery {
+  const get = (k: string) => {
+    const v = params instanceof URLSearchParams ? params.get(k) : params[k];
+    return (Array.isArray(v) ? v[0] : v)?.trim() || null;
+  };
+  const show = get("show");
+  const from = get("from");
+  const to = get("to");
+  return {
+    show: show && /^[\w-]{1,40}$/.test(show) ? show : "leads",
+    from: from && DAY.test(from) ? from : null,
+    to: to && DAY.test(to) ? to : null,
+    q: get("q")?.slice(0, 100) ?? null,
+  };
+}
+
+function leadWhere(query: LeadQuery, leadForms: ReadonlySet<string>) {
+  const where: string[] = [];
+  const params: unknown[] = [];
+  const add = (sql: string, value: unknown) => {
+    params.push(value);
+    where.push(sql.replace("?", `$${params.length}`));
+  };
+  if (query.show === "leads") add("form = ANY(?)", [...leadForms]);
+  else if (query.show !== "all") add("form = ?", query.show);
+  if (query.from) add("created_at >= (?::date)::timestamp AT TIME ZONE 'Asia/Kolkata'", query.from);
+  if (query.to) add("created_at < ((?::date) + 1)::timestamp AT TIME ZONE 'Asia/Kolkata'", query.to);
+  if (query.q) {
+    const like = `%${query.q.replace(/[\\%_]/g, (c) => `\\${c}`)}%`;
+    add("concat_ws(' ', name, phone, email, company, product, message, page, form, fields::text) ILIKE ?", like);
+  }
+  return { sql: where.length ? `WHERE ${where.join(" AND ")}` : "", params };
+}
+
+const noLeadsYet = (err: { code?: string }) => {
+  if (err.code === "42P01") return { rows: [] }; // undefined_table: no lead stored yet
+  throw err;
+};
+
+const toLeadRow = (r: Record<string, unknown>): LeadRow => ({
+  id: Number(r.id),
+  createdAt: new Date(r.created_at as string),
+  form: String(r.form),
+  name: (r.name as string | null) ?? null,
+  phone: (r.phone as string | null) ?? null,
+  email: (r.email as string | null) ?? null,
+  company: (r.company as string | null) ?? null,
+  product: (r.product as string | null) ?? null,
+  message: (r.message as string | null) ?? null,
+  page: (r.page as string | null) ?? null,
+  pageUrl: (r.page_url as string | null) ?? null,
+  referrer: (r.referrer as string | null) ?? null,
+  fields: (r.fields as Record<string, string> | null) ?? {},
+});
+
+/**
+ * Leads matching `query`, newest first: one page (`limit`/`offset`), or all of them when `limit`
+ * is null (export). `total` counts every match.
+ */
+export async function listLeads(
+  pool: Db,
+  query: LeadQuery,
+  leadForms: ReadonlySet<string>,
+  { limit, offset = 0 }: { limit: number | null; offset?: number },
+): Promise<{ rows: LeadRow[]; total: number }> {
+  const { sql, params } = leadWhere(query, leadForms);
+  const page = limit === null ? "" : ` LIMIT ${Math.max(1, Math.floor(limit))} OFFSET ${Math.max(0, Math.floor(offset))}`;
+  const [{ rows }, count] = await Promise.all([
+    pool
+      .query(
+        `SELECT id, created_at, form, name, phone, email, company, product, message, page, page_url, referrer, fields
+         FROM website_leads ${sql} ORDER BY created_at DESC, id DESC${page}`,
+        params,
+      )
+      .catch(noLeadsYet),
+    pool.query(`SELECT count(*)::int AS n FROM website_leads ${sql}`, params).catch(noLeadsYet),
+  ]);
+  return { rows: rows.map(toLeadRow), total: Number(count.rows[0]?.n ?? 0) };
+}
+
+/** One lead by id, or null. */
+export async function getLead(pool: Db, id: number): Promise<LeadRow | null> {
+  const { rows } = await pool
+    .query(
+      `SELECT id, created_at, form, name, phone, email, company, product, message, page, page_url, referrer, fields
+       FROM website_leads WHERE id = $1`,
+      [id],
+    )
+    .catch(noLeadsYet);
+  return rows[0] ? toLeadRow(rows[0]) : null;
+}
+
+/** Every form that has stored submissions, with how many, most first. */
+export async function leadFormCounts(pool: Db): Promise<{ form: string; n: number }[]> {
+  const { rows } = await pool
+    .query(`SELECT form, count(*)::int AS n FROM website_leads GROUP BY form ORDER BY n DESC, form`)
+    .catch(noLeadsYet);
+  return rows.map((r) => ({ form: String(r.form), n: Number(r.n) }));
+}
+
+/** "[file] cv.pdf (120 KB) /api/lead-files/7" -> its label and download path, else null. */
+export function leadFileLink(value: string): { label: string; href: string } | null {
+  const m = value.match(/^\[file\] (.+) (\/api\/lead-files\/\d+)$/);
+  return m ? { label: m[1], href: m[2] } : null;
 }

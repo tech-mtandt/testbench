@@ -3,6 +3,7 @@
 import { startTransition, useActionState, useEffect, useRef, useState, type FormEvent } from "react";
 import { submitForm, type FormState } from "@/lib/forms";
 import { DOCS_EMAIL, FAILED, MAX_FILE_BYTES, MAX_TOTAL_BYTES, formatBytes, tooBig } from "@/lib/form-rules";
+import { LEAD_FORMS } from "@/lib/lead-forms";
 
 /** First file over its field's `data-max-bytes` (default 2 MB) or over the total, or null. */
 function checkFiles(form: HTMLFormElement): { input: HTMLInputElement; message: string } | null {
@@ -30,21 +31,6 @@ declare global {
     dataLayer?: Record<string, unknown>[];
   }
 }
-
-/**
- * Forms that count as sales leads in Google Analytics. Career, partner (dealer, vendor, credit
- * application), feedback and newsletter forms are not leads.
- */
-const LEAD_FORMS = new Set([
-  "enquiry",
-  "productEnquiry",
-  "custom-product-enquiry",
-  "service-enquiry",
-  "get-in-touch",
-  "contact",
-  "landing-popup",
-  "catalogue-download",
-]);
 
 /**
  * `generate_lead` for a stored lead, pushed to GTM's data layer: which form (`form_name`) and the
