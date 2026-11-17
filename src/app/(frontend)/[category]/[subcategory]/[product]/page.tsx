@@ -6,6 +6,7 @@ import {
   categoryHref,
   getCategory,
   getProduct,
+  isLaunchAddress,
   listingHref,
   productHref,
   productLink,
@@ -37,8 +38,15 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 export default async function Page({ params }: Params) {
   const { category: catSeg, subcategory: subSeg, product } = await params;
   const { category, subcategory, canonical } = resolveSegments(catSeg, subSeg);
-  const found = await resolveProduct(product);
-  if (!found) notFound();
+  const found = await resolveProduct(product, { category, subcategory });
+  if (!found) {
+    // A machine from the launch catalogue that has since been removed: its old links and search
+    // results go to its range rather than a dead end.
+    if (isLaunchAddress(product) && (await getCategory(category))?.subcategories.some((s) => s.slug === subcategory)) {
+      permanentRedirect(subcategoryHref(category, subcategory));
+    }
+    notFound();
+  }
   const { p, rent } = found;
   // One address per product: a wrong category/subcategory in the path, a renamed product or an
   // old address (such as its former separate rent page) goes to the right one.

@@ -3,6 +3,7 @@ import type { CollectionSlug, PopulateType, SelectType, Where } from "payload";
 import taxonomy from "@/content/scraped/product-categories.json";
 import productsJson from "@/content/scraped/products.json";
 import renamedProducts from "@/content/renamed-products.json";
+import { addressSlug, cleanSlug } from "@/lib/slug";
 import { cached, fileUrl, html, markCmsFailure, str } from "@/cms/read";
 import { categorySegment, modernizeDeep, modernizeHref, subcategoryHref, subcategorySegment, subcategorySlug } from "@/content/urls";
 import { payloadClient } from "@/lib/payload";
@@ -55,6 +56,8 @@ export type Product = {
   rent: boolean;
   /** Old addresses (slugs) that redirect here; `rent` ones open with Rent selected. */
   former: { slug: string; rent: boolean }[];
+  /** The slug exactly as saved in the CMS, when it differs from `slug` (see cleanSlug). */
+  storedSlug?: string;
   category: string | null;
   subcategory: string | null;
   categoryName: string;
@@ -201,14 +204,15 @@ function mapProduct(d: ProductDoc): Product {
   const charts = (d.charts ?? []).map((c) => fileUrl(c.image)).filter((x): x is string => !!x);
   const chart = fileUrl(d.chartImage);
   return {
-    slug: d.slug,
+    slug: cleanSlug(d.slug),
+    ...(cleanSlug(d.slug) !== d.slug ? { storedSlug: d.slug } : {}),
     legacyId: d.legacyId ?? null,
     dbId: d.id,
     title: d.title,
     model: d.modelNo ?? "",
     buy: !!d.forSale,
     rent: !!d.forRent,
-    former: (d.formerSlugs ?? []).map((f) => ({ slug: f.slug, rent: !!f.rent })),
+    former: (d.formerSlugs ?? []).map((f) => ({ slug: cleanSlug(f.slug), rent: !!f.rent })),
     category: cat?.slug ?? null,
     // Editors may type the address form ("boom-lifts"): normalise to the slug ("boom-lift").
     subcategory: d.subcategory ? subcategorySlug(d.subcategory) : null,
@@ -223,7 +227,7 @@ function mapProduct(d: ProductDoc): Product {
     applications: (d.applications ?? []).map((a) => a.application),
     download: fileUrl(d.downloads?.[0]?.file),
     charts: charts.length || !chart ? charts : [chart],
-    related: (d.related ?? []).flatMap((r) => (obj(r)?.slug ? [obj(r)!.slug] : [])),
+    related: (d.related ?? []).flatMap((r) => (obj(r)?.slug ? [cleanSlug(obj(r)!.slug)] : [])),
     meta: {
       title: text(d.meta?.title),
       description: text(d.meta?.description),
@@ -347,16 +351,16 @@ const readIndex = cached(async (): Promise<{ products: CatalogProduct[]; cms: bo
   if (!docs) return { products: jsonProducts.map(toEntry), cms: false };
   return { products: docs.map((d) => toEntry(mapProduct(d))), cms: true };
   // Cache keys carry the shape version: the data cache outlives deploys, and an entry from
-  // before buy/rent became flags (mode) would empty every listing until it expired.
-}, "products:index:v2");
+  // before buy/rent became flags (mode), or before slugs were cleaned, would linger.
+}, "products:index:v3");
 
 const readProduct = cached(async (slug: string): Promise<Product | null> => {
   const docs = await find<ProductDoc>("products", {
     where: { and: [{ slug: { equals: slug } }, LISTED] },
     populate: POPULATE,
   });
-  return docs ? mapProduct(docs[0]) : null;
-}, "products:detail:v2");
+  return docs?.[0] ? mapProduct(docs[0]) : null;
+}, "products:detail:v3");
 
 /** Taxonomy + product index, once per request. */
 /**
@@ -416,9 +420,10 @@ export async function categoryAlias(slug: string) {
 async function readProductPage(slug: string): Promise<Product | null> {
   const c = await getCatalog();
   if (!c.cms) return jsonBySlug.get(slug) ?? null;
-  if (!c.bySlug.has(slug)) return null;
+  const entry = c.bySlug.get(slug);
+  if (!entry) return null;
   // The index lists it, so a miss here is a failed read: fall back to the scraped copy.
-  return (await readProduct(slug)) ?? jsonBySlug.get(slug) ?? null;
+  return (await readProduct(entry.storedSlug ?? slug)) ?? jsonBySlug.get(slug) ?? null;
 }
 
 /**
@@ -443,18 +448,79 @@ export async function getProductOrRenamed(slug: string): Promise<Product | null>
  * (e.g. the separate rent page it was merged from). `rent`: the address was a rent page, so it
  * should open with Rent selected (see productLink).
  */
-export async function resolveProduct(slug: string): Promise<{ p: Product; rent: boolean } | null> {
+export async function resolveProduct(
+  address: string,
+  where?: { category: string; subcategory: string },
+): Promise<{ p: Product; rent: boolean } | null> {
+  const slug = addressSlug(address);
   const p = await getProductOrRenamed(slug);
   if (p) return { p, rent: false };
-  const owner = (await getCatalog()).products.find((x) => x.former.some((f) => f.slug === slug));
-  const full = owner && (await getProduct(owner.slug));
-  return full ? { p: full, rent: owner.former.some((f) => f.slug === slug && f.rent) } : null;
+  const c = await getCatalog();
+  const owner = c.products.find((x) => x.former.some((f) => f.slug === slug));
+  if (owner) {
+    const full = await getProduct(owner.slug);
+    if (full) return { p: full, rent: owner.former.some((f) => f.slug === slug && f.rent) };
+  }
+  const moved = launchAddressOwner(c.products, slug) ?? modelCodeOwner(c.products, slug, where);
+  const full = moved && (await getProduct(moved.slug));
+  return full ? { p: full, rent: false } : null;
 }
+
+/**
+ * A product's slug at launch (the bundled catalogue) or from the October rename list, followed
+ * to the same machine today by its CMS id or old-site id, however often it was renamed since.
+ * Covers renames made in the admin without adding an Old address.
+ */
+function launchAddressOwner(products: CatalogProduct[], slug: string): CatalogProduct | null {
+  for (const s of [slug, renamedFrom[slug], renamedTo[slug]]) {
+    const launched = s ? jsonBySlug.get(s) : undefined;
+    if (!launched) continue;
+    const now =
+      (launched.dbId != null && products.find((p) => p.dbId === launched.dbId)) ||
+      (launched.legacyId != null && products.find((p) => p.legacyId === launched.legacyId));
+    if (now) return now;
+  }
+  return null;
+}
+
+/** The model code an address ends with ("…-scissor-lift-mdx12dw" -> "mdx12dw"), if it has one. */
+const modelCode = (slug: string) => {
+  const last = slug.split("-").pop() ?? "";
+  return last.length >= 4 && /\d/.test(last) && /[a-z]/.test(last) ? last : null;
+};
+
+/**
+ * Last resort for an address renamed in between (e.g. "…-electric-scissor-lift-mdx12dw" once
+ * the machine became "…-diesel-scissor-lift-mdx12dw") or moved to another range ("boom-lifts/
+ * crawler-boom-lift-mgcl24", now a spider lift): the one product whose address ends with the
+ * same model code, in the same range, else in the whole catalogue. Never a guess between two.
+ */
+function modelCodeOwner(
+  products: CatalogProduct[],
+  slug: string,
+  where?: { category: string; subcategory: string },
+): CatalogProduct | null {
+  const code = modelCode(slug);
+  if (!code) return null;
+  const all = products.filter((p) => modelCode(p.slug) === code);
+  const same = where ? all.filter((p) => p.category === where.category && p.subcategory === where.subcategory) : [];
+  if (same.length === 1) return same[0];
+  return same.length === 0 && all.length === 1 ? all[0] : null;
+}
+
+/**
+ * A product address from the launch catalogue whose machine is no longer on the site (removed
+ * in the CMS): such pages redirect to their range instead of showing "not found".
+ */
+export const isLaunchAddress = (address: string) => {
+  const slug = addressSlug(address);
+  return jsonBySlug.has(slug) || slug in renamedTo || slug in renamedFrom;
+};
 
 
 /** Full product (page content included). */
-export async function getProduct(slug: string): Promise<Product | null> {
-  const p = await readProductPage(slug);
+export async function getProduct(address: string): Promise<Product | null> {
+  const p = await readProductPage(addressSlug(address));
   return p && modernizeDeep(placeProduct(p, (await getCatalog()).categories));
 }
 

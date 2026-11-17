@@ -1,7 +1,34 @@
-import type { CollectionConfig, Field } from 'payload'
+import type { CollectionBeforeChangeHook, CollectionConfig, Field } from 'payload'
 
 import { basePageFields } from '../fields/basePageFields'
+import { cleanSlug } from '../lib/slug'
 import { facetTypes } from './ProductAttributes'
+
+type FormerSlug = { slug: string; rent?: boolean | null; id?: string | null }
+
+/**
+ * Saves the slug in its address form (trimmed, lowercase: a trailing space once made a page
+ * unreachable) and, when it changes, keeps the previous one under Old addresses so existing
+ * links and search results redirect to the new address.
+ */
+const keepOldAddress: CollectionBeforeChangeHook = ({ data, originalDoc, operation }) => {
+  if (typeof data.slug !== 'string') return data
+  const slug = cleanSlug(data.slug)
+  data.slug = slug
+  const former: FormerSlug[] = Array.isArray(data.formerSlugs)
+    ? data.formerSlugs
+    : Array.isArray(originalDoc?.formerSlugs)
+      ? originalDoc.formerSlugs
+      : []
+  const previous = operation === 'update' && typeof originalDoc?.slug === 'string' ? cleanSlug(originalDoc.slug) : null
+  const next = former
+    .map((f) => ({ ...f, slug: cleanSlug(String(f.slug ?? '')) }))
+    // An old address that is now the current one again would redirect to itself.
+    .filter((f, i, all) => f.slug && f.slug !== slug && all.findIndex((x) => x.slug === f.slug) === i)
+  if (previous && previous !== slug && !next.some((f) => f.slug === previous)) next.push({ slug: previous, rent: false })
+  data.formerSlugs = next
+  return data
+}
 
 // The shared title/slug/featuredImage/content fields, relabelled for the catalogue.
 const base = (name: string, admin: Record<string, unknown> = {}, label?: string): Field => {
@@ -27,6 +54,9 @@ export const Products: CollectionConfig = {
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    beforeChange: [keepOldAddress],
   },
   fields: [
     {
@@ -277,7 +307,7 @@ export const Products: CollectionConfig = {
       admin: {
         position: 'sidebar',
         initCollapsed: true,
-        description: 'Earlier URL segments of this product, such as its old separate rent page. They redirect here.',
+        description: 'Earlier URL segments of this product, such as its old separate rent page. They redirect here. Changing the slug adds the previous one automatically.',
       },
       fields: [
         { name: 'slug', type: 'text', required: true, index: true },
