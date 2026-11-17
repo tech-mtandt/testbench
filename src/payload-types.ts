@@ -521,7 +521,7 @@ export interface Product {
    */
   forRent?: boolean | null;
   /**
-   * Earlier URL segments of this product, such as its old separate rent page. They redirect here.
+   * Earlier URL segments of this product, such as its old separate rent page. They redirect here. Changing the slug adds the previous one automatically.
    */
   formerSlugs?:
     | {
