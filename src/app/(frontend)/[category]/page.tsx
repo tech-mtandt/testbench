@@ -18,7 +18,7 @@ import { categorySegment, modernizeHref } from "@/content/urls";
 import Img from "@/ui/Img";
 import BrochureButton from "@/ui/Landing/BrochureButton";
 import LandingHero from "@/ui/Landing/LandingHero";
-import LeadPopup from "@/ui/Landing/LeadPopup";
+import QuoteProduct from "@/ui/Landing/QuoteProduct";
 import AboutFaq from "@/ui/Landing/AboutFaq";
 import QuoteBand from "@/ui/Landing/QuoteBand";
 
@@ -81,7 +81,7 @@ export default async function Page({ params }: Params) {
 
   return (
     <>
-      <LeadPopup product={c.title} page={page} />
+      <QuoteProduct product={c.title} />
       <LandingHero
         eyebrow="Buy & rent"
         title={landing.headline ?? c.title}

@@ -14,7 +14,7 @@ import {
 import { getSite } from "@/content/site";
 import { modernizeHref } from "@/content/urls";
 import BrochureButton from "@/ui/Landing/BrochureButton";
-import LeadPopup from "@/ui/Landing/LeadPopup";
+import QuoteProduct from "@/ui/Landing/QuoteProduct";
 import Img from "@/ui/Img";
 import AboutFaq from "@/ui/Landing/AboutFaq";
 import LandingHero from "@/ui/Landing/LandingHero";
@@ -93,7 +93,7 @@ export default async function SubcategoryHub({ category: cat, subcategory: sub }
 
   return (
     <>
-      {c && <LeadPopup product={product} page={page} />}
+      <QuoteProduct product={product} />
       <LandingHero
         eyebrow={category.title}
         title={landing.headline ?? label}

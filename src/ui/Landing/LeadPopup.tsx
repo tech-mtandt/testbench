@@ -16,27 +16,28 @@ function busy() {
   return typing || Boolean(document.querySelector("dialog[open]"));
 }
 
+/** Shown once per browser session; never again in this browser after a submit. */
+const SEEN_KEY = "lead-popup-seen";
+const DONE_KEY = "lead-popup-done";
+
+/** The machine or range the current page is about, if it names one (see QuoteProduct). */
+const pageProduct = () => document.querySelector<HTMLElement>("[data-quote-product]")?.dataset.quoteProduct || null;
+
 /**
- * Lead-capture popup for landing pages: name + phone (email optional), the field set every
- * enquiry form uses (see enquiryFields). Opens once per visit and never again after a submit.
- * Like every enquiry, it sends the page and its full URL (see useLeadForm).
+ * Site-wide lead-capture popup (in the frontend layout): name + phone (email optional), the
+ * field set every enquiry form uses (see enquiryFields). Opens a few seconds into the first page
+ * of a visit, once per browser session, and never again after a submit. Its heading and the
+ * lead name the product of the page it opens on; like every enquiry, it sends that page and its
+ * full URL (see useLeadForm).
  */
-export default function LeadPopup({
-  product,
-  page,
-}: {
-  product: string;
-  page: string;
-}) {
+export default function LeadPopup() {
   const [open, setOpen] = useState(false);
+  const [product, setProduct] = useState<string | null>(null);
   const { state, pending, error, onSubmit } = useLeadForm();
-  const seenKey = `lead-popup-seen:${page}`;
-  const doneKey = `lead-popup-done:${page}`;
 
   useEffect(() => {
     try {
-      if (localStorage.getItem(doneKey) || sessionStorage.getItem(seenKey))
-        return;
+      if (localStorage.getItem(DONE_KEY) || sessionStorage.getItem(SEEN_KEY)) return;
     } catch {}
     let t: ReturnType<typeof setTimeout>;
     const show = () => {
@@ -44,27 +45,28 @@ export default function LeadPopup({
         t = setTimeout(show, RETRY_MS);
         return;
       }
+      setProduct(pageProduct());
       setOpen(true);
       try {
-        sessionStorage.setItem(seenKey, "1");
+        sessionStorage.setItem(SEEN_KEY, "1");
       } catch {}
     };
     t = setTimeout(show, DELAY_MS);
     return () => clearTimeout(t);
-  }, [seenKey, doneKey]);
+  }, []);
 
   useEffect(() => {
     if (!state?.ok) return;
     try {
-      localStorage.setItem(doneKey, "1");
+      localStorage.setItem(DONE_KEY, "1");
     } catch {}
-  }, [state, doneKey]);
+  }, [state]);
 
   return (
     <Modal
       open={open}
       onClose={() => setOpen(false)}
-      title={`Get a ${product} quote`}
+      title={product ? `Get ${/^[aeiou]/i.test(product) ? "an" : "a"} ${product} quote` : "Get a quote"}
     >
       {state?.ok ? (
         <p
@@ -81,8 +83,7 @@ export default function LeadPopup({
             availability.
           </p>
           <input type="hidden" name="_form" value="landing-popup" />
-          <input type="hidden" name="product" value={product} />
-          <input type="hidden" name="page" value={page} />
+          {product && <input type="hidden" name="product" value={product} />}
           <input
             type="text"
             name="_hp"
