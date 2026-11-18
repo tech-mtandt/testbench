@@ -5,6 +5,7 @@ import { Inter, Poppins } from "next/font/google";
 import Footer from "@/ui/Footer";
 import Header from "@/ui/Header";
 import FloatingActions from "@/ui/FloatingActions";
+import LeadPopup from "@/ui/Landing/LeadPopup";
 import { getSite } from "@/content/site";
 import Smooth from "@/components/Smooth";
 import { previewing } from "@/cms/read";
@@ -75,6 +76,8 @@ export default async function RootLayout({
           <Footer contact={site.contact} socials={site.socials} footer={site.footer} />
         </Smooth>
         <FloatingActions whatsapp={site.contact.whatsapp} />
+        {/* Quote popup on every page, once per browser session (see LeadPopup). */}
+        {!preview && <LeadPopup />}
         {preview && <PreviewMode />}
       </body>
     </html>

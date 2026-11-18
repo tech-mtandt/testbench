@@ -3,6 +3,7 @@ import { productHref, relatedProducts, type Product } from "@/content/products";
 import Carousel from "@/ui/Carousel";
 import { Breadcrumbs, type Crumb } from "@/ui/PageChrome";
 import DetailTabs from "@/ui/Products/DetailTabs";
+import QuoteProduct from "@/ui/Landing/QuoteProduct";
 import EnquireButton from "@/ui/Products/EnquireButton";
 import ProductCard from "@/ui/Products/ProductCard";
 import ProductGallery from "@/ui/Products/ProductGallery";
@@ -37,6 +38,7 @@ export default async function ProductDetail({ p, crumbs }: { p: Product; crumbs:
           <h1 className="text-xl font-bold uppercase leading-snug text-ink md:text-2xl">
             {p.title}
           </h1>
+          <QuoteProduct product={p.title} />
           {p.model && <p className="mt-1 text-sm text-ink">Model No : {p.model}</p>}
           {p.descriptionHtml && (
             <div
