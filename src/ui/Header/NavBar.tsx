@@ -8,7 +8,7 @@ import type { NavItem } from "@/content/site";
 import { ChevronDown, CloseIcon, MenuIcon } from "@/ui/Icons";
 
 const topLinkClass =
-  "flex h-16 items-center gap-1 text-[15px] font-semibold text-white no-underline transition-colors hover:text-brand";
+  "flex h-16 items-center gap-1 text-[15px] font-medium text-white no-underline transition-colors hover:text-brand";
 
 /** Main navigation. Keyed on the path, so every navigation starts with all menus closed. */
 export default function NavBar({ items }: { items: NavItem[] }) {
@@ -185,14 +185,14 @@ function Menus({ items }: { items: NavItem[] }) {
             {items.map((item) => (
               <li key={item.label}>
                 {item.kind === "link" ? (
-                  <Link href={item.href} className="block py-3 font-semibold text-white no-underline">
+                  <Link href={item.href} className="block py-3 font-medium text-white no-underline">
                     {item.label}
                   </Link>
                 ) : (
                   <>
                     <button
                       type="button"
-                      className="flex w-full items-center justify-between py-3 font-semibold text-white"
+                      className="flex w-full items-center justify-between py-3 font-medium text-white"
                       aria-expanded={mobileSection === item.label}
                       onClick={() => setMobileSection(mobileSection === item.label ? null : item.label)}
                     >
@@ -204,7 +204,7 @@ function Menus({ items }: { items: NavItem[] }) {
                         {item.groups.map((g) => (
                           <div key={g.label}>
                             {item.kind === "mega" && (
-                              <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-brand">
+                              <p className="mb-1 text-xs font-bold uppercase tracking-wide text-brand">
                                 {g.href ? (
                                   <Link href={g.href} className="text-brand no-underline">
                                     {g.label}

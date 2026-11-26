@@ -41,6 +41,18 @@ const RATE_WINDOW = 10;
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.mtandt.com";
 
+/**
+ * Who gets the email for every submission: FORMS_TO_EMAIL (comma-separated) plus the digital
+ * marketing team. Resend takes several recipients only as a list, not as one comma-separated string.
+ */
+const formRecipients = () => [
+  ...new Set(
+    [...(process.env.FORMS_TO_EMAIL ?? "").split(","), "digital.marketing@mtandt.com"]
+      .map((a) => a.trim().toLowerCase())
+      .filter(Boolean),
+  ),
+];
+
 const escape = (s: string) =>
   s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 
@@ -150,9 +162,9 @@ export async function submitForm(_prev: FormState, formData: FormData): Promise<
   }
 
   const page = fields.find(([k]) => k === "page")?.[1];
-  const to = process.env.FORMS_TO_EMAIL;
+  const to = formRecipients();
   let emailed = false;
-  if (payload && process.env.RESEND_API_KEY && to) {
+  if (payload && process.env.RESEND_API_KEY) {
     // Stored files get a download link (admin login); unstored ones are only named.
     const value = (v: string) =>
       escape(v).replace(/ (\/api\/lead-files\/\d+)$/, (_, path) => ` <a href="${SITE_URL}${path}">download</a>`);

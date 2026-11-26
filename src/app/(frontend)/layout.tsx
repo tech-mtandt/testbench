@@ -1,39 +1,45 @@
 import "@/styles/globals.scss";
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Rajdhani } from "next/font/google";
 
 import Footer from "@/ui/Footer";
 import Header from "@/ui/Header";
 import FloatingActions from "@/ui/FloatingActions";
 import LeadPopup from "@/ui/Landing/LeadPopup";
 import { getSite } from "@/content/site";
+import { GOOGLE_ADS_ID } from "@/lib/google-ads";
 import Smooth from "@/components/Smooth";
 import { previewing } from "@/cms/read";
 import PreviewMode from "@/ui/PreviewMode";
 
 // Self-hosted via next/font; a CSS @import of Google Fonts gets dropped in production builds.
-const poppins = Poppins({
+// Rajdhani has no 800 weight or italics: font-extrabold renders at 700, italics are slanted by the browser.
+const rajdhani = Rajdhani({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
-  variable: "--font-poppins-nf",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-rajdhani-nf",
   display: "swap",
 });
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter-nf", display: "swap" });
 
-// Google Tag Manager container, the site's only analytics tag: GA4 (G-HPJMWJJCWN) and any other
-// tags are configured in GTM, not here, so page views are not counted twice. Loads only on the live
-// domain, so dev, preview and local visits stay out of the figures. Pushes the standard `gtm.js`
-// start event that GTM's page view triggers fire on; enquiries push `generate_lead` (useLeadForm).
+// Google Tag Manager container: GA4 (G-HPJMWJJCWN) and the other analytics tags are configured in
+// GTM, not here, so page views are not counted twice. Loads only on the live domain, so dev, preview
+// and local visits stay out of the figures. Pushes the standard `gtm.js` start event that GTM's page
+// view triggers fire on; enquiries push `generate_lead` (useLeadForm).
+// The Google tag for the marketing team's Google Ads account (GOOGLE_ADS_ID) loads beside it, on the
+// same data layer: it records ad clicks and site visits for that account.
 const GTM_ID = "GTM-K34SKQ7";
 const LIVE_HOST = "www.mtandt.com";
+const load = (src: string) =>
+  `{ const s = document.createElement("script"); s.async = true; s.src = ${JSON.stringify(src)}; document.head.appendChild(s); }`;
 const gtmTag = `
 if (location.hostname === ${JSON.stringify(LIVE_HOST)}) {
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-  var s = document.createElement("script");
-  s.async = true;
-  s.src = "https://www.googletagmanager.com/gtm.js?id=${GTM_ID}";
-  document.head.appendChild(s);
+  ${load(`https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`)}
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  gtag("js", new Date());
+  gtag("config", ${JSON.stringify(GOOGLE_ADS_ID)});
+  ${load(`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`)}
 }`;
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -63,7 +69,7 @@ export default async function RootLayout({
 }>) {
   const [site, preview] = await Promise.all([getSite(), previewing()]);
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${poppins.variable} ${inter.variable}`}>
+    <html lang="en" data-scroll-behavior="smooth" className={rajdhani.variable}>
       <head>
         {/* A plain inline script so GTM starts as the page is parsed, as Google recommends. Next's
             beforeInteractive would instead queue it in <body> for its runtime to run later. */}

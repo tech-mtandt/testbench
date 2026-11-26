@@ -102,7 +102,7 @@ export default async function Page({ params }: Params) {
 
       <section className="bg-white py-16 md:py-24">
         <div className="default-margin">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink-soft">Explore the range</p>
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-ink-soft">Explore the range</p>
           <h2 className="mt-2 text-3xl font-semibold tracking-tight text-ink md:text-4xl">Choose your {c.title.toLowerCase()}</h2>
           <ul className={`mt-10 grid gap-5 sm:grid-cols-2 ${ranges.length === 3 ? "lg:grid-cols-3" : ranges.length <= 2 ? "" : "lg:grid-cols-4"}`}>
             {ranges.map((r) => (

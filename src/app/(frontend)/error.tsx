@@ -18,7 +18,7 @@ export default function FrontendError({
 
   return (
     <section className="default-margin flex min-h-[60vh] flex-col items-center justify-center gap-5 py-16 text-center">
-      <p className="text-xs font-semibold uppercase tracking-widest text-ink-soft">Something went wrong</p>
+      <p className="text-xs font-bold uppercase tracking-widest text-ink-soft">Something went wrong</p>
       <h1 className="text-2xl font-semibold text-ink md:text-3xl">Sorry, this page ran into a problem</h1>
       <p className="max-w-xl text-ink-soft">
         Please try again. If you were sending us a form and it did not go through, call us on{" "}

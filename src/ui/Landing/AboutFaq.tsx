@@ -16,7 +16,7 @@ export default function AboutFaq({ title, html, faqs }: { title: string; html: s
       <div className={`default-margin grid gap-10 ${faqs.length && html ? "lg:grid-cols-2 lg:gap-16" : ""}`}>
         {html && (
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink-soft">About</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-ink-soft">About</p>
             <h2 className="mt-2 text-3xl font-semibold tracking-tight text-ink md:text-4xl">{title}</h2>
             <div className="prose-legacy mt-6 text-[15px] leading-relaxed" dangerouslySetInnerHTML={{ __html: lead }} />
             {rest.trim() && (

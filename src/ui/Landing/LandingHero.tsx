@@ -115,7 +115,7 @@ export default function LandingHero({
 
       <div className="default-margin flex w-full flex-1 flex-col justify-end pb-10 pt-16 md:pb-14">
         <div className="landing-rise max-w-3xl">
-          <p className="inline-flex items-center gap-2 rounded-full border border-brand/40 bg-ink/40 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand backdrop-blur-sm">
+          <p className="inline-flex items-center gap-2 rounded-full border border-brand/40 bg-ink/40 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-brand backdrop-blur-sm">
             <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-brand" />
             {eyebrow}
           </p>
@@ -123,7 +123,7 @@ export default function LandingHero({
             {title}
           </h1>
           {subtitle && (
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-white/80 md:text-lg">
+            <p className="mt-5 max-w-xl text-base font-normal leading-relaxed text-white/80 md:text-lg">
               {subtitle}
             </p>
           )}
