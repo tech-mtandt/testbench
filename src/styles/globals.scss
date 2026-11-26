@@ -55,6 +55,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: var(--font-sans);
+  // Rajdhani's lowercase is short (x-height 0.51 of the font size, Poppins 0.55): scale every font
+  // size so its x-height is 0.57, about 12% larger. Rajdhani is narrow, so lines still take less
+  // width than they did in Poppins.
+  font-size-adjust: 0.57;
   // Rajdhani's 400 reads thin in grey on white: running text is Medium (500); font-normal is the lighter step.
   font-weight: 500;
   color: var(--color-ink);
