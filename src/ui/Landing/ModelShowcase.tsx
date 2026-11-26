@@ -44,7 +44,7 @@ export default function ModelShowcase({ label, models, listings }: { label: stri
       <div className="default-margin">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink-soft">The range</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-ink-soft">The range</p>
             <h2 className="mt-2 text-3xl font-semibold tracking-tight text-ink md:text-4xl">{label}</h2>
           </div>
           {modes.length > 1 && (

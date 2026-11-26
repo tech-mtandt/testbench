@@ -26,7 +26,7 @@ export default function QuoteBand({
     <section id="quote" className="scroll-mt-24 bg-ink py-16 text-white md:py-24">
       <div className="default-margin grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand">Get a quote</p>
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand">Get a quote</p>
           <h2 className="mt-3 text-3xl font-semibold leading-tight tracking-tight text-white md:text-4xl">{title}</h2>
           <p className="mt-4 max-w-md text-white/70">
             Tell us about your site and our team will recommend the right equipment, to buy or rent, usually within one

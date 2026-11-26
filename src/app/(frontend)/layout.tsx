@@ -1,6 +1,6 @@
 import "@/styles/globals.scss";
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Rajdhani } from "next/font/google";
 
 import Footer from "@/ui/Footer";
 import Header from "@/ui/Header";
@@ -13,13 +13,13 @@ import { previewing } from "@/cms/read";
 import PreviewMode from "@/ui/PreviewMode";
 
 // Self-hosted via next/font; a CSS @import of Google Fonts gets dropped in production builds.
-const poppins = Poppins({
+// Rajdhani has no 800 weight or italics: font-extrabold renders at 700, italics are slanted by the browser.
+const rajdhani = Rajdhani({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
-  variable: "--font-poppins-nf",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-rajdhani-nf",
   display: "swap",
 });
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter-nf", display: "swap" });
 
 // Google Tag Manager container: GA4 (G-HPJMWJJCWN) and the other analytics tags are configured in
 // GTM, not here, so page views are not counted twice. Loads only on the live domain, so dev, preview
@@ -69,7 +69,7 @@ export default async function RootLayout({
 }>) {
   const [site, preview] = await Promise.all([getSite(), previewing()]);
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${poppins.variable} ${inter.variable}`}>
+    <html lang="en" data-scroll-behavior="smooth" className={rajdhani.variable}>
       <head>
         {/* A plain inline script so GTM starts as the page is parsed, as Google recommends. Next's
             beforeInteractive would instead queue it in <body> for its runtime to run later. */}

@@ -19,7 +19,7 @@ export function Breadcrumbs({ items, light }: { items: Crumb[]; light?: boolean 
     })),
   };
   return (
-    <nav aria-label="Breadcrumb" className="text-xs">
+    <nav aria-label="Breadcrumb" className="text-xs font-normal">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
       <ol className="flex flex-wrap items-center gap-1.5">
         {all.map((c, i) => (
