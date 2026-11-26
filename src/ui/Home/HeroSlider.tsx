@@ -65,13 +65,15 @@ export default function HeroSlider({ slides, button }: { slides: Slide[]; button
               )}
             </>
           )}
+          {/* Same fade as the landing heroes: white text stays readable over any photo, on phones too. */}
+          <div className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/30 to-transparent" aria-hidden="true" />
           <div className="default-margin relative flex h-full flex-col justify-center">
             <div
               className={`max-w-md transition-all duration-700 motion-reduce:transition-none ${idx === i ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}`}
             >
-              {s.eyebrow && <p className="mb-2 text-sm font-medium text-ink sm:text-base">{s.eyebrow}</p>}
+              {s.eyebrow && <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-brand sm:text-sm">{s.eyebrow}</p>}
               {s.title.length > 0 && (
-                <h2 className="mb-5 text-2xl font-bold leading-tight text-ink sm:text-4xl">
+                <h2 className="mb-6 text-2xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
                   {s.title.map((line, n) => (
                     <span key={n} className="block">
                       {line}
@@ -79,7 +81,7 @@ export default function HeroSlider({ slides, button }: { slides: Slide[]; button
                   ))}
                 </h2>
               )}
-              <Link href={button.href} className="btn-dark">
+              <Link href={button.href} className="btn-yellow">
                 {button.label}
               </Link>
             </div>
